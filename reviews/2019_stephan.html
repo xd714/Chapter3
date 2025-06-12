@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selective Sweeps - A Comprehensive Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        /* Flow Diagram Styles */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .step-details {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .step-specs {
+            background: #e8f4f8;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .model-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .model-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .hard-sweep { border-color: #e74c3c; }
+        .soft-sweep { border-color: #27ae60; }
+        
+        .model-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .hard-sweep .model-title { color: #e74c3c; }
+        .soft-sweep .model-title { color: #27ae60; }
+        
+        .formula {
+            background: #ecf0f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            border-left: 3px solid #3498db;
+        }
+        
+        /* Analysis Sections */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .analysis-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #3498db;
+        }
+        
+        .analysis-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .theory-card { border-top-color: #e74c3c; }
+        .detection-card { border-top-color: #3498db; }
+        .evolution-card { border-top-color: #27ae60; }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .method-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .method-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Selective Sweeps: Theory, Detection, and Evolutionary Implications</h1>
+            <p>Comprehensive Review of Population Genetic Models and Statistical Methods</p>
+            
+            <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <p style="margin: 0; font-size: 0.9em;"><strong>Author:</strong> Wolfgang Stephan</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Institution:</strong> Leibniz-Institute for Evolution and Biodiversity Science, Berlin, Germany</p>
+                <p style="margin: 10px 0 0 0;">
+                    <a href="https://www.genetics.org/content/211/1/5" 
+                       target="_blank" 
+                       style="color: #74b9ff; text-decoration: none; font-weight: bold; border: 1px solid #74b9ff; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+                        🔗 Original Paper (Genetics 2019)
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Theoretical Foundation & Historical Context</div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 30px;">
+                    <p><strong>Citation:</strong> Stephan, W. (2019). Selective Sweeps. Genetics, 211(1), 5-13.</p>
+                    
+                    <p><strong>Historical Development:</strong> The concept of genetic hitchhiking was first introduced by Maynard Smith and Haigh (1974) in their seminal paper "The hitch-hiking effect of a favorable gene," building on earlier observations of periodic selection in bacteria by Atwood et al. (1951).</p>
+                    
+                    <p><strong>Core Principle:</strong> When a strongly advantageous mutation spreads through a population by directional selection, linked neutral variants inevitably increase in frequency, potentially reducing genetic variation in the genomic region surrounding the selected site.</p>
+                </div>
+                
+                <div class="section-title">Theoretical Models of Selective Sweeps</div>
+                
+                <div class="flow-container">
+                    
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Basic Hitchhiking Model</div>
+                            <div class="step-details">
+                                Foundation model describing how beneficial alleles affect linked neutral variation
+                                <div class="step-specs">
+                                    <strong>Key Parameter:</strong> c/s ratio (recombination rate/selection coefficient)<br>
+                                    <strong>Effect:</strong> Determines size of region with reduced variation<br>
+                                    <strong>Prediction:</strong> Genetic variation eliminated at selected site, preserved at distant loci
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Stochastic Extensions</div>
+                            <div class="step-details">
+                                Incorporation of genetic drift and finite population effects
+                                <div class="step-specs">
+                                    <strong>Methods:</strong> Coalescent theory (Kaplan et al. 1989), Diffusion equations (Stephan et al. 1992)<br>
+                                    <strong>Requirement:</strong> Strong selection (Nes >> 1)<br>
+                                    <strong>Agreement:</strong> Excellent match with deterministic predictions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Recurrent Sweeps Model</div>
+                            <div class="step-details">
+                                Multiple sequential sweeps occurring across the genome
+                                <div class="step-specs">
+                                    <strong>Formula:</strong> π = π₀ × r/(r + κan)<br>
+                                    <strong>Parameters:</strong> n = sweep rate, a = 2Nes intensity<br>
+                                    <strong>Application:</strong> Species with large effective population sizes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Competing Sweeps (Evolutionary Traffic)</div>
+                            <div class="step-details">
+                                Simultaneous sweeps at multiple loci with interference effects
+                                <div class="step-specs">
+                                    <strong>Effect:</strong> Reduced fixation probability of beneficial alleles<br>
+                                    <strong>Impact:</strong> Weakened hitchhiking effect<br>
+                                    <strong>Significance:</strong> Important in low recombination regions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="section-title">Hard vs. Soft Sweeps</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box hard-sweep">
+                        <div class="model-title">Hard Sweeps</div>
+                        <div class="step-details">
+                            <strong>Origin:</strong> New mutation or very rare allele<br><br>
+                            <strong>Characteristics:</strong><br>
+                            • Single haplotype carries beneficial allele<br>
+                            • Complete elimination of variation at selected site<br>
+                            • Classic hitchhiking pattern<br>
+                            • Strong linkage disequilibrium signature<br><br>
+                            
+                            <strong>Signatures:</strong><br>
+                            • Reduced nucleotide diversity<br>
+                            • Excess of low-frequency variants<br>
+                            • Elevated linkage disequilibrium<br>
+                            • Characteristic site frequency spectrum
+                        </div>
+                    </div>
+                    
+                    <div class="model-box soft-sweep">
+                        <div class="model-title">Soft Sweeps</div>
+                        <div class="step-details">
+                            <strong>Origin:</strong> Standing genetic variation<br><br>
+                            <strong>Characteristics:</strong><br>
+                            • Multiple haplotypes carry beneficial allele<br>
+                            • Partial preservation of variation<br>
+                            • Arises from environmental change<br>
+                            • Less pronounced signatures<br><br>
+                            
+                            <strong>Examples:</strong><br>
+                            • Lactase persistence in humans<br>
+                            • Eda locus in sticklebacks<br>
+                            • Local adaptation scenarios<br>
+                            • Response to selective pressure changes
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Statistical Detection Methods</div>
+                
+                <div class="method-grid">
+                    <div class="method-card">
+                        <div class="method-name">CLR Test</div>
+                        <div class="step-details">
+                            Composite Likelihood Ratio test detecting local reductions in nucleotide diversity. Compares neutral model vs. selective sweep model.
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">SweepFinder</div>
+                        <div class="step-details">
+                            Genome-wide CLR-based method using empirical background distribution. More robust against some demographic scenarios.
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">SweeD</div>
+                        <div class="step-details">
+                            Computationally advanced CLR test with demographic modeling. Includes arbitrary population size changes.
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">iHS Test</div>
+                        <div class="step-details">
+                            Haplotype-based test detecting ongoing sweeps. Exploits long haplotypes under strong linkage disequilibrium.
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">GOF Test</div>
+                        <div class="step-details">
+                            Goodness-of-fit approach used with CLR to distinguish true sweeps from demographic effects like bottlenecks.
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">XP-CLR</div>
+                        <div class="step-details">
+                            Extended CLR for substructured populations. Detects differentiation patterns caused by local adaptation.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Key Signatures and Molecular Patterns</div>
+                
+                <div class="flow-step">
+                    <div class="step-number">📊</div>
+                    <div class="step-content">
+                        <div class="step-title">Site Frequency Spectrum (SFS) Patterns</div>
+                        <div class="step-details">
+                            <strong>Single Sweeps:</strong> Excess of low-frequency and high-frequency derived alleles<br>
+                            <strong>Recurrent Sweeps:</strong> Excess of high-frequency variants disappears<br>
+                            <strong>Soft Sweeps:</strong> Less pronounced distortions in frequency spectrum
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">🧬</div>
+                    <div class="step-content">
+                        <div class="step-title">Linkage Disequilibrium Signatures</div>
+                        <div class="step-details">
+                            <strong>During Fixation:</strong> Elevated LD levels around selected site<br>
+                            <strong>After Fixation:</strong> Complete breakdown of LD across selected site<br>
+                            <strong>Haplotype Structure:</strong> Long haplotypes indicate ongoing selection
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Confounding Factors and Challenges</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Demographic Confounding</div>
+                        <div class="step-details">
+                            <strong>Population Bottlenecks:</strong> Can mimic sweep signatures with up to 80% false positive rates
+                            
+                            <ul>
+                                <li>Population size changes affect genetic diversity</li>
+                                <li>Recent severe bottlenecks particularly problematic</li>
+                                <li>Combined CLR+GOF tests help distinguish</li>
+                                <li>Demographic modeling increasingly important</li>
+                            </ul>
+                            
+                            <strong>Solutions:</strong> Joint inference of demographic and selective history
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Background Selection</div>
+                        <div class="step-details">
+                            <strong>Competing Model:</strong> Continuous removal of deleterious mutations also reduces variation
+                            
+                            <ul>
+                                <li>Similar patterns to selective sweeps</li>
+                                <li>Affects regions of low recombination</li>
+                                <li>Proposed as null hypothesis for scan methods</li>
+                                <li>Joint modeling approaches developed</li>
+                            </ul>
+                            
+                            <strong>Distinguishing Features:</strong> Pattern differs in recombination correlation
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Population Structure</div>
+                        <div class="step-details">
+                            <strong>Subdivided Populations:</strong> Affect sweep dynamics and detection
+                            
+                            <ul>
+                                <li>Slower fixation in subdivided populations</li>
+                                <li>Incomplete sweeps more common</li>
+                                <li>Migration patterns influence signatures</li>
+                                <li>FST-based methods for local adaptation</li>
+                            </ul>
+                            
+                            <strong>Applications:</strong> Human populations show extensive incomplete sweeps
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Applications and Empirical Findings</div>
+                
+                <div class="flow-step">
+                    <div class="step-number">🔬</div>
+                    <div class="step-content">
+                        <div class="step-title">Genome-Wide Scans</div>
+                        <div class="step-details">
+                            Early genome scans in humans, <em>Drosophila melanogaster</em>, and mice revealed surprisingly large numbers of putative sweep signatures, highlighting the need for demographic controls and the prevalence of linked selection across genomes.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">📈</div>
+                    <div class="step-content">
+                        <div class="step-title">Evolutionary Rate Estimation</div>
+                        <div class="step-details">
+                            Sweep models enable estimation of adaptive substitution rates and selection strength. The frequency of beneficial substitutions can be accurately estimated even when individual targets are difficult to localize.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Future Directions and Outstanding Questions</div>
+                
+                <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 4px solid #f39c12; margin: 20px 0;">
+                    <strong>Theoretical Challenges:</strong>
+                    <ul>
+                        <li><span class="highlight">Evolutionary Traffic:</span> Better predictions needed for interfering selective sweeps</li>
+                        <li><span class="highlight">Joint Modeling:</span> Simultaneous inference of demography and weak selection</li>
+                        <li><span class="highlight">Population Structure:</span> Mathematical treatment of subdivided populations remains difficult</li>
+                    </ul>
+                    
+                    <strong>Experimental Validation:</strong>
+                    <ul>
+                        <li>Search for causative nucleotide changes has only recently begun</li>
+                        <li>Manipulative experiments needed to test hypotheses generated by scan methods</li>
+                        <li>Fine-mapping approaches showing promise for target identification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back Navigation -->
+        <div style="margin-top: 60px; text-align: right; padding: 0 30px 30px 0;">
+            <a href="./index.html" style="color: #64748b; text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; display: inline-block; position: relative; transition: color 0.3s ease;">
+                ← Back to Index
+            </a>
+        </div>
+    </div>
+</body>
+</html>
