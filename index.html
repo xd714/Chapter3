@@ -3,119 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Literature Review</title>
+    <title>Literature Review</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 20px;
-            background: #f5f5f5;
-        }
-        
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            line-height: 1.6;
+            color: #333;
         }
         
         h1 {
-            color: #333;
             text-align: center;
             margin-bottom: 30px;
         }
         
-        .paper {
-            background: #f9f9f9;
+        .search-container {
+            margin-bottom: 30px;
             padding: 20px;
+            border: 1px solid #ddd;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-select {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+        
+        .clear-filters {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        
+        .results-info {
             margin-bottom: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #007bff;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .paper {
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            padding: 20px;
         }
         
         .paper-title {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .paper-authors {
             color: #666;
             font-style: italic;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .paper-year {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .paper-keywords {
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
         }
         
         .paper-links {
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
         
-        .link {
-            background: #007bff;
-            color: white;
-            padding: 8px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9em;
+        .paper-links a {
+            text-decoration: underline;
+            color: #0066cc;
         }
         
-        .link:hover {
-            background: #0056b3;
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
         }
         
-        .scholar {
-            background: #28a745;
-        }
-        
-        .scholar:hover {
-            background: #1e7e34;
+        @media (max-width: 600px) {
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .paper-links {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>My Literature Review Collection</h1>
+    <h1>Literature Review</h1>
+    
+    <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search papers...">
         
-        <div class="paper">
-            <div class="paper-title">Use of Mendelian Sampling Terms in Genomic Models</div>
-            <div class="paper-authors">Chen, J., Ytournel, F., Erbe, M., Pimentel, E.C.G., Simianer, H.</div>
-            <div class="paper-links">
-                <a href="./reviews/2009_chen.html" class="link">My Review</a>
-                <a href="https://www.researchgate.net/profile/Henner-Simianer/publication/268053412_Use_of_Mendelian_Sampling_Terms_in_Genomic_Models/links/54b3a1420cf28ebe92e2f6f7/Use-of-Mendelian-Sampling-Terms-in-Genomic-Models.pdf" class="link scholar">Original Paper</a>
+        <div class="filters">
+            <div class="filter-group">
+                <label>Year:</label>
+                <select class="filter-select" id="yearFilter">
+                    <option value="">All</option>
+                </select>
             </div>
-        </div>
-        
-        <!-- Add more paper -->
-        <div class="paper">
-            <div class="paper-title">Deregressing estimated breeding values and weighting information for genomic regression analyses</div>
-            <div class="paper-authors">Dorian J Garrick, Jeremy F Taylor and Rohan L Fernando</div>
-            <div class="paper-links">
-                <a href="./reviews/2009_Garrick.html" class="link">My Review</a>
-                <a href="https://gsejournal.biomedcentral.com/articles/10.1186/1297-9686-41-55" class="link scholar">Original Paper</a>
+            
+            <div class="filter-group">
+                <label>Topic:</label>
+                <select class="filter-select" id="topicFilter">
+                    <option value="">All</option>
+                </select>
             </div>
+            
+            <button class="clear-filters" id="clearFilters">Clear</button>
         </div>
-        <!-- Add more paper -->
-         <div class="paper">
-            <div class="paper-title">Genomic characterization of the world’s longest selection experiment in mouse reveals the complexity of polygenic traits</div>
-            <div class="paper-authors">Palma-Vera, S.E., Reyer, H., Langhammer, M., Reinsch, N., Derezanin, L., Fickel, J., Qanbari, S., Weitzel, J.M., Franzenburg, S., Hemmrich-Stanisak, G., & Schoen, J.</div>
-            <div class="paper-links">
-                <a href="./reviews/2022_palma_vera.html" class="link">My Review</a>
-                <a href="https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-022-01248-9" class="link scholar">Original Paper</a>
-            </div>
-        </div>
-        
-        <!-- Add more paper -->
-         <div class="paper">
-            <div class="paper-title">Practical Considerations When Using Mendelian Sampling Variances for Selection Decisions in Genomic Selection Programs</div>
-            <div class="paper-authors">T.A.M. Niehoff, J. ten Napel, M.P.L. Calus</div>
-            <div class="paper-links">
-                <a href="./reviews/2025_niehoff.html" class="link">My Review</a>
-                <a href="https://onlinelibrary.wiley.com/doi/10.1111/jbg.12913" class="link scholar">Original Paper</a>
-            </div>
-        </div>
-        
     </div>
+    
+    <div class="results-info" id="resultsInfo"></div>
+    
+    <div id="papersContainer"></div>
+
+    <script>
+        const papers = [
+            {
+                id: 1,
+                title: "Use of Mendelian Sampling Terms in Genomic Models",
+                authors: ["Chen, J.", "Ytournel, F.", "Erbe, M.", "Pimentel, E.C.G.", "Simianer, H."],
+                year: 2009,
+                keywords: ["genomic selection", "mendelian sampling", "breeding values", "genetic models"],
+                topic: "Genomic Selection",
+                reviewLink: "./reviews/2009_chen.html",
+                originalLink: "https://www.researchgate.net/profile/Henner-Simianer/publication/268053412_Use_of_Mendelian_Sampling_Terms_in_Genomic_Models/links/54b3a1420cf28ebe92e2f6f7/Use-of-Mendelian-Sampling-Terms-in-Genomic-Models.pdf"
+            },
+            {
+                id: 2,
+                title: "Deregressing estimated breeding values and weighting information for genomic regression analyses",
+                authors: ["Dorian J Garrick", "Jeremy F Taylor", "Rohan L Fernando"],
+                year: 2009,
+                keywords: ["breeding values", "genomic regression", "deregression", "weighting"],
+                topic: "Genomic Selection",
+                reviewLink: "./reviews/2009_Garrick.html",
+                originalLink: "https://gsejournal.biomedcentral.com/articles/10.1186/1297-9686-41-55"
+            },
+            {
+                id: 3,
+                title: "Genomic characterization of the world's longest selection experiment in mouse reveals the complexity of polygenic traits",
+                authors: ["Palma-Vera, S.E.", "Reyer, H.", "Langhammer, M.", "Reinsch, N.", "Derezanin, L.", "Fickel, J.", "Qanbari, S.", "Weitzel, J.M.", "Franzenburg, S.", "Hemmrich-Stanisak, G.", "Schoen, J."],
+                year: 2022,
+                keywords: ["selection experiment", "polygenic traits", "mouse genetics", "genomic characterization"],
+                topic: "Population Genetics",
+                reviewLink: "./reviews/2022_palma_vera.html",
+                originalLink: "https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-022-01248-9"
+            },
+            {
+                id: 4,
+                title: "Practical Considerations When Using Mendelian Sampling Variances for Selection Decisions in Genomic Selection Programs",
+                authors: ["T.A.M. Niehoff", "J. ten Napel", "M.P.L. Calus"],
+                year: 2025,
+                keywords: ["mendelian sampling", "variance", "selection decisions", "genomic selection"],
+                topic: "Genomic Selection",
+                reviewLink: "./reviews/2025_niehoff.html",
+                originalLink: "https://onlinelibrary.wiley.com/doi/10.1111/jbg.12913"
+            }
+        ];
+
+        const years = [...new Set(papers.map(p => p.year))].sort((a, b) => b - a);
+        const topics = [...new Set(papers.map(p => p.topic))].sort();
+
+        function populateFilters() {
+            const yearSelect = document.getElementById('yearFilter');
+            const topicSelect = document.getElementById('topicFilter');
+
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            });
+
+            topics.forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic;
+                option.textContent = topic;
+                topicSelect.appendChild(option);
+            });
+        }
+
+        function createPaperHTML(paper) {
+            const authorsText = paper.authors.join(', ');
+            const keywordsText = paper.keywords.join(', ');
+
+            return `
+                <div class="paper">
+                    <div class="paper-title">${paper.title}</div>
+                    <div class="paper-authors">${authorsText}</div>
+                    <div class="paper-year">${paper.year}</div>
+                    <div class="paper-keywords">Keywords: ${keywordsText}</div>
+                    <div class="paper-links">
+                        <a href="${paper.reviewLink}">My Review</a>
+                        <a href="${paper.originalLink}" target="_blank">Original Paper</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterPapers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedYear = document.getElementById('yearFilter').value;
+            const selectedTopic = document.getElementById('topicFilter').value;
+
+            let filteredPapers = papers.filter(paper => {
+                const matchesSearch = !searchTerm || 
+                    paper.title.toLowerCase().includes(searchTerm) ||
+                    paper.authors.some(author => author.toLowerCase().includes(searchTerm)) ||
+                    paper.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm)) ||
+                    paper.year.toString().includes(searchTerm);
+
+                const matchesYear = !selectedYear || paper.year.toString() === selectedYear;
+                const matchesTopic = !selectedTopic || paper.topic === selectedTopic;
+
+                return matchesSearch && matchesYear && matchesTopic;
+            });
+
+            displayPapers(filteredPapers);
+            updateResultsInfo(filteredPapers.length, papers.length);
+        }
+
+        function displayPapers(papersToShow) {
+            const container = document.getElementById('papersContainer');
+            
+            if (papersToShow.length === 0) {
+                container.innerHTML = '<div class="no-results">No papers found</div>';
+            } else {
+                container.innerHTML = papersToShow.map(createPaperHTML).join('');
+            }
+        }
+
+        function updateResultsInfo(shown, total) {
+            const info = document.getElementById('resultsInfo');
+            info.textContent = `Showing ${shown} of ${total} papers`;
+        }
+
+        function clearAllFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('yearFilter').value = '';
+            document.getElementById('topicFilter').value = '';
+            filterPapers();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            populateFilters();
+            displayPapers(papers);
+            updateResultsInfo(papers.length, papers.length);
+
+            document.getElementById('searchInput').addEventListener('input', filterPapers);
+            document.getElementById('yearFilter').addEventListener('change', filterPapers);
+            document.getElementById('topicFilter').addEventListener('change', filterPapers);
+            document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+        });
+    </script>
 </body>
 </html>
