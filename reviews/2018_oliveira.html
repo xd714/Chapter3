@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deregression Methods for Genomic Prediction in Dairy Cattle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        /* Flow Diagram Styles */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: #8e44ad;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #8e44ad;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .step-details {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .step-specs {
+            background: #f3e5f5;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .method-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .method-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .method-1 { border-color: #e74c3c; }
+        .method-2 { border-color: #27ae60; }
+        .method-3 { border-color: #f39c12; }
+        
+        .method-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .method-1 .method-title { color: #e74c3c; }
+        .method-2 .method-title { color: #27ae60; }
+        .method-3 .method-title { color: #f39c12; }
+        
+        .formula {
+            background: #ecf0f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            border-left: 3px solid #3498db;
+        }
+        
+        /* Analysis Sections */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .analysis-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #3498db;
+        }
+        
+        .analysis-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .why-card { border-top-color: #e74c3c; }
+        .how-card { border-top-color: #3498db; }
+        .what-card { border-top-color: #27ae60; }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .results-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #8e44ad;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Comparing Deregression Methods for Genomic Prediction of Test-Day Traits in Dairy Cattle</h1>
+            <p>Optimizing Pseudophenotypes for Longitudinal Genomic Selection</p>
+            
+            <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <p style="margin: 0; font-size: 0.9em;"><strong>Authors:</strong> H.R. de Oliveira, F.F. Silva, L.F. Brito, A.R. Guarini, J. Jamrozik, F.S. Schenkel</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Institutions:</strong> University of Guelph, Universidade Federal de Viçosa, Canadian Dairy Network</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Year:</strong> 2018</p>
+                <p style="margin: 10px 0 0 0;">
+                    <a href="https://doi.org/10.1111/jbg.12317" 
+                       target="_blank" 
+                       style="color: #74b9ff; text-decoration: none; font-weight: bold; border: 1px solid #74b9ff; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+                        🔗 View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Overview & Research Context</div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 30px;">
+                    <p><strong>Core Challenge:</strong> In dairy cattle genomic evaluation, when raw phenotypic data aren't available, estimated breeding values (EBVs) must be used as pseudophenotypes. However, using EBVs directly can cause double-counting of information and bias in genomic predictions.</p>
+                    
+                    <p><strong>Research Question:</strong> Which deregression method performs best for converting EBVs to unbiased pseudophenotypes in genomic prediction of test-day dairy traits?</p>
+                    
+                    <p><strong>Innovation:</strong> First comprehensive comparison of deregression methods specifically for longitudinal (test-day) traits in dairy cattle, examining three scenarios based on reliability thresholds.</p>
+                </div>
+                
+                <div class="section-title">Deregression Methods Comparison</div>
+                
+                <div class="method-comparison">
+                    <div class="method-box method-1">
+                        <div class="method-title">VanRaden (VR) Method</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Standard deregression formula
+                            <div class="formula">dEBV_ij = PA_ij + (EBV_ij - PA_ij) / R_i</div>
+                            <strong>Key Features:</strong><br>
+                            • Uses reliability-based deregression factor<br>
+                            • Separates parent average from own performance<br>
+                            • Most widely used method<br><br>
+                            <strong>Performance:</strong><br>
+                            • Good reliability and low bias<br>
+                            • Stable across scenarios<br>
+                            • No weighting required
+                        </div>
+                    </div>
+                    
+                    <div class="method-box method-2">
+                        <div class="method-title">Wiggans (WG) Method</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> VR method + cow adjustment
+                            <div class="formula">Adjust cow dEBVs to match bull distribution</div>
+                            <strong>Key Features:</strong><br>
+                            • Variance adjustment (VA) by reliability groups<br>
+                            • Mean adjustment (MA) for each group<br>
+                            • Addresses cow-bull bias differences<br><br>
+                            <strong>Performance:</strong><br>
+                            • Similar reliability to VR<br>
+                            • Reduces cow-bull differences<br>
+                            • Effective for preferential treatment bias
+                        </div>
+                    </div>
+                    
+                    <div class="method-box method-3">
+                        <div class="method-title">Garrick (GR) Method</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Mixed model equations approximation
+                            <div class="formula">Solves system: W'_PA W_PA + λk vs W'_IndPA W_IndPA + 2k</div>
+                            <strong>Key Features:</strong><br>
+                            • More complex mathematical formulation<br>
+                            • Accounts for information content directly<br>
+                            • Theoretically sophisticated<br><br>
+                            <strong>Performance:</strong><br>
+                            • Lower reliability than VR/WG<br>
+                            • Too strong deregression<br>
+                            • Higher variance in dEBVs
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Experimental Design & Methodology</div>
+                
+                <div class="flow-container">
+                    
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Source & Population Structure</div>
+                            <div class="step-details">
+                                Canadian Jersey cattle with official genetic evaluations for test-day traits
+                                <div class="step-specs">
+                                    <strong>Training Population:</strong> Animals born 1960-2010 (from 2012 evaluation)<br>
+                                    <strong>Validation Population:</strong> Animals born 2011-2014 (from 2016 evaluation)<br>
+                                    <strong>Traits:</strong> Milk yield (MY), fat yield (FY), protein yield (PY), somatic cell score (SCS)<br>
+                                    <strong>Random Regression:</strong> 4th-order Legendre polynomials for lactation curves
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Reliability-Based Scenarios</div>
+                            <div class="step-details">
+                                Three scenarios based on minimum reliability thresholds (REL_EBV)
+                                <div class="step-specs">
+                                    <strong>SCEN1:</strong> REL_EBV > average parent reliability in both populations<br>
+                                    <strong>SCEN2:</strong> REL_EBV > 0.50 in training, > average parent reliability in validation<br>
+                                    <strong>SCEN3:</strong> REL_EBV > 0.50 in both training and validation<br>
+                                    <strong>Purpose:</strong> Test effect of reliability thresholds on prediction accuracy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Genomic Prediction Implementation</div>
+                            <div class="step-details">
+                                GBLUP with random regression model using deregressed EBVs as pseudophenotypes
+                                <div class="step-specs">
+                                    <strong>Model:</strong> y = Xb + Zg + e (4th-order Legendre polynomials)<br>
+                                    <strong>Weighting:</strong> Unweighted vs. weighted by effective record contributions<br>
+                                    <strong>Genotypes:</strong> 38,166 SNPs after quality control<br>
+                                    <strong>Software:</strong> AIREMLF90 for variance components and solutions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Evaluation Metrics</div>
+                            <div class="step-details">
+                                Comprehensive assessment of prediction quality and bias
+                                <div class="step-specs">
+                                    <strong>Reliability:</strong> r²_dEBV, r²_DGV, adjusted r²_DGV<br>
+                                    <strong>Bias:</strong> Regression coefficient of dEBV on DGV (b_DGV)<br>
+                                    <strong>Separate Analysis:</strong> Bulls vs. cows performance<br>
+                                    <strong>Total Analyses:</strong> 18 per trait (3 methods × 3 scenarios × 2 weighting)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="section-title">Key Findings & Results</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="analysis-title">Method Performance Ranking</div>
+                        <div class="step-details">
+                            <strong>Best Performers:</strong><br>
+                            • VR and WG methods: Similar reliability and bias<br>
+                            • SCEN2: Optimal balance of accuracy and population size<br>
+                            • Unweighted analysis sufficient in most cases<br><br>
+                            
+                            <strong>Poor Performer:</strong><br>
+                            • GR method: Lower reliability across all scenarios<br>
+                            • Too strong deregression causing information loss<br>
+                            • Higher variance in deregressed values
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="analysis-title">Practical Implications</div>
+                        <div class="step-details">
+                            <strong>Reliability Thresholds:</strong><br>
+                            • SCEN3 (0.50 minimum): Highest raw reliability<br>
+                            • SCEN2: Best after adjusting for dEBV inaccuracy<br>
+                            • Balance between accuracy and population size<br><br>
+                            
+                            <strong>Weighting Benefits:</strong><br>
+                            • Only helpful when large REL_EBV differences exist<br>
+                            • Most beneficial for protein yield and SCS<br>
+                            • Generally unnecessary for VR/WG methods
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Biological & Statistical Challenge</div>
+                        <div class="step-details">
+                            <strong>Deregression Necessity:</strong><br>
+                            • EBVs contain parent average information<br>
+                            • Using raw EBVs causes double-counting<br>
+                            • <span class="highlight">Double shrinkage reduces prediction accuracy</span><br><br>
+                            
+                            <strong>Test-Day Complexity:</strong><br>
+                            • Longitudinal traits require special handling<br>
+                            • Lactation curve shape must be preserved<br>
+                            • Bulls vs. cows have different evaluation bias
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodological Approach</div>
+                        <div class="step-details">
+                            <strong>Deregression Process:</strong><br>
+                            • Remove parent average contribution from EBV<br>
+                            • Weight by reliability to avoid over-correction<br>
+                            • <span class="highlight">WG method adjusts cow bias</span><br><br>
+                            
+                            <strong>Validation Strategy:</strong><br>
+                            • Time-based split (2012 vs. 2016 evaluations)<br>
+                            • Multiple reliability thresholds tested<br>
+                            • Separate bull/cow analysis reveals bias patterns
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Practical Recommendations</div>
+                        <div class="step-details">
+                            <strong>Best Practice:</strong><br>
+                            • <span class="highlight">Use VR or WG methods</span><br>
+                            • SCEN2 reliability threshold optimal<br>
+                            • Unweighted analysis generally sufficient<br><br>
+                            
+                            <strong>Implementation:</strong><br>
+                            • Preserve lactation curve coefficients<br>
+                            • Consider cow preferential treatment<br>
+                            • Monitor bull vs. cow prediction bias
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Technical Implementation Details</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">A</div>
+                        <div class="step-content">
+                            <div class="step-title">Cow Bias Adjustment (WG Method)</div>
+                            <div class="step-details">
+                                Addresses preferential treatment of genotyped cows in Jersey population:
+                                <div class="formula">PA_adj = PA_sire + [VA × (PA_dam - MA)]</div>
+                                <div class="formula">dEBV_adj,cows = VA × (dEBV - MA) + PA_adj</div>
+                                This adjustment makes cow evaluations comparable to bull evaluations.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">B</div>
+                        <div class="step-content">
+                            <div class="step-title">Reliability-Based Population Selection</div>
+                            <div class="step-details">
+                                Strategic thresholds balance accuracy and population size:
+                                <div class="step-specs">
+                                    <strong>Average REL_PA:</strong> 0.35 (MY), 0.35 (FY), 0.34 (PY), 0.31 (SCS)<br>
+                                    <strong>Population Impact:</strong> SCEN2/3 had 20-55% fewer animals than SCEN1<br>
+                                    <strong>Cow Proportion:</strong> ~40% except SCS (17% in SCEN2/3)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Implications for Dairy Breeding</div>
+                
+                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60;">
+                    <p><strong>Immediate Impact:</strong> Provides clear guidance for implementing genomic prediction in dairy breeding programs using test-day evaluations, particularly important for breeds with smaller populations that include cow records.</p>
+                    
+                    <p><strong>Methodological Significance:</strong> Demonstrates that established deregression methods developed for accumulated traits work well for longitudinal traits, with VR and WG methods providing nearly equivalent performance.</p>
+                    
+                    <p><strong>Future Applications:</strong> The finding that weighting is generally unnecessary simplifies implementation in breeding programs, while the cow adjustment method (WG) provides a solution for addressing preferential treatment bias in female evaluations.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back Navigation -->
+        <div style="margin-top: 60px; text-align: right;">
+            <a href="../index.html" style="color: #64748b; text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; display: inline-block; position: relative; transition: color 0.3s ease;">
+                ← Back to Index
+            </a>
+        </div>
+    </div>
+</body>
+</html>
