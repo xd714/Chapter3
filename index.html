@@ -197,7 +197,19 @@
                 topic: "Genomic Selection",
                 reviewLink: "./reviews/2025_niehoff.html",
                 originalLink: "https://onlinelibrary.wiley.com/doi/10.1111/jbg.12913"
-            }
+            },
+            // Add this entry to the papers array in index.html
+
+{
+    id: 5,
+    title: "Chromosome-Wise Dissection of the Extremely Big Mouse Line DU6i",
+    authors: ["Bevova, M.R.", "Aulchenko, Y.S.", "Aksu, S.", "Renne, U.", "Brockmann, G.A."],
+    year: 2006,
+    keywords: ["chromosome substitution strains", "QTL mapping", "body weight", "mouse genetics", "DU6i", "growth traits"],
+    topic: "QTL Mapping",
+    reviewLink: "./reviews/2006_bevova.html",
+    originalLink: "https://academic.oup.com/genetics/article/172/1/401/6061240"
+}
         ];
 
         const years = [...new Set(papers.map(p => p.year))].sort((a, b) => b - a);
