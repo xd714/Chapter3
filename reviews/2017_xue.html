@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Stage vs Two-Stage GWAS Methodology</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        /* Flow Diagram Styles */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: #e74c3c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .step-details {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .step-specs {
+            background: #fee;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .method-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .method-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .method-1 { border-color: #e74c3c; }
+        .method-2 { border-color: #27ae60; }
+        
+        .method-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .method-1 .method-title { color: #e74c3c; }
+        .method-2 .method-title { color: #27ae60; }
+        
+        .formula {
+            background: #ecf0f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            border-left: 3px solid #3498db;
+        }
+        
+        /* Analysis Sections */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .analysis-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #3498db;
+        }
+        
+        .analysis-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .why-card { border-top-color: #e74c3c; }
+        .how-card { border-top-color: #3498db; }
+        .what-card { border-top-color: #27ae60; }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .results-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Comparison of One-Stage and Two-Stage Genome-Wide Association Studies</h1>
+            <p>GWAS Methodology Analysis and Computational Optimization</p>
+            
+            <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <p style="margin: 0; font-size: 0.9em;"><strong>Authors:</strong> Shang Xue, Funda Ogut, Zachary Miller, Janu Verma, Peter J. Bradbury, James B. Holland</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Institution:</strong> North Carolina State University, Cornell University, USDA-ARS</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Year:</strong> 2017</p>
+                <p style="margin: 10px 0 0 0;">
+                    <a href="https://doi.org/10.1101/099291" 
+                       target="_blank" 
+                       style="color: #74b9ff; text-decoration: none; font-weight: bold; border: 1px solid #74b9ff; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+                        🔗 View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Overview & Context</div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 30px;">
+                    <p><strong>Problem Context:</strong> Plant breeding GWAS faces unique computational challenges due to complex experimental designs with multi-environment trials and unbalanced data structures.</p>
+                    
+                    <p><strong>Core Question:</strong> Can two-stage GWAS methods provide computational efficiency while maintaining statistical power and accuracy comparable to computationally expensive one-stage approaches?</p>
+                    
+                    <p><strong>Key Innovation:</strong> Development and evaluation of weighted two-stage GWAS methodology that accounts for variable precision in first-stage estimates.</p>
+                </div>
+                
+                <div class="section-title">Methodology Flow</div>
+                
+                <div class="flow-container">
+                    
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Simulation Data Preparation</div>
+                            <div class="step-details">
+                                Used real genotype data from diverse maize inbred lines to maintain realistic LD structure
+                                <div class="step-specs">
+                                    <strong>Data Source:</strong> 2,480 maize inbred lines from USDA collection<br>
+                                    <strong>Markers:</strong> 111,282 SNPs after quality filtering<br>
+                                    <strong>Environments:</strong> 10 simulated environments<br>
+                                    <strong>QTL Design:</strong> 10 or 50 causal variants with known effects
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Missing Data Simulation</div>
+                            <div class="step-details">
+                                Created three data balance scenarios to test method robustness
+                                <div class="step-specs">
+                                    <strong>Balanced:</strong> All lines in all environments (24,800 records)<br>
+                                    <strong>Random Unbalanced:</strong> 50% random subset (12,400 records)<br>
+                                    <strong>Severely Unbalanced:</strong> Half lines in 1 env, half in 10 envs (13,640 records)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Architecture Design</div>
+                            <div class="step-details">
+                                Simulated realistic genetic architectures with varying QTL effect sizes
+                                <div class="step-specs">
+                                    <strong>Architecture 1:</strong> 10 QTL explaining 83% of genetic variance<br>
+                                    <strong>Architecture 2:</strong> 10 QTL explaining 43% of genetic variance<br>
+                                    <strong>Architecture 3:</strong> 50 QTL explaining 86% of genetic variance<br>
+                                    <strong>Heritability:</strong> Consistent ~85% across all architectures
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Method Comparison Framework</div>
+                            <div class="step-details">
+                                Systematic evaluation of six different GWAS approaches
+                                <div class="step-specs">
+                                    <strong>Methods:</strong> One-stage, Unweighted BLUE/BLUP, Weighted BLUE/BLUP, Residual analysis<br>
+                                    <strong>Metrics:</strong> Statistical power, false discovery rate, bias, computational time<br>
+                                    <strong>Replication:</strong> 100 replicates per scenario
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="section-title">Method Comparison</div>
+                
+                <div class="method-comparison">
+                    <div class="method-box method-1">
+                        <div class="method-title">One-Stage Analysis</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Complete mixed model with all effects
+                            <div class="formula">Y_ij = μ + X_jk β_k + E_i + F_j + ε_ijk</div>
+                            <strong>Advantages:</strong><br>
+                            • Optimal statistical properties<br>
+                            • Accounts for all sources of variation<br>
+                            • Unbiased effect estimates<br><br>
+                            <strong>Disadvantages:</strong><br>
+                            • Computationally intensive<br>
+                            • Requires matrix inversion for each marker<br>
+                            • 146 hours for full genome scan
+                        </div>
+                    </div>
+                    
+                    <div class="method-box method-2">
+                        <div class="method-title">Weighted Two-Stage Analysis</div>
+                        <div class="step-details">
+                            <strong>Stage 1:</strong> Estimate line effects (BLUEs/BLUPs)
+                            <div class="formula">BLUE(Y_j) = μ + F̂_j</div>
+                            
+                            <strong>Stage 2:</strong> GWAS with precision weighting
+                            <div class="formula">BLUE(Y_j) = μ + F_j + X_jk β_k + ε_jk</div>
+                            <div class="formula">ε_jk ~ N(0, Iw_j^2), w_j = V(Ŷ_j)</div>
+                            
+                            <strong>Key Innovation:</strong> Weight by precision of first-stage estimates
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Key Findings</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="analysis-title">Statistical Performance</div>
+                        <div class="step-details">
+                            <strong>Power:</strong><br>
+                            • Weighted BLUE two-stage ≈ One-stage performance<br>
+                            • Severe data imbalance: only weighted methods maintain power<br>
+                            • BLUP methods show bias due to shrinkage<br><br>
+                            
+                            <strong>False Discovery Rate:</strong><br>
+                            • Similar FDR across balanced datasets<br>
+                            • Weighted BLUE best for unbalanced data<br>
+                            • Weighted BLUP poor FDR when severely unbalanced
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="analysis-title">Computational Efficiency</div>
+                        <div class="step-details">
+                            <strong>Time Comparison:</strong><br>
+                            • One-stage: 146 hours<br>
+                            • Two-stage weighted: 32 hours<br>
+                            • Two-stage unweighted: 30 hours<br>
+                            • Residual method: 10 hours<br><br>
+                            
+                            <strong>Efficiency Gain:</strong><br>
+                            • ~4.5x speedup with minimal performance loss<br>
+                            • Implemented in TASSEL software<br>
+                            • Practical for large-scale plant breeding
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Computational Challenge</div>
+                        <div class="step-details">
+                            <strong>Plant Breeding Complexity:</strong><br>
+                            • Multi-environment trials with complex variance structures<br>
+                            • Unbalanced experimental designs<br>
+                            • Need for multiple random effects<br><br>
+                            
+                            <strong>GWAS Bottleneck:</strong><br>
+                            • Matrix inversion required for each marker test<br>
+                            • Hundreds of thousands of markers to test<br>
+                            • <span class="highlight">Computational time becomes prohibitive</span>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodological Innovation</div>
+                        <div class="step-details">
+                            <strong>Two-Stage Approach:</strong><br>
+                            • Stage 1: Fit complex model without markers<br>
+                            • Stage 2: Simple GWAS on summary statistics<br><br>
+                            
+                            <strong>Weighting Innovation:</strong><br>
+                            • Account for variable precision of stage 1 estimates<br>
+                            • <span class="highlight">Weight inversely by prediction error variance</span><br>
+                            • Maintain statistical properties of one-stage analysis
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Practical Impact</div>
+                        <div class="step-details">
+                            <strong>Method Recommendation:</strong><br>
+                            • <span class="highlight">Weighted BLUE two-stage optimal</span><br>
+                            • Avoid weighted BLUP for unbalanced data<br>
+                            • GRAMMAR method performs poorly<br><br>
+                            
+                            <strong>Software Implementation:</strong><br>
+                            • Available in TASSEL v5<br>
+                            • Requires BLUE variance file<br>
+                            • Enables practical large-scale GWAS
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Technical Implementation Details</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">A</div>
+                        <div class="step-content">
+                            <div class="step-title">Weighted Analysis Formula</div>
+                            <div class="step-details">
+                                The key innovation uses heterogeneous error variance structure:
+                                <div class="formula">ε_jk ~ N(0, Iw_j^2), where w_j = V(Ŷ_j)</div>
+                                This weights observations by the precision of first-stage estimates, approximating the optimal one-stage analysis.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">B</div>
+                        <div class="step-content">
+                            <div class="step-title">TASSEL Software Integration</div>
+                            <div class="step-details">
+                                Implementation requires four input files:
+                                <div class="step-specs">
+                                    <strong>Files needed:</strong> BLUEs, BLUE variances, genotype scores, kinship matrix<br>
+                                    <strong>GUI option:</strong> "weighted MLM" in analysis tab<br>
+                                    <strong>Command line:</strong> Full automation possible
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Implications for Plant Breeding</div>
+                
+                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60;">
+                    <p><strong>Immediate Impact:</strong> This methodology enables routine GWAS in plant breeding programs where computational resources previously limited analysis scope.</p>
+                    
+                    <p><strong>Broader Significance:</strong> Demonstrates that careful statistical approximation can achieve near-optimal results with substantial computational savings, making advanced genomic analysis accessible to smaller breeding programs.</p>
+                    
+                    <p><strong>Future Directions:</strong> The weighted two-stage framework could be extended to other computationally intensive genomic analyses beyond GWAS, such as genomic prediction in complex breeding designs.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back Navigation -->
+        <div style="margin-top: 60px; text-align: right;">
+            <a href="../index.html" style="color: #64748b; text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; display: inline-block; position: relative; transition: color 0.3s ease;">
+                ← Back to Index
+            </a>
+        </div>
+    </div>
+</body>
+</html>
