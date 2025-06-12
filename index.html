@@ -379,5 +379,27 @@
             document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
         });
     </script>
+    
+ <script>
+// Store scroll position when clicking on review links
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click handlers to all review links
+    const reviewLinks = document.querySelectorAll('a[href*="./reviews/"]');
+    reviewLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Store current scroll position
+            sessionStorage.setItem('indexScrollPosition', window.pageYOffset);
+        });
+    });
+    
+    // Restore scroll position when returning to index
+    const savedPosition = sessionStorage.getItem('indexScrollPosition');
+    if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition));
+        // Clear the stored position after using it
+        sessionStorage.removeItem('indexScrollPosition');
+    }
+});
+</script>
 </body>
 </html>

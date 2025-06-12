@@ -487,12 +487,14 @@
             </div>
         </div>
         
-        <!-- Back Navigation -->
-        <div style="margin-top: 60px; text-align: right;">
-            <a href="../index.html" style="color: #64748b; text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; display: inline-block; position: relative; transition: color 0.3s ease;">
-                ← Back to Index
-            </a>
-        </div>
+<!-- Replace the existing back navigation with this -->
+<div style="margin-top: 60px; text-align: right;">
+    <a href="../index.html" 
+       onclick="sessionStorage.setItem('returningFromReview', 'true')"
+       style="color: #64748b; text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; display: inline-block; position: relative; transition: color 0.3s ease;">
+        ← Back to Index
+    </a>
+</div>
     </div>
 </body>
 </html>
