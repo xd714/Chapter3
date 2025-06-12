@@ -20,7 +20,70 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             overflow: hidden;
         }
+         /* TOP LEFT NAVIGATION */
+        .top-left-nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
         
+        .top-left-nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .top-left-nav a:hover {
+            background: rgba(0,0,0,0.4);
+            color: white;
+        }
+        
+        /* BACK TO TOP BUTTON */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .back-to-top::before {
+            content: '↑';
+            font-size: 20px;
+            font-weight: bold;
+        }
         .header {
             background: #2c3e50;
             color: white;
@@ -224,6 +287,11 @@
 </head>
 <body>
     <div class="container">
+                <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">← Back to Index</a>
+        </div>
+        
         <div class="header">
             <h1>Efficient Methods to Compute Genomic Predictions</h1>
             <p>Foundational Computational Framework for Genomic Selection</p>
@@ -584,14 +652,29 @@
             </div>
         </div>
         
-<!-- Replace the existing back navigation with this -->
-<div style="margin-top: 60px; text-align: right;">
-    <a href="../index.html" 
-       onclick="sessionStorage.setItem('returningFromReview', 'true')"
-       style="color: #64748b; text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; display: inline-block; position: relative; transition: color 0.3s ease;">
-        ← Back to Index
-    </a>
-</div>
+
     </div>
 </body>
+    <!-- BACK TO TOP BUTTON -->
+    <div class="back-to-top" id="backToTop"></div>
+
+    <script>
+        // Back to top functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </html>
