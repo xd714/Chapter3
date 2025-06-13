@@ -1,6 +1,7 @@
 /* ============================================
    UNIFIED ACADEMIC PAPERS STYLESHEET
    WITH FULLY AUTOMATIC COLOR THEMES
+   IMPROVED VERSION
    ============================================ */
 
 /* Base Color Palette for Auto-Generation */
@@ -320,7 +321,7 @@ body {
 }
 
 /* ============================================
-   BACK TO TOP BUTTON - THEME AWARE & REFINED
+   BACK TO TOP BUTTON - FIXED DOUBLE ARROW ISSUE
    ============================================ */
 
 .back-to-top {
@@ -344,6 +345,7 @@ body {
     transform: translateY(20px) scale(0.8);
     border: none;
     backdrop-filter: blur(10px);
+    /* Remove the ::before content to prevent double arrows */
 }
 
 .back-to-top.visible {
@@ -362,11 +364,17 @@ body {
     transform: translateY(-1px) scale(0.95);
 }
 
-.back-to-top::before {
+/* Single arrow using ::after instead of ::before to avoid conflicts */
+.back-to-top::after {
     content: '↑';
     font-size: 22px;
     font-weight: bold;
     line-height: 1;
+}
+
+/* Remove any potential ::before content */
+.back-to-top::before {
+    display: none;
 }
 
 /* Add pulse animation for better visibility */
@@ -498,13 +506,16 @@ body {
    CITATION AND INFORMATION BOXES - REFINED
    ============================================ */
 
+.citation,
 .citation-box {
     background: var(--primary-light);
-    padding: 25px;
+    padding: 20px 25px;
     border-radius: 10px;
     border-left: 5px solid var(--primary-color);
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 0.95em;
+    line-height: 1.6;
 }
 
 .citation-box p:first-child {
@@ -1066,6 +1077,122 @@ body {
 }
 
 /* ============================================
+   IMPROVED EQUATION AND FORMULA BOXES
+   ============================================ */
+
+.formula {
+    background: var(--primary-light);
+    padding: 18px 25px;
+    margin: 15px 0;
+    border-radius: 10px;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    border-left: 4px solid var(--primary-color);
+    font-size: 1.1em;
+    color: var(--text-primary);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+}
+
+/* Specific formula sizing based on content length */
+.formula.short {
+    padding: 15px 20px;
+    font-size: 1.0em;
+}
+
+.formula.medium {
+    padding: 20px 30px;
+    font-size: 1.1em;
+}
+
+.formula.long {
+    padding: 25px 35px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* Auto-adjust formula box based on content */
+.formula:has(br),
+.formula[data-multiline="true"] {
+    text-align: left;
+    line-height: 1.6;
+    padding: 25px 30px;
+}
+
+.matrix-visual {
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px 0;
+    text-align: center;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    font-size: 1.05em;
+    line-height: 1.5;
+}
+
+/* Enhanced context boxes with better sizing */
+.analysis-content,
+.step-details,
+.model-box p,
+.method-box p,
+.analysis-card p {
+    line-height: 1.65;
+    margin-bottom: 12px;
+}
+
+.analysis-content:last-child,
+.step-details:last-child,
+.model-box p:last-child,
+.method-box p:last-child,
+.analysis-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Improved spacing for content boxes */
+.step-content,
+.analysis-card,
+.model-box,
+.method-box {
+    min-height: fit-content;
+}
+
+.step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.analysis-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Better content wrapping */
+.analysis-content ul,
+.step-details ul {
+    margin: 12px 0;
+    padding-left: 22px;
+}
+
+.analysis-content li,
+.step-details li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+/* ============================================
    TABLES - REFINED
    ============================================ */
 
@@ -1153,47 +1280,8 @@ table tr:last-child td {
 }
 
 /* ============================================
-   CODE AND FORMULAS - REFINED
-   ============================================ */
-
-.formula {
-    background: var(--primary-light);
-    padding: 15px 20px;
-    margin: 15px 0;
-    border-radius: 8px;
-    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-    border-left: 4px solid var(--primary-color);
-    font-size: 0.95em;
-    color: var(--text-primary);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.matrix-visual {
-    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    text-align: center;
-    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-    font-weight: 600;
-    color: var(--text-primary);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-}
-
-/* ============================================
    CITATIONS AND REFERENCES - REFINED
    ============================================ */
-
-.citation {
-    background: var(--primary-light);
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 5px solid var(--primary-color);
-    margin-bottom: 25px;
-    font-size: 0.95em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
 
 .ref-box {
     background: var(--primary-light);
@@ -1322,6 +1410,11 @@ ul li::marker {
     .stat-number {
         font-size: 2em;
     }
+    
+    .formula {
+        font-size: 0.95em;
+        padding: 15px 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1345,6 +1438,11 @@ ul li::marker {
     .qc-grid,
     .species-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .formula {
+        font-size: 0.9em;
+        padding: 12px 18px;
     }
 }
 
@@ -1733,7 +1831,7 @@ html {
    
    🎯 COMPLETE FEATURE LIST:
    ✅ 1. Fully automatic theme system (20 colors)
-   ✅ 2. Theme-aware back to top button  
+   ✅ 2. Theme-aware back to top button (FIXED: single arrow)
    ✅ 3. Enhanced responsive design
    ✅ 4. Complete utility class system
    ✅ 5. Interactive component library
@@ -1747,12 +1845,24 @@ html {
    ✅ 13. Error handling
    ✅ 14. Performance optimizations
    ✅ 15. Browser compatibility
+   ✅ 16. IMPROVED: Dynamic formula/equation boxes
+   ✅ 17. IMPROVED: Better context box sizing
+   ✅ 18. FIXED: Back-to-top double arrow issue
    
    📖 USAGE:
    1. Copy JavaScript from comments above
    2. Add to each HTML file's <head>
    3. Themes apply automatically
    4. No manual configuration needed
+   5. Formula boxes auto-adjust to content
+   6. Single clean back-to-top arrow
    
-   Total: 1,500+ lines of complete CSS
+   🔧 RECENT FIXES:
+   - Fixed back-to-top button double arrow issue
+   - Enhanced formula boxes with dynamic sizing
+   - Improved context box spacing and readability
+   - Better responsive formula handling
+   - Enhanced typography throughout
+   
+   Total: 1,600+ lines of complete CSS with improvements
    ============================================ */
