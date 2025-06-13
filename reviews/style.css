@@ -278,6 +278,9 @@ body {
     box-shadow: 0 8px 25px rgba(0,0,0,0.12);
     overflow: hidden;
     position: relative;
+    /* Add some margin to prevent edge touching */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* ============================================
@@ -403,7 +406,7 @@ body {
 .header {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
-    padding: 40px 30px;
+    padding: 50px 40px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -509,13 +512,14 @@ body {
 .citation,
 .citation-box {
     background: var(--primary-light);
-    padding: 20px 25px;
-    border-radius: 10px;
-    border-left: 5px solid var(--primary-color);
-    margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 30px 35px; /* Increased padding */
+    border-radius: 12px;
+    border-left: 6px solid var(--primary-color);
+    margin: 30px auto 35px auto; /* Center and increase margins */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     font-size: 0.95em;
-    line-height: 1.6;
+    line-height: 1.7; /* Better line height */
+    max-width: 95%; /* Prevent edge touching */
 }
 
 .citation-box p:first-child {
@@ -575,7 +579,9 @@ body {
    ============================================ */
 
 .content {
-    padding: 40px 30px;
+    padding: 40px 40px; /* Increased from 30px to 40px */
+    max-width: 100%;
+    overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .section {
@@ -606,18 +612,31 @@ body {
    FLOW DIAGRAMS - REFINED
    ============================================ */
 
-.flow-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin: 25px 0;
+/* 11. ADD BREATHING ROOM CLASS */
+.breathing-room {
+    margin: 0 auto;
+    max-width: 95%;
+    padding: 0 20px;
 }
+
+/* Apply breathing room to key elements */
+.flow-container,
+.model-comparison,
+.method-comparison,
+.comparison-grid,
+.results-grid {
+    margin: 30px auto;
+    max-width: 95%;
+    padding: 0 15px;
+}
+
 
 .flow-step {
     display: flex;
     align-items: flex-start;
-    gap: 25px;
-    margin-bottom: 25px;
+    gap: 30px; /* Increased from 25px */
+    margin-bottom: 30px; /* Increased spacing */
+    padding: 0 10px; /* Add internal padding */
 }
 
 .step-number {
@@ -638,11 +657,13 @@ body {
 .step-content {
     flex: 1;
     background: var(--bg-light);
-    padding: 25px;
-    border-radius: 10px;
+    padding: 30px; /* Increased from 25px */
+    border-radius: 12px; /* Slightly larger radius */
     border-left: 4px solid var(--primary-color);
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     transition: all 0.3s ease;
+    min-width: 0; /* Prevent flex item from overflowing */
+    word-wrap: break-word;
 }
 
 .step-content:hover {
@@ -687,9 +708,11 @@ body {
 
 .analysis-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Increased min width */
+    gap: 30px; /* Increased gap */
+    margin: 30px auto; /* Center grid */
+    padding: 0 20px; /* Add padding to prevent edge touching */
+    max-width: 100%;
 }
 
 .theme-container {
@@ -748,11 +771,12 @@ body {
 .species-card,
 .analysis-card {
     background: var(--bg-white);
-    padding: 25px;
-    border-radius: 10px;
+    padding: 30px; /* Increased padding */
+    border-radius: 12px;
     border: 2px solid var(--border-light);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
+    min-height: 200px; /* Ensure consistent height */
 }
 
 .model-box:hover,
@@ -989,22 +1013,25 @@ body {
     border-left: 4px solid var(--success-color);
 }
 
+.problem-box,
+.solution-box {
+    margin: 25px auto; /* Center with auto margins */
+    max-width: 95%; /* Limit width to prevent edge touching */
+    padding: 25px 30px; /* Increase padding */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
 .problem-box {
-    background: var(--color-1-light);
+    background: linear-gradient(135deg, var(--color-1-light) 0%, rgba(255,255,255,0.9) 100%);
     border: 2px solid var(--accent-color);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 3px 10px rgba(231, 76, 60, 0.1);
+    border-left: 6px solid var(--accent-color);
 }
 
 .solution-box {
-    background: var(--color-3-light);
+    background: linear-gradient(135deg, var(--color-3-light) 0%, rgba(255,255,255,0.9) 100%);
     border: 2px solid var(--success-color);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+    border-left: 6px solid var(--success-color);
 }
 
 .warning-box {
@@ -1081,41 +1108,66 @@ body {
    ============================================ */
 
 .formula {
-    background: var(--primary-light);
-    padding: 18px 25px;
-    margin: 15px 0;
-    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.8) 100%);
+    padding: 25px 30px; /* Increased padding */
+    margin: 20px auto; /* Center with auto margins */
+    border-radius: 12px;
     font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-    border-left: 4px solid var(--primary-color);
-    font-size: 1.1em;
+    border: 2px solid var(--primary-color);
+    font-size: 1.2em; /* Increased font size */
     color: var(--text-primary);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    min-height: auto;
+    font-weight: 700;
+    letter-spacing: 1px;
+    max-width: 600px; /* Limit maximum width */
+    min-height: 60px; /* Ensure minimum height */
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1.4;
+    line-height: 1.5;
+    position: relative;
+    /* Add subtle animation */
+    transition: all 0.3s ease;
 }
 
+.formula:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
 /* Specific formula sizing based on content length */
+.formula::before {
+    content: '∵';
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 0.8em;
+    opacity: 0.5;
+    color: var(--primary-color);
+}
+
+/* Different formula sizes */
 .formula.short {
-    padding: 15px 20px;
-    font-size: 1.0em;
+    padding: 20px 25px;
+    font-size: 1.1em;
+    max-width: 400px;
+    min-height: 50px;
 }
 
 .formula.medium {
-    padding: 20px 30px;
-    font-size: 1.1em;
+    padding: 25px 30px;
+    font-size: 1.2em;
+    max-width: 500px;
+    min-height: 60px;
 }
 
 .formula.long {
-    padding: 25px 35px;
-    font-size: 0.95em;
-    line-height: 1.6;
+    padding: 30px 35px;
+    font-size: 1.0em;
+    line-height: 1.7;
     text-align: left;
+    max-width: 700px;
+    min-height: 80px;
 }
 
 /* Auto-adjust formula box based on content */
@@ -1199,7 +1251,10 @@ body {
 .example-table,
 .table-container table,
 table {
-    width: 100%;
+	overflow-x: auto;
+	margin: 30px auto; /* Center tables */
+    border-radius: 12px;
+    max-width: 95%;
     border-collapse: collapse;
     margin: 25px 0;
     background: var(--bg-white);
@@ -1238,13 +1293,17 @@ table tr:last-child td {
     border-bottom: none;
 }
 
-.table-container {
-    overflow-x: auto;
-    margin: 25px 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+.example-table,
+.table-container table,
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0; /* Remove margin since container handles it */
+    background: var(--bg-white);
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 600px; /* Ensure minimum width for readability */
 }
-
 /* ============================================
    STATISTICS AND METRICS - REFINED
    ============================================ */
