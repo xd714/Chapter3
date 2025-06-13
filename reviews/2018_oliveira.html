@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deregression Methods for Genomic Prediction in Dairy Cattle</title>
-        <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 <script>
 (function() {
@@ -30,7 +30,6 @@
             document.body.setAttribute('data-theme', 'auto-' + themeNumber);
             document.body.setAttribute('data-file', filename);
             
-            // FIXED: Added backslash before d to make d{4}
             const year = filename.match(/\d{4}/)?.[0] || pageTitle.match(/\d{4}/)?.[0] || '';
             if (year) {
                 document.body.setAttribute('data-year', year);
@@ -106,10 +105,11 @@
 </head>
 <body>
     <div class="container">
-                        <!-- TOP LEFT NAVIGATION -->
+        <!-- TOP LEFT NAVIGATION -->
         <div class="top-left-nav">
             <a href="../index.html"> Back to Index</a>
         </div>
+        
         <div class="header">
             <h1>Comparing Deregression Methods for Genomic Prediction of Test-Day Traits in Dairy Cattle</h1>
             <p>Optimizing Pseudophenotypes for Longitudinal Genomic Selection</p>
@@ -132,7 +132,7 @@
             <div class="section" id="section-1">
                 <div class="section-title">Paper Overview & Research Context</div>
                 
-                <div class="citation-box">
+                <div class="citation-box breathing-room">
                     <p><strong>Core Challenge:</strong> In dairy cattle genomic evaluation, when raw phenotypic data aren't available, estimated breeding values (EBVs) must be used as pseudophenotypes. However, using EBVs directly can cause double-counting of information and bias in genomic predictions.</p>
                     
                     <p><strong>Research Question:</strong> Which deregression method performs best for converting EBVs to unbiased pseudophenotypes in genomic prediction of test-day dairy traits?</p>
@@ -142,12 +142,12 @@
                 
                 <div class="section-title">Deregression Methods Comparison</div>
                 
-                <div class="method-comparison">
-            <div class="method-box method-1">
+                <div class="method-comparison breathing-room">
+                    <div class="method-box method-1">
                         <div class="method-title">VanRaden (VR) Method</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Standard deregression formula
-                            <div class="formula short"><div class="formula medium">dEBV<sub>ij</sub> = PA<sub>ij</sub> + (EBV<sub>ij</sub> - PA<sub>ij</sub>) / R<sub>i</sub></div></div>
+                            <div class="formula medium">dEBV<sub>ij</sub> = PA<sub>ij</sub> + (EBV<sub>ij</sub> - PA<sub>ij</sub>) / R<sub>i</sub></div>
                             <strong>Key Features:</strong><br>
                             • Uses reliability-based deregression factor<br>
                             • Separates parent average from own performance<br>
@@ -160,7 +160,7 @@
                     </div>
                     
                     <div class="method-box method-2">
-            <div class="method-title">Wiggans (WG) Method</div>
+                        <div class="method-title">Wiggans (WG) Method</div>
                         <div class="step-details">
                             <strong>Approach:</strong> VR method + cow adjustment
                             <div class="formula short">Adjust cow dEBVs to match bull distribution</div>
@@ -176,10 +176,10 @@
                     </div>
                     
                     <div class="method-box method-3">
-            <div class="method-title">Garrick (GR) Method</div>
+                        <div class="method-title">Garrick (GR) Method</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Mixed model equations approximation
-                            <div class="formula medium">Solves system: W'_PA W_PA + λk vs W'_IndPA W_IndPA + 2k</div>
+                            <div class="formula long">Solves system: W'<sub>PA</sub> W<sub>PA</sub> + λk vs W'<sub>IndPA</sub> W<sub>IndPA</sub> + 2k</div>
                             <strong>Key Features:</strong><br>
                             • More complex mathematical formulation<br>
                             • Accounts for information content directly<br>
@@ -194,11 +194,11 @@
                 
                 <div class="section-title">Experimental Design & Methodology</div>
                 
-                <div class="flow-container">
-            <div class="flow-step">
+                <div class="flow-container breathing-room">
+                    <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-            <div class="step-title">Data Source & Population Structure</div>
+                            <div class="step-title">Data Source & Population Structure</div>
                             <div class="step-details">
                                 Canadian Jersey cattle with official genetic evaluations for test-day traits
                                 <div class="step-specs">
@@ -212,15 +212,15 @@
                     </div>
                     
                     <div class="flow-step">
-            <div class="step-number">2</div>
+                        <div class="step-number">2</div>
                         <div class="step-content">
-            <div class="step-title">Reliability-Based Scenarios</div>
+                            <div class="step-title">Reliability-Based Scenarios</div>
                             <div class="step-details">
-                                Three scenarios based on minimum reliability thresholds (REL_EBV)
+                                Three scenarios based on minimum reliability thresholds (REL<sub>EBV</sub>)
                                 <div class="step-specs">
-                                    <strong>SCEN1:</strong> REL_EBV > average parent reliability in both populations<br>
-                                    <strong>SCEN2:</strong> REL_EBV > 0.50 in training, > average parent reliability in validation<br>
-                                    <strong>SCEN3:</strong> REL_EBV > 0.50 in both training and validation<br>
+                                    <strong>SCEN1:</strong> REL<sub>EBV</sub> > average parent reliability in both populations<br>
+                                    <strong>SCEN2:</strong> REL<sub>EBV</sub> > 0.50 in training, > average parent reliability in validation<br>
+                                    <strong>SCEN3:</strong> REL<sub>EBV</sub> > 0.50 in both training and validation<br>
                                     <strong>Purpose:</strong> Test effect of reliability thresholds on prediction accuracy
                                 </div>
                             </div>
@@ -228,9 +228,9 @@
                     </div>
                     
                     <div class="flow-step">
-            <div class="step-number">3</div>
+                        <div class="step-number">3</div>
                         <div class="step-content">
-            <div class="step-title">Genomic Prediction Implementation</div>
+                            <div class="step-title">Genomic Prediction Implementation</div>
                             <div class="step-details">
                                 GBLUP with random regression model using deregressed EBVs as pseudophenotypes
                                 <div class="step-specs">
@@ -244,28 +244,27 @@
                     </div>
                     
                     <div class="flow-step">
-            <div class="step-number">4</div>
+                        <div class="step-number">4</div>
                         <div class="step-content">
-            <div class="step-title">Evaluation Metrics</div>
+                            <div class="step-title">Evaluation Metrics</div>
                             <div class="step-details">
                                 Comprehensive assessment of prediction quality and bias
                                 <div class="step-specs">
-                                    <strong>Reliability:</strong> r²_dEBV, r²_DGV, adjusted r²_DGV<br>
-                                    <strong>Bias:</strong> Regression coefficient of dEBV on DGV (b_DGV)<br>
+                                    <strong>Reliability:</strong> r²<sub>dEBV</sub>, r²<sub>DGV</sub>, adjusted r²<sub>DGV</sub><br>
+                                    <strong>Bias:</strong> Regression coefficient of dEBV on DGV (b<sub>DGV</sub>)<br>
                                     <strong>Separate Analysis:</strong> Bulls vs. cows performance<br>
                                     <strong>Total Analyses:</strong> 18 per trait (3 methods × 3 scenarios × 2 weighting)
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 
                 <div class="section-title">Key Findings & Results</div>
                 
-                <div class="results-grid">
-            <div class="results-box">
-                        <div class="analysis-title">Method Performance Ranking</div>
+                <div class="results-grid breathing-room">
+                    <div class="results-box">
+                        <div class="results-title">Method Performance Ranking</div>
                         <div class="step-details">
                             <strong>Best Performers:</strong><br>
                             • VR and WG methods: Similar reliability and bias<br>
@@ -280,7 +279,7 @@
                     </div>
                     
                     <div class="results-box">
-            <div class="analysis-title">Practical Implications</div>
+                        <div class="results-title">Practical Implications</div>
                         <div class="step-details">
                             <strong>Reliability Thresholds:</strong><br>
                             • SCEN3 (0.50 minimum): Highest raw reliability<br>
@@ -288,7 +287,7 @@
                             • Balance between accuracy and population size<br><br>
                             
                             <strong>Weighting Benefits:</strong><br>
-                            • Only helpful when large REL_EBV differences exist<br>
+                            • Only helpful when large REL<sub>EBV</sub> differences exist<br>
                             • Most beneficial for protein yield and SCS<br>
                             • Generally unnecessary for VR/WG methods
                         </div>
@@ -297,10 +296,10 @@
                 
                 <div class="section-title">Why, How, What Analysis</div>
                 
-                <div class="analysis-grid">
-            <div class="analysis-card why-card">
+                <div class="analysis-grid breathing-room">
+                    <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Biological & Statistical Challenge</div>
-                        <div class="step-details">
+                        <div class="analysis-content">
                             <strong>Deregression Necessity:</strong><br>
                             • EBVs contain parent average information<br>
                             • Using raw EBVs causes double-counting<br>
@@ -314,8 +313,8 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-            <div class="analysis-title">HOW - Methodological Approach</div>
-                        <div class="step-details">
+                        <div class="analysis-title">HOW - Methodological Approach</div>
+                        <div class="analysis-content">
                             <strong>Deregression Process:</strong><br>
                             • Remove parent average contribution from EBV<br>
                             • Weight by reliability to avoid over-correction<br>
@@ -329,8 +328,8 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-            <div class="analysis-title">WHAT - Practical Recommendations</div>
-                        <div class="step-details">
+                        <div class="analysis-title">WHAT - Practical Recommendations</div>
+                        <div class="analysis-content">
                             <strong>Best Practice:</strong><br>
                             • <span class="highlight">Use VR or WG methods</span><br>
                             • SCEN2 reliability threshold optimal<br>
@@ -346,28 +345,28 @@
                 
                 <div class="section-title">Technical Implementation Details</div>
                 
-                <div class="flow-container">
-            <div class="flow-step">
+                <div class="flow-container breathing-room">
+                    <div class="flow-step">
                         <div class="step-number">A</div>
                         <div class="step-content">
-            <div class="step-title">Cow Bias Adjustment (WG Method)</div>
+                            <div class="step-title">Cow Bias Adjustment (WG Method)</div>
                             <div class="step-details">
                                 Addresses preferential treatment of genotyped cows in Jersey population:
-                                <div class="formula short"><div class="formula medium">PA<sub>adj</sub> = PA<sub>sire</sub> + [VA × (PA<sub>dam</sub> - MA)]</div></div>
-                                <div class="formula short" data-multiline="true">dEBV_adj,cows = VA × (dEBV - MA) + PA_adj</div>
+                                <div class="formula medium">PA<sub>adj</sub> = PA<sub>sire</sub> + [VA × (PA<sub>dam</sub> - MA)]</div>
+                                <div class="formula medium" data-multiline="true">dEBV<sub>adj,cows</sub> = VA × (dEBV - MA) + PA<sub>adj</sub></div>
                                 This adjustment makes cow evaluations comparable to bull evaluations.
                             </div>
                         </div>
                     </div>
                     
                     <div class="flow-step">
-            <div class="step-number">B</div>
+                        <div class="step-number">B</div>
                         <div class="step-content">
-            <div class="step-title">Reliability-Based Population Selection</div>
+                            <div class="step-title">Reliability-Based Population Selection</div>
                             <div class="step-details">
                                 Strategic thresholds balance accuracy and population size:
                                 <div class="step-specs">
-                                    <strong>Average REL_PA:</strong> 0.35 (MY), 0.35 (FY), 0.34 (PY), 0.31 (SCS)<br>
+                                    <strong>Average REL<sub>PA</sub>:</strong> 0.35 (MY), 0.35 (FY), 0.34 (PY), 0.31 (SCS)<br>
                                     <strong>Population Impact:</strong> SCEN2/3 had 20-55% fewer animals than SCEN1<br>
                                     <strong>Cow Proportion:</strong> ~40% except SCS (17% in SCEN2/3)
                                 </div>
@@ -378,15 +377,18 @@
                 
                 <div class="section-title">Implications for Dairy Breeding</div>
                 
-                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60;">
-                    <p><strong>Immediate Impact:</strong> Provides clear guidance for implementing genomic prediction in dairy breeding programs using test-day evaluations, particularly important for breeds with smaller populations that include cow records.</p>
-                    
-                    <p><strong>Methodological Significance:</strong> Demonstrates that established deregression methods developed for accumulated traits work well for longitudinal traits, with VR and WG methods providing nearly equivalent performance.</p>
-                    
-                    <p><strong>Future Applications:</strong> The finding that weighting is generally unnecessary simplifies implementation in breeding programs, while the cow adjustment method (WG) provides a solution for addressing preferential treatment bias in female evaluations.</p>
+                <div class="significance-box breathing-room">
+                    <div class="significance-title">Implications for Dairy Breeding</div>
+                    <div class="significance-content">
+                        <p><strong>Immediate Impact:</strong> Provides clear guidance for implementing genomic prediction in dairy breeding programs using test-day evaluations, particularly important for breeds with smaller populations that include cow records.</p>
+                        
+                        <p><strong>Methodological Significance:</strong> Demonstrates that established deregression methods developed for accumulated traits work well for longitudinal traits, with VR and WG methods providing nearly equivalent performance.</p>
+                        
+                        <p><strong>Future Applications:</strong> The finding that weighting is generally unnecessary simplifies implementation in breeding programs, while the cow adjustment method (WG) provides a solution for addressing preferential treatment bias in female evaluations.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
-</body></html>
+</body>
+</html>
