@@ -579,9 +579,9 @@ body {
    ============================================ */
 
 .content {
-    padding: 40px 40px; /* Increased from 30px to 40px */
+    padding: 40px 60px; /* Increased from 40px to 60px */
     max-width: 100%;
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow-x: hidden;
 }
 
 .section {
@@ -613,6 +613,7 @@ body {
    ============================================ */
 
 /* 11. ADD BREATHING ROOM CLASS */
+/* 11. ADD BREATHING ROOM CLASS - ENHANCED */
 .breathing-room {
     margin: 0 auto;
     max-width: 95%;
@@ -624,7 +625,12 @@ body {
 .model-comparison,
 .method-comparison,
 .comparison-grid,
-.results-grid {
+.results-grid,
+.citation-box,
+.problem-box,
+.solution-box,
+.analysis-grid,
+.section {
     margin: 30px auto;
     max-width: 95%;
     padding: 0 15px;
