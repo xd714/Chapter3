@@ -1112,81 +1112,39 @@ body {
 /* ============================================
    IMPROVED EQUATION AND FORMULA BOXES
    ============================================ */
+/* Replace the entire formula section in your style.css with this simplified version */
+
+/* ============================================
+   IMPROVED EQUATION AND FORMULA BOXES - FIXED
+   ============================================ */
 
 .formula {
     background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.8) 100%);
-    padding: 20px 25px;
-    margin: 20px auto;
-    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 15px auto;
+    border-radius: 8px;
     font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
     border: 2px solid var(--primary-color);
-    font-size: 1.1em;
+    font-size: 1.0em;
     color: var(--text-primary);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     text-align: center;
     font-weight: 600;
     letter-spacing: 0.5px;
+    display: block;
     width: fit-content;
     max-width: 90%;
-    min-width: 300px;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.4;
+    min-width: 250px;
+    line-height: 1.3;
     position: relative;
     transition: all 0.3s ease;
-    white-space: nowrap;
     overflow-x: auto;
+    white-space: nowrap;
 }
 
 .formula:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-/* Specific formula sizing based on content length */
-.formula::before {
-    content: '∵';
-    position: absolute;
-    top: 8px;
-    left: 12px;
-    font-size: 0.8em;
-    opacity: 0.5;
-    color: var(--primary-color);
-}
-
-/* Different formula sizes */
-.formula.short {
-    padding: 15px 20px;
-    font-size: 1.0em;
-    min-width: 250px;
-    max-width: 400px;
-}
-
-.formula.medium {
-    padding: 18px 25px;
-    font-size: 1.1em;
-    min-width: 350px;
-    max-width: 700px;
-}
-
-.formula.long {
-    padding: 20px 30px;
-    font-size: 0.95em;
-    line-height: 1.5;
-    text-align: left;
-    min-width: 400px;
-    max-width: 900px;
-    white-space: normal;
-    word-wrap: break-word;
-}
-
-/* Auto-adjust formula box based on content */
-.formula:has(br),
-.formula[data-multiline="true"] {
-    text-align: left;
-    line-height: 1.6;
-    padding: 25px 30px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
 .formula sub,
@@ -1202,6 +1160,23 @@ body {
 
 .formula sup {
     top: -0.5em;
+}
+
+.matrix-visual {
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px auto;
+    text-align: center;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    font-size: 1.05em;
+    line-height: 1.5;
+    max-width: 90%;
+    width: fit-content;
 }
 
 
@@ -1428,29 +1403,16 @@ ul li::marker {
     body {
         padding: 10px;
     }
+    
     .formula {
         font-size: 0.9em;
-        padding: 15px 20px;
-        min-width: 280px;
+        padding: 12px 15px;
+        min-width: 200px;
         max-width: 95%;
         white-space: normal;
         word-wrap: break-word;
-    }
-    
-    .formula.short {
-        min-width: 250px;
-        font-size: 0.85em;
-    }
-    
-    .formula.medium {
-        min-width: 280px;
-        font-size: 0.9em;
-    }
-    
-    .formula.long {
-        min-width: 300px;
-        font-size: 0.85em;
-    }    
+    } 
+           
     .container {
         border-radius: 8px;
     }
@@ -1519,10 +1481,6 @@ ul li::marker {
         font-size: 2em;
     }
     
-    .formula {
-        font-size: 0.95em;
-        padding: 15px 20px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1549,8 +1507,9 @@ ul li::marker {
     }
     
     .formula {
-        font-size: 0.9em;
-        padding: 12px 18px;
+        font-size: 0.85em;
+        padding: 10px 12px;
+        min-width: 180px;
     }
 }
 
