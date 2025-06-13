@@ -1,11 +1,11 @@
 /* ============================================
    UNIFIED ACADEMIC PAPERS STYLESHEET
-   WITH AUTO-GENERATED COLOR THEMES
+   WITH FULLY AUTOMATIC COLOR THEMES
    ============================================ */
 
 /* Base Color Palette for Auto-Generation */
 :root {
-    /* Color wheel based on golden ratio for pleasing combinations */
+    /* 20 distinct colors for automatic cycling */
     --color-1: #e74c3c;   /* Red */
     --color-2: #3498db;   /* Blue */
     --color-3: #27ae60;   /* Green */
@@ -49,9 +49,32 @@
     --color-19-dark: #512da8;
     --color-20-dark: #00796b;
     
-    /* Default theme (fallback) */
+    /* Lighter variants for subtle backgrounds */
+    --color-1-light: #fadbd8;
+    --color-2-light: #d6eaf8;
+    --color-3-light: #d5f4e6;
+    --color-4-light: #fdeaa7;
+    --color-5-light: #e8d5f2;
+    --color-6-light: #d0f0ed;
+    --color-7-light: #fadcc9;
+    --color-8-light: #d1f2df;
+    --color-9-light: #e4d1f0;
+    --color-10-light: #d5dbdb;
+    --color-11-light: #fcf3cf;
+    --color-12-light: #fad7e4;
+    --color-13-light: #b2ebf2;
+    --color-14-light: #ffccbc;
+    --color-15-light: #cfd8dc;
+    --color-16-light: #d7ccc8;
+    --color-17-light: #ffe0b2;
+    --color-18-light: #c8e6c9;
+    --color-19-light: #d1c4e9;
+    --color-20-light: #b2dfdb;
+    
+    /* Default theme (fallback) - will be overridden by JavaScript */
     --primary-color: var(--color-2);
     --primary-hover: var(--color-2-dark);
+    --primary-light: var(--color-2-light);
     --secondary-color: #2c3e50;
     --accent-color: var(--color-1);
     --success-color: var(--color-3);
@@ -80,190 +103,150 @@
 }
 
 /* ============================================
-   AUTO-GENERATED THEMES BASED ON FILENAME HASH
-   Each theme uses a different color from our palette
+   AUTOMATIC THEME GENERATION
+   CSS Custom Properties will be set by JavaScript
    ============================================ */
 
-/* Theme auto-generation based on document title or filename hash */
-[data-theme="auto-1"], 
-body[data-file*="1991"], body[data-file*="vanraden"], body[data-year="1991"] {
+/* Auto-theme classes that will be applied by JavaScript */
+[data-theme="auto-1"] {
     --primary-color: var(--color-1);
     --primary-hover: var(--color-1-dark);
+    --primary-light: var(--color-1-light);
     --accent-color: var(--color-2);
 }
 
-[data-theme="auto-2"], 
-body[data-file*="2006"], body[data-file*="bevova"], body[data-year="2006"] {
+[data-theme="auto-2"] {
     --primary-color: var(--color-2);
     --primary-hover: var(--color-2-dark);
+    --primary-light: var(--color-2-light);
     --accent-color: var(--color-3);
 }
 
-[data-theme="auto-3"], 
-body[data-file*="2008"], body[data-year="2008"] {
+[data-theme="auto-3"] {
     --primary-color: var(--color-3);
     --primary-hover: var(--color-3-dark);
+    --primary-light: var(--color-3-light);
     --accent-color: var(--color-4);
 }
 
-[data-theme="auto-4"], 
-body[data-file*="2009"], body[data-file*="chen"], body[data-year="2009"]:first-of-type {
+[data-theme="auto-4"] {
     --primary-color: var(--color-4);
     --primary-hover: var(--color-4-dark);
+    --primary-light: var(--color-4-light);
     --accent-color: var(--color-5);
 }
 
-[data-theme="auto-5"], 
-body[data-file*="garrick"], body[data-year="2009"]:nth-of-type(2) {
+[data-theme="auto-5"] {
     --primary-color: var(--color-5);
     --primary-hover: var(--color-5-dark);
+    --primary-light: var(--color-5-light);
     --accent-color: var(--color-6);
 }
 
-[data-theme="auto-6"], 
-body[data-file*="2017"], body[data-file*="xue"], body[data-year="2017"] {
+[data-theme="auto-6"] {
     --primary-color: var(--color-6);
     --primary-hover: var(--color-6-dark);
+    --primary-light: var(--color-6-light);
     --accent-color: var(--color-7);
 }
 
-[data-theme="auto-7"], 
-body[data-file*="2018"], body[data-file*="marees"], body[data-year="2018"]:first-of-type {
+[data-theme="auto-7"] {
     --primary-color: var(--color-7);
     --primary-hover: var(--color-7-dark);
+    --primary-light: var(--color-7-light);
     --accent-color: var(--color-8);
 }
 
-[data-theme="auto-8"], 
-body[data-file*="oliveira"], body[data-year="2018"]:nth-of-type(2) {
+[data-theme="auto-8"] {
     --primary-color: var(--color-8);
     --primary-hover: var(--color-8-dark);
+    --primary-light: var(--color-8-light);
     --accent-color: var(--color-9);
 }
 
-[data-theme="auto-9"], 
-body[data-file*="2019"], body[data-file*="stephan"], body[data-year="2019"] {
+[data-theme="auto-9"] {
     --primary-color: var(--color-9);
     --primary-hover: var(--color-9-dark);
+    --primary-light: var(--color-9-light);
     --accent-color: var(--color-10);
 }
 
-[data-theme="auto-10"], 
-body[data-file*="2022"], body[data-file*="palma"], body[data-year="2022"] {
+[data-theme="auto-10"] {
     --primary-color: var(--color-10);
     --primary-hover: var(--color-10-dark);
+    --primary-light: var(--color-10-light);
     --accent-color: var(--color-11);
 }
 
-[data-theme="auto-11"], 
-body[data-file*="2025"], body[data-file*="musa"], body[data-year="2025"]:first-of-type {
+[data-theme="auto-11"] {
     --primary-color: var(--color-11);
     --primary-hover: var(--color-11-dark);
+    --primary-light: var(--color-11-light);
     --accent-color: var(--color-12);
 }
 
-[data-theme="auto-12"], 
-body[data-file*="niehoff"], body[data-year="2025"]:nth-of-type(2) {
+[data-theme="auto-12"] {
     --primary-color: var(--color-12);
     --primary-hover: var(--color-12-dark);
+    --primary-light: var(--color-12-light);
     --accent-color: var(--color-13);
 }
 
-[data-theme="auto-13"], 
-body[data-file*="rochus"], body[data-year="2025"]:nth-of-type(3) {
+[data-theme="auto-13"] {
     --primary-color: var(--color-13);
     --primary-hover: var(--color-13-dark);
+    --primary-light: var(--color-13-light);
     --accent-color: var(--color-14);
 }
 
-/* Future papers will cycle through remaining colors */
-[data-theme="auto-14"], body[data-file*="2026"]:nth-of-type(1) {
+[data-theme="auto-14"] {
     --primary-color: var(--color-14);
     --primary-hover: var(--color-14-dark);
+    --primary-light: var(--color-14-light);
     --accent-color: var(--color-15);
 }
 
-[data-theme="auto-15"], body[data-file*="2026"]:nth-of-type(2) {
+[data-theme="auto-15"] {
     --primary-color: var(--color-15);
     --primary-hover: var(--color-15-dark);
+    --primary-light: var(--color-15-light);
     --accent-color: var(--color-16);
 }
 
-[data-theme="auto-16"], body[data-file*="2026"]:nth-of-type(3) {
+[data-theme="auto-16"] {
     --primary-color: var(--color-16);
     --primary-hover: var(--color-16-dark);
+    --primary-light: var(--color-16-light);
     --accent-color: var(--color-17);
 }
 
-[data-theme="auto-17"], body[data-file*="2027"]:nth-of-type(1) {
+[data-theme="auto-17"] {
     --primary-color: var(--color-17);
     --primary-hover: var(--color-17-dark);
+    --primary-light: var(--color-17-light);
     --accent-color: var(--color-18);
 }
 
-[data-theme="auto-18"], body[data-file*="2027"]:nth-of-type(2) {
+[data-theme="auto-18"] {
     --primary-color: var(--color-18);
     --primary-hover: var(--color-18-dark);
+    --primary-light: var(--color-18-light);
     --accent-color: var(--color-19);
 }
 
-[data-theme="auto-19"], body[data-file*="2027"]:nth-of-type(3) {
+[data-theme="auto-19"] {
     --primary-color: var(--color-19);
     --primary-hover: var(--color-19-dark);
+    --primary-light: var(--color-19-light);
     --accent-color: var(--color-20);
 }
 
-[data-theme="auto-20"], body[data-file*="2028"] {
+[data-theme="auto-20"] {
     --primary-color: var(--color-20);
     --primary-hover: var(--color-20-dark);
+    --primary-light: var(--color-20-light);
     --accent-color: var(--color-1);
 }
-
-/* Cycle back to start for papers beyond 20 */
-body[data-file*="2029"] {
-    --primary-color: var(--color-1);
-    --primary-hover: var(--color-1-dark);
-    --accent-color: var(--color-2);
-}
-
-/* ============================================
-   JAVASCRIPT-BASED AUTO-THEME GENERATION
-   Include this script in your HTML head to automatically assign themes
-   ============================================ */
-
-/* 
-Add this script to each HTML file's <head> section:
-
-<script>
-(function() {
-    // Auto-generate theme based on filename
-    const filename = window.location.pathname.split('/').pop().replace('.html', '');
-    const year = filename.match(/\d{4}/)?.[0] || '';
-    const author = filename.replace(/\d{4}_?/, '').replace('.html', '');
-    
-    // Simple hash function to generate consistent theme number
-    function simpleHash(str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash; // Convert to 32-bit integer
-        }
-        return Math.abs(hash) % 20 + 1; // Return 1-20
-    }
-    
-    // Generate theme based on filename
-    const themeNumber = simpleHash(filename);
-    
-    // Apply theme to body
-    document.body.setAttribute('data-theme', 'auto-' + themeNumber);
-    document.body.setAttribute('data-file', filename);
-    if (year) document.body.setAttribute('data-year', year);
-    
-    console.log('Auto-generated theme:', 'auto-' + themeNumber, 'for file:', filename);
-})();
-</script>
-*/
 
 /* ============================================
    BASE STYLES
@@ -274,11 +257,12 @@ Add this script to each HTML file's <head> section:
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
     background: var(--bg-main);
     line-height: 1.6;
+    color: var(--text-primary);
 }
 
 /* ============================================
@@ -289,13 +273,14 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     background: var(--bg-white);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
     overflow: hidden;
+    position: relative;
 }
 
 /* ============================================
-   NAVIGATION
+   NAVIGATION - REFINED
    ============================================ */
 
 .top-left-nav {
@@ -306,24 +291,36 @@ body {
 }
 
 .top-left-nav a {
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.95);
     text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 8px 15px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 20px;
-    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 18px;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .top-left-nav a:hover {
     background: rgba(0,0,0,0.4);
     color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.top-left-nav a::before {
+    content: '←';
+    font-size: 16px;
+    font-weight: bold;
 }
 
 /* ============================================
-   BACK TO TOP BUTTON (Auto-themed)
+   BACK TO TOP BUTTON - THEME AWARE & REFINED
    ============================================ */
 
 .back-to-top {
@@ -332,131 +329,234 @@ body {
     right: 30px;
     background: var(--primary-color);
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
+    transform: translateY(20px) scale(0.8);
     border: none;
+    backdrop-filter: blur(10px);
 }
 
 .back-to-top.visible {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 .back-to-top:hover {
     background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.back-to-top:active {
+    transform: translateY(-1px) scale(0.95);
 }
 
 .back-to-top::before {
     content: '↑';
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
+    line-height: 1;
+}
+
+/* Add pulse animation for better visibility */
+.back-to-top.visible {
+    animation: pulseIn 0.6s ease-out;
+}
+
+@keyframes pulseIn {
+    0% {
+        transform: translateY(20px) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-5px) scale(1.1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 /* ============================================
-   HEADER STYLES
+   HEADER STYLES - REFINED
    ============================================ */
-/* Header info box */
+
+.header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+    pointer-events: none;
+}
+
+.header h1 {
+    margin: 0 0 15px 0;
+    font-size: 2.2em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.header p {
+    margin: 0;
+    opacity: 0.95;
+    font-size: 1.1em;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header info box - REFINED */
 .header-info {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.header-info p {
+    margin: 0 0 8px 0;
+    font-size: 0.95em;
+}
+
+.header-info .text-small {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.header-info .text-top {
+    margin-top: 8px;
+}
+
+.header-info .text-top-large {
     margin-top: 15px;
-    padding: 10px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 5px;
 }
 
-.citation-box {
-    background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-color);
-    margin-bottom: 30px;
+/* Paper link - REFINED */
+.paper-link {
+    color: rgba(255,255,255,0.95) !important;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 8px 16px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
-.legacy-box {
-    background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid var(--success-color);
-    margin-bottom: 20px;
+.paper-link:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+.paper-link::before {
+    content: '🔗';
+    font-size: 14px;
+}
+
+/* Additional text utility classes */
 .text-small { margin: 0; font-size: 0.9em; }
 .text-top { margin: 5px 0 0 0; }
 .text-top-large { margin: 10px 0 0 0; }
 .list-top { margin-top: 10px; }
 .list-small { margin: 5px 0; font-size: 0.9em; }
 
-.paper-link {
-    color: #74b9ff;
-    text-decoration: none;
-    font-weight: bold;
-    border: 1px solid #74b9ff;
-    padding: 5px 10px;
-    border-radius: 3px;
-    display: inline-block;
-}
-/* Citation box */
+/* ============================================
+   CITATION AND INFORMATION BOXES - REFINED
+   ============================================ */
+
 .citation-box {
-    background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-color);
+    background: var(--primary-light);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid var(--primary-color);
     margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* Legacy box */
-.legacy-box {
-    background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid var(--success-color);
-    margin-bottom: 20px;
+.citation-box p:first-child {
+    font-weight: 600;
+    color: var(--primary-hover);
+    margin-bottom: 15px;
 }
 
-/* Small text */
-.text-small {
-    margin: 0;
-    font-size: 0.9em;
-}
-
-/* Top margin list */
-.list-top {
-    margin-top: 10px;
-}
-
-/* Small list */
-.list-small {
-    margin: 5px 0;
-    font-size: 0.9em;
-}
-.header {
-    background: var(--secondary-color);
+.innovation-box {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
-    padding: 20px;
-    text-align: center;
+    padding: 25px;
+    border-radius: 12px;
+    margin: 25px 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
 }
 
-.header h1 {
+.innovation-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+    pointer-events: none;
+}
+
+.innovation-title {
+    font-weight: 700;
+    font-size: 1.25em;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.innovation-box p {
+    position: relative;
+    z-index: 1;
     margin: 0;
-    font-size: 1.8em;
+    line-height: 1.6;
 }
 
-.header p {
-    margin: 10px 0 0 0;
-    opacity: 0.9;
+.legacy-box {
+    background: var(--primary-light);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid var(--success-color);
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* ============================================
@@ -464,79 +564,100 @@ body {
    ============================================ */
 
 .content {
-    padding: 30px;
+    padding: 40px 30px;
 }
 
 .section {
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 }
 
 .section-title {
-    font-size: 1.4em;
-    font-weight: bold;
+    font-size: 1.5em;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 5px;
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent-color);
 }
 
 /* ============================================
-   FLOW DIAGRAMS
+   FLOW DIAGRAMS - REFINED
    ============================================ */
 
 .flow-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin: 20px 0;
+    gap: 20px;
+    margin: 25px 0;
 }
 
 .flow-step {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    align-items: flex-start;
+    gap: 25px;
+    margin-bottom: 25px;
 }
 
 .step-number {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1.1em;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .step-content {
     flex: 1;
     background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
+    padding: 25px;
+    border-radius: 10px;
     border-left: 4px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+}
+
+.step-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
 }
 
 .step-title {
-    font-weight: bold;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 10px;
-    font-size: 1.1em;
+    margin-bottom: 12px;
+    font-size: 1.15em;
 }
 
 .step-details {
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .step-specs {
-    background: var(--bg-specs);
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
+    background: var(--primary-light);
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    border-left: 3px solid var(--primary-color);
 }
 
 /* ============================================
@@ -548,23 +669,23 @@ body {
 .comparison-grid,
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin: 25px 0;
 }
 
 .analysis-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
     margin-top: 30px;
 }
 
 .theme-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin: 25px 0;
+    gap: 30px;
+    margin: 30px 0;
 }
 
 .concept-grid,
@@ -573,34 +694,34 @@ body {
 .qc-grid,
 .species-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
 }
 
 .equation-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin: 20px 0;
+    gap: 25px;
+    margin: 25px 0;
 }
 
 .coverage-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 25px 0;
 }
 
 .mouse-lines {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
 }
 
 /* ============================================
-   CARD COMPONENTS
+   CARD COMPONENTS - REFINED
    ============================================ */
 
 .model-box,
@@ -615,10 +736,28 @@ body {
 .qc-card,
 .species-card,
 .analysis-card {
-    background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
+    background: var(--bg-white);
+    padding: 25px;
+    border-radius: 10px;
     border: 2px solid var(--border-light);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.model-box:hover,
+.method-box:hover,
+.comparison-box:hover,
+.results-box:hover,
+.analysis-box:hover,
+.theme-box:hover,
+.concept-card:hover,
+.method-card:hover,
+.software-card:hover,
+.qc-card:hover,
+.species-card:hover,
+.analysis-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
 .model-title,
@@ -631,68 +770,133 @@ body {
 .software-name,
 .qc-title,
 .species-title {
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1.15em;
     color: var(--text-primary);
 }
 
-/* Color variants for different types */
+/* Color variants for different types - REFINED */
 .model-1,
-.method-1 { border-color: var(--accent-color); }
+.method-1 { 
+    border-color: var(--accent-color);
+    border-left: 5px solid var(--accent-color);
+}
 .model-1 .model-title,
 .method-1 .method-title { color: var(--accent-color); }
 
 .model-2,
-.method-2 { border-color: var(--success-color); }
+.method-2 { 
+    border-color: var(--success-color);
+    border-left: 5px solid var(--success-color);
+}
 .model-2 .model-title,
 .method-2 .method-title { color: var(--success-color); }
 
 .model-3,
-.method-3 { border-color: var(--warning-color); }
+.method-3 { 
+    border-color: var(--warning-color);
+    border-left: 5px solid var(--warning-color);
+}
 .model-3 .model-title,
 .method-3 .method-title { color: var(--warning-color); }
 
-.hard-sweep { border-color: var(--accent-color); }
+.hard-sweep { 
+    border-color: var(--accent-color);
+    border-left: 5px solid var(--accent-color);
+}
 .hard-sweep .model-title { color: var(--accent-color); }
 
-.soft-sweep { border-color: var(--success-color); }
+.soft-sweep { 
+    border-color: var(--success-color);
+    border-left: 5px solid var(--success-color);
+}
 .soft-sweep .model-title { color: var(--success-color); }
 
-.census-box { border-color: var(--accent-color); }
+.census-box { 
+    border-color: var(--accent-color);
+    border-left: 5px solid var(--accent-color);
+}
 .census-box .comparison-title { color: var(--accent-color); }
 
-.dna-box { border-color: var(--success-color); }
+.dna-box { 
+    border-color: var(--success-color);
+    border-left: 5px solid var(--success-color);
+}
 .dna-box .comparison-title { color: var(--success-color); }
 
-.gwas-box { border-color: var(--primary-color); }
+.gwas-box { 
+    border-color: var(--primary-color);
+    border-left: 5px solid var(--primary-color);
+}
 .gwas-box .analysis-title { color: var(--primary-color); }
 
-.prs-box { border-color: var(--success-color); }
+.prs-box { 
+    border-color: var(--success-color);
+    border-left: 5px solid var(--success-color);
+}
 .prs-box .analysis-title { color: var(--success-color); }
 
-/* Analysis card variants */
+/* Analysis card variants - REFINED */
 .analysis-card {
-    border-top: 4px solid var(--primary-color);
+    border-top: 5px solid var(--primary-color);
+    position: relative;
+}
+
+.analysis-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
 }
 
 .why-card { border-top-color: var(--accent-color); }
-.how-card { border-top-color: var(--primary-color); }
-.what-card { border-top-color: var(--success-color); }
-.theory-card { border-top-color: var(--accent-color); }
-.detection-card { border-top-color: var(--primary-color); }
-.evolution-card { border-top-color: var(--success-color); }
+.why-card::before { background: linear-gradient(90deg, var(--accent-color) 0%, var(--color-1-dark) 100%); }
 
-/* Theme box variants */
+.how-card { border-top-color: var(--primary-color); }
+.how-card::before { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); }
+
+.what-card { border-top-color: var(--success-color); }
+.what-card::before { background: linear-gradient(90deg, var(--success-color) 0%, var(--color-3-dark) 100%); }
+
+.theory-card { border-top-color: var(--accent-color); }
+.theory-card::before { background: linear-gradient(90deg, var(--accent-color) 0%, var(--color-1-dark) 100%); }
+
+.detection-card { border-top-color: var(--primary-color); }
+.detection-card::before { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); }
+
+.evolution-card { border-top-color: var(--success-color); }
+.evolution-card::before { background: linear-gradient(90deg, var(--success-color) 0%, var(--color-3-dark) 100%); }
+
+/* Theme box variants - REFINED */
 .theme-box {
     border-left: 5px solid var(--primary-color);
+    background: var(--primary-light);
 }
 
-.theme-box.historical { border-left-color: var(--purple-color); }
-.theme-box.methodological { border-left-color: var(--accent-color); }
-.theme-box.phenotypic { border-left-color: var(--warning-color); }
-.theme-box.genetic { border-left-color: var(--success-color); }
-.theme-box.comparative { border-left-color: var(--secondary-color); }
+.theme-box.historical { 
+    border-left-color: var(--purple-color);
+    background: var(--color-5-light);
+}
+.theme-box.methodological { 
+    border-left-color: var(--accent-color);
+    background: var(--color-1-light);
+}
+.theme-box.phenotypic { 
+    border-left-color: var(--warning-color);
+    background: var(--color-4-light);
+}
+.theme-box.genetic { 
+    border-left-color: var(--success-color);
+    background: var(--color-3-light);
+}
+.theme-box.comparative { 
+    border-left-color: var(--secondary-color);
+    background: var(--color-10-light);
+}
 
 .historical .theme-title { color: var(--purple-color); }
 .methodological .theme-title { color: var(--accent-color); }
@@ -700,144 +904,169 @@ body {
 .genetic .theme-title { color: var(--success-color); }
 .comparative .theme-title { color: var(--secondary-color); }
 
-/* Mouse line variants */
+/* Mouse line variants - REFINED */
 .line-card {
     background: var(--bg-white);
-    border: 2px solid var(--border-light);
-    border-radius: 8px;
-    padding: 15px;
+    border: 3px solid var(--border-light);
+    border-radius: 10px;
+    padding: 20px;
     text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.line-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.line-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
 .line-card h4 {
     margin: 0 0 10px 0;
     color: var(--text-primary);
+    font-weight: 700;
 }
 
 .fertility { border-color: #e91e63; }
+.fertility::before { background: #e91e63; }
+
 .body-mass { border-color: var(--warning-color); }
+.body-mass::before { background: var(--warning-color); }
+
 .endurance { border-color: var(--success-color); }
+.endurance::before { background: var(--success-color); }
+
 .control { border-color: #9e9e9e; }
+.control::before { background: #9e9e9e; }
 
 /* ============================================
-   SPECIAL BOXES AND HIGHLIGHTS
+   SPECIAL BOXES AND HIGHLIGHTS - REFINED
    ============================================ */
 
-.innovation-box {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px 0;
-}
-
-.innovation-title {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
 .results-box {
-    background: #e8f5e8;
-    border: 1px solid var(--success-color);
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
+    background: var(--color-3-light);
+    border: 2px solid var(--success-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 25px 0;
+    box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
 .results-title {
     color: var(--success-color);
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 1.2em;
 }
 
 .experiment-details {
-    background: #e8f5e8;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 0;
+    background: var(--color-3-light);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid var(--success-color);
 }
 
 .problem-box {
-    background: #fff5f5;
+    background: var(--color-1-light);
     border: 2px solid var(--accent-color);
-    border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 3px 10px rgba(231, 76, 60, 0.1);
 }
 
 .solution-box {
-    background: #f0fff4;
+    background: var(--color-3-light);
     border: 2px solid var(--success-color);
-    border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
 .warning-box {
-    background: #ffeaa7;
-    border: 1px solid #fdcb6e;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 15px 0;
+    background: var(--color-4-light);
+    border: 2px solid var(--warning-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
 }
 
 .best-practices {
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 15px 0;
+    background: var(--color-3-light);
+    border: 2px solid var(--success-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
 .gap-analysis {
-    background: var(--bg-highlight);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 5px solid var(--warning-color);
-    margin: 25px 0;
+    background: var(--color-4-light);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 6px solid var(--warning-color);
+    margin: 30px 0;
+    box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
 }
 
 .gap-title {
-    font-weight: bold;
-    color: #856404;
+    font-weight: 700;
+    color: var(--warning-color);
     margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .gap-content {
-    color: #664d03;
-    line-height: 1.5;
+    color: var(--text-primary);
+    line-height: 1.6;
 }
 
 .significance-box {
-    background: #d1ecf1;
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 5px solid var(--info-color);
-    margin: 25px 0;
+    background: var(--color-2-light);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 6px solid var(--info-color);
+    margin: 30px 0;
+    box-shadow: 0 3px 10px rgba(23, 162, 184, 0.1);
 }
 
 .significance-title {
-    font-weight: bold;
-    color: #0c5460;
+    font-weight: 700;
+    color: var(--info-color);
     margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .significance-content {
-    color: #0c5460;
-    line-height: 1.5;
+    color: var(--text-primary);
+    line-height: 1.6;
 }
 
 .highlight {
-    background: var(--bg-highlight);
-    padding: 2px 4px;
-    border-radius: 3px;
+    background: linear-gradient(120deg, var(--primary-light) 0%, var(--primary-color) 100%);
+    color: var(--primary-hover);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* ============================================
-   TABLES
+   TABLES - REFINED
    ============================================ */
 
 .example-table,
@@ -845,138 +1074,180 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 25px 0;
     background: var(--bg-white);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .example-table th,
 .example-table td,
 table th,
 table td {
-    padding: 12px;
+    padding: 15px;
     text-align: left;
     border-bottom: 1px solid var(--border-light);
 }
 
 .example-table th,
 table th {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
-    font-weight: bold;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
 }
 
 .example-table tr:hover,
 table tr:hover {
-    background: var(--bg-light);
+    background: var(--primary-light);
+    transition: background-color 0.2s ease;
+}
+
+.example-table tr:last-child td,
+table tr:last-child td {
+    border-bottom: none;
 }
 
 .table-container {
     overflow-x: auto;
-    margin: 20px 0;
+    margin: 25px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 /* ============================================
-   STATISTICS AND METRICS
+   STATISTICS AND METRICS - REFINED
    ============================================ */
 
 .stat-box {
-    background: var(--bg-light);
-    padding: 20px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, var(--bg-white) 0%, var(--primary-light) 100%);
+    padding: 25px;
+    border-radius: 12px;
     text-align: center;
-    border-top: 4px solid var(--primary-color);
+    border-top: 5px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .stat-number {
-    font-size: 2em;
-    font-weight: bold;
-    color: var(--text-primary);
+    font-size: 2.5em;
+    font-weight: 900;
+    color: var(--primary-color);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 8px;
 }
 
 .stat-label {
-    color: var(--text-muted);
-    margin-top: 5px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-weight: 500;
+    font-size: 0.95em;
 }
 
 /* ============================================
-   CODE AND FORMULAS
+   CODE AND FORMULAS - REFINED
    ============================================ */
 
 .formula {
-    background: var(--bg-code);
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    font-family: monospace;
-    border-left: 3px solid var(--primary-color);
+    background: var(--primary-light);
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    border-left: 4px solid var(--primary-color);
+    font-size: 0.95em;
+    color: var(--text-primary);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .matrix-visual {
-    background: var(--bg-light);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
     text-align: center;
-    font-family: monospace;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
 /* ============================================
-   CITATIONS AND REFERENCES
+   CITATIONS AND REFERENCES - REFINED
    ============================================ */
 
 .citation {
-    background: var(--bg-light);
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-color);
-    margin-bottom: 20px;
-    font-size: 0.9em;
+    background: var(--primary-light);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 0.95em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .ref-box {
-    background: var(--bg-code);
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 5px;
-    border-left: 4px solid var(--primary-color);
+    background: var(--primary-light);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .ref-citation {
-    font-weight: bold;
-    color: var(--text-primary);
-    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--primary-hover);
+    margin-bottom: 10px;
+    font-size: 1.05em;
 }
 
 .ref-contribution {
     color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 8px;
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 
 .ref-relevance {
     font-style: italic;
     color: var(--text-light);
     font-size: 0.9em;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0,0,0,0.1);
 }
 
 /* ============================================
-   LISTS
+   LISTS - REFINED
    ============================================ */
 
 ul {
-    margin: 10px 0;
-    padding-left: 20px;
+    margin: 15px 0;
+    padding-left: 25px;
 }
 
 li {
-    margin-bottom: 8px;
-    line-height: 1.4;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    position: relative;
+}
+
+/* Custom bullet points using theme color */
+ul li::marker {
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN - ENHANCED
    ============================================ */
 
 @media (max-width: 768px) {
@@ -984,17 +1255,32 @@ li {
         padding: 10px;
     }
     
+    .container {
+        border-radius: 8px;
+    }
+    
+    .header {
+        padding: 30px 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.8em;
+    }
+    
     .content {
-        padding: 20px;
+        padding: 25px 20px;
     }
     
     .flow-step {
         flex-direction: column;
         align-items: flex-start;
+        gap: 15px;
     }
     
     .step-number {
         margin-bottom: 10px;
+        width: 40px;
+        height: 40px;
     }
     
     .model-comparison,
@@ -1003,6 +1289,7 @@ li {
     .analysis-grid,
     .theme-container {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     
     .equation-grid {
@@ -1012,20 +1299,57 @@ li {
     .back-to-top {
         bottom: 20px;
         right: 20px;
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
     }
     
     .top-left-nav {
         position: relative;
         top: auto;
         left: auto;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .top-left-nav a {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    
+    .header-info {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5em;
+    }
+    
+    .content {
+        padding: 20px 15px;
+    }
+    
+    .step-content,
+    .model-box,
+    .analysis-card {
+        padding: 20px;
+    }
+    
+    .concept-grid,
+    .method-grid,
+    .software-grid,
+    .qc-grid,
+    .species-grid {
+        grid-template-columns: 1fr;
     }
 }
 
 /* ============================================
-   PRINT STYLES
+   PRINT STYLES - ENHANCED
    ============================================ */
 
 @media print {
@@ -1051,174 +1375,17 @@ li {
         color: var(--text-primary) !important;
         border: 2px solid var(--primary-color);
     }
+    
+    .step-content:hover,
+    .model-box:hover,
+    .analysis-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* ============================================
-   AUTO-THEME JAVASCRIPT HELPER
-   Add this script to your HTML files for automatic theme generation
-   ============================================ */
-
-/*
-<!-- AUTO-THEME SCRIPT - Add to <head> section of each HTML file -->
-<script>
-(function() {
-    'use strict';
-    
-    /**
-     * Auto-generate unique color theme for each paper
-     * Based on filename hash for consistent results
-     */
-    function initAutoTheme() {
-        // Get filename from URL
-        const filename = window.location.pathname.split('/').pop().replace('.html', '');
-        const pageTitle = document.title || '';
-        
-        // Extract year and author from filename or title
-        const year = filename.match(/\d{4}/)?.[0] || pageTitle.match(/\d{4}/)?.[0] || '';
-        const author = filename.replace(/\d{4}_?/, '').replace('.html', '');
-        
-        // Simple but consistent hash function
-        function generateHash(str) {
-            let hash = 5381; // djb2 hash
-            for (let i = 0; i < str.length; i++) {
-                hash = ((hash << 5) + hash) + str.charCodeAt(i);
-                hash = hash & hash; // Convert to 32-bit integer
-            }
-            return Math.abs(hash);
-        }
-        
-        // Generate theme number (1-20) based on filename
-        const hashValue = generateHash(filename + pageTitle);
-        const themeNumber = (hashValue % 20) + 1;
-        
-        // Apply theme attributes to body
-        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
-        document.body.setAttribute('data-file', filename);
-        if (year) {
-            document.body.setAttribute('data-year', year);
-        }
-        
-        // Add debug info to console
-        if (window.console && console.log) {
-            console.log('🎨 Auto-theme applied:', {
-                theme: 'auto-' + themeNumber,
-                filename: filename,
-                year: year,
-                hash: hashValue
-            });
-        }
-        
-        // Store theme info for potential use by other scripts
-        window.paperTheme = {
-            number: themeNumber,
-            filename: filename,
-            year: year,
-            author: author
-        };
-    }
-    
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAutoTheme);
-    } else {
-        initAutoTheme();
-    }
-    
-    /**
-     * Enhanced back-to-top functionality
-     * Works with auto-generated themes
-     */
-    function initBackToTop() {
-        const backToTopButton = document.getElementById('backToTop') || 
-                               document.querySelector('.back-to-top');
-        
-        if (!backToTopButton) return;
-        
-        // Show/hide based on scroll position
-        function toggleVisibility() {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        }
-        
-        // Smooth scroll to top
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Event listeners
-        window.addEventListener('scroll', toggleVisibility);
-        backToTopButton.addEventListener('click', scrollToTop);
-        
-        // Initial check
-        toggleVisibility();
-    }
-    
-    // Initialize back-to-top when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initBackToTop);
-    } else {
-        initBackToTop();
-    }
-    
-})();
-</script>
-*/
-
-/* ============================================
-   THEME DEBUGGING STYLES
-   Show current theme in development
-   ============================================ */
-
-/* Uncomment for debugging theme assignment */
-/*
-body::before {
-    content: "Theme: " attr(data-theme) " | File: " attr(data-file) " | Year: " attr(data-year);
-    position: fixed;
-    top: 70px;
-    left: 20px;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 12px;
-    z-index: 9999;
-    pointer-events: none;
-}
-*/
-
-/* ============================================
-   FUTURE-PROOF AUTOMATIC CYCLING
-   For papers beyond our defined color palette
-   ============================================ */
-
-/* Year-based cycling for future papers */
-body[data-year="2026"] { --primary-color: var(--color-14); --primary-hover: var(--color-14-dark); }
-body[data-year="2027"] { --primary-color: var(--color-15); --primary-hover: var(--color-15-dark); }
-body[data-year="2028"] { --primary-color: var(--color-16); --primary-hover: var(--color-16-dark); }
-body[data-year="2029"] { --primary-color: var(--color-17); --primary-hover: var(--color-17-dark); }
-body[data-year="2030"] { --primary-color: var(--color-18); --primary-hover: var(--color-18-dark); }
-body[data-year="2031"] { --primary-color: var(--color-19); --primary-hover: var(--color-19-dark); }
-body[data-year="2032"] { --primary-color: var(--color-20); --primary-hover: var(--color-20-dark); }
-
-/* After 2032, cycle back to start */
-body[data-year="2033"] { --primary-color: var(--color-1); --primary-hover: var(--color-1-dark); }
-body[data-year="2034"] { --primary-color: var(--color-2); --primary-hover: var(--color-2-dark); }
-body[data-year="2035"] { --primary-color: var(--color-3); --primary-hover: var(--color-3-dark); }
-
-/* Fallback for papers without recognizable patterns */
-body:not([data-theme]):not([data-year]) {
-    --primary-color: var(--color-2);
-    --primary-hover: var(--color-2-dark);
-}
-
-/* ============================================
-   ACCESSIBILITY ENHANCEMENTS
+   ACCESSIBILITY ENHANCEMENTS - ENHANCED
    ============================================ */
 
 /* High contrast mode support */
@@ -1235,6 +1402,11 @@ body:not([data-theme]):not([data-year]) {
     .analysis-card {
         border-width: 3px;
     }
+    
+    .highlight {
+        background: #ffff00;
+        color: #000000;
+    }
 }
 
 /* Reduced motion support */
@@ -1248,50 +1420,339 @@ body:not([data-theme]):not([data-year]) {
     .back-to-top {
         transition: none;
     }
+    
+    .back-to-top.visible {
+        animation: none;
+    }
 }
 
 /* Focus indicators for keyboard navigation */
 .back-to-top:focus,
-.top-left-nav a:focus {
+.top-left-nav a:focus,
+.paper-link:focus {
     outline: 3px solid var(--primary-color);
-    outline-offset: 2px;
+    outline-offset: 3px;
+}
+
+/* Screen reader improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* ============================================
-   DARK MODE SUPPORT (Optional)
-   Uncomment to enable automatic dark mode
+   ANIMATION LIBRARY
+   Subtle animations for enhanced UX
+   ============================================ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Apply animations to elements when they come into view */
+.section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.flow-step:nth-child(odd) .step-content {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+.flow-step:nth-child(even) .step-content {
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* Stagger animations for grid items */
+.model-comparison > *:nth-child(1) { animation-delay: 0.1s; }
+.model-comparison > *:nth-child(2) { animation-delay: 0.2s; }
+.model-comparison > *:nth-child(3) { animation-delay: 0.3s; }
+
+.analysis-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.analysis-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.analysis-grid > *:nth-child(3) { animation-delay: 0.3s; }
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-italic { font-style: italic; }
+
+/* Margin utilities */
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+/* Padding utilities */
+.p-0 { padding: 0; }
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+
+/* Color utilities */
+.text-primary { color: var(--primary-color); }
+.text-success { color: var(--success-color); }
+.text-warning { color: var(--warning-color); }
+.text-muted { color: var(--text-muted); }
+
+/* Background utilities */
+.bg-primary { background-color: var(--primary-color); }
+.bg-light { background-color: var(--bg-light); }
+.bg-white { background-color: var(--bg-white); }
+
+/* Display utilities */
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+/* Flex utilities */
+.flex-column { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+
+/* Border utilities */
+.border { border: 1px solid var(--border-light); }
+.border-primary { border-color: var(--primary-color); }
+.border-radius { border-radius: 8px; }
+.border-radius-lg { border-radius: 12px; }
+
+/* Shadow utilities */
+.shadow-sm { box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+.shadow { box-shadow: 0 4px 8px rgba(0,0,0,0.12); }
+.shadow-lg { box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+
+/* ============================================
+   CUSTOM SCROLLBAR STYLING
+   ============================================ */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--bg-light);
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--bg-light);
+}
+
+/* ============================================
+   SELECTION STYLING
+   ============================================ */
+
+::selection {
+    background: var(--primary-color);
+    color: white;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background: var(--primary-color);
+    color: white;
+    text-shadow: none;
+}
+
+/* ============================================
+   JAVASCRIPT AUTO-THEME IMPLEMENTATION
+   Add this script to each HTML file's <head>
    ============================================ */
 
 /*
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-main: #1a1a1a;
-        --bg-white: #2d2d2d;
-        --bg-light: #3a3a3a;
-        --bg-code: #404040;
-        --bg-highlight: #4a4a2a;
-        --bg-specs: #2a3a4a;
-        
-        --text-primary: #e0e0e0;
-        --text-secondary: #cccccc;
-        --text-muted: #aaaaaa;
-        --text-light: #999999;
-        
-        --border-light: #555555;
-        --secondary-color: #34495e;
+<!-- AUTOMATIC THEME SCRIPT - COPY TO EACH HTML FILE -->
+<script>
+(function() {
+    'use strict';
+    
+    function initAutoTheme() {
+        try {
+            const filename = window.location.pathname.split('/').pop().replace('.html', '') || 'default';
+            const pageTitle = document.title || '';
+            
+            function generateHash(str) {
+                let hash = 5381;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                return Math.abs(hash);
+            }
+            
+            const hashValue = generateHash(filename + pageTitle);
+            const themeNumber = (hashValue % 20) + 1;
+            
+            document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+            document.body.setAttribute('data-file', filename);
+            
+            const year = filename.match(/\d{4}/)?.[0] || pageTitle.match(/\d{4}/)?.[0] || '';
+            if (year) {
+                document.body.setAttribute('data-year', year);
+            }
+            
+            console.log('🎨 Theme:', 'auto-' + themeNumber, '| File:', filename);
+            
+        } catch (error) {
+            console.warn('Theme initialization failed:', error);
+            document.body.setAttribute('data-theme', 'auto-1');
+        }
     }
     
-    .header {
-        background: #1e1e1e;
+    function initBackToTop() {
+        try {
+            let backToTopButton = document.getElementById('backToTop') || 
+                                 document.querySelector('.back-to-top');
+            
+            if (!backToTopButton) {
+                backToTopButton = document.createElement('div');
+                backToTopButton.className = 'back-to-top';
+                backToTopButton.id = 'backToTop';
+                backToTopButton.setAttribute('aria-label', 'Back to top');
+                backToTopButton.setAttribute('role', 'button');
+                backToTopButton.setAttribute('tabindex', '0');
+                document.body.appendChild(backToTopButton);
+            }
+            
+            function toggleVisibility() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleVisibility, { passive: true });
+            backToTopButton.addEventListener('click', scrollToTop);
+            
+            backToTopButton.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+            
+            toggleVisibility();
+            
+        } catch (error) {
+            console.warn('Back to top initialization failed:', error);
+        }
     }
     
-    .innovation-box {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    function init() {
+        initAutoTheme();
+        initBackToTop();
     }
-}
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
 */
 
 /* ============================================
-   END OF STYLESHEET
+   END OF COMPLETE AUTOMATIC STYLESHEET
+   
+   🎯 COMPLETE FEATURE LIST:
+   ✅ 1. Fully automatic theme system (20 colors)
+   ✅ 2. Theme-aware back to top button  
+   ✅ 3. Enhanced responsive design
+   ✅ 4. Complete utility class system
+   ✅ 5. Interactive component library
+   ✅ 6. Accessibility enhancements
+   ✅ 7. Print media optimizations
+   ✅ 8. High contrast mode support
+   ✅ 9. Motion preference respect
+   ✅ 10. Custom scrollbar styling
+   ✅ 11. Text selection styling
+   ✅ 12. Smooth animations
+   ✅ 13. Error handling
+   ✅ 14. Performance optimizations
+   ✅ 15. Browser compatibility
+   
+   📖 USAGE:
+   1. Copy JavaScript from comments above
+   2. Add to each HTML file's <head>
+   3. Themes apply automatically
+   4. No manual configuration needed
+   
+   Total: 1,500+ lines of complete CSS
    ============================================ */
-    

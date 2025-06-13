@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Literature Review - DU6i Mouse Genetic Dissection</title>
        <link rel="stylesheet" href="style.css">
+    
+
+
+
+
 
 <script>
 (function() {
@@ -30,8 +35,7 @@
             document.body.setAttribute('data-theme', 'auto-' + themeNumber);
             document.body.setAttribute('data-file', filename);
             
-            // FIXED: Added backslash before d to make d{4}
-            const year = filename.match(/\d{4}/)?.[0] || pageTitle.match(/\d{4}/)?.[0] || '';
+            const year = filename.match(/d{4}/)?.[0] || pageTitle.match(/d{4}/)?.[0] || '';
             if (year) {
                 document.body.setAttribute('data-year', year);
             }
@@ -313,6 +317,7 @@
                 
                 <p>This research establishes a template for applying CSS methodology to other extreme phenotype models and provides the foundational data necessary for subsequent fine-mapping studies, congenic line development, and epistatic interaction analyses that will further advance our understanding of mammalian growth genetics.</p>
             </div>
+            
 
         </div>
     </div>

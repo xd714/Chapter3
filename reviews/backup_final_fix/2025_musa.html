@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haplotype Diversity Preservation in Genomic Selection</title>
        <link rel="stylesheet" href="style.css">
+    
+
+
+
+
 
 <script>
 (function() {
@@ -30,8 +35,7 @@
             document.body.setAttribute('data-theme', 'auto-' + themeNumber);
             document.body.setAttribute('data-file', filename);
             
-            // FIXED: Added backslash before d to make d{4}
-            const year = filename.match(/\d{4}/)?.[0] || pageTitle.match(/\d{4}/)?.[0] || '';
+            const year = filename.match(/d{4}/)?.[0] || pageTitle.match(/d{4}/)?.[0] || '';
             if (year) {
                 document.body.setAttribute('data-year', year);
             }
