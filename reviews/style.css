@@ -1882,8 +1882,16 @@ html {
 }
 
 /* Remove any flex constraints from parent containers */
+/* Force formula containers to not constrain width */
 .step-content,
 .method-box,
 .analysis-card {
-    overflow-x: visible !important;
+    display: block !important;
+}
+
+.step-content .formula,
+.method-box .formula,
+.analysis-card .formula {
+    position: relative !important;
+    z-index: 1 !important;
 }
