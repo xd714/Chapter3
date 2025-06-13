@@ -129,7 +129,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-4">
                 <div class="section-title">Paper Information & Historical Context</div>
                 
                 <div class="citation-box">
@@ -149,14 +149,13 @@
                 <div class="section-title">Mathematical Model Framework</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Basic Animal Model Structure</div>
+            <div class="step-title">Basic Animal Model Structure</div>
                             <div class="step-details">
                                 The foundational animal model equation incorporating all genetic and environmental effects
-                                <div class="formula">y = Mm + Za + ZAₘg + Pp + Cc + e</div>
+                                <div class="formula short">y = Mm + Za + ZAₘg + Pp + Cc + e</div>
                                 <div class="step-specs">
                                     <strong>Components:</strong><br>
                                     • y = standardized yield (milk, fat, protein)<br>
@@ -172,12 +171,12 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Yield Deviation Calculation</div>
+            <div class="step-title">Yield Deviation Calculation</div>
                             <div class="step-details">
                                 Extract animal's genetic information from performance records
-                                <div class="formula">YD = yᵢ - (mᵢ + pᵢ + cᵢ)</div>
+                                <div class="formula short"><div class="formula medium">YD = y<sub>i</sub> - (m<sub>i</sub> + p<sub>i</sub> + c<sub>i</sub>)</div></div>
                                 <div class="step-specs">
                                     <strong>Purpose:</strong> Summarize cow's own performance adjusted for non-genetic effects<br>
                                     <strong>Properties:</strong> Weighted average of standardized yields minus solutions for management, permanent environment, and herd-sire effects<br>
@@ -188,12 +187,12 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">PTA Decomposition</div>
+            <div class="step-title">PTA Decomposition</div>
                             <div class="step-details">
                                 Break down Predicted Transmitting Ability into component sources
-                                <div class="formula">PTA = w₁PA + w₂(YD/2) + w₃PC</div>
+                                <div class="formula short"><div class="formula medium">PTA = w<sub>1</sub>PA + w<sub>2</sub>(YD/2) + w<sub>3</sub>PC</div></div>
                                 <div class="step-specs">
                                     <strong>Three Information Sources:</strong><br>
                                     • PA = Parent Average (genetic information from ancestors)<br>
@@ -206,12 +205,12 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Daughter Yield Deviation (DYD)</div>
+            <div class="step-title">Daughter Yield Deviation (DYD)</div>
                             <div class="step-details">
                                 Unregressed measure of progeny performance for bulls
-                                <div class="formula">DYD = Σqₚᵣₒₘw₂ₚᵣₒₘ(YDₚᵣₒₘ - PTAₘₐₜₑ)/Σqₚᵣₒₘw₂ₚᵣₒₘ</div>
+                                <div class="formula short">DYD = Σqₚᵣₒₘw₂ₚᵣₒₘ(YDₚᵣₒₘ - PTAₘₐₜₑ)/Σqₚᵣₒₘw₂ₚᵣₒₘ</div>
                                 <div class="step-specs">
                                     <strong>Advantage:</strong> More independent measure than Progeny Contribution<br>
                                     <strong>Application:</strong> Reported for bulls with 10+ daughters<br>
@@ -226,17 +225,17 @@
                 <div class="section-title">Reliability and Daughter Equivalents Framework</div>
                 
                 <div class="equation-grid">
-                    <div class="equation-box">
+            <div class="equation-box">
                         <div class="equation-title">Reliability Definition</div>
-                        <div class="formula">REL = r²(PTA, TA)</div>
+                        <div class="formula short"><div class="formula short">REL = r²(PTA, TA)</div></div>
                         <p>Squared correlation between predicted and true transmitting ability</p>
-                        <div class="formula">REL = DE/(DE + 14)</div>
+                        <div class="formula short"><div class="formula short">REL = DE/(DE + 14)</div></div>
                         <p>Practical calculation using Daughter Equivalents</p>
                     </div>
                     
                     <div class="equation-box">
-                        <div class="equation-title">Daughter Equivalent Sources</div>
-                        <div class="formula">DE_total = DE_PA + DE_yield + DE_progeny</div>
+            <div class="equation-title">Daughter Equivalent Sources</div>
+                        <div class="formula short">DE_total = DE_PA + DE_yield + DE_progeny</div>
                         <p>Total information from three sources:</p>
                         <ul class="list-small">
                             <li>Parents (DE_PA)</li>
@@ -247,9 +246,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">5</div>
+            <div class="step-number">5</div>
                     <div class="step-content">
-                        <div class="step-title">Information Measurement in Daughter Equivalents</div>
+            <div class="step-title">Information Measurement in Daughter Equivalents</div>
                         <div class="step-details">
                             Standardized units for measuring genetic information contribution
                             <div class="step-specs">
@@ -266,9 +265,8 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Practical Examples and Implementation</div>
+        <div class="section" id="section-3">
+            <div class="section-title">Practical Examples and Implementation</div>
                 
                 <table class="example-table">
                     <thead>
@@ -308,9 +306,9 @@
                 </table>
                 
                 <div class="flow-step">
-                    <div class="step-number">6</div>
+            <div class="step-number">6</div>
                     <div class="step-content">
-                        <div class="step-title">Herd-Sire Interaction Effects</div>
+            <div class="step-title">Herd-Sire Interaction Effects</div>
                         <div class="step-details">
                             Adjustment for daughters in the same herd
                             <div class="step-specs">
@@ -324,12 +322,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Why, How, What Analysis</div>
+        <div class="section" id="section-2">
+            <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Problem Statement</div>
                         <div class="step-details">
                             <strong>Industry Need:</strong> Transition from sire models to comprehensive animal models required new terminology and calculation methods.
@@ -346,7 +343,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodology</div>
+            <div class="analysis-title">HOW - Methodology</div>
                         <div class="step-details">
                             <strong>Mathematical Approach:</strong> Systematic derivation from mixed model equations to practical formulas.
                             
@@ -362,7 +359,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Key Contributions</div>
+            <div class="analysis-title">WHAT - Key Contributions</div>
                         <div class="step-details">
                             <strong>Theoretical Advances:</strong> Comprehensive mathematical framework for animal model information.
                             
@@ -378,9 +375,8 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Legacy and Modern Relevance</div>
+        <div class="section" id="section-1">
+            <div class="section-title">Legacy and Modern Relevance</div>
                 
                 <div class="legacy-box">
                     <p><strong>Enduring Impact:</strong> This paper established the mathematical and conceptual framework that continues to underpin modern genetic evaluation systems. The terminology (PTA, DE, REL, DYD) and calculation methods introduced here remain standard in dairy cattle breeding worldwide.</p>

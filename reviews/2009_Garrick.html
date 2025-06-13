@@ -117,7 +117,7 @@
 
         </div>
         
-        <div class="citation">
+        <div class="citation-box">
             <strong>Citation:</strong> Garrick, D.J., Taylor, J.F., & Fernando, R.L. (2009). Deregressing estimated breeding values and weighting information for genomic regression analyses. Genetics Selection Evolution, 41:55.
             <br><br>
             <strong>Find Original Paper:</strong>
@@ -127,8 +127,7 @@
                 Google Scholar Search
             </a>
         </div>
-        
-        <div class="section">
+        <div class="section" id="section-5">
             <div class="section-title">Overview & Problem Statement</div>
             
             <div class="problem-box">
@@ -143,26 +142,25 @@
                 </ul>
             </div>
         </div>
-        
-        <div class="section">
+        <div class="section" id="section-4">
             <div class="section-title">Detailed Methodology Flow</div>
             
             <div class="flow-step">
-                <div class="step-title">Step 1: Theoretical Foundation</div>
+            <div class="step-title">Step 1: Theoretical Foundation</div>
                 <p>Establish ideal model for genomic prediction using true breeding values:</p>
-                <div class="formula">g = 1μ + Ma + ε</div>
+                <div class="formula short"><div class="formula short">g = 1μ + Ma + ε</div></div>
                 <p>Where g = true genetic merit, M = marker incidence matrix, a = marker effects, ε = lack of fit</p>
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Step 2: Individual Phenotype Model</div>
+            <div class="step-title">Step 2: Individual Phenotype Model</div>
                 <p>Extend to realistic scenario with phenotypic observations:</p>
-                <div class="formula">y = Xb + g + e</div>
+                <div class="formula short"><div class="formula short">y = Xb + g + e</div></div>
                 <p>Derive appropriate weights for different information sources based on variance structure</p>
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Step 3: Repeated Records & Progeny Information</div>
+            <div class="step-title">Step 3: Repeated Records & Progeny Information</div>
                 <p>Develop weights for:</p>
                 <ul>
                     <li><strong>Repeated records:</strong> w = (1-h²)/[ch² + ((1-h²)(1-t))/nh²]</li>
@@ -172,7 +170,7 @@
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Step 4: EBV Deregression Theory</div>
+            <div class="step-title">Step 4: EBV Deregression Theory</div>
                 <p>Address problems with using EBV directly:</p>
                 <div class="problem-box">
                     <strong>Problem 1:</strong> EBV have reduced variance due to shrinkage<br>
@@ -181,12 +179,12 @@
                 
                 <div class="solution-box">
                     <strong>Solution:</strong> Deregress EBV by dividing by reliability<br>
-                    <strong>Deregressed EBV = EBV/r²</strong>
+                    <strong><div class="formula short">Deregressed EBV = EBV/r²</div></strong>
                 </div>
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Step 5: Parent Average Removal</div>
+            <div class="step-title">Step 5: Parent Average Removal</div>
                 <p>Remove parent average effects from EBV before deregression:</p>
                 <ul>
                     <li>Calculate parent average: g_PA = (g_sire + g_dam)/2</li>
@@ -196,14 +194,13 @@
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Step 6: Final Weighting Formula</div>
+            <div class="step-title">Step 6: Final Weighting Formula</div>
                 <p>Weight for deregressed EBV:</p>
-                <div class="formula">w = (1-h²)/[c + (1-r²)/r²]h²</div>
+                <div class="formula short"><div class="formula medium">w = (1-h²)/[c + (1-r²)/r²]h²</div></div>
                 <p>Where c = proportion of genetic variance not explained by markers</p>
             </div>
         </div>
-        
-        <div class="section">
+        <div class="section" id="section-3">
             <div class="section-title">Key Results & Validation</div>
             
             <div class="table-container">
@@ -250,12 +247,11 @@
                 <li>Weight = 2.76 (equivalent to 2.76 individual phenotypes)</li>
             </ul>
         </div>
-        
-        <div class="section">
+        <div class="section" id="section-2">
             <div class="section-title">Why, How, What Analysis</div>
             
             <div class="analysis-grid">
-                <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                     <div class="analysis-title">WHY - Problem & Motivation</div>
                     <div class="analysis-content">
                         <strong>Inconsistent Practices:</strong> Researchers used different approaches for genomic training data without theoretical justification.
@@ -272,7 +268,7 @@
                 </div>
                 
                 <div class="analysis-card how-card">
-                    <div class="analysis-title">HOW - Methodology</div>
+            <div class="analysis-title">HOW - Methodology</div>
                     <div class="analysis-content">
                         <strong>Theoretical Approach:</strong> Start with ideal model and systematically extend to realistic scenarios.
                         
@@ -289,7 +285,7 @@
                 </div>
                 
                 <div class="analysis-card what-card">
-                    <div class="analysis-title">WHAT - Findings & Impact</div>
+            <div class="analysis-title">WHAT - Findings & Impact</div>
                     <div class="analysis-content">
                         <strong>Key Contributions:</strong>
                         
@@ -313,17 +309,16 @@
                 </div>
             </div>
         </div>
-        
-        <div class="section">
+        <div class="section" id="section-1">
             <div class="section-title">Significance & Applications</div>
             
             <div class="flow-step">
-                <div class="step-title">Theoretical Significance</div>
+            <div class="step-title">Theoretical Significance</div>
                 <p>This paper provided the missing theoretical foundation for data preparation in genomic prediction. It resolved inconsistencies in the literature and established principles that remain relevant as genomic prediction evolves.</p>
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Practical Applications</div>
+            <div class="step-title">Practical Applications</div>
                 <ul>
                     <li><strong>National Evaluations:</strong> Used in dairy and beef cattle genomic evaluations globally</li>
                     <li><strong>Research:</strong> Standard method for preparing training data in genomic studies</li>
@@ -333,7 +328,7 @@
             </div>
             
             <div class="flow-step">
-                <div class="step-title">Contemporary Relevance</div>
+            <div class="step-title">Contemporary Relevance</div>
                 <p>While sequence data and machine learning methods have advanced, the fundamental principles of proper data weighting and deregression remain essential for:</p>
                 <ul>
                     <li>Training modern genomic prediction models</li>

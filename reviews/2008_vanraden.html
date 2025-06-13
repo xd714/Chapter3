@@ -129,7 +129,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-5">
                 <div class="section-title">Paper Information & Historical Context</div>
                 
                 <div class="citation-box">
@@ -147,18 +147,17 @@
                 </div>
 
                 <div class="innovation-box">
-                    <div class="innovation-title">🚀 Revolutionary Breakthrough</div>
+            <div class="innovation-title">🚀 Revolutionary Breakthrough</div>
                     <p>VanRaden (2008) transformed genomic selection from theoretical concept to practical reality by developing <strong>three equivalent computational methods</strong> for genomic predictions, establishing the <strong>genomic relationship matrix (G-matrix)</strong>, and creating efficient algorithms that made large-scale genomic evaluation feasible.</p>
                 </div>
                 
                 <div class="section-title">Computational Methods Framework</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Simulation Study Design</div>
+            <div class="step-title">Simulation Study Design</div>
                             <div class="step-details">
                                 Comprehensive simulation to test computational methods before real data application
                                 <div class="step-specs">
@@ -172,13 +171,13 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Genomic Relationship Matrix Construction</div>
+            <div class="step-title">Genomic Relationship Matrix Construction</div>
                             <div class="step-details">
                                 Development of the fundamental G-matrix for genomic relationships
                                 <div class="matrix-visual">
-                                    G = ZZ' / [2∑pᵢ(1-pᵢ)]
+                                    <div class="formula medium">G = ZZ' / [2∑p<sub>i</sub>(1-p<sub>i</sub>)]</div>
                                 </div>
                                 <div class="step-specs">
                                     <strong>Z matrix:</strong> Standardized genotype matrix (M - P)<br>
@@ -191,9 +190,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Three Equivalent Linear Methods</div>
+            <div class="step-title">Three Equivalent Linear Methods</div>
                             <div class="step-details">
                                 Alternative computational approaches for different scenarios
                                 <div class="step-specs">
@@ -207,9 +206,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Iterative Algorithm Development</div>
+            <div class="step-title">Iterative Algorithm Development</div>
                             <div class="step-details">
                                 Efficient computational strategies for large-scale implementation
                                 <div class="step-specs">
@@ -227,11 +226,11 @@
                 <div class="section-title">Three Computational Approaches</div>
                 
                 <div class="model-comparison">
-                    <div class="model-box method-1">
+            <div class="model-box method-1">
                         <div class="model-title">Method 1: Marker Effects First</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Estimate individual marker effects, then sum
-                            <div class="formula">â = Z₂û where û solved from mixed model equations</div>
+                            <div class="formula short"><div class="formula medium">â = Z<sub>2</sub>û where û solved from mixed model equations</div></div>
                             <strong>Steps:</strong><br>
                             • Solve for marker effects u using iteration<br>
                             • Sum marker effects across loci: â = Zu<br>
@@ -242,10 +241,10 @@
                     </div>
                     
                     <div class="model-box method-2">
-                        <div class="model-title">Method 2: Selection Index</div>
+            <div class="model-title">Method 2: Selection Index</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Direct prediction using genomic relationships
-                            <div class="formula">â = G[G + R(σₑ²/σₐ²)]⁻¹(y - Xb̂)</div>
+                            <div class="formula short"><div class="formula long">â = G[G + R(σ<sub>e</sub>²/σ<sub>a</sub>²)]⁻¹(y - Xb̂)</div></div>
                             <strong>Components:</strong><br>
                             • G = genomic relationship matrix<br>
                             • R = reliability matrix from daughters<br>
@@ -256,10 +255,10 @@
                     </div>
                     
                     <div class="model-box method-3">
-                        <div class="model-title">Method 3: Mixed Model with G⁻¹</div>
+            <div class="model-title">Method 3: Mixed Model with G⁻¹</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Traditional mixed model with genomic inverse
-                            <div class="formula">â = [R⁻¹ + G⁻¹(σₑ²/σₐ²)]⁻¹R⁻¹(y - Xb̂)</div>
+                            <div class="formula short"><div class="formula long">â = [R⁻¹ + G⁻¹(σ<sub>e</sub>²/σ<sub>a</sub>²)]⁻¹R⁻¹(y - Xb̂)</div></div>
                             <strong>Features:</strong><br>
                             • Invert G once, process multiple traits<br>
                             • Most computationally efficient for many traits<br>
@@ -271,9 +270,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">5</div>
+            <div class="step-number">5</div>
                     <div class="step-content">
-                        <div class="step-title">Nonlinear Prediction Extensions</div>
+            <div class="step-title">Nonlinear Prediction Extensions</div>
                         <div class="step-details">
                             Advanced methods for non-normal marker effect distributions
                             <div class="step-specs">
@@ -287,9 +286,9 @@
                 </div>
 
                 <div class="flow-step">
-                    <div class="step-number">6</div>
+            <div class="step-number">6</div>
                     <div class="step-content">
-                        <div class="step-title">Allele Frequency Estimation</div>
+            <div class="step-title">Allele Frequency Estimation</div>
                         <div class="step-details">
                             Critical component for accurate genomic inbreeding coefficients
                             <div class="step-specs">
@@ -302,12 +301,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Why, How, What Analysis</div>
+        <div class="section" id="section-4">
+            <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - The Computational Challenge</div>
                         <div class="step-details">
                             <strong>Core Problem:</strong> Genomic selection theory existed but lacked practical computational methods.
@@ -324,7 +322,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodological Innovation</div>
+            <div class="analysis-title">HOW - Methodological Innovation</div>
                         <div class="step-details">
                             <strong>Key Breakthrough:</strong> Three equivalent methods providing computational flexibility.
                             
@@ -340,7 +338,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Transformative Results</div>
+            <div class="analysis-title">WHAT - Transformative Results</div>
                         <div class="step-details">
                             <strong>Results:</strong> Genomic predictions dramatically outperformed traditional methods.
                             
@@ -356,12 +354,11 @@
                     </div>
                 </div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Computational Performance & Results</div>
+        <div class="section" id="section-3">
+            <div class="section-title">Computational Performance & Results</div>
                 
                 <div class="results-box">
-                    <div class="results-title">🎯 Key Performance Metrics</div>
+            <div class="results-title">🎯 Key Performance Metrics</div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div>
                             <strong>Reliability Gains (Young Bulls):</strong>
@@ -411,9 +408,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Historical Impact & Legacy</div>
+        <div class="section" id="section-2">
+            <div class="section-title">Historical Impact & Legacy</div>
                 
                 <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin-bottom: 20px;">
                     <h4 style="margin-top: 0; color: #27ae60;">Immediate Industry Impact (2008-2010)</h4>
@@ -441,9 +437,8 @@
                     <p>This paper has been cited over <strong>3,000 times</strong> (as of 2024), making it one of the most influential papers in animal breeding and quantitative genetics. It fundamentally changed how genetic evaluations are computed across livestock species worldwide.</p>
                 </div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Technical Specifications Summary</div>
+        <div class="section" id="section-1">
+            <div class="section-title">Technical Specifications Summary</div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">

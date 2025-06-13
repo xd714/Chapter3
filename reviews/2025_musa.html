@@ -128,7 +128,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-4">
                 <div class="section-title">Paper Information & Context</div>
                 
                 <div class="citation-box">
@@ -144,24 +144,23 @@
                 </div>
 
                 <div class="innovation-box">
-                    <div class="innovation-title">🚀 Key Innovation</div>
+            <div class="innovation-title">🚀 Key Innovation</div>
                     <p>This paper introduces a novel <strong>similarity matrix</strong> that quantifies haplotype relationships between parents based on Mendelian sampling variance (MSV), enabling optimal parent selection that balances genetic gain with diversity preservation in genomic breeding programs.</p>
                 </div>
                 
                 <div class="section-title">Computational Framework Development</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Enhanced MSV Computation</div>
+            <div class="step-title">Enhanced MSV Computation</div>
                             <div class="step-details">
                                 Develop computationally efficient representation of Mendelian Sampling Variance prediction
                                 <div class="step-specs">
                                     <strong>Innovation:</strong> Parent-specific marker effects vector m<sub>i</sub><br>
                                     <strong>Speed improvement:</strong> 73-fold faster than previous methods<br>
-                                    <strong>Formula:</strong> var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub><br>
+                                    <strong>Formula:</strong> <div class="formula medium">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div><br>
                                     <strong>Key advantage:</strong> Single universal matrix R for all parents
                                 </div>
                             </div>
@@ -169,14 +168,14 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Haplotype Similarity Measure</div>
+            <div class="step-title">Haplotype Similarity Measure</div>
                             <div class="step-details">
                                 Define similarity between parents based on shared segregation patterns
                                 <div class="step-specs">
                                     <strong>Core concept:</strong> Quantify shared heterozygous markers with large effects<br>
-                                    <strong>Similarity formula:</strong> s<sub>i,j</sub> = |m<sub>i</sub>'Rm<sub>j</sub>|<br>
+                                    <strong>Similarity formula:</strong> <div class="formula medium">s<sub>i,j</sub> = |m<sub>i</sub>'Rm<sub>j</sub>|</div><br>
                                     <strong>Interpretation:</strong> High similarity = many shared chromosome segments<br>
                                     <strong>Self-similarity:</strong> Equals individual's MSV
                                 </div>
@@ -185,9 +184,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Matrix Construction</div>
+            <div class="step-title">Matrix Construction</div>
                             <div class="step-details">
                                 Build comprehensive similarity matrix for breeding decisions
                                 <div class="matrix-visual">
@@ -204,9 +203,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Multi-trait and Multi-chromosome Extension</div>
+            <div class="step-title">Multi-trait and Multi-chromosome Extension</div>
                             <div class="step-details">
                                 Extend framework to complex breeding scenarios
                                 <div class="step-specs">
@@ -224,13 +223,13 @@
                 <div class="section-title">MOCS: Mendelian Sampling-based Optimal Contribution Selection</div>
                 
                 <div class="model-comparison">
-                    <div class="model-box model-1">
+            <div class="model-box model-1">
                         <div class="model-title">Traditional Approaches</div>
                         <div class="step-details">
                             <strong>Truncation Selection (TS):</strong> Select top individuals by GEBV
-                            <div class="formula">Selection based on: GEBV ranking only</div>
+                            <div class="formula short">Selection based on: GEBV ranking only</div>
                             <strong>Optimal Contribution Selection (OCS):</strong> Control inbreeding
-                            <div class="formula">Constraint: Genomic relationship matrix (GRM)</div>
+                            <div class="formula short">Constraint: Genomic relationship matrix (GRM)</div>
                             <strong>Limitations:</strong><br>
                             • TS: Increases inbreeding, loses diversity<br>
                             • OCS: Trait-neutral, may not maximize genetic gain<br>
@@ -239,10 +238,10 @@
                     </div>
                     
                     <div class="model-box model-2">
-                        <div class="model-title">MOCS Innovation</div>
+            <div class="model-title">MOCS Innovation</div>
                         <div class="step-details">
                             <strong>Objective:</strong> Maximize genetic return while preserving haplotype diversity
-                            <div class="formula">maximize: r<sub>t+1</sub> = n<sub>t</sub>'r<sub>t</sub><br>
+                            <div class="formula"><div class="formula medium" data-multiline="true">maximize: r<sub>t+1</sub> = n<sub>t</sub>'r<sub>t</sub><br>subject to: Q<sub>t+1</sub> ≤ n<sub>t</sub>'Q<sub>t</sub>n<sub>t</sub>/2</div><br>
                             subject to: Q<sub>t+1</sub> ≤ n<sub>t</sub>'Q<sub>t</sub>n<sub>t</sub>/2</div>
                             <strong>Key Components:</strong><br>
                             • r<sub>t</sub> = selection criterion (BV or index)<br>
@@ -257,9 +256,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">5</div>
+            <div class="step-number">5</div>
                     <div class="step-content">
-                        <div class="step-title">Validation Studies</div>
+            <div class="step-title">Validation Studies</div>
                         <div class="step-details">
                             Comprehensive evaluation using empirical and simulated data
                             <div class="step-specs">
@@ -272,12 +271,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Why, How, What Analysis</div>
+        <div class="section" id="section-3">
+            <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Critical Challenge</div>
                         <div class="step-details">
                             <strong>Core Problem:</strong> Genomic selection accelerates genetic gain but rapidly depletes genetic diversity.
@@ -294,7 +292,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodological Innovation</div>
+            <div class="analysis-title">HOW - Methodological Innovation</div>
                         <div class="step-details">
                             <strong>Key Breakthrough:</strong> Similarity matrix based on Mendelian sampling patterns.
                             
@@ -310,7 +308,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Key Achievements</div>
+            <div class="analysis-title">WHAT - Key Achievements</div>
                         <div class="step-details">
                             <strong>Results:</strong> MOCS with similarity matrix outperforms traditional methods.
                             
@@ -326,18 +324,17 @@
                     </div>
                 </div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Technical Implementation Details</div>
+        <div class="section" id="section-2">
+            <div class="section-title">Technical Implementation Details</div>
                 
                 <div class="model-comparison">
                     <div class="model-box" style="border-color: #9b59b6;">
                         <div class="model-title" style="color: #9b59b6;">Computational Efficiency</div>
                         <div class="step-details">
                             <strong>Previous Method (Bonk et al. 2016):</strong>
-                            <div class="formula">var(b<sub>i</sub>) = m'R<sub>i</sub>m</div>
+                            <div class="formula short">var(b<sub>i</sub>) = m'R<sub>i</sub>m</div>
                             <strong>New Method:</strong>
-                            <div class="formula">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div>
+                            <div class="formula short"><div class="formula medium">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div></div>
                             <strong>Key Improvements:</strong><br>
                             • Single matrix R for all parents<br>
                             • Parent-specific marker vectors m<sub>i</sub><br>
@@ -350,9 +347,9 @@
                         <div class="model-title" style="color: #f39c12;">Similarity Interpretation</div>
                         <div class="step-details">
                             <strong>High Similarity Parents:</strong>
-                            <div class="formula">Many shared heterozygous markers with large effects</div>
+                            <div class="formula medium">Many shared heterozygous markers with large effects</div>
                             <strong>Low Similarity Parents:</strong>
-                            <div class="formula">Different heterozygous markers or linkage phases</div>
+                            <div class="formula short">Different heterozygous markers or linkage phases</div>
                             <strong>Biological Meaning:</strong><br>
                             • Reflects potential for diverse offspring<br>
                             • Captures trait-specific relationships<br>
@@ -362,9 +359,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Practical Applications & Future Directions</div>
+        <div class="section" id="section-1">
+            <div class="section-title">Practical Applications & Future Directions</div>
                 
                 <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin-bottom: 20px;">
                     <h4 style="margin-top: 0; color: #27ae60;">Immediate Applications</h4>

@@ -129,7 +129,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-2">
                 <div class="section-title">Paper Information & References</div>
                 
                 <div class="citation-box">
@@ -147,11 +147,10 @@
                 <div class="section-title">Detailed Material and Methods Flow</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Population Simulation Setup</div>
+            <div class="step-title">Population Simulation Setup</div>
                             <div class="step-details">
                                 Create founder generation and simulate population evolution over time
                                 <div class="step-specs">
@@ -164,9 +163,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Bottleneck Simulation</div>
+            <div class="step-title">Bottleneck Simulation</div>
                             <div class="step-details">
                                 Simulate genetic bottleneck to mimic real breeding scenarios
                                 <div class="step-specs">
@@ -179,9 +178,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Population Recovery</div>
+            <div class="step-title">Population Recovery</div>
                             <div class="step-details">
                                 Expand population and establish final breeding structure
                                 <div class="step-specs">
@@ -194,9 +193,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Genome Architecture</div>
+            <div class="step-title">Genome Architecture</div>
                             <div class="step-details">
                                 Define genetic structure and mutation parameters
                                 <div class="step-specs">
@@ -210,9 +209,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">5</div>
+            <div class="step-number">5</div>
                         <div class="step-content">
-                            <div class="step-title">Trait and Phenotype Generation</div>
+            <div class="step-title">Trait and Phenotype Generation</div>
                             <div class="step-details">
                                 Create breeding values and observable phenotypes
                                 <div class="step-specs">
@@ -226,9 +225,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">6</div>
+            <div class="step-number">6</div>
                         <div class="step-content">
-                            <div class="step-title">Data Partitioning</div>
+            <div class="step-title">Data Partitioning</div>
                             <div class="step-details">
                                 Split data for training and validation
                                 <div class="step-specs">
@@ -245,11 +244,11 @@
                 <div class="section-title">Model Comparison</div>
                 
                 <div class="model-comparison">
-                    <div class="model-box model-1">
+            <div class="model-box model-1">
                         <div class="model-title">Model 1: Conventional Animal Model</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Traditional BLUP methodology
-                            <div class="formula">y = μ + Za + e</div>
+                            <div class="formula short"><div class="formula short">y = μ + Za + e</div></div>
                             <strong>Components:</strong><br>
                             • y = phenotype vector<br>
                             • μ = overall mean<br>
@@ -264,27 +263,27 @@
                     </div>
                     
                     <div class="model-box model-2">
-                        <div class="model-title">Model 2: Genomic with Mendelian Sampling</div>
+            <div class="model-title">Model 2: Genomic with Mendelian Sampling</div>
                         <div class="step-details">
                             <strong>Step 1:</strong> Estimate breeding values using Model 1, derive Mendelian sampling terms
-                            <div class="formula">m̂ᵢ = âᵢ - ½(âₛ + âᴅ)</div>
+                            <div class="formula short"><div class="formula medium">m̂<sub>i</sub> = â<sub>i</sub> - ½(â<sub>s</sub> + â<sub>d</sub>)</div></div>
                             
                             <strong>Step 2:</strong> Estimate genomic effects
-                            <div class="formula">m̂ = μ + Wq + ε</div>
+                            <div class="formula short"><div class="formula short">m̂ = μ + Wq + ε</div></div>
                             
                             <strong>Mendelian sampling genotypes:</strong>
-                            <div class="formula">Wᵢ = gᵢ - ½(gₛ + gᴅ)</div>
+                            <div class="formula short"><div class="formula medium">W<sub>i</sub> = g<sub>i</sub> - ½(g<sub>s</sub> + g<sub>d</sub>)</div></div>
                             
                             <strong>Final prediction:</strong>
-                            <div class="formula">âᵢ = ½(âₛ + âᴅ) + Ŵᵢq̂</div>
+                            <div class="formula short"><div class="formula medium">â<sub>i</sub> = ½(â<sub>s</sub> + â<sub>d</sub>) + Ŵ<sub>i</sub>q̂</div></div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">7</div>
+            <div class="step-number">7</div>
                     <div class="step-content">
-                        <div class="step-title">Validation Design</div>
+            <div class="step-title">Validation Design</div>
                         <div class="step-details">
                             Comprehensive comparison across multiple scenarios
                             <div class="step-specs">
@@ -299,9 +298,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">8</div>
+            <div class="step-number">8</div>
                     <div class="step-content">
-                        <div class="step-title">Evaluation Metrics</div>
+            <div class="step-title">Evaluation Metrics</div>
                         <div class="step-details">
                             Three key measures for breeding program assessment
                             <div class="step-specs">
@@ -313,12 +312,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Why, How, What Analysis</div>
+        <div class="section" id="section-1">
+            <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Problem Statement</div>
                         <div class="step-details">
                             <strong>Main Issue:</strong> Traditional breeding methods increase inbreeding while reducing genetic diversity.
@@ -335,7 +333,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodology</div>
+            <div class="analysis-title">HOW - Methodology</div>
                         <div class="step-details">
                             <strong>Key Innovation:</strong> Two-step genomic approach to predict Mendelian sampling terms.
                             
@@ -350,7 +348,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Key Findings</div>
+            <div class="analysis-title">WHAT - Key Findings</div>
                         <div class="step-details">
                             <strong>Results:</strong> Genomic model outperforms conventional approach.
                             

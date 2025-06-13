@@ -130,7 +130,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-1">
                 <div class="section-title">Paper Overview & Context</div>
                 
                 <div class="citation-box">
@@ -144,11 +144,10 @@
                 <div class="section-title">Methodology Flow</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Simulation Data Preparation</div>
+            <div class="step-title">Simulation Data Preparation</div>
                             <div class="step-details">
                                 Used real genotype data from diverse maize inbred lines to maintain realistic LD structure
                                 <div class="step-specs">
@@ -162,9 +161,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Missing Data Simulation</div>
+            <div class="step-title">Missing Data Simulation</div>
                             <div class="step-details">
                                 Created three data balance scenarios to test method robustness
                                 <div class="step-specs">
@@ -177,9 +176,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Genetic Architecture Design</div>
+            <div class="step-title">Genetic Architecture Design</div>
                             <div class="step-details">
                                 Simulated realistic genetic architectures with varying QTL effect sizes
                                 <div class="step-specs">
@@ -193,9 +192,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Method Comparison Framework</div>
+            <div class="step-title">Method Comparison Framework</div>
                             <div class="step-details">
                                 Systematic evaluation of six different GWAS approaches
                                 <div class="step-specs">
@@ -212,11 +211,11 @@
                 <div class="section-title">Method Comparison</div>
                 
                 <div class="method-comparison">
-                    <div class="method-box method-1">
+            <div class="method-box method-1">
                         <div class="method-title">One-Stage Analysis</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Complete mixed model with all effects
-                            <div class="formula">Y_ij = μ + X_jk β_k + E_i + F_j + ε_ijk</div>
+                            <div class="formula short"><div class="formula medium">Y<sub>ij</sub> = μ + X<sub>jk</sub>β<sub>k</sub> + E<sub>i</sub> + F<sub>j</sub> + ε<sub>ijk</sub></div></div>
                             <strong>Advantages:</strong><br>
                             • Optimal statistical properties<br>
                             • Accounts for all sources of variation<br>
@@ -229,14 +228,14 @@
                     </div>
                     
                     <div class="method-box method-2">
-                        <div class="method-title">Weighted Two-Stage Analysis</div>
+            <div class="method-title">Weighted Two-Stage Analysis</div>
                         <div class="step-details">
                             <strong>Stage 1:</strong> Estimate line effects (BLUEs/BLUPs)
-                            <div class="formula">BLUE(Y_j) = μ + F̂_j</div>
+                            <div class="formula short"><div class="formula short">BLUE(Y<sub>j</sub>) = μ + F̂<sub>j</sub></div></div>
                             
                             <strong>Stage 2:</strong> GWAS with precision weighting
-                            <div class="formula">BLUE(Y_j) = μ + F_j + X_jk β_k + ε_jk</div>
-                            <div class="formula">ε_jk ~ N(0, Iw_j^2), w_j = V(Ŷ_j)</div>
+                            <div class="formula short"><div class="formula medium">BLUE(Y<sub>j</sub>) = μ + F<sub>j</sub> + X<sub>jk</sub>β<sub>k</sub> + ε<sub>jk</sub></div></div>
+                            <div class="formula short" data-multiline="true">ε_jk ~ N(0, Iw_j^2), w_j = V(Ŷ_j)</div>
                             
                             <strong>Key Innovation:</strong> Weight by precision of first-stage estimates
                         </div>
@@ -246,7 +245,7 @@
                 <div class="section-title">Key Findings</div>
                 
                 <div class="results-grid">
-                    <div class="results-box">
+            <div class="results-box">
                         <div class="analysis-title">Statistical Performance</div>
                         <div class="step-details">
                             <strong>Power:</strong><br>
@@ -262,7 +261,7 @@
                     </div>
                     
                     <div class="results-box">
-                        <div class="analysis-title">Computational Efficiency</div>
+            <div class="analysis-title">Computational Efficiency</div>
                         <div class="step-details">
                             <strong>Time Comparison:</strong><br>
                             • One-stage: 146 hours<br>
@@ -281,7 +280,7 @@
                 <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Computational Challenge</div>
                         <div class="step-details">
                             <strong>Plant Breeding Complexity:</strong><br>
@@ -297,7 +296,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodological Innovation</div>
+            <div class="analysis-title">HOW - Methodological Innovation</div>
                         <div class="step-details">
                             <strong>Two-Stage Approach:</strong><br>
                             • Stage 1: Fit complex model without markers<br>
@@ -311,7 +310,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Practical Impact</div>
+            <div class="analysis-title">WHAT - Practical Impact</div>
                         <div class="step-details">
                             <strong>Method Recommendation:</strong><br>
                             • <span class="highlight">Weighted BLUE two-stage optimal</span><br>
@@ -329,22 +328,22 @@
                 <div class="section-title">Technical Implementation Details</div>
                 
                 <div class="flow-container">
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">A</div>
                         <div class="step-content">
-                            <div class="step-title">Weighted Analysis Formula</div>
+            <div class="step-title">Weighted Analysis Formula</div>
                             <div class="step-details">
                                 The key innovation uses heterogeneous error variance structure:
-                                <div class="formula">ε_jk ~ N(0, Iw_j^2), where w_j = V(Ŷ_j)</div>
+                                <div class="formula short" data-multiline="true">ε_jk ~ N(0, Iw_j^2), where w_j = V(Ŷ_j)</div>
                                 This weights observations by the precision of first-stage estimates, approximating the optimal one-stage analysis.
                             </div>
                         </div>
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">B</div>
+            <div class="step-number">B</div>
                         <div class="step-content">
-                            <div class="step-title">TASSEL Software Integration</div>
+            <div class="step-title">TASSEL Software Integration</div>
                             <div class="step-details">
                                 Implementation requires four input files:
                                 <div class="step-specs">

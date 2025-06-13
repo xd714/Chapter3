@@ -129,7 +129,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-1">
                 <div class="section-title">Paper Overview & Research Context</div>
                 
                 <div class="citation-box">
@@ -143,11 +143,11 @@
                 <div class="section-title">Deregression Methods Comparison</div>
                 
                 <div class="method-comparison">
-                    <div class="method-box method-1">
+            <div class="method-box method-1">
                         <div class="method-title">VanRaden (VR) Method</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Standard deregression formula
-                            <div class="formula">dEBV_ij = PA_ij + (EBV_ij - PA_ij) / R_i</div>
+                            <div class="formula short"><div class="formula medium">dEBV<sub>ij</sub> = PA<sub>ij</sub> + (EBV<sub>ij</sub> - PA<sub>ij</sub>) / R<sub>i</sub></div></div>
                             <strong>Key Features:</strong><br>
                             • Uses reliability-based deregression factor<br>
                             • Separates parent average from own performance<br>
@@ -160,10 +160,10 @@
                     </div>
                     
                     <div class="method-box method-2">
-                        <div class="method-title">Wiggans (WG) Method</div>
+            <div class="method-title">Wiggans (WG) Method</div>
                         <div class="step-details">
                             <strong>Approach:</strong> VR method + cow adjustment
-                            <div class="formula">Adjust cow dEBVs to match bull distribution</div>
+                            <div class="formula short">Adjust cow dEBVs to match bull distribution</div>
                             <strong>Key Features:</strong><br>
                             • Variance adjustment (VA) by reliability groups<br>
                             • Mean adjustment (MA) for each group<br>
@@ -176,10 +176,10 @@
                     </div>
                     
                     <div class="method-box method-3">
-                        <div class="method-title">Garrick (GR) Method</div>
+            <div class="method-title">Garrick (GR) Method</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Mixed model equations approximation
-                            <div class="formula">Solves system: W'_PA W_PA + λk vs W'_IndPA W_IndPA + 2k</div>
+                            <div class="formula medium">Solves system: W'_PA W_PA + λk vs W'_IndPA W_IndPA + 2k</div>
                             <strong>Key Features:</strong><br>
                             • More complex mathematical formulation<br>
                             • Accounts for information content directly<br>
@@ -195,11 +195,10 @@
                 <div class="section-title">Experimental Design & Methodology</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Data Source & Population Structure</div>
+            <div class="step-title">Data Source & Population Structure</div>
                             <div class="step-details">
                                 Canadian Jersey cattle with official genetic evaluations for test-day traits
                                 <div class="step-specs">
@@ -213,9 +212,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Reliability-Based Scenarios</div>
+            <div class="step-title">Reliability-Based Scenarios</div>
                             <div class="step-details">
                                 Three scenarios based on minimum reliability thresholds (REL_EBV)
                                 <div class="step-specs">
@@ -229,9 +228,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Genomic Prediction Implementation</div>
+            <div class="step-title">Genomic Prediction Implementation</div>
                             <div class="step-details">
                                 GBLUP with random regression model using deregressed EBVs as pseudophenotypes
                                 <div class="step-specs">
@@ -245,9 +244,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Evaluation Metrics</div>
+            <div class="step-title">Evaluation Metrics</div>
                             <div class="step-details">
                                 Comprehensive assessment of prediction quality and bias
                                 <div class="step-specs">
@@ -265,7 +264,7 @@
                 <div class="section-title">Key Findings & Results</div>
                 
                 <div class="results-grid">
-                    <div class="results-box">
+            <div class="results-box">
                         <div class="analysis-title">Method Performance Ranking</div>
                         <div class="step-details">
                             <strong>Best Performers:</strong><br>
@@ -281,7 +280,7 @@
                     </div>
                     
                     <div class="results-box">
-                        <div class="analysis-title">Practical Implications</div>
+            <div class="analysis-title">Practical Implications</div>
                         <div class="step-details">
                             <strong>Reliability Thresholds:</strong><br>
                             • SCEN3 (0.50 minimum): Highest raw reliability<br>
@@ -299,7 +298,7 @@
                 <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Biological & Statistical Challenge</div>
                         <div class="step-details">
                             <strong>Deregression Necessity:</strong><br>
@@ -315,7 +314,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodological Approach</div>
+            <div class="analysis-title">HOW - Methodological Approach</div>
                         <div class="step-details">
                             <strong>Deregression Process:</strong><br>
                             • Remove parent average contribution from EBV<br>
@@ -330,7 +329,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Practical Recommendations</div>
+            <div class="analysis-title">WHAT - Practical Recommendations</div>
                         <div class="step-details">
                             <strong>Best Practice:</strong><br>
                             • <span class="highlight">Use VR or WG methods</span><br>
@@ -348,23 +347,23 @@
                 <div class="section-title">Technical Implementation Details</div>
                 
                 <div class="flow-container">
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">A</div>
                         <div class="step-content">
-                            <div class="step-title">Cow Bias Adjustment (WG Method)</div>
+            <div class="step-title">Cow Bias Adjustment (WG Method)</div>
                             <div class="step-details">
                                 Addresses preferential treatment of genotyped cows in Jersey population:
-                                <div class="formula">PA_adj = PA_sire + [VA × (PA_dam - MA)]</div>
-                                <div class="formula">dEBV_adj,cows = VA × (dEBV - MA) + PA_adj</div>
+                                <div class="formula short"><div class="formula medium">PA<sub>adj</sub> = PA<sub>sire</sub> + [VA × (PA<sub>dam</sub> - MA)]</div></div>
+                                <div class="formula short" data-multiline="true">dEBV_adj,cows = VA × (dEBV - MA) + PA_adj</div>
                                 This adjustment makes cow evaluations comparable to bull evaluations.
                             </div>
                         </div>
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">B</div>
+            <div class="step-number">B</div>
                         <div class="step-content">
-                            <div class="step-title">Reliability-Based Population Selection</div>
+            <div class="step-title">Reliability-Based Population Selection</div>
                             <div class="step-details">
                                 Strategic thresholds balance accuracy and population size:
                                 <div class="step-specs">

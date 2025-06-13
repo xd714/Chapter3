@@ -129,7 +129,7 @@
         </div>
         
         <div class="content">
-            <div class="section">
+            <div class="section" id="section-2">
                 <div class="section-title">Paper Information & References</div>
                 
                 <div class="citation-box">
@@ -148,11 +148,10 @@
                 <div class="section-title">Detailed Material and Methods Flow</div>
                 
                 <div class="flow-container">
-                    
-                    <div class="flow-step">
+            <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Historical Population Simulation</div>
+            <div class="step-title">Historical Population Simulation</div>
                             <div class="step-details">
                                 Create realistic base population with appropriate genetic structure
                                 <div class="step-specs">
@@ -167,9 +166,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">2</div>
+            <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Genome Architecture Design</div>
+            <div class="step-title">Genome Architecture Design</div>
                             <div class="step-details">
                                 Define comprehensive genetic framework for simulation
                                 <div class="step-specs">
@@ -184,9 +183,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">3</div>
+            <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Breeding Program Structure</div>
+            <div class="step-title">Breeding Program Structure</div>
                             <div class="step-details">
                                 Establish realistic pig breeding scheme
                                 <div class="step-specs">
@@ -201,9 +200,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">4</div>
+            <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Training Population Scenarios</div>
+            <div class="step-title">Training Population Scenarios</div>
                             <div class="step-details">
                                 Test effect of genomic prediction accuracy on MSV criteria
                                 <div class="step-specs">
@@ -217,9 +216,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">5</div>
+            <div class="step-number">5</div>
                         <div class="step-content">
-                            <div class="step-title">Burn-in Period</div>
+            <div class="step-title">Burn-in Period</div>
                             <div class="step-details">
                                 Establish Bulmer equilibrium before testing
                                 <div class="step-specs">
@@ -233,9 +232,9 @@
                     </div>
                     
                     <div class="flow-step">
-                        <div class="step-number">6</div>
+            <div class="step-number">6</div>
                         <div class="step-content">
-                            <div class="step-title">Trait Simulation</div>
+            <div class="step-title">Trait Simulation</div>
                             <div class="step-details">
                                 Model realistic quantitative trait architecture
                                 <div class="step-specs">
@@ -253,11 +252,11 @@
                 <div class="section-title">Model Comparison</div>
                 
                 <div class="model-comparison">
-                    <div class="model-box model-1">
+            <div class="model-box model-1">
                         <div class="model-title">Model 1: Standard GEBV Selection</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Traditional genomic prediction
-                            <div class="formula">y = μ + Xβ + Zu + e</div>
+                            <div class="formula short">y = μ + Xβ + Zu + e</div>
                             <strong>Components:</strong><br>
                             • y = phenotype vector<br>
                             • μ = overall mean<br>
@@ -272,13 +271,13 @@
                     </div>
                     
                     <div class="model-box model-2">
-                        <div class="model-title">Model 2: Index5 (Current MSV)</div>
+            <div class="model-title">Model 2: Index5 (Current MSV)</div>
                         <div class="step-details">
                             <strong>Step 1:</strong> Calculate gametic MSV for each animal
-                            <div class="formula">σ²ₘsᵥ = Σ pᵢ(1-pᵢ)α²ᵢ</div>
+                            <div class="formula short"><div class="formula medium">σ²<sub>MSV</sub> = Σ p<sub>i</sub>(1-p<sub>i</sub>)α²<sub>i</sub></div></div>
                             
                             <strong>Step 2:</strong> Combine with breeding value
-                            <div class="formula">Index5 = BVₐₙᵢₘₐₗ + xₘ × √(2×σ²ₘsᵥ)</div>
+                            <div class="formula short"><div class="formula medium">Index5 = BV<sub>animal</sub> + x<sub>m</sub> × √(2×σ²<sub>MSV</sub>)</div></div>
                             
                             <strong>Selection:</strong> Rank by Index5 value<br>
                             <strong>Planning horizon:</strong> Current generation MSV
@@ -286,10 +285,10 @@
                     </div>
                     
                     <div class="model-box model-3">
-                        <div class="model-title">Model 3: ExpBVSelGrOff (Two Gen Ahead)</div>
+            <div class="model-title">Model 3: ExpBVSelGrOff (Two Gen Ahead)</div>
                         <div class="step-details">
                             <strong>Approach:</strong> Maximize selected grand-offspring performance
-                            <div class="formula">ExpBVSelGrOff = (BVₛ+BVᴅ)/2 + iᵢ√(σ²Fs + √2iₘ√((1-kᵢ)σ²Fs/4 + σ²ₘsᵥₒff))</div>
+                            <div class="formula medium">ExpBVSelGrOff = (BVₛ+BVᴅ)/2 + iᵢ√(σ²Fs + √2iₘ√((1-kᵢ)σ²Fs/4 + σ²ₘsᵥₒff))</div>
                             
                             <strong>Components:</strong><br>
                             • Parent average breeding values<br>
@@ -301,9 +300,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">7</div>
+            <div class="step-number">7</div>
                     <div class="step-content">
-                        <div class="step-title">Selection Algorithm</div>
+            <div class="step-title">Selection Algorithm</div>
                         <div class="step-details">
                             Novel GCA-inspired approach for complex criteria
                             <div class="step-specs">
@@ -317,9 +316,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">8</div>
+            <div class="step-number">8</div>
                     <div class="step-content">
-                        <div class="step-title">Validation Design</div>
+            <div class="step-title">Validation Design</div>
                         <div class="step-details">
                             Comprehensive evaluation across multiple scenarios and metrics
                             <div class="step-specs">
@@ -334,9 +333,9 @@
                 </div>
                 
                 <div class="flow-step">
-                    <div class="step-number">9</div>
+            <div class="step-number">9</div>
                     <div class="step-content">
-                        <div class="step-title">Evaluation Metrics</div>
+            <div class="step-title">Evaluation Metrics</div>
                         <div class="step-details">
                             Comprehensive assessment across gain, diversity, and accuracy
                             <div class="step-specs">
@@ -349,12 +348,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="section">
-                <div class="section-title">Why, How, What Analysis</div>
+        <div class="section" id="section-1">
+            <div class="section-title">Why, How, What Analysis</div>
                 
                 <div class="analysis-grid">
-                    <div class="analysis-card why-card">
+            <div class="analysis-card why-card">
                         <div class="analysis-title">WHY - Problem Statement</div>
                         <div class="step-details">
                             <strong>Main Issue:</strong> Current genomic selection maximizes short-term gain but may compromise long-term sustainability.
@@ -372,7 +370,7 @@
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodology Innovation</div>
+            <div class="analysis-title">HOW - Methodology Innovation</div>
                         <div class="step-details">
                             <strong>Key Innovation 1:</strong> Testing MSV criteria with estimated (not assumed) SNP effects.
                             
@@ -388,7 +386,7 @@
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Key Findings</div>
+            <div class="analysis-title">WHAT - Key Findings</div>
                         <div class="step-details">
                             <strong>Results:</strong> MSV-considering criteria outperform or equal GEBV selection across all metrics.
                             
