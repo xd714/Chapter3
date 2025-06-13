@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Model Information Derivation and Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        /* TOP LEFT NAVIGATION */
+        .top-left-nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .top-left-nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .top-left-nav a:hover {
+            background: rgba(0,0,0,0.4);
+            color: white;
+        }
+        
+        /* BACK TO TOP BUTTON */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .back-to-top::before {
+            content: '↑';
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        /* Flow Diagram Styles */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .step-details {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .step-specs {
+            background: #e8f4f8;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .model-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .model-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .model-1 { border-color: #e74c3c; }
+        .model-2 { border-color: #27ae60; }
+        
+        .model-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .model-1 .model-title { color: #e74c3c; }
+        .model-2 .model-title { color: #27ae60; }
+        
+        .formula {
+            background: #ecf0f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            border-left: 3px solid #3498db;
+        }
+        
+        /* Analysis Sections */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .analysis-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #3498db;
+        }
+        
+        .analysis-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .why-card { border-top-color: #e74c3c; }
+        .how-card { border-top-color: #3498db; }
+        .what-card { border-top-color: #27ae60; }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .equation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .equation-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .equation-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .example-table th,
+        .example-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .example-table th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .example-table tr:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">← Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Derivation, Calculation, and Use of National Animal Model Information</h1>
+            <p>Comprehensive Framework for Genetic Evaluation Methodology</p>
+            
+            <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <p style="margin: 0; font-size: 0.9em;"><strong>Authors:</strong> P.M. VanRaden, G.R. Wiggans</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Institution:</strong> Animal Improvement Programs Laboratory, Agricultural Research Service, USDA</p>
+                <p style="margin: 10px 0 0 0;">
+                    <a href="https://www.google.com/search?q=%22Derivation%2C+Calculation%2C+and+Use+of+National+Animal+Model+Information%22+VanRaden+Wiggans" 
+                       target="_blank" 
+                       style="color: #74b9ff; text-decoration: none; font-weight: bold; border: 1px solid #74b9ff; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+                        🔗 Search for Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Information & Historical Context</div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 30px;">
+                    <p><strong>Citation:</strong> VanRaden, P.M., & Wiggans, G.R. (1991). Derivation, Calculation, and Use of National Animal Model Information. Journal of Dairy Science, 74:2737-2746</p>
+                    
+                    <p><strong>Historical Significance:</strong> This paper provided the foundational mathematical framework for USDA genetic evaluations using animal models, introducing key terminology and calculation methods still used today.</p>
+                    
+                    <p><strong>Key Innovations:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>Systematic derivation of Predicted Transmitting Ability (PTA) components</li>
+                        <li>Introduction of Daughter Equivalent (DE) concept for measuring information</li>
+                        <li>Mathematical framework for Yield Deviation (YD) and Daughter Yield Deviation (DYD)</li>
+                        <li>Reliability calculation methodology for animal model evaluations</li>
+                    </ul>
+                </div>
+                
+                <div class="section-title">Mathematical Model Framework</div>
+                
+                <div class="flow-container">
+                    
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Basic Animal Model Structure</div>
+                            <div class="step-details">
+                                The foundational animal model equation incorporating all genetic and environmental effects
+                                <div class="formula">y = Mm + Za + ZAₘg + Pp + Cc + e</div>
+                                <div class="step-specs">
+                                    <strong>Components:</strong><br>
+                                    • y = standardized yield (milk, fat, protein)<br>
+                                    • m = management group effects<br>
+                                    • a = additive genetic merit<br>
+                                    • g = unknown-parent group effects<br>
+                                    • p = permanent environmental effects<br>
+                                    • c = herd-sire interaction effects<br>
+                                    • e = random error
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Yield Deviation Calculation</div>
+                            <div class="step-details">
+                                Extract animal's genetic information from performance records
+                                <div class="formula">YD = yᵢ - (mᵢ + pᵢ + cᵢ)</div>
+                                <div class="step-specs">
+                                    <strong>Purpose:</strong> Summarize cow's own performance adjusted for non-genetic effects<br>
+                                    <strong>Properties:</strong> Weighted average of standardized yields minus solutions for management, permanent environment, and herd-sire effects<br>
+                                    <strong>Use:</strong> Primary input for cow's genetic evaluation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">PTA Decomposition</div>
+                            <div class="step-details">
+                                Break down Predicted Transmitting Ability into component sources
+                                <div class="formula">PTA = w₁PA + w₂(YD/2) + w₃PC</div>
+                                <div class="step-specs">
+                                    <strong>Three Information Sources:</strong><br>
+                                    • PA = Parent Average (genetic information from ancestors)<br>
+                                    • YD/2 = Half of Yield Deviation (own performance)<br>
+                                    • PC = Progeny Contribution (information from descendants)<br>
+                                    <strong>Weights:</strong> w₁ + w₂ + w₃ = 1, derived from mixed model equations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Daughter Yield Deviation (DYD)</div>
+                            <div class="step-details">
+                                Unregressed measure of progeny performance for bulls
+                                <div class="formula">DYD = Σqₚᵣₒₘw₂ₚᵣₒₘ(YDₚᵣₒₘ - PTAₘₐₜₑ)/Σqₚᵣₒₘw₂ₚᵣₒₘ</div>
+                                <div class="step-specs">
+                                    <strong>Advantage:</strong> More independent measure than Progeny Contribution<br>
+                                    <strong>Application:</strong> Reported for bulls with 10+ daughters<br>
+                                    <strong>Properties:</strong> Not influenced by bull's own PTA, excludes grandprogeny information
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="section-title">Reliability and Daughter Equivalents Framework</div>
+                
+                <div class="equation-grid">
+                    <div class="equation-box">
+                        <div class="equation-title">Reliability Definition</div>
+                        <div class="formula">REL = r²(PTA, TA)</div>
+                        <p>Squared correlation between predicted and true transmitting ability</p>
+                        <div class="formula">REL = DE/(DE + 14)</div>
+                        <p>Practical calculation using Daughter Equivalents</p>
+                    </div>
+                    
+                    <div class="equation-box">
+                        <div class="equation-title">Daughter Equivalent Sources</div>
+                        <div class="formula">DE_total = DE_PA + DE_yield + DE_progeny</div>
+                        <p>Total information from three sources:</p>
+                        <ul style="margin: 5px 0; font-size: 0.9em;">
+                            <li>Parents (DE_PA)</li>
+                            <li>Own records (DE_yield)</li>
+                            <li>Progeny adjusted for mates (DE_progeny)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-title">Information Measurement in Daughter Equivalents</div>
+                        <div class="step-details">
+                            Standardized units for measuring genetic information contribution
+                            <div class="step-specs">
+                                <strong>Standard Daughter Definition:</strong><br>
+                                • One lactation record<br>
+                                • Infinite management group mates<br>
+                                • Other parent with perfect reliability<br><br>
+                                <strong>Advantages over Record Equivalents:</strong><br>
+                                • Simpler interpretation<br>
+                                • Traditional connection to sire evaluation<br>
+                                • Accounts for both sexes contributing information
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Practical Examples and Implementation</div>
+                
+                <table class="example-table">
+                    <thead>
+                        <tr>
+                            <th>Information Source</th>
+                            <th>Example Scenario</th>
+                            <th>Daughter Equivalents</th>
+                            <th>Reliability Contribution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Parents</strong></td>
+                            <td>Sire 99% REL, Dam 50% REL</td>
+                            <td>8.3</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Own Performance</strong></td>
+                            <td>3 lactation records</td>
+                            <td>7.8</td>
+                            <td>Moderate-High</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Progeny</strong></td>
+                            <td>10 daughters, 10 herds</td>
+                            <td>1.8</td>
+                            <td>Low-Moderate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Progeny</strong></td>
+                            <td>100 daughters, 100 herds</td>
+                            <td>5.4</td>
+                            <td>Moderate</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="flow-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <div class="step-title">Herd-Sire Interaction Effects</div>
+                        <div class="step-details">
+                            Adjustment for daughters in the same herd
+                            <div class="step-specs">
+                                <strong>Problem:</strong> Daughters in same herd provide less independent information<br>
+                                <strong>Solution:</strong> Reduced DE contribution per daughter<br>
+                                <strong>Formula:</strong> DE_progeny-mate = 1/(0.16 + 0.84/d)<br>
+                                where d = number of daughters in herd<br><br>
+                                <strong>Example:</strong> 10 daughters in one herd contribute 4.1 DE total (0.41 per daughter) vs. 10 daughters in separate herds contributing 1.8 DE total (0.18 per daughter)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Problem Statement</div>
+                        <div class="step-details">
+                            <strong>Industry Need:</strong> Transition from sire models to comprehensive animal models required new terminology and calculation methods.
+                            
+                            <ul>
+                                <li>Previous MCC system inadequate for complex relationships</li>
+                                <li>Need for standardized accuracy measures</li>
+                                <li>Industry required interpretable genetic evaluations</li>
+                                <li>Mathematical foundations needed documentation</li>
+                            </ul>
+                            
+                            <strong>Technical Challenge:</strong> Derive practical formulas from complex mixed model equations while maintaining statistical rigor.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodology</div>
+                        <div class="step-details">
+                            <strong>Mathematical Approach:</strong> Systematic derivation from mixed model equations to practical formulas.
+                            
+                            <ul>
+                                <li><strong>Model Definition:</strong> Establish animal model with all relevant effects</li>
+                                <li><strong>Component Derivation:</strong> Extract YD, PA, PC from equation solutions</li>
+                                <li><strong>Information Theory:</strong> Develop DE framework for accuracy measurement</li>
+                                <li><strong>Practical Implementation:</strong> Create computational algorithms for large-scale evaluation</li>
+                            </ul>
+                            
+                            <strong>Validation:</strong> Mathematical proofs linking to established selection index theory.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Key Contributions</div>
+                        <div class="step-details">
+                            <strong>Theoretical Advances:</strong> Comprehensive mathematical framework for animal model information.
+                            
+                            <ul>
+                                <li><span class="highlight">PTA decomposition</span> into interpretable components</li>
+                                <li><span class="highlight">Daughter Equivalent</span> standardization of information units</li>
+                                <li><span class="highlight">DYD methodology</span> for unregressed progeny evaluation</li>
+                                <li><span class="highlight">Reliability formulas</span> accounting for all information sources</li>
+                            </ul>
+                            
+                            <strong>Practical Impact:</strong> Became the foundation for USDA genetic evaluations and influenced international breeding programs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Legacy and Modern Relevance</div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin-bottom: 20px;">
+                    <p><strong>Enduring Impact:</strong> This paper established the mathematical and conceptual framework that continues to underpin modern genetic evaluation systems. The terminology (PTA, DE, REL, DYD) and calculation methods introduced here remain standard in dairy cattle breeding worldwide.</p>
+                    
+                    <p><strong>Modern Applications:</strong></p>
+                    <ul>
+                        <li>Genomic evaluations build upon this animal model foundation</li>
+                        <li>Daughter Equivalent concepts adapted for genomic information measurement</li>
+                        <li>International genetic evaluation systems use these methodologies</li>
+                        <li>Reliability calculations remain fundamental to breeding decisions</li>
+                    </ul>
+                    
+                    <p><strong>Educational Value:</strong> Provides clear mathematical derivations connecting complex linear algebra to practical breeding applications, making it an essential reference for quantitative genetics education.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <div class="back-to-top" id="backToTop"></div>
+
+    <script>
+        // Back to top functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</html>
