@@ -369,7 +369,79 @@ body {
 /* ============================================
    HEADER STYLES
    ============================================ */
+/* Header info box */
+.header-info {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
 
+.citation-box {
+    background: var(--bg-light);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.legacy-box {
+    background: var(--bg-light);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--success-color);
+    margin-bottom: 20px;
+}
+
+.text-small { margin: 0; font-size: 0.9em; }
+.text-top { margin: 5px 0 0 0; }
+.text-top-large { margin: 10px 0 0 0; }
+.list-top { margin-top: 10px; }
+.list-small { margin: 5px 0; font-size: 0.9em; }
+
+.paper-link {
+    color: #74b9ff;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #74b9ff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+/* Citation box */
+.citation-box {
+    background: var(--bg-light);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 30px;
+}
+
+/* Legacy box */
+.legacy-box {
+    background: var(--bg-light);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--success-color);
+    margin-bottom: 20px;
+}
+
+/* Small text */
+.text-small {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Top margin list */
+.list-top {
+    margin-top: 10px;
+}
+
+/* Small list */
+.list-small {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
 .header {
     background: var(--secondary-color);
     color: white;
