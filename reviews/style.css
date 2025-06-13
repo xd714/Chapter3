@@ -1115,26 +1115,29 @@ body {
 
 .formula {
     background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.8) 100%);
-    padding: 25px 30px; /* Increased padding */
-    margin: 20px auto; /* Center with auto margins */
+    padding: 20px 25px;
+    margin: 20px auto;
     border-radius: 12px;
     font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
     border: 2px solid var(--primary-color);
-    font-size: 1.2em; /* Increased font size */
+    font-size: 1.1em;
     color: var(--text-primary);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 1px;
-    max-width: 600px; /* Limit maximum width */
-    min-height: 60px; /* Ensure minimum height */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    width: fit-content;
+    max-width: 90%;
+    min-width: 300px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1.5;
+    line-height: 1.4;
     position: relative;
-    /* Add subtle animation */
     transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 
 .formula:hover {
@@ -1154,26 +1157,28 @@ body {
 
 /* Different formula sizes */
 .formula.short {
-    padding: 20px 25px;
-    font-size: 1.1em;
+    padding: 15px 20px;
+    font-size: 1.0em;
+    min-width: 250px;
     max-width: 400px;
-    min-height: 50px;
 }
 
 .formula.medium {
-    padding: 25px 30px;
-    font-size: 1.2em;
-    max-width: 500px;
-    min-height: 60px;
+    padding: 18px 25px;
+    font-size: 1.1em;
+    min-width: 350px;
+    max-width: 700px;
 }
 
 .formula.long {
-    padding: 30px 35px;
-    font-size: 1.0em;
-    line-height: 1.7;
+    padding: 20px 30px;
+    font-size: 0.95em;
+    line-height: 1.5;
     text-align: left;
-    max-width: 700px;
-    min-height: 80px;
+    min-width: 400px;
+    max-width: 900px;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 /* Auto-adjust formula box based on content */
@@ -1183,6 +1188,22 @@ body {
     line-height: 1.6;
     padding: 25px 30px;
 }
+
+.formula sub,
+.formula sup {
+    font-size: 0.75em;
+    position: relative;
+    line-height: 0;
+}
+
+.formula sub {
+    bottom: -0.25em;
+}
+
+.formula sup {
+    top: -0.5em;
+}
+
 
 .matrix-visual {
     background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
@@ -1407,7 +1428,29 @@ ul li::marker {
     body {
         padding: 10px;
     }
+    .formula {
+        font-size: 0.9em;
+        padding: 15px 20px;
+        min-width: 280px;
+        max-width: 95%;
+        white-space: normal;
+        word-wrap: break-word;
+    }
     
+    .formula.short {
+        min-width: 250px;
+        font-size: 0.85em;
+    }
+    
+    .formula.medium {
+        min-width: 280px;
+        font-size: 0.9em;
+    }
+    
+    .formula.long {
+        min-width: 300px;
+        font-size: 0.85em;
+    }    
     .container {
         border-radius: 8px;
     }
