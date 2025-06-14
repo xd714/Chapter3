@@ -618,7 +618,7 @@
             document.querySelector('.search-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function filterPapers() {
+        function filterPapers(resetPage = true) {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const selectedYear = document.getElementById('yearFilter').value;
             const selectedTopic = document.getElementById('topicFilter').value;
@@ -638,7 +638,9 @@
             });
 
             filteredPapers = sortPapers(filteredPapers, currentSort);
-            currentPage = 1; // Reset to first page when filtering
+            if (resetPage) {
+                currentPage = 1; // Reset to first page when filtering
+            }
             displayPapers();
         }
 
@@ -691,7 +693,7 @@
 
         function handleSortChange(sortType) {
             currentSort = sortType;
-            filterPapers();
+            filterPapers(true); // Reset page when sorting
         }
 
         // Back to top functionality
@@ -768,8 +770,14 @@
                     });
                     document.querySelector(`[data-view="${currentView}"]`).classList.add('active');
                     
-                    // Apply filters and display with restored state
-                    filterPapers();
+                    // Apply filters without resetting page
+                    filterPapers(false);
+                    
+                    // Set the current page after filtering
+                    currentPage = pageState.currentPage || 1;
+                    
+                    // Display with the correct page
+                    displayPapers();
                     
                     // Restore scroll position after a brief delay to ensure content is rendered
                     setTimeout(() => {
