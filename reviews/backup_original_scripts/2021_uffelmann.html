@@ -6,77 +6,23 @@
     <title>Genome-wide Association Studies: A Comprehensive Primer</title>
     <link rel="stylesheet" href="style.css">
 
-
 <script>
 (function() {
     'use strict';
     
-    // Universal auto-theme with maximum color variety
+    // Auto-theme based on filename
     function initTheme() {
         const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
-        const themeNumber = getPerfectTheme(filename);
+        let hash = 5381;
+        for (let i = 0; i < filename.length; i++) {
+            hash = ((hash << 5) + hash) + filename.charCodeAt(i);
+        }
+        const themeNumber = (Math.abs(hash) % 20) + 1;
         document.body.setAttribute('data-theme', 'auto-' + themeNumber);
         
         // Extract year if present
         const year = filename.match(/\d{4}/)?.[0];
         if (year) document.body.setAttribute('data-year', year);
-    }
-    
-    function getPerfectTheme(filename) {
-        // Prioritize visually distinct themes, minimize greens
-        const visuallyDistinctThemes = [
-            1,  // Red
-            2,  // Blue  
-            4,  // Orange
-            5,  // Purple
-            11, // Yellow
-            12, // Pink
-            13, // Cyan
-            14, // Deep Orange
-            9,  // Dark Purple
-            7,  // Dark Orange
-            16, // Brown
-            6,  // Teal
-            17, // Amber
-            15, // Blue Gray
-            10, // Dark Blue-Gray
-            19, // Deep Purple
-            20, // Teal Green
-            3,  // Green (lower priority)
-            8,  // Light Green (lower priority)
-            18  // Light Green (lowest priority)
-        ];
-        
-        // Multi-source hash for maximum distribution
-        let primaryHash = 0;
-        let secondaryHash = 0;
-        
-        // 1. Character processing with position weighting
-        for (let i = 0; i < filename.length; i++) {
-            const char = filename.charCodeAt(i);
-            primaryHash += char * (i + 1) * 37; // Prime multiplier
-            secondaryHash ^= char << (i % 16);   // Bit shifting
-        }
-        
-        // 2. Year influence (if present)
-        const year = filename.match(/\d{4}/)?.[0];
-        if (year) {
-            primaryHash += parseInt(year) * 4993; // Large prime
-            secondaryHash += (parseInt(year) % 100) * 73;
-        }
-        
-        // 3. Pattern analysis for extra differentiation
-        const vowels = (filename.match(/[aeiou]/gi) || []).length;
-        const consonants = (filename.match(/[bcdfghjklmnpqrstvwxyz]/gi) || []).length;
-        const numbers = (filename.match(/\d/g) || []).length;
-        
-        primaryHash += vowels * 127 + consonants * 149 + numbers * 163;
-        
-        // 4. Final theme selection
-        const combinedHash = Math.abs(primaryHash ^ secondaryHash);
-        const themeIndex = combinedHash % visuallyDistinctThemes.length;
-        
-        return visuallyDistinctThemes[themeIndex];
     }
     
     // Back to top button
