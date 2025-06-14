@@ -8,36 +8,20 @@ new_algorithm <- '
     function initTheme() {
         const filename = location.pathname.split(\'/\').pop().replace(\'.html\', \'\') || \'default\';
         
-        // Ultra-simple but effective distribution
-        let seed = 0;
+        // Dead simple: just use filename length and first character
+        let themeNumber = filename.length % 30;
+        if (themeNumber === 0) themeNumber = 30;
         
-        // Use first and last characters heavily
+        // Add first character to spread it out more
         if (filename.length > 0) {
-            seed += filename.charCodeAt(0) * 13;
-            seed += filename.charCodeAt(filename.length - 1) * 17;
+            themeNumber = (themeNumber + filename.charCodeAt(0)) % 30;
+            if (themeNumber === 0) themeNumber = 30;
         }
-        
-        // Add middle character if exists
-        if (filename.length > 2) {
-            const mid = Math.floor(filename.length / 2);
-            seed += filename.charCodeAt(mid) * 19;
-        }
-        
-        // Add length and vowel count
-        seed += filename.length * 23;
-        const vowelCount = (filename.match(/[aeiouAEIOU]/g) || []).length;
-        seed += vowelCount * 29;
-        
-        // Extract year and add to seed
-        const year = filename.match(/\\d{4}/)?.[0];
-        if (year) {
-            seed += parseInt(year) * 7;
-        }
-        
-        // Simple modulo for theme number
-        const themeNumber = (seed % 30) + 1;
         
         document.body.setAttribute(\'data-theme\', \'auto-\' + themeNumber);
+        
+        // Extract year if present
+        const year = filename.match(/\\d{4}/)?.[0];
         if (year) document.body.setAttribute(\'data-year\', year);
     }'
 
@@ -151,39 +135,17 @@ update_html_files <- function(directory_path = ".", recursive = TRUE, backup = T
 
 # Function to test the algorithm on a sample filename
 test_new_algorithm <- function(filename) {
-  # Simulate the JavaScript algorithm in R
   filename_clean <- gsub("\\.html$", "", filename)
   
-  # Ultra-simple but effective distribution
-  seed <- 0
+  # Dead simple: just use filename length and first character
+  theme_number <- nchar(filename_clean) %% 30
+  if (theme_number == 0) theme_number <- 30
   
-  # Use first and last characters heavily
+  # Add first character to spread it out more
   if (nchar(filename_clean) > 0) {
-    seed <- seed + utf8ToInt(substr(filename_clean, 1, 1)) * 13
-    seed <- seed + utf8ToInt(substr(filename_clean, nchar(filename_clean), nchar(filename_clean))) * 17
+    theme_number <- (theme_number + utf8ToInt(substr(filename_clean, 1, 1))) %% 30
+    if (theme_number == 0) theme_number <- 30
   }
-  
-  # Add middle character if exists
-  if (nchar(filename_clean) > 2) {
-    mid <- floor(nchar(filename_clean) / 2)
-    seed <- seed + utf8ToInt(substr(filename_clean, mid, mid)) * 19
-  }
-  
-  # Add length and vowel count
-  seed <- seed + nchar(filename_clean) * 23
-  vowel_count <- length(gregexpr("[aeiouAEIOU]", filename_clean)[[1]])
-  if (vowel_count > 0 && gregexpr("[aeiouAEIOU]", filename_clean)[[1]][1] != -1) {
-    seed <- seed + vowel_count * 29
-  }
-  
-  # Extract year and add to seed
-  year_match <- regmatches(filename_clean, regexpr("\\d{4}", filename_clean))
-  if (length(year_match) > 0) {
-    seed <- seed + as.numeric(year_match[1]) * 7
-  }
-  
-  # Simple modulo for theme number
-  theme_number <- (seed %% 30) + 1
   
   cat("Filename:", filename, "-> Theme:", theme_number, "\n")
   return(theme_number)
