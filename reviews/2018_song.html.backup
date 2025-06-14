@@ -6,43 +6,100 @@
     <title>De-regression Methods in Genomic Prediction</title>
     <link rel="stylesheet" href="style.css">
 
-
 <script>
 (function() {
     'use strict';
     
-    // Auto-theme based on filename
-    function initTheme() {
-        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
-        let hash = 5381;
-        for (let i = 0; i < filename.length; i++) {
-            hash = ((hash << 5) + hash) + filename.charCodeAt(i);
+    function initAutoTheme() {
+        try {
+            const filename = window.location.pathname.split('/').pop().replace('.html', '') || 'default';
+            const pageTitle = document.title || '';
+            
+            function generateHash(str) {
+                let hash = 5381;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                return Math.abs(hash);
+            }
+            
+            const hashValue = generateHash(filename + pageTitle);
+            const themeNumber = (hashValue % 20) + 1;
+            
+            document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+            document.body.setAttribute('data-file', filename);
+            
+            const year = filename.match(/\d{4}/)?.[0] || pageTitle.match(/\d{4}/)?.[0] || '';
+            if (year) {
+                document.body.setAttribute('data-year', year);
+            }
+            
+            console.log('🎨 Theme:', 'auto-' + themeNumber, '| File:', filename);
+            
+        } catch (error) {
+            console.warn('Theme initialization failed:', error);
+            document.body.setAttribute('data-theme', 'auto-1');
         }
-        const themeNumber = (Math.abs(hash) % 20) + 1;
-        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
-        
-        // Extract year if present
-        const year = filename.match(/\d{4}/)?.[0];
-        if (year) document.body.setAttribute('data-year', year);
     }
     
-    // Back to top button
     function initBackToTop() {
-        const btn = document.createElement('div');
-        btn.className = 'back-to-top';
-        btn.setAttribute('aria-label', 'Back to top');
-        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-        document.body.appendChild(btn);
-        
-        window.onscroll = () => {
-            btn.classList.toggle('visible', window.pageYOffset > 300);
-        };
+        try {
+            let backToTopButton = document.getElementById('backToTop') || 
+                                 document.querySelector('.back-to-top');
+            
+            if (!backToTopButton) {
+                backToTopButton = document.createElement('div');
+                backToTopButton.className = 'back-to-top';
+                backToTopButton.id = 'backToTop';
+                backToTopButton.setAttribute('aria-label', 'Back to top');
+                backToTopButton.setAttribute('role', 'button');
+                backToTopButton.setAttribute('tabindex', '0');
+                document.body.appendChild(backToTopButton);
+            }
+            
+            function toggleVisibility() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleVisibility, { passive: true });
+            backToTopButton.addEventListener('click', scrollToTop);
+            
+            backToTopButton.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+            
+            toggleVisibility();
+            
+        } catch (error) {
+            console.warn('Back to top initialization failed:', error);
+        }
     }
     
-    // Initialize when ready
-    document.readyState === 'loading' 
-        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
-        : (initTheme(), initBackToTop());
+    function init() {
+        initAutoTheme();
+        initBackToTop();
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 })();
 </script>
 </head>
