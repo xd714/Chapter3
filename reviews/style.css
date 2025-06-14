@@ -71,7 +71,41 @@
     --color-18-light: #c8e6c9;
     --color-19-light: #d1c4e9;
     --color-20-light: #b2dfdb;
+    /* NEW: 10 additional beautiful colors */
+    --color-21: #ff6b6b;  /* Coral Red */
+    --color-22: #4ecdc4;  /* Mint Teal */
+    --color-23: #45b7d1;  /* Sky Blue */
+    --color-24: #96ceb4;  /* Sage Green */
+    --color-25: #ffeaa7;  /* Warm Yellow */
+    --color-26: #dda0dd;  /* Plum */
+    --color-27: #98d8c8;  /* Seafoam */
+    --color-28: #f7dc6f;  /* Gold */
+    --color-29: #bb8fce;  /* Lavender */
+    --color-30: #85c1e9;  /* Powder Blue */
     
+    /* Dark variants for new colors */
+    --color-21-dark: #ff5252;
+    --color-22-dark: #26a69a;
+    --color-23-dark: #2196f3;
+    --color-24-dark: #66bb6a;
+    --color-25-dark: #ffcc02;
+    --color-26-dark: #ba68c8;
+    --color-27-dark: #4db6ac;
+    --color-28-dark: #ffc107;
+    --color-29-dark: #9c27b0;
+    --color-30-dark: #42a5f5;
+    
+    /* Light variants for new colors */
+    --color-21-light: #ffcdd2;
+    --color-22-light: #b2dfdb;
+    --color-23-light: #bbdefb;
+    --color-24-light: #c8e6c9;
+    --color-25-light: #fff9c4;
+    --color-26-light: #e1bee7;
+    --color-27-light: #b2dfdb;
+    --color-28-light: #fff8e1;
+    --color-29-light: #e8eaf6;
+    --color-30-light: #e3f2fd;    
     /* Default theme (fallback) - will be overridden by JavaScript */
     --primary-color: var(--color-2);
     --primary-hover: var(--color-2-dark);
@@ -249,6 +283,75 @@
     --accent-color: var(--color-1);
 }
 
+[data-theme="auto-21"] {
+    --primary-color: var(--color-21);
+    --primary-hover: var(--color-21-dark);
+    --primary-light: var(--color-21-light);
+    --accent-color: var(--color-22);
+}
+
+[data-theme="auto-22"] {
+    --primary-color: var(--color-22);
+    --primary-hover: var(--color-22-dark);
+    --primary-light: var(--color-22-light);
+    --accent-color: var(--color-23);
+}
+
+[data-theme="auto-23"] {
+    --primary-color: var(--color-23);
+    --primary-hover: var(--color-23-dark);
+    --primary-light: var(--color-23-light);
+    --accent-color: var(--color-24);
+}
+
+[data-theme="auto-24"] {
+    --primary-color: var(--color-24);
+    --primary-hover: var(--color-24-dark);
+    --primary-light: var(--color-24-light);
+    --accent-color: var(--color-25);
+}
+
+[data-theme="auto-25"] {
+    --primary-color: var(--color-25);
+    --primary-hover: var(--color-25-dark);
+    --primary-light: var(--color-25-light);
+    --accent-color: var(--color-26);
+}
+
+[data-theme="auto-26"] {
+    --primary-color: var(--color-26);
+    --primary-hover: var(--color-26-dark);
+    --primary-light: var(--color-26-light);
+    --accent-color: var(--color-27);
+}
+
+[data-theme="auto-27"] {
+    --primary-color: var(--color-27);
+    --primary-hover: var(--color-27-dark);
+    --primary-light: var(--color-27-light);
+    --accent-color: var(--color-28);
+}
+
+[data-theme="auto-28"] {
+    --primary-color: var(--color-28);
+    --primary-hover: var(--color-28-dark);
+    --primary-light: var(--color-28-light);
+    --accent-color: var(--color-29);
+}
+
+[data-theme="auto-29"] {
+    --primary-color: var(--color-29);
+    --primary-hover: var(--color-29-dark);
+    --primary-light: var(--color-29-light);
+    --accent-color: var(--color-30);
+}
+
+[data-theme="auto-30"] {
+    --primary-color: var(--color-30);
+    --primary-hover: var(--color-30-dark);
+    --primary-light: var(--color-30-light);
+    --accent-color: var(--color-1);
+}
 /* ============================================
    BASE STYLES
    ============================================ */
