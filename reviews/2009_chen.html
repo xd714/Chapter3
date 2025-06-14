@@ -13,14 +13,26 @@
 (function() {
     'use strict';
     
+    
     function initTheme() {
         const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
         
-        // Ultra-simple hash: character codes + position weights + year
+        // Simple but effective: use multiple small primes
         let hash = 0;
         for (let i = 0; i < filename.length; i++) {
-            hash += filename.charCodeAt(i) * (i + 1);
+            hash = ((hash * 31) + filename.charCodeAt(i) * (i * 7 + 11)) % 1000000007;
         }
+        
+        // Add filename length as entropy
+        hash += filename.length * 127;
+        
+        // Use golden ratio for distribution
+        const themeNumber = Math.floor((hash * 0.6180339887) % 30) + 1;
+        
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        const year = filename.match(/d{4}/)?.[0];
+        if (year) document.body.setAttribute('data-year', year);
+    }
         
         const year = filename.match(/\d{4}/)?.[0];
         if (year) hash += parseInt(year);
