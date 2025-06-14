@@ -8,20 +8,32 @@ new_algorithm <- '
     function initTheme() {
         const filename = location.pathname.split(\'/\').pop().replace(\'.html\', \'\') || \'default\';
         
-        // Simple but effective: use multiple small primes
-        let hash = 0;
+        // Multiple hash sources for better distribution
+        let hash1 = 0, hash2 = 0, hash3 = 0;
+        
+        // Hash 1: Sum of character codes
         for (let i = 0; i < filename.length; i++) {
-            hash = ((hash * 31) + filename.charCodeAt(i) * (i * 7 + 11)) % 1000000007;
+            hash1 += filename.charCodeAt(i);
         }
         
-        // Add filename length as entropy
-        hash += filename.length * 127;
+        // Hash 2: XOR of character codes with positions
+        for (let i = 0; i < filename.length; i++) {
+            hash2 ^= filename.charCodeAt(i) << (i % 8);
+        }
         
-        // Use golden ratio for distribution
-        const themeNumber = Math.floor((hash * 0.6180339887) % 30) + 1;
+        // Hash 3: String length and character variety
+        hash3 = filename.length * 17;
+        hash3 += new Set(filename).size * 23; // Unique character count
+        
+        // Extract year if present
+        const year = filename.match(/\\d{4}/)?.[0];
+        if (year) hash3 += parseInt(year) % 100;
+        
+        // Combine hashes with different modulos to spread across 30 themes
+        const combined = (hash1 % 7) + (hash2 % 11) + (hash3 % 13);
+        const themeNumber = (combined % 30) + 1;
         
         document.body.setAttribute(\'data-theme\', \'auto-\' + themeNumber);
-        const year = filename.match(/\\d{4}/)?.[0];
         if (year) document.body.setAttribute(\'data-year\', year);
     }'
 
@@ -136,16 +148,35 @@ update_html_files <- function(directory_path = ".", recursive = TRUE, backup = T
 # Function to test the algorithm on a sample filename
 test_new_algorithm <- function(filename) {
   # Simulate the JavaScript algorithm in R
-  hash <- 0
   filename_clean <- gsub("\\.html$", "", filename)
   
+  # Hash 1: Sum of character codes
+  hash1 <- 0
   for (i in 1:nchar(filename_clean)) {
     char_code <- utf8ToInt(substr(filename_clean, i, i))
-    hash <- ((hash * 31) + char_code * (i * 7 + 11)) %% 1000000007
+    hash1 <- hash1 + char_code
   }
   
-  hash <- hash + nchar(filename_clean) * 127
-  theme_number <- floor((hash * 0.6180339887) %% 30) + 1
+  # Hash 2: XOR of character codes with positions
+  hash2 <- 0
+  for (i in 1:nchar(filename_clean)) {
+    char_code <- utf8ToInt(substr(filename_clean, i, i))
+    hash2 <- bitwXor(hash2, bitwShiftL(char_code, (i-1) %% 8))
+  }
+  
+  # Hash 3: String length and character variety
+  hash3 <- nchar(filename_clean) * 17
+  hash3 <- hash3 + length(unique(strsplit(filename_clean, "")[[1]])) * 23
+  
+  # Extract year if present
+  year_match <- regmatches(filename_clean, regexpr("\\d{4}", filename_clean))
+  if (length(year_match) > 0) {
+    hash3 <- hash3 + (as.numeric(year_match[1]) %% 100)
+  }
+  
+  # Combine hashes
+  combined <- (hash1 %% 7) + (hash2 %% 11) + (hash3 %% 13)
+  theme_number <- (combined %% 30) + 1
   
   cat("Filename:", filename, "-> Theme:", theme_number, "\n")
   return(theme_number)
