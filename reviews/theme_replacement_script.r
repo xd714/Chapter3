@@ -8,30 +8,34 @@ new_algorithm <- '
     function initTheme() {
         const filename = location.pathname.split(\'/\').pop().replace(\'.html\', \'\') || \'default\';
         
-        // Multiple hash sources for better distribution
-        let hash1 = 0, hash2 = 0, hash3 = 0;
+        // Ultra-simple but effective distribution
+        let seed = 0;
         
-        // Hash 1: Sum of character codes
-        for (let i = 0; i < filename.length; i++) {
-            hash1 += filename.charCodeAt(i);
+        // Use first and last characters heavily
+        if (filename.length > 0) {
+            seed += filename.charCodeAt(0) * 13;
+            seed += filename.charCodeAt(filename.length - 1) * 17;
         }
         
-        // Hash 2: XOR of character codes with positions
-        for (let i = 0; i < filename.length; i++) {
-            hash2 ^= filename.charCodeAt(i) << (i % 8);
+        // Add middle character if exists
+        if (filename.length > 2) {
+            const mid = Math.floor(filename.length / 2);
+            seed += filename.charCodeAt(mid) * 19;
         }
         
-        // Hash 3: String length and character variety
-        hash3 = filename.length * 17;
-        hash3 += new Set(filename).size * 23; // Unique character count
+        // Add length and vowel count
+        seed += filename.length * 23;
+        const vowelCount = (filename.match(/[aeiouAEIOU]/g) || []).length;
+        seed += vowelCount * 29;
         
-        // Extract year if present
+        // Extract year and add to seed
         const year = filename.match(/\\d{4}/)?.[0];
-        if (year) hash3 += parseInt(year) % 100;
+        if (year) {
+            seed += parseInt(year) * 7;
+        }
         
-        // Combine hashes with different modulos to spread across 30 themes
-        const combined = (hash1 % 7) + (hash2 % 11) + (hash3 % 13);
-        const themeNumber = (combined % 30) + 1;
+        // Simple modulo for theme number
+        const themeNumber = (seed % 30) + 1;
         
         document.body.setAttribute(\'data-theme\', \'auto-\' + themeNumber);
         if (year) document.body.setAttribute(\'data-year\', year);
@@ -150,33 +154,36 @@ test_new_algorithm <- function(filename) {
   # Simulate the JavaScript algorithm in R
   filename_clean <- gsub("\\.html$", "", filename)
   
-  # Hash 1: Sum of character codes
-  hash1 <- 0
-  for (i in 1:nchar(filename_clean)) {
-    char_code <- utf8ToInt(substr(filename_clean, i, i))
-    hash1 <- hash1 + char_code
+  # Ultra-simple but effective distribution
+  seed <- 0
+  
+  # Use first and last characters heavily
+  if (nchar(filename_clean) > 0) {
+    seed <- seed + utf8ToInt(substr(filename_clean, 1, 1)) * 13
+    seed <- seed + utf8ToInt(substr(filename_clean, nchar(filename_clean), nchar(filename_clean))) * 17
   }
   
-  # Hash 2: XOR of character codes with positions
-  hash2 <- 0
-  for (i in 1:nchar(filename_clean)) {
-    char_code <- utf8ToInt(substr(filename_clean, i, i))
-    hash2 <- bitwXor(hash2, bitwShiftL(char_code, (i-1) %% 8))
+  # Add middle character if exists
+  if (nchar(filename_clean) > 2) {
+    mid <- floor(nchar(filename_clean) / 2)
+    seed <- seed + utf8ToInt(substr(filename_clean, mid, mid)) * 19
   }
   
-  # Hash 3: String length and character variety
-  hash3 <- nchar(filename_clean) * 17
-  hash3 <- hash3 + length(unique(strsplit(filename_clean, "")[[1]])) * 23
+  # Add length and vowel count
+  seed <- seed + nchar(filename_clean) * 23
+  vowel_count <- length(gregexpr("[aeiouAEIOU]", filename_clean)[[1]])
+  if (vowel_count > 0 && gregexpr("[aeiouAEIOU]", filename_clean)[[1]][1] != -1) {
+    seed <- seed + vowel_count * 29
+  }
   
-  # Extract year if present
+  # Extract year and add to seed
   year_match <- regmatches(filename_clean, regexpr("\\d{4}", filename_clean))
   if (length(year_match) > 0) {
-    hash3 <- hash3 + (as.numeric(year_match[1]) %% 100)
+    seed <- seed + as.numeric(year_match[1]) * 7
   }
   
-  # Combine hashes
-  combined <- (hash1 %% 7) + (hash2 %% 11) + (hash3 %% 13)
-  theme_number <- (combined %% 30) + 1
+  # Simple modulo for theme number
+  theme_number <- (seed %% 30) + 1
   
   cat("Filename:", filename, "-> Theme:", theme_number, "\n")
   return(theme_number)
