@@ -729,18 +729,59 @@
             // Scroll listener for back to top
             window.addEventListener('scroll', handleScroll);
 
-            // Store scroll position when clicking on review links
+            // Store page state when clicking on review links
             document.addEventListener('click', function(e) {
                 if (e.target.matches('a[href*="./reviews/"]')) {
-                    sessionStorage.setItem('indexScrollPosition', window.pageYOffset);
+                    const pageState = {
+                        scrollPosition: window.pageYOffset,
+                        currentPage: currentPage,
+                        searchTerm: document.getElementById('searchInput').value,
+                        yearFilter: document.getElementById('yearFilter').value,
+                        topicFilter: document.getElementById('topicFilter').value,
+                        currentView: currentView,
+                        currentSort: currentSort
+                    };
+                    sessionStorage.setItem('indexPageState', JSON.stringify(pageState));
                 }
             });
             
-            // Restore scroll position when returning to index
-            const savedPosition = sessionStorage.getItem('indexScrollPosition');
-            if (savedPosition) {
-                window.scrollTo(0, parseInt(savedPosition));
-                sessionStorage.removeItem('indexScrollPosition');
+            // Restore page state when returning to index
+            const savedState = sessionStorage.getItem('indexPageState');
+            if (savedState) {
+                try {
+                    const pageState = JSON.parse(savedState);
+                    
+                    // Restore form values
+                    document.getElementById('searchInput').value = pageState.searchTerm || '';
+                    document.getElementById('yearFilter').value = pageState.yearFilter || '';
+                    document.getElementById('topicFilter').value = pageState.topicFilter || '';
+                    document.getElementById('sortSelect').value = pageState.currentSort || 'year-desc';
+                    
+                    // Restore view state
+                    currentView = pageState.currentView || 'detailed';
+                    currentSort = pageState.currentSort || 'year-desc';
+                    currentPage = pageState.currentPage || 1;
+                    
+                    // Update view toggle buttons
+                    document.querySelectorAll('.view-toggle').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelector(`[data-view="${currentView}"]`).classList.add('active');
+                    
+                    // Apply filters and display with restored state
+                    filterPapers();
+                    
+                    // Restore scroll position after a brief delay to ensure content is rendered
+                    setTimeout(() => {
+                        window.scrollTo(0, pageState.scrollPosition || 0);
+                    }, 100);
+                    
+                    // Clear the stored state after using it
+                    sessionStorage.removeItem('indexPageState');
+                } catch (e) {
+                    console.error('Error restoring page state:', e);
+                    sessionStorage.removeItem('indexPageState');
+                }
             }
         });
     </script>
