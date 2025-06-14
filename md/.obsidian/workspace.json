@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1. du6_research_methodology.md",
+                "file": "3. methods of calculating PEV of MSE.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1. du6_research_methodology"
+              "title": "3. methods of calculating PEV of MSE"
             }
           }
         ]
@@ -170,11 +170,13 @@
   },
   "active": "57bee96bc394a40f",
   "lastOpenFiles": [
-    "2. literatures dBV as phnotype in GWAs.md",
+    "3. reasons considering MSE and how to calculate its PEV.md",
+    "3. methods of calculating PEV of MSE.md",
+    "4. methods of calculating PEV of MSE.md",
     "1. du6_research_methodology.md",
+    "2. literatures dBV as phnotype in GWAs.md",
     "1. research genetic variance steps.md",
     "du6_research_methodology.md",
-    "3. reasons considering MSE and how to calculate its PEV.md",
     "2. literature support dBV as phnotype in GWAs.md",
     "give me literatures support  de-regressed breeding.md",
     "4. how PEV of Mendelian sampling variance calculated.md",
@@ -194,8 +196,6 @@
     "genetic bottle neck eased.md",
     "prove genetic bottle neck eased after moving to new mouse house.md",
     "Prove genetic bottle neck eased.md",
-    "literatures supporting these steps.md",
-    "steps for detect variation.md",
     "未命名",
     "mendelian_sampling_flowchart.html"
   ]

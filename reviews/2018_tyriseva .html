@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation of Consistency of Mendelian Sampling Variance</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Validation of Consistency of Mendelian Sampling Variance</h1>
+            <p>International Genetic Evaluation Quality Control Framework</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> A.-M. Tyrisevä, W. F. Fikse, E. A. Mäntysaari, J. Jakobsen, G. P. Aamand, J. Dürr, M. H. Lidauer</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Dairy Science, Vol. 101 No. 3, 2018</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Natural Resources Institute Finland, Swedish University of Agricultural Sciences, NAV Nordic Cattle Genetic Evaluation</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.3168/jds.2017-13255"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Research Context & Problem Statement</div>
+                
+                <div class="problem-box">
+                    <strong>Critical Gap in International Evaluation:</strong> The multiple-trait across-country evaluation (MACE) method is highly sensitive to changes in genetic variance over time in national evaluations. Bulls from birth year classes with inflated genetic variances receive upward bias in ranking, but no validation methods existed to test for homogeneity of genetic variance across years.
+                </div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Tyrisevä, A.-M., Fikse, W. F., Mäntysaari, E. A., Jakobsen, J., Aamand, G. P., Dürr, J., & Lidauer, M. H. (2018). Validation of consistency of Mendelian sampling variance. Journal of Dairy Science, 101(3), 2187-2198.</p>
+                    
+                    <p><strong>Key Background References:</strong></p>
+                    <ul class="list-top">
+                        <li>Sullivan (1999): Restricted maximum likelihood method for estimating within-year genetic variances using Mendelian sampling</li>
+                        <li>Fikse et al. (2003): Procedure using approximated reliabilities of EBV</li>
+                        <li>Miglior et al. (2002): Outlined validation test for International Bull Evaluation Service</li>
+                        <li>Lidauer et al. (2007): Full model sampling method for within-year genetic variance estimation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">Detailed Methodology Flow</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Variance Estimation Framework</div>
+                            <div class="step-details">
+                                Develop method based on Mendelian sampling (MS) and prediction error variance (PEV)
+                                <div class="step-specs">
+                                    <strong>Core Equation:</strong> Within-year genetic variance using MS<br>
+                                    <strong>Key Innovation:</strong> Use approximated reliabilities instead of exact PEV calculation<br>
+                                    <strong>Reliability Threshold:</strong> MS reliability > 0.1 for numerical stability
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Testing Framework</div>
+                            <div class="step-details">
+                                Implement weighted linear regression and outlier detection
+                                <div class="step-specs">
+                                    <strong>Trend Test:</strong> Weighted linear regression of genetic variance on year<br>
+                                    <strong>Bootstrap:</strong> 1,000 samples for 95% confidence intervals<br>
+                                    <strong>Outlier Test:</strong> Detect years that don't fit linear trend with Bonferroni correction
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Simulation Study Design</div>
+                            <div class="step-details">
+                                Comprehensive validation using realistic population structures
+                                <div class="step-specs">
+                                    <strong>Data Sources:</strong> Danish Holstein protein yield test-day records<br>
+                                    <strong>Scenarios:</strong> Control (homogeneous), T2 (2% yearly increase), T10 (10% yearly increase)<br>
+                                    <strong>Population Sizes:</strong> Moderate (M: 756,537 cows, 290 bulls/year) and Small (S: 483,410 cows, 27 bulls/year)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Structure and Editing</div>
+                            <div class="step-details">
+                                Establish data requirements and quality control measures
+                                <div class="step-specs">
+                                    <strong>Time Period:</strong> 22 years (1988-2009) for comprehensive trend detection<br>
+                                    <strong>Data Edit 1:</strong> EBV reliability ≥ 0.50 (removed edge effects but caused selection bias)<br>
+                                    <strong>Data Edit 2:</strong> MS reliability > 0.1 (final criterion, removed 26% cow records, 0.3% bull records)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Model Validation Approach</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">MSVT Method (Proposed)</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Mendelian Sampling Variance Test
+                            <div class="formula">σ²ᵤⱼ = (Σdᵢm̂ᵢ² - ΣdᵢPEV(m̂ᵢ)) / Σdᵢ</div>
+                            <strong>Advantages:</strong><br>
+                            • Computationally feasible for large datasets<br>
+                            • Uses approximated reliabilities<br>
+                            • Applicable across different evaluation models<br><br>
+                            <strong>Limitations:</strong><br>
+                            • Sensitive to reliability quality<br>
+                            • Requires MS reliability > 0.1<br>
+                            • Less robust than FMS for low reliability data
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">FMS Method (Reference)</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Full Model Sampling
+                            <div class="formula">σ²ᵤⱼ = (Σdᵢm̂ᵢ² + (1/r)Σᵣₖ₌₁Σdᵢm²ᵢᵣ) / Σdᵢ</div>
+                            <strong>Advantages:</strong><br>
+                            • More robust to low reliability values<br>
+                            • Direct PEV calculation through resampling<br>
+                            • Higher accuracy as reference method<br><br>
+                            <strong>Limitations:</strong><br>
+                            • Computationally intensive<br>
+                            • Requires model-specific implementation<br>
+                            • Not practical for routine validation
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-analysis">
+                <div class="section-title">Comprehensive Results Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - International Quality Control Need</div>
+                        <div class="step-details">
+                            <strong>MACE Sensitivity:</strong> International dairy bull evaluations are biased by heterogeneity of genetic variance in national evaluations.
+                            
+                            <ul>
+                                <li>Bulls from countries with inflated variance trends gain unfair advantage</li>
+                                <li>Scaling effects from increasing production levels over time</li>
+                                <li>Combined evaluations from different management systems</li>
+                                <li>No existing validation methods for variance homogeneity</li>
+                            </ul>
+                            
+                            <strong>Impact:</strong> Unreliable international rankings affecting global breeding decisions.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Validation Method Development</div>
+                        <div class="step-details">
+                            <strong>Core Innovation:</strong> Practical method for routine validation of genetic variance homogeneity.
+                            
+                            <ul>
+                                <li><strong>Estimation:</strong> Use MS and approximated PEV for within-year genetic variances</li>
+                                <li><strong>Testing:</strong> Weighted linear regression with bootstrap confidence intervals</li>
+                                <li><strong>Validation:</strong> Compare against gold-standard FMS method</li>
+                                <li><strong>Implementation:</strong> Account for inbreeding effects and reliability thresholds</li>
+                            </ul>
+                            
+                            <strong>Key Requirements:</strong> MS reliability > 0.1, tolerance values for large datasets.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Performance Validation Results</div>
+                        <div class="step-details">
+                            <strong>Accuracy:</strong> Close agreement with reference method and simulated values.
+                            
+                            <ul>
+                                <li><span class="highlight">MSVT: 245.4 kg² vs FMS: 252.7 kg²</span> (simulated: 247 kg²)</li>
+                                <li><span class="highlight">Trend Detection:</span> 100% sensitivity for moderate populations with generated trends</li>
+                                <li><span class="highlight">Specificity:</span> Acceptable false-positive rates with tolerance values</li>
+                                <li><span class="highlight">Small Populations:</span> Reduced sensitivity but still functional</li>
+                            </ul>
+                            
+                            <strong>Practical Impact:</strong> Enables routine validation for international evaluation quality assurance.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Detailed Performance Analysis</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Moderate Population Results (Setting M)</div>
+                        <div class="step-details">
+                            <strong>Control Scenario (Homogeneous Variance):</strong>
+                            <ul>
+                                <li>Cows: 0.07% average trend, 11/20 replicates significant</li>
+                                <li>Bulls: -0.13% average trend, 1/20 replicates significant</li>
+                                <li>Statistical outliers within expected range</li>
+                            </ul>
+                            
+                            <strong>T2 Scenario (2% yearly increase):</strong>
+                            <ul>
+                                <li>Cows: 1.58% detected trend (20/20 significant)</li>
+                                <li>Bulls: 1.30% detected trend (20/20 significant)</li>
+                                <li>Excellent sensitivity for meaningful trends</li>
+                            </ul>
+                            
+                            <strong>T10 Scenario (10% yearly increase):</strong>
+                            <ul>
+                                <li>Cows: 4.49% detected trend (20/20 significant)</li>
+                                <li>Bulls: 3.96% detected trend (20/20 significant)</li>
+                                <li>Perfect detection of large variance changes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Small Population Results (Setting S)</div>
+                        <div class="step-details">
+                            <strong>Control Scenario:</strong>
+                            <ul>
+                                <li>Bulls: -0.27% average trend, 0/20 replicates significant</li>
+                                <li>Increased sampling error but no false positives</li>
+                                <li>Overall genetic variance still accurate (249.4 vs 247 kg²)</li>
+                            </ul>
+                            
+                            <strong>T2 Scenario:</strong>
+                            <ul>
+                                <li>Bulls: 1.07% detected trend, 3/20 significant</li>
+                                <li>Reduced sensitivity due to smaller sample sizes</li>
+                                <li>Wide range: -0.55% to 3.28%</li>
+                            </ul>
+                            
+                            <strong>T10 Scenario:</strong>
+                            <ul>
+                                <li>Bulls: 3.51% detected trend, 19/20 significant</li>
+                                <li>Strong trends still detectable</li>
+                                <li>Range: 1.72% to 5.66%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-technical">
+                <div class="section-title">Technical Specifications & Requirements</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Data Requirements</div>
+                        <div class="step-details">
+                            <strong>Minimum Standards:</strong>
+                            <ul>
+                                <li><span class="highlight">MS Reliability > 0.1:</span> Essential for numerical stability</li>
+                                <li><span class="highlight">Birth Year Classes:</span> At least half of average class size</li>
+                                <li><span class="highlight">Time Period:</span> Sufficient years for trend detection</li>
+                                <li><span class="highlight">Low Heritability:</span> Use bull data only (cows need ≥3 records)</li>
+                            </ul>
+                            
+                            <strong>Recommended Edits:</strong>
+                            <ul>
+                                <li>Exclude animals with incomplete pedigree information</li>
+                                <li>Remove last birth year if class size < 50% of average</li>
+                                <li>Apply appropriate tolerance values for large datasets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Implementation Guidelines</div>
+                        <div class="step-details">
+                            <strong>Tolerance Values:</strong>
+                            <ul>
+                                <li><span class="highlight">Trend Tolerance:</span> 2-4% yearly increase may be acceptable</li>
+                                <li><span class="highlight">Outlier Tolerance:</span> ±10% of average genetic variance</li>
+                                <li><span class="highlight">Large Datasets:</span> Statistical power requires practical thresholds</li>
+                            </ul>
+                            
+                            <strong>Inbreeding Effects:</strong>
+                            <ul>
+                                <li>Account for inbreeding in both EBV prediction and variance estimation</li>
+                                <li>Ignoring inbreeding leads to slight negative trends</li>
+                                <li>Effect is tolerable but ideally should be modeled</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Method Comparison Summary</div>
+                
+                <div class="method-comparison">
+                    <div class="method-box method-1">
+                        <div class="method-title">Sensitivity Analysis</div>
+                        <div class="step-details">
+                            <strong>MSVT Strengths:</strong>
+                            <ul>
+                                <li>Computationally feasible for routine use</li>
+                                <li>Good accuracy when reliability requirements met</li>
+                                <li>Applicable across different evaluation models</li>
+                                <li>Suitable for international validation framework</li>
+                            </ul>
+                            
+                            <strong>MSVT Limitations:</strong>
+                            <ul>
+                                <li>Sensitive to approximated reliability quality</li>
+                                <li>Less robust than FMS for low reliability data</li>
+                                <li>Requires careful data editing</li>
+                                <li>Reduced performance in small populations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="method-box method-2">
+                        <div class="method-title">Practical Recommendations</div>
+                        <div class="step-details">
+                            <strong>For Large Populations:</strong>
+                            <ul>
+                                <li>Apply tolerance values to avoid detecting trivial trends</li>
+                                <li>Use both cow and bull data with appropriate filtering</li>
+                                <li>Set practical thresholds for trend significance</li>
+                                <li>Regular validation as part of quality control</li>
+                            </ul>
+                            
+                            <strong>For Small Populations:</strong>
+                            <ul>
+                                <li>Focus on bull data for better power</li>
+                                <li>Accept reduced sensitivity for moderate trends</li>
+                                <li>Emphasize detection of large variance changes</li>
+                                <li>Consider longer time periods for trend detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">Research Impact & Future Directions</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Key Innovation</div>
+                    <p>First practical validation method for genetic variance homogeneity in international dairy cattle evaluations, enabling quality control for MACE system and ensuring fair international comparisons of breeding values.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Methodological Contributions</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Statistical Framework:</strong> Bootstrap-based confidence intervals for trend detection</li>
+                                <li><strong>Practical Implementation:</strong> Approximated reliabilities for computational feasibility</li>
+                                <li><strong>Quality Control:</strong> MS reliability thresholds for numerical stability</li>
+                                <li><strong>Validation Protocol:</strong> Comprehensive simulation study design</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Industry Applications</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Interbull Validation:</strong> Adopted for routine quality control in international evaluations</li>
+                                <li><strong>National Programs:</strong> Tool for validating domestic evaluation models</li>
+                                <li><strong>Research Applications:</strong> Method for studying variance heterogeneity</li>
+                                <li><strong>Software Implementation:</strong> Tailored program available from Interbull Centre</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Limitations & Future Research</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">⚠️ Current Limitations</div>
+                    <div class="gap-content">
+                        <strong>Technical Constraints:</strong>
+                        <ul>
+                            <li>Sensitivity to approximated reliability accuracy limits applicability to low-reliability scenarios</li>
+                            <li>Reduced power in small populations may miss moderate but practically important trends</li>
+                            <li>Method assumes linear trends, may miss complex temporal patterns</li>
+                            <li>Tolerance values need empirical determination for different traits and populations</li>
+                        </ul>
+                        
+                        <strong>Implementation Challenges:</strong>
+                        <ul>
+                            <li>Requires careful data editing that may introduce selection bias</li>
+                            <li>Large datasets need tolerance values to avoid detecting trivial but statistically significant trends</li>
+                            <li>Method performance varies significantly between cow and bull datasets</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🔬 Future Research Opportunities</div>
+                    <div class="significance-content">
+                        <strong>Methodological Improvements:</strong>
+                        <ul>
+                            <li>Develop more robust methods for low-reliability scenarios</li>
+                            <li>Investigate non-linear trend detection capabilities</li>
+                            <li>Optimize tolerance values for different traits and population structures</li>
+                            <li>Integrate with genomic evaluation validation frameworks</li>
+                        </ul>
+                        
+                        <strong>Extended Applications:</strong>
+                        <ul>
+                            <li>Apply to other livestock species and breeding programs</li>
+                            <li>Extend to multi-trait evaluation validation</li>
+                            <li>Investigate applications in genomic selection contexts</li>
+                            <li>Develop automated quality control pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
