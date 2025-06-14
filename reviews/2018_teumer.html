@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Methods for Performing Mendelian Randomization</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Common Methods for Performing Mendelian Randomization</h1>
+            <p>Causal Inference Framework Using Genetic Instruments</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Author:</strong> Alexander Teumer</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Frontiers in Cardiovascular Medicine, Vol. 5, Article 51, 2018</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Institute for Community Medicine, University Medicine Greifswald, Germany</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.3389/fcvm.2018.00051"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Research Context & Causal Inference Challenge</div>
+                
+                <div class="problem-box">
+                    <strong>Fundamental Problem:</strong> Observational epidemiological studies struggle with causal inference due to unobserved confounding, reverse causation, and selection bias. Randomized controlled trials (RCTs) address some issues but face ethical constraints, long duration, and compliance problems.
+                </div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Teumer, A. (2018). Common Methods for Performing Mendelian Randomization. Frontiers in Cardiovascular Medicine, 5, 51.</p>
+                    
+                    <p><strong>Core Methodological Foundation:</strong></p>
+                    <ul class="list-top">
+                        <li>Mendelian laws: Alleles segregate randomly from parents to offspring</li>
+                        <li>Genetic variants as instrumental variables for exposures</li>
+                        <li>GWAS discoveries: >950 cardiovascular-related associations by April 2018</li>
+                        <li>Triangulation approach: βXY = βZY/βZX for causal estimation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">Mendelian Randomization Framework</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Core MR Principle</div>
+                            <div class="step-details">
+                                Use genetic variants (Z) as instrumental variables for exposure (X) to estimate causal effect on outcome (Y)
+                                <div class="step-specs">
+                                    <strong>Key Analogy:</strong> Random inheritance ≈ randomized treatment assignment<br>
+                                    <strong>Path:</strong> Z → X → Y (mediated effect)<br>
+                                    <strong>Advantage:</strong> Unconfounded exposure-outcome relationship<br>
+                                    <strong>Applications:</strong> Cardiovascular diseases, nephrology, metabolic traits
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Three Core Assumptions</div>
+                            <div class="step-details">
+                                Essential requirements for valid Mendelian randomization
+                                <div class="step-specs">
+                                    <strong>Assumption 1:</strong> Genetic variant associated with exposure (testable: F-statistic >10)<br>
+                                    <strong>Assumption 2:</strong> Exclusion restriction - IV affects outcome only through exposure<br>
+                                    <strong>Assumption 3:</strong> IV independent of confounders of exposure-outcome relationship<br>
+                                    <strong>Challenge:</strong> Assumptions 2 & 3 difficult to validate (pleiotropy, linkage disequilibrium)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Methods Overview</div>
+                            <div class="step-details">
+                                Multiple approaches for causal effect estimation
+                                <div class="step-specs">
+                                    <strong>2-Stage Least Squares (2SLS):</strong> Single sample, implicit two-step process<br>
+                                    <strong>Ratio Estimator (Wald):</strong> Triangulation approach, allows two-sample MR<br>
+                                    <strong>Control Function:</strong> Two-step approach for dichotomous outcomes<br>
+                                    <strong>Multiple IV methods:</strong> Allele scores, inverse variance weighting, MR-Egger
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">GWAS Integration</div>
+                            <div class="step-details">
+                                Leverage large-scale genetic association studies
+                                <div class="step-specs">
+                                    <strong>Data Source:</strong> >50,000 SNP-trait associations from GWAS Catalog<br>
+                                    <strong>Two-sample MR:</strong> Use separate studies for exposure and outcome<br>
+                                    <strong>Power Enhancement:</strong> Large sample sizes from meta-analyses<br>
+                                    <strong>Accessibility:</strong> Publicly available association results enable powerful studies
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Statistical Methods Comparison</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">2-Stage Least Squares (2SLS)</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Implicit two-step regression process
+                            <div class="formula">Step 1: X̂ = fitted values from X ~ Z<br>Step 2: Y ~ X̂ for causal estimate</div>
+                            
+                            <strong>Advantages:</strong>
+                            <ul>
+                                <li>Accounts for variation in both Z and X̂</li>
+                                <li>Correct standard errors automatically</li>
+                                <li>Implemented in standard software (R, STATA)</li>
+                                <li>Well-established statistical theory</li>
+                            </ul>
+                            
+                            <strong>Limitations:</strong>
+                            <ul>
+                                <li>Requires single sample (one-sample MR)</li>
+                                <li>Limited by sample size for statistical power</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Ratio Estimator (Wald Method)</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Triangulation using effect ratios
+                            <div class="formula">β̂XY = βZY/βZX</div>
+                            
+                            <strong>Key Innovation:</strong> Enables two-sample MR
+                            <ul>
+                                <li>βZX from exposure GWAS</li>
+                                <li>βZY from outcome GWAS</li>
+                                <li>Can use distinct or overlapping samples</li>
+                                <li>Standard error via delta-method</li>
+                            </ul>
+                            
+                            <strong>Applications:</strong>
+                            <ul>
+                                <li>Continuous outcomes with linear effects</li>
+                                <li>Dichotomous outcomes (rare disease assumption)</li>
+                                <li>Large-scale GWAS meta-analyses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-3">
+                        <div class="model-title">Control Function Estimator</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Two-step method for dichotomous outcomes
+                            <div class="formula">Step 1: X ~ Z, save residuals<br>Step 2: Y ~ X + residuals</div>
+                            
+                            <strong>Mechanism:</strong>
+                            <ul>
+                                <li>Residuals capture non-instrumented exposure</li>
+                                <li>Control for unobserved confounders</li>
+                                <li>Equivalent to 2SLS for continuous outcomes</li>
+                                <li>Suitable for logistic regression models</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-analysis">
+                <div class="section-title">Advanced Methods & Bias Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Need for MR</div>
+                        <div class="step-details">
+                            <strong>Observational Study Limitations:</strong> Traditional epidemiology faces fundamental challenges in establishing causality.
+                            
+                            <ul>
+                                <li>Unobserved confounding biases exposure-outcome associations</li>
+                                <li>Reverse causation: disease may affect exposure levels</li>
+                                <li>Selection bias in study populations</li>
+                                <li>RCTs limited by ethics, duration, and compliance issues</li>
+                            </ul>
+                            
+                            <strong>MR Solution:</strong> Genetic variants provide natural randomization analogous to RCTs.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Multiple Instruments</div>
+                        <div class="step-details">
+                            <strong>Addressing Weak Instrument Bias:</strong> Single SNPs often explain <1% of phenotypic variance.
+                            
+                            <ul>
+                                <li><strong>Allele Scores:</strong> Weighted/unweighted sum of risk alleles</li>
+                                <li><strong>Inverse Variance Weighting:</strong> Meta-analysis approach for combining estimates</li>
+                                <li><strong>MR-Egger Regression:</strong> Relaxes exclusion restriction under InSIDE condition</li>
+                                <li><strong>Power Enhancement:</strong> Multiple instruments increase explained variance</li>
+                            </ul>
+                            
+                            <strong>Implementation:</strong> R packages (gtx, metafor, TwoSampleMR), MRbase platform.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Bias Sources</div>
+                        <div class="step-details">
+                            <strong>Assumption Violations:</strong> Different bias patterns depending on which assumptions fail.
+                            
+                            <ul>
+                                <li><span class="highlight">Weak Instruments:</span> Bias toward observational association</li>
+                                <li><span class="highlight">Pleiotropy:</span> SNPs affect outcome via multiple pathways</li>
+                                <li><span class="highlight">Linkage Disequilibrium:</span> Tag SNPs capture effects of nearby genes</li>
+                                <li><span class="highlight">Population Stratification:</span> Confounding by ancestry</li>
+                            </ul>
+                            
+                            <strong>Bias Formula:</strong> β̂XY = βcausal + αZY/βZX (for exclusion restriction violation).
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Advanced MR Methods</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">MR-Egger Regression</div>
+                        <div class="step-details">
+                            <strong>Innovation:</strong> Relaxes exclusion restriction assumption
+                            <div class="formula">Γ = β₀ᴱ + βᴱβZX</div>
+                            
+                            <strong>InSIDE Condition:</strong>
+                            <ul>
+                                <li>Instrument Strength Independent of Direct Effect</li>
+                                <li>Correlation between αZY and βZX equals zero</li>
+                                <li>Stronger instruments have relatively smaller bias</li>
+                                <li>Slope (βᴱ) provides bias-corrected causal estimate</li>
+                            </ul>
+                            
+                            <strong>Interpretation:</strong>
+                            <ul>
+                                <li>Non-zero intercept indicates directional pleiotropy</li>
+                                <li>Sensitivity analysis for standard MR results</li>
+                                <li>Requires multiple genetic instruments</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Two-Sample MR Implementation</div>
+                        <div class="step-details">
+                            <strong>Practical Advantages:</strong> Leverage existing GWAS results
+                            
+                            <strong>Data Requirements:</strong>
+                            <ul>
+                                <li>Effect estimates βZX from exposure GWAS</li>
+                                <li>Effect estimates βZY from outcome GWAS</li>
+                                <li>Consistent allele coding across studies</li>
+                                <li>Standard errors for both estimates</li>
+                            </ul>
+                            
+                            <strong>Statistical Power:</strong>
+                            <ul>
+                                <li>Enhanced by large meta-analysis sample sizes</li>
+                                <li>Power calculators available (mRnd, MR_predictor)</li>
+                                <li>Depends on proportion of variance explained by IV</li>
+                                <li>Multiple IVs increase power through allele scores</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-technical">
+                <div class="section-title">Technical Implementation & Formulas</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Key Statistical Formulas</div>
+                        <div class="step-details">
+                            <strong>Ratio Estimator Standard Error:</strong>
+                            <div class="formula">SE(β̂XY) = √[var(βZY)/β²ZX + β²ZY·var(βZX)/β⁴ZX - 2βZY·cov(βZY,βZX)/β³ZX]</div>
+                            
+                            <strong>Inverse Variance Weighting:</strong>
+                            <div class="formula">β̂XY = Σ[βZX·βZY·var(βZY)⁻¹] / Σ[β²ZX·var(βZY)⁻¹]</div>
+                            
+                            <strong>Allele Score Construction:</strong>
+                            <div class="formula">Z = βZ1X·Z1 + βZ2X·Z2 + ... + βZkX·Zk</div>
+                            
+                            <strong>Effect Estimation from Z-scores:</strong>
+                            <div class="formula">β̂ ≈ z · √[σ/(N·2·MAF·(1-MAF))]</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Software Implementation</div>
+                        <div class="step-details">
+                            <strong>R Packages:</strong>
+                            <ul>
+                                <li><span class="highlight">TwoSampleMR:</span> Comprehensive MR analysis suite</li>
+                                <li><span class="highlight">gtx:</span> Inverse variance weighting implementation</li>
+                                <li><span class="highlight">metafor:</span> Meta-analysis methods for combining estimates</li>
+                                <li><span class="highlight">SEM:</span> 2SLS implementation (tsls function)</li>
+                            </ul>
+                            
+                            <strong>STATA Commands:</strong>
+                            <ul>
+                                <li>ivregress: Instrumental variable regression</li>
+                                <li>2SLS implementation with robust standard errors</li>
+                            </ul>
+                            
+                            <strong>Online Platforms:</strong>
+                            <ul>
+                                <li>MRbase: Web interface and R package integration</li>
+                                <li>Power calculators: mRnd, MR_predictor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Bias Quantification Framework</div>
+                
+                <div class="method-comparison">
+                    <div class="method-box method-1">
+                        <div class="method-title">Weak Instrument Bias</div>
+                        <div class="step-details">
+                            <strong>Bias Mechanism:</strong> Finite sample correlation between IV and confounders
+                            <div class="formula">β̂XY = βcausal + βUY·ΔU/(βZX + βUX·ΔU)</div>
+                            
+                            <strong>Key Factors:</strong>
+                            <ul>
+                                <li>Bias decreases with increasing sample size</li>
+                                <li>Stronger instruments (larger βZX) reduce bias</li>
+                                <li>Asymptotically unbiased as sample → ∞</li>
+                                <li>F-statistic >10 rule for instrument strength</li>
+                            </ul>
+                            
+                            <strong>Mitigation Strategies:</strong>
+                            <ul>
+                                <li>Use multiple instruments to increase F-statistic</li>
+                                <li>Weighted allele scores for optimal combination</li>
+                                <li>Large sample sizes or meta-analyses</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="method-box method-2">
+                        <div class="method-title">Pleiotropy Assessment</div>
+                        <div class="step-details">
+                            <strong>Detection Methods:</strong>
+                            <ul>
+                                <li>MR-Egger intercept test for directional pleiotropy</li>
+                                <li>Heterogeneity tests across multiple instruments</li>
+                                <li>Biological pathway analysis of candidate genes</li>
+                                <li>Sensitivity analyses excluding potentially pleiotropic SNPs</li>
+                            </ul>
+                            
+                            <strong>InSIDE Condition Evaluation:</strong>
+                            <ul>
+                                <li>Assess correlation between instrument strength and direct effects</li>
+                                <li>Compare results across different MR methods</li>
+                                <li>Use prior biological knowledge about gene functions</li>
+                            </ul>
+                            
+                            <strong>Future Developments:</strong>
+                            <ul>
+                                <li>Automated pleiotropy detection algorithms</li>
+                                <li>Machine learning approaches for invalid instrument identification</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-applications">
+                <div class="section-title">Applications & Research Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Key Innovation</div>
+                    <p>Comprehensive methodological framework enabling causal inference from observational data using genetic variants as natural experiments, bridging the gap between traditional epidemiology and randomized controlled trials.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Successful Applications</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Cardiovascular Research:</strong> Blood lipids causal effects on coronary heart disease</li>
+                                <li><strong>Lifestyle Factors:</strong> Alcohol consumption effects on cardiovascular traits</li>
+                                <li><strong>Biomarkers:</strong> Cystatin C and cardiovascular disease relationships</li>
+                                <li><strong>Metabolic Traits:</strong> Testosterone and cardiometabolic risk factors</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Data Resources</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>GWAS Catalog:</strong> >50,000 SNP-trait associations publicly available</li>
+                                <li><strong>Large Consortia:</strong> Meta-analyses with hundreds of thousands of participants</li>
+                                <li><strong>Imputation Resources:</strong> 1000 Genomes, UK10K for missing genotype inference</li>
+                                <li><strong>Effect Size Databases:</strong> Standardized results for two-sample MR</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Study Design Considerations</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">📋 Best Practices</div>
+                    <div class="gap-content">
+                        <strong>Instrument Selection:</strong>
+                        <ul>
+                            <li>Prioritize genome-wide significant associations (P < 5×10⁻⁸)</li>
+                            <li>Ensure F-statistic >10 for instrument strength</li>
+                            <li>Consider biological plausibility of SNP-exposure relationships</li>
+                            <li>Avoid SNPs in linkage disequilibrium with pleiotropic genes</li>
+                        </ul>
+                        
+                        <strong>Sensitivity Analyses:</strong>
+                        <ul>
+                            <li>Compare results across different MR methods</li>
+                            <li>Test for heterogeneity across instruments</li>
+                            <li>Perform MR-Egger regression for pleiotropy assessment</li>
+                            <li>Evaluate robustness to instrument exclusions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🔬 Future Research Directions</div>
+                    <div class="significance-content">
+                        <strong>Methodological Advances:</strong>
+                        <ul>
+                            <li>Non-linear causal effect estimation methods</li>
+                            <li>Automated detection of invalid instruments using machine learning</li>
+                            <li>Integration with multi-omics data (proteomics, metabolomics)</li>
+                            <li>Time-varying exposures and dynamic causal relationships</li>
+                        </ul>
+                        
+                        <strong>Application Expansion:</strong>
+                        <ul>
+                            <li>Precision medicine and personalized treatment effects</li>
+                            <li>Drug target validation and repurposing</li>
+                            <li>Environmental exposure assessment</li>
+                            <li>Complex trait architectures and gene-environment interactions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-title">Practical Implementation Guide</div>
+                
+                <div class="coverage-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Core Assumptions</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Main Statistical Methods</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">950+</div>
+                        <div class="stat-label">Cardiovascular GWAS Hits</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">50K</div>
+                        <div class="stat-label">Total SNP-Trait Associations</div>
+                    </div>
+                </div>
+                
+                <div class="experiment-details">
+                    <strong>Workflow Summary:</strong>
+                    <ul>
+                        <li><strong>Step 1:</strong> Identify genetic instruments from GWAS (F-statistic >10)</li>
+                        <li><strong>Step 2:</strong> Extract effect estimates for exposure and outcome</li>
+                        <li><strong>Step 3:</strong> Choose appropriate MR method based on study design</li>
+                        <li><strong>Step 4:</strong> Perform sensitivity analyses (MR-Egger, heterogeneity tests)</li>
+                        <li><strong>Step 5:</strong> Interpret results considering biological plausibility</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">Limitations & Future Challenges</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box historical">
+                        <div class="theme-title">Current Limitations</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Linear Effects Assumption:</strong> May not capture complex dose-response relationships</li>
+                                <li><strong>Population Ancestry:</strong> Most GWAS based on European populations</li>
+                                <li><strong>Effect Modification:</strong> Difficult to assess interactions with other variables</li>
+                                <li><strong>Rare Variants:</strong> Limited power for low-frequency genetic variants</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box comparative">
+                        <div class="theme-title">Statistical Challenges</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Weak Instruments:</strong> Small effect sizes require very large sample sizes</li>
+                                <li><strong>Pleiotropy:</strong> Difficult to distinguish from true causal effects</li>
+                                <li><strong>Binary Outcomes:</strong> Rare disease assumption often violated</li>
+                                <li><strong>Missing Heritability:</strong> Known variants explain small proportion of trait variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">⚠️ Key Assumptions & Violations</div>
+                    <div class="gap-content">
+                        <strong>Assumption Validation Challenges:</strong>
+                        <ul>
+                            <li>Exclusion restriction difficult to test empirically</li>
+                            <li>Confounding independence hard to verify</li>
+                            <li>Population stratification may create spurious associations</li>
+                            <li>Linkage disequilibrium complicates causal inference</li>
+                        </ul>
+                        
+                        <strong>Emerging Solutions:</strong>
+                        <ul>
+                            <li>Multiple MR methods for triangulation</li>
+                            <li>Negative control analyses</li>
+                            <li>Family-based designs (within-family MR)</li>
+                            <li>Integration with experimental evidence</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🌟 Impact on Medical Research</div>
+                    <div class="significance-content">
+                        <strong>Paradigm Shift:</strong>
+                        <ul>
+                            <li>Bridge between observational epidemiology and experimental medicine</li>
+                            <li>Cost-effective alternative to large-scale RCTs for many research questions</li>
+                            <li>Drug development: Target validation and safety assessment</li>
+                            <li>Public health: Evidence-based intervention strategies</li>
+                        </ul>
+                        
+                        <strong>Integration with Other Approaches:</strong>
+                        <ul>
+                            <li>Complement traditional epidemiological evidence</li>
+                            <li>Inform randomized trial design and participant selection</li>
+                            <li>Support regulatory decision-making for drug approvals</li>
+                            <li>Guide precision medicine approaches based on genetic risk</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-title">Method Selection Guidelines</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Single Sample MR</div>
+                        <div class="step-details">
+                            <strong>When to Use:</strong>
+                            <ul>
+                                <li>Complete individual-level data available</li>
+                                <li>Need to adjust for additional covariates</li>
+                                <li>Subgroup analyses required</li>
+                                <li>Complex models with interactions</li>
+                            </ul>
+                            
+                            <strong>Preferred Methods:</strong>
+                            <ul>
+                                <li>2SLS for continuous outcomes</li>
+                                <li>Control function for binary outcomes</li>
+                                <li>Multiple instruments via allele scores</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Two Sample MR</div>
+                        <div class="step-details">
+                            <strong>When to Use:</strong>
+                            <ul>
+                                <li>Large GWAS summary statistics available</li>
+                                <li>Different optimal samples for exposure/outcome</li>
+                                <li>Enhanced statistical power needed</li>
+                                <li>No individual-level data access</li>
+                            </ul>
+                            
+                            <strong>Preferred Methods:</strong>
+                            <ul>
+                                <li>Ratio estimator for single instruments</li>
+                                <li>Inverse variance weighting for multiple instruments</li>
+                                <li>MR-Egger for pleiotropy assessment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Sensitivity Analysis Strategy</div>
+                        <div class="step-details">
+                            <strong>Essential Checks:</strong>
+                            <ul>
+                                <li>Compare results across different MR methods</li>
+                                <li>Test instrument strength (F-statistic)</li>
+                                <li>Assess heterogeneity across instruments</li>
+                                <li>Evaluate pleiotropy using MR-Egger</li>
+                            </ul>
+                            
+                            <strong>Advanced Assessments:</strong>
+                            <ul>
+                                <li>Leave-one-out analyses</li>
+                                <li>Biological pathway enrichment</li>
+                                <li>Population stratification tests</li>
+                                <li>Negative control outcomes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusions">
+                <div class="section-title">Key Takeaways & Practical Recommendations</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Method Selection Matrix</div>
+                        <div class="step-details">
+                            <strong>Continuous Outcomes:</strong>
+                            <ul>
+                                <li><span class="highlight">Single Sample:</span> 2SLS regression</li>
+                                <li><span class="highlight">Two Sample:</span> Ratio estimator with delta-method SE</li>
+                                <li><span class="highlight">Multiple IV:</span> Inverse variance weighting</li>
+                                <li><span class="highlight">Pleiotropy Concern:</span> MR-Egger regression</li>
+                            </ul>
+                            
+                            <strong>Binary Outcomes:</strong>
+                            <ul>
+                                <li><span class="highlight">Single Sample:</span> Control function estimator</li>
+                                <li><span class="highlight">Two Sample:</span> Logistic regression approach</li>
+                                <li><span class="highlight">Rare Disease:</span> Use rare disease assumption</li>
+                                <li><span class="highlight">Common Disease:</span> Log-linear models for risk ratios</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Quality Control Checklist</div>
+                        <div class="step-details">
+                            <strong>Pre-Analysis:</strong>
+                            <ul>
+                                <li>✓ Verify instrument-exposure associations (P < 5×10⁻⁸)</li>
+                                <li>✓ Check F-statistic >10 for instrument strength</li>
+                                <li>✓ Ensure consistent allele coding across datasets</li>
+                                <li>✓ Review biological plausibility of instruments</li>
+                            </ul>
+                            
+                            <strong>Post-Analysis:</strong>
+                            <ul>
+                                <li>✓ Test for heterogeneity across instruments</li>
+                                <li>✓ Perform MR-Egger intercept test</li>
+                                <li>✓ Compare effect sizes across methods</li>
+                                <li>✓ Assess biological consistency of results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎖️ Scientific Contribution</div>
+                    <p>This comprehensive methodological review established MR as a standard tool for causal inference in epidemiology, providing clear guidance on method selection, bias assessment, and interpretation. The systematic presentation of assumptions, formulas, and implementation details enabled widespread adoption across cardiovascular research and beyond.</p>
+                </div>
+                
+                <div class="best-practices">
+                    <strong>Implementation Roadmap:</strong>
+                    <ul>
+                        <li><strong>Study Design:</strong> Define clear exposure-outcome hypothesis with biological rationale</li>
+                        <li><strong>Instrument Selection:</strong> Use genome-wide significant, biologically relevant genetic variants</li>
+                        <li><strong>Method Choice:</strong> Select appropriate statistical approach based on data availability</li>
+                        <li><strong>Software Tools:</strong> Leverage R packages (TwoSampleMR) or online platforms (MRbase)</li>
+                        <li><strong>Sensitivity Testing:</strong> Apply multiple methods and assess assumption violations</li>
+                        <li><strong>Interpretation:</strong> Consider biological plausibility alongside statistical evidence</li>
+                        <li><strong>Reporting:</strong> Follow established guidelines for MR study reporting</li>
+                    </ul>
+                </div>
+                
+                <div class="section-title">Future Research Priorities</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box phenotypic">
+                        <div class="theme-title">Methodological Development</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Non-linear Effects:</strong> Methods for complex dose-response relationships</li>
+                                <li><strong>Time-varying Exposures:</strong> Dynamic causal inference frameworks</li>
+                                <li><strong>Effect Modification:</strong> Interaction assessment in MR studies</li>
+                                <li><strong>Multi-ancestry Studies:</strong> Robust methods across populations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Data Integration</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Multi-omics MR:</strong> Protein and metabolite quantitative trait loci</li>
+                                <li><strong>Single-cell Data:</strong> Cell-type specific causal relationships</li>
+                                <li><strong>Longitudinal Cohorts:</strong> Repeated measures MR approaches</li>
+                                <li><strong>Environmental Interactions:</strong> Gene-environment MR methods</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Educational Impact</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">📚 Knowledge Transfer</div>
+                    <div class="gap-content">
+                        <strong>Training Requirements:</strong>
+                        <ul>
+                            <li>Understanding of causal inference principles</li>
+                            <li>Instrumental variable theory and assumptions</li>
+                            <li>GWAS data interpretation and quality control</li>
+                            <li>Statistical software proficiency (R, STATA)</li>
+                        </ul>
+                        
+                        <strong>Common Misconceptions to Address:</strong>
+                        <ul>
+                            <li>MR does not prove causation - strengthens causal evidence</li>
+                            <li>Genetic associations ≠ genetic determinism</li>
+                            <li>Effect sizes may not reflect population intervention effects</li>
+                            <li>Assumptions are critical and often untestable</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🌍 Global Research Impact</div>
+                    <div class="significance-content">
+                        <strong>Transformative Applications:</strong>
+                        <ul>
+                            <li>Drug development: Target validation reducing late-stage failures</li>
+                            <li>Public health: Evidence-based intervention prioritization</li>
+                            <li>Clinical practice: Biomarker interpretation and risk stratification</li>
+                            <li>Health economics: Cost-effectiveness of prevention strategies</li>
+                        </ul>
+                        
+                        <strong>Regulatory Acceptance:</strong>
+                        <ul>
+                            <li>FDA and EMA recognition of MR evidence in drug approvals</li>
+                            <li>Integration into clinical practice guidelines</li>
+                            <li>Support for precision medicine initiatives</li>
+                            <li>Evidence synthesis in systematic reviews and meta-analyses</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experiment-details">
+                    <strong>Success Metrics for MR Studies:</strong>
+                    <ul>
+                        <li><strong>Statistical Power:</strong> Adequate sample size for detecting clinically relevant effects</li>
+                        <li><strong>Instrument Validity:</strong> Strong associations (F > 10) with minimal pleiotropy</li>
+                        <li><strong>Consistency:</strong> Robust results across multiple analytical approaches</li>
+                        <li><strong>Biological Plausibility:</strong> Results consistent with known pathophysiology</li>
+                        <li><strong>Clinical Relevance:</strong> Effect sizes meaningful for intervention decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
