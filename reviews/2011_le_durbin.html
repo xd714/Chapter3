@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCALL: SNP Detection from Low-Coverage Sequencing Data</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>QCALL: SNP Detection and Genotyping from Low-Coverage Sequencing Data</h1>
+            <p>Computational Methods for Population-Scale Variant Discovery</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Si Quang Le, Richard Durbin</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Wellcome Trust Sanger Institute, Cambridge, United Kingdom</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Genome Research 21:952–960 (2011)</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1101/gr.113084.110"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Paper Overview & Innovation</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Le, S. Q., & Durbin, R. (2011). SNP detection and genotyping from low-coverage sequencing data on multiple diploid samples. Genome Research, 21(6), 952-960.</p>
+                    
+                    <p><strong>Context:</strong> Developed for the 1000 Genomes Project low-coverage pilot, addressing the challenge of accurate variant calling from 3-4× coverage data across hundreds of samples.</p>
+                    
+                    <p><strong>Problem Solved:</strong> Traditional methods fail catastrophically on low-coverage data, with false-positive rates reaching 87% when applied independently to multiple samples.</p>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">Key Innovation: Population-Based SNP Calling</div>
+                    <p>QCALL introduces two complementary algorithms that combine evidence across multiple samples and leverage population genetic principles to achieve accurate variant calling from low-coverage sequencing data, enabling cost-effective population-scale genomics.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-analysis">
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Economic & Technical Need</div>
+                        <div class="analysis-content">
+                            <strong>Cost-Coverage Tradeoff:</strong>
+                            <ul>
+                                <li><span class="highlight">High-coverage sequencing</span> - Expensive, limits sample size (e.g., 27.8× average in Kim et al. 2009)</li>
+                                <li><span class="highlight">Low-coverage approach</span> - More samples, lower cost per genome</li>
+                                <li><span class="highlight">1000 Genomes strategy</span> - 179 samples at 3.7× coverage</li>
+                            </ul>
+                            
+                            <strong>Technical Challenge:</strong>
+                            <ul>
+                                <li><span class="highlight">False-positive explosion</span> - 0.04% per sample → 4% cumulative → 87% FDR</li>
+                                <li><span class="highlight">Poor genotype accuracy</span> - 28.3% error for heterozygotes</li>
+                                <li><span class="highlight">Low power for rare variants</span> - Cannot detect singletons reliably</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Dual Algorithm Approach</div>
+                        <div class="analysis-content">
+                            <strong>Method 1: Non-Linkage Disequilibrium Analysis (NLDA)</strong>
+                            <ul>
+                                <li><strong>Dynamic Programming:</strong> O(m²) algorithm for k non-reference alleles in 2m chromosomes</li>
+                                <li><strong>Population Genetics Prior:</strong> Incorporates mutation rate and allele frequency distribution</li>
+                                <li><strong>Bayesian Framework:</strong> Posterior probability calculation for SNP existence</li>
+                            </ul>
+
+                            <strong>Method 2: Linkage Disequilibrium Analysis (LDA)</strong>
+                            <ul>
+                                <li><strong>Ancestral Recombination Graphs:</strong> Uses MARGARITA to build 20 ARGs from HapMap data</li>
+                                <li><strong>Coalescent Trees:</strong> 40 marginal trees from flanking sites</li>
+                                <li><strong>Mutation Modeling:</strong> Single mutation assumption on tree branches</li>
+                                <li><strong>Haplotype Structure:</strong> Leverages shared ancestry for improved accuracy</li>
+                            </ul>
+
+                            <strong>Combined Strategy:</strong>
+                            <p>NLDA pre-screens candidates → LDA refines high-confidence calls → FW10 filter removes indel artifacts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Performance & Impact</div>
+                        <div class="analysis-content">
+                            <strong>Simulation Results:</strong>
+                            <ul>
+                                <li><span class="highlight">Optimal strategy:</span> 400 samples × 4× coverage > 50 samples × 32× coverage</li>
+                                <li><span class="highlight">Rare variant detection:</span> 75% power for 0.5% frequency (vs 40% for high-coverage/few samples)</li>
+                                <li><span class="highlight">False-positive rate:</span> ~1/Mbp (0.0002 FDR) after filtering</li>
+                            </ul>
+
+                            <strong>Real Data Performance:</strong>
+                            <ul>
+                                <li><span class="highlight">1000 Genomes CEU:</span> 16,954 SNP calls from 5 Mbp region</li>
+                                <li><span class="highlight">Validation rates:</span> 31% in HapMap2, 67% in dbSNP</li>
+                                <li><span class="highlight">Ti/Tv ratio:</strong> 2.28 (consistent with expected 2.3)</li>
+                            </ul>
+
+                            <strong>Genotype Accuracy:</strong>
+                            <ul>
+                                <li><span class="highlight">Overall FDR:</span> 2.7% (competitive with BEAGLE's 2.8%)</li>
+                                <li><span class="highlight">Heterozygote accuracy:</span> Major improvement over independent calling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-methods">
+                <div class="section-title">Technical Implementation Details</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Preparation & ARG Construction</div>
+                            <div class="step-details">
+                                <strong>Input Requirements:</strong>
+                                <div class="step-specs">
+                                    <strong>Sequencing data:</strong> Low-coverage BAM files (3-4× typical)<br>
+                                    <strong>Reference data:</strong> HapMap3 genotypes/phased haplotypes<br>
+                                    <strong>Segmentation:</strong> 1 Mbp segments with 0.5 Mbp overlap<br>
+                                    <strong>ARG generation:</strong> MARGARITA produces 20 ARGs per segment
+                                </div>
+                                
+                                <strong>Population Genetic Framework:</strong>
+                                <div class="formula">θ = 0.001 (population scaled mutation rate)</div>
+                                <div class="formula">p(k) ∝ θ/(k + 1/(2m-k)) × 1/C(2m,k)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">NLDA: Population-Scale Screening</div>
+                            <div class="step-details">
+                                <strong>Dynamic Programming Algorithm:</strong>
+                                <div class="step-specs">
+                                    <strong>Recursion:</strong> Q(m,k) = Q(m-1,k-2)×p(aa) + 2Q(m-1,k-1)×p(ab) + Q(m-1,k)×p(bb)<br>
+                                    <strong>Complexity:</strong> O(m²) for all k values from 1 to 2m-1<br>
+                                    <strong>Output:</strong> Posterior probability of k non-reference alleles<br>
+                                    <strong>SNP probability:</strong> P(SNP|D) = 1 - P(k=0|D)
+                                </div>
+                                
+                                <strong>Bayesian Framework:</strong>
+                                <div class="formula">P(SNP|D) = 1 - p(D|g)p(g) / Σ p(D|g')p(g')</div>
+                                
+                                <p><strong>Application:</strong> Genome-wide screening of hundreds of samples in reasonable computing time</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">LDA: Haplotype-Aware Refinement</div>
+                            <div class="step-details">
+                                <strong>Coalescent Tree Analysis:</strong>
+                                <div class="step-specs">
+                                    <strong>Tree collection:</strong> 40 marginal trees (20 ARGs × 2 flanking sites)<br>
+                                    <strong>Mutation model:</strong> Single mutation per site assumption<br>
+                                    <strong>Branch weights:</strong> Population genetic prior on branch lengths<br>
+                                    <strong>Complexity:</strong> O(N_A × m² × n_t) where N_A=4, n_t=40
+                                </div>
+                                
+                                <strong>Likelihood Calculation:</strong>
+                                <div class="formula">P(D|∆,T) = Σ p(r)p(D|∆,T,r)</div>
+                                <div class="formula">P(D|∆,T,r) = Σ p(tk) Σ p(e|tk)[p(a,r)p(D|e_ar) + p(r,a)p(D|e_ra)]</div>
+                                
+                                <p><strong>Advantages:</strong> Lower false-positive rates, improved genotype calling through haplotype structure</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Quality Control & Filtering</div>
+                            <div class="step-details">
+                                <strong>FW10 Filter:</strong>
+                                <div class="step-specs">
+                                    <strong>Rule:</strong> Remove sites with ≥3 SNP calls within 10 bp<br>
+                                    <strong>Target:</strong> False-positives around indels (929/942 FPs near indels)<br>
+                                    <strong>Alternative:</strong> FW5 filter (more stringent, removes more true positives)<br>
+                                    <strong>Future direction:</strong> Realignment with DIndel/GATK
+                                </div>
+                                
+                                <strong>Reference Error Handling:</strong>
+                                <div class="formula">p(r) = (1-ε) if r = reference allele, ε/3 otherwise</div>
+                                <p>where ε = 2×10⁻⁵ (empirically determined reference error rate)</p>
+                                
+                                <strong>Transition/Transversion Bias:</strong>
+                                <div class="formula">p(a,r) = 4/24 for transitions, 1/24 for transversions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-optimization">
+                <div class="section-title">Coverage vs. Sample Size Optimization</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box">
+                        <div class="comparison-title">High Coverage, Few Samples</div>
+                        <div class="step-details">
+                            <strong>Strategy:</strong> 50 samples × 32× coverage
+                            
+                            <strong>Advantages:</strong>
+                            <ul>
+                                <li>High confidence individual calls</li>
+                                <li>99% detection rate for singletons</li>
+                                <li>Lower computational requirements</li>
+                            </ul>
+                            
+                            <strong>Disadvantages:</strong>
+                            <ul>
+                                <li>Misses population-level rare variants</li>
+                                <li>Limited power for variants <1% frequency</li>
+                                <li>Higher cost per genome</li>
+                            </ul>
+                            
+                            <strong>Best for:</strong> Individual genome analysis, high-confidence calls
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box">
+                        <div class="comparison-title">Low Coverage, Many Samples</div>
+                        <div class="step-details">
+                            <strong>Strategy:</strong> 400 samples × 4× coverage
+                            
+                            <strong>Advantages:</strong>
+                            <ul>
+                                <li>Maximum total variants discovered</li>
+                                <li>75% power for 0.5% frequency variants</li>
+                                <li>Cost-effective population studies</li>
+                                <li>Better allele frequency estimation</li>
+                            </ul>
+                            
+                            <strong>Disadvantages:</strong>
+                            <ul>
+                                <li>Requires sophisticated algorithms</li>
+                                <li>18% detection rate for singletons</li>
+                                <li>Higher computational complexity</li>
+                            </ul>
+                            
+                            <strong>Best for:</strong> Population genomics, rare variant discovery, association studies
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">34,807</div>
+                        <div class="stat-label">Total SNPs<br>400 samples × 4×<br>(Maximum Discovery)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">24,029</div>
+                        <div class="stat-label">SNPs Detected<br>50 samples × 32×<br>(98.9% of discoverable)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">75%</div>
+                        <div class="stat-label">Detection Power<br>0.5% frequency<br>400×4× strategy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-applications">
+                <div class="section-title">Real-World Applications & Validation</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">1000 Genomes Project Integration</div>
+                        <ul>
+                            <li><strong>Primary call set:</strong> QCALL provided one of the main variant calling pipelines</li>
+                            <li><strong>CEU population:</strong> 60 samples, 5 Mbp test region</li>
+                            <li><strong>Validation strategy:</strong> Comparison with HapMap2 and dbSNP databases</li>
+                            <li><strong>Quality metrics:</strong> Ti/Tv ratio consistency with expected values</li>
+                            <li><strong>Novel variants:</strong> 33% of calls not in existing databases</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Beyond SNPs: Method Extensions</div>
+                        <ul>
+                            <li><strong>Indel calling:</strong> QCALL adapted for small insertions/deletions</li>
+                            <li><strong>Targeted sequencing:</strong> Applicable to exome projects with genotype data</li>
+                            <li><strong>Parameter flexibility:</strong> Adjustable Ti/Tv ratios for coding regions (3.5 vs 2.0)</li>
+                            <li><strong>Bi-allelic variants:</strong> Framework extends to other variant types</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="legacy-box">
+                    <strong>Methodological Legacy:</strong> QCALL's approach influenced subsequent population-scale variant callers and established principles for combining low-coverage data across samples. The methods were integrated with other tools (BEAGLE, MACH, IMPUTE) to provide consensus calls for the 1000 Genomes Project.
+                </div>
+            </div>
+
+            <div class="section" id="section-computational">
+                <div class="section-title">Computational Complexity & Scalability</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">NLDA Complexity</div>
+                        <div class="step-details">
+                            <strong>Time Complexity:</strong> O(m²) per site
+                            <ul>
+                                <li>m = number of samples</li>
+                                <li>Scales quadratically with sample size</li>
+                                <li>Feasible for hundreds of samples</li>
+                            </ul>
+                            
+                            <strong>Space Requirements:</strong>
+                            <ul>
+                                <li>Dynamic programming table: O(m²)</li>
+                                <li>Likelihood storage for all genotype configurations</li>
+                            </ul>
+                            
+                            <strong>Genome-wide Application:</strong>
+                            <ul>
+                                <li>Can process entire genomes</li>
+                                <li>Parallelizable across chromosomes</li>
+                                <li>Memory efficient for large datasets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">LDA Complexity</div>
+                        <div class="step-details">
+                            <strong>Time Complexity:</strong> O(N_A × m² × n_t)
+                            <ul>
+                                <li>N_A = 4 nucleotides</li>
+                                <li>n_t = 40 trees</li>
+                                <li>Too expensive for genome-wide analysis</li>
+                            </ul>
+                            
+                            <strong>ARG Construction Bottleneck:</strong>
+                            <ul>
+                                <li>MARGARITA: ~8 hours for 400 samples, 2 Mbp</li>
+                                <li>Greedy algorithm limitations at scale</li>
+                                <li>Memory requirements for tree storage</li>
+                            </ul>
+                            
+                            <strong>Practical Solution:</strong>
+                            <ul>
+                                <li>NLDA pre-screening reduces candidate sites</li>
+                                <li>LDA applied only to promising variants</li>
+                                <li>Two-stage approach balances accuracy and speed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Scalability Limitations:</strong> While QCALL successfully handled 1000 Genomes Project data (~400 samples), scaling to modern biobank sizes (>100,000 samples) would require algorithmic improvements, particularly in ARG construction and tree-based likelihood calculations.
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">Impact & Future Directions</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Scientific Impact</div>
+                    <div class="significance-content">
+                        <strong>Paradigm Shift:</strong> QCALL demonstrated that intelligent combination of low-coverage data could outperform traditional high-coverage approaches for population studies, fundamentally changing how large-scale genomics projects approach sequencing design.
+                        
+                        <strong>Technical Contributions:</strong>
+                        <ul>
+                            <li>Population genetic priors in variant calling</li>
+                            <li>Haplotype structure exploitation for genotype refinement</li>
+                            <li>Systematic analysis of coverage vs. sample size tradeoffs</li>
+                            <li>Framework for single-mutation coalescent modeling</li>
+                        </ul>
+                        
+                        <strong>Practical Impact:</strong>
+                        <ul>
+                            <li>Enabled cost-effective 1000 Genomes Project completion</li>
+                            <li>Influenced design of subsequent population genomics studies</li>
+                            <li>Established principles for modern variant calling pipelines</li>
+                            <li>Demonstrated feasibility of population-scale genomics</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">Current Limitations & Future Work</div>
+                    <div class="gap-content">
+                        <strong>Identified Limitations:</strong>
+                        <ul>
+                            <li><strong>Singleton phasing:</strong> Cannot phase variants with single heterozygous individual</li>
+                            <li><strong>MARGARITA scaling:</strong> Greedy algorithm suboptimal for large sample sizes</li>
+                            <li><strong>Indel handling:</strong> FW10 filter crude compared to modern realignment methods</li>
+                            <li><strong>Computational cost:</strong> LDA too expensive for routine genome-wide application</li>
+                        </ul>
+                        
+                        <strong>Suggested Improvements:</strong>
+                        <ul>
+                            <li>Better ARG construction algorithms</li>
+                            <li>Integration with modern indel realignment tools</li>
+                            <li>Methods to add samples to existing ARGs</li>
+                            <li>Direct ARG construction from sequencing data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
