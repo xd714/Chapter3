@@ -4,16 +4,10 @@
 library(stringr)
 
 # Define the old CSS link pattern to find
-new_css_links <- '<link rel="stylesheet" href="style.css">'
+new_css_links <- '<link rel="stylesheet" href="../style/main.css">'
 
 # Define the new CSS links to replace with
-old_css_pattern <- '<!-- Modular Academic CSS Framework -->
-<link rel="stylesheet" href="core_academics.css">
-<link rel="stylesheet" href="components_scientific.css">
-<link rel="stylesheet" href="genomics_selection.css">
-<link rel="stylesheet" href="genetics_pedigree.css">
-<link rel="stylesheet" href="genomics_gwas.css">
-<link rel="stylesheet" href="utilities.css">'
+old_css_pattern <- '<link rel="stylesheet" href="style.css">'
 
 # Function to process a single HTML file
 process_html_file <- function(file_path) {

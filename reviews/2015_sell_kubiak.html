@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genome-wide Association Study for Pig Litter Size and Variability</title>
+    <link rel="stylesheet" href="../style/main.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+<style>
+/* Additional styles for specific elements in this research review */
+.vqtl-box {
+    background: linear-gradient(135deg, var(--color-5-light) 0%, rgba(255,255,255,0.9) 100%);
+    border: 2px solid var(--purple-color);
+    border-left: 6px solid var(--purple-color);
+    padding: 25px;
+    border-radius: 12px;
+    margin: 25px auto;
+    max-width: 95%;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.1);
+}
+
+.vqtl-title {
+    font-weight: 700;
+    color: var(--purple-color);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.gene-card {
+    background: var(--bg-white);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-light);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.gene-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.gene-name {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.gene-function {
+    color: var(--text-secondary);
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.snp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--bg-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.snp-table th {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+.snp-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.9em;
+}
+
+.snp-table tr:hover {
+    background: var(--primary-light);
+}
+
+.chromosome-tag {
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.variance-explained {
+    background: var(--success-color);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.bayes-factor {
+    background: var(--warning-color);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.correlation-highlight {
+    background: linear-gradient(120deg, var(--color-12-light) 0%, var(--color-12) 100%);
+    color: var(--color-12-dark);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.methodology-card {
+    background: var(--color-6-light);
+    border-left: 5px solid var(--color-6);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.methodology-title {
+    color: var(--color-6-dark);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Genome-wide Association Study for Pig Litter Size and Variability</h1>
+            <p>Comprehensive Research Review and Methodological Analysis</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Study:</strong> Sell-Kubiak et al. (2015) - Novel loci for litter size and its variability in Large White pigs</p>
+                <p class="text-small text-top"><strong>Journal:</strong> BMC Genomics, 16:1049</p>
+                <p class="text-top-large">
+                    <a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-015-2273-y"
+                       target="_blank" 
+                       class="paper-link">
+                        View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-executive">
+                <div class="section-title">Executive Summary</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Breakthrough Research</div>
+                    <p>This study represents the <strong>first genome-wide association study (GWAS)</strong> to identify SNPs associated with litter size variability in pigs, introducing the concept of <span class="highlight">variance-controlling QTL (vQTL)</span> to pig breeding. The research identified <strong>10 significant SNPs for total number born (TNB)</strong> and <strong>9 SNPs for litter size variability (varTNB)</strong>, providing new insights into genetic control of reproductive trait stability.</p>
+                </div>
+                
+                <div class="results-box">
+                    <div class="results-title">Key Findings</div>
+                    <ul>
+                        <li><strong>Novel SNPs:</strong> First SNPs reported for TNB on chromosome 11 and first vQTL in pigs</li>
+                        <li><strong>Genetic Correlation:</strong> <span class="correlation-highlight">r = 0.49</span> between TNB and its variance (unfavorable for breeding)</li>
+                        <li><strong>Heritability:</strong> TNB (h² = 0.14), varTNB (h² = 0.006)</li>
+                        <li><strong>Candidate Genes:</strong> ENOX1, HSPCB, VEGFA identified as key regulators</li>
+                        <li><strong>Variance Explained:</strong> 0.83% for TNB, 1.44% for varTNB</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section" id="section-why-how-what">
+                <div class="section-title">Research Framework Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Research Motivation</div>
+                        <div class="step-details">
+                            <strong>Industry Challenge:</strong> Modern pig breeding faces critical issues with litter size extremes affecting animal welfare and production efficiency.
+                            
+                            <ul>
+                                <li><strong>Large litters (>25 piglets):</strong> Exceed sow physiological capacity, causing welfare issues</li>
+                                <li><strong>Small litters:</strong> Reduce economic efficiency in pig production</li>
+                                <li><strong>Genetic correlation problem:</strong> Selection for increased litter size also increases variation</li>
+                                <li><strong>Knowledge gap:</strong> No previous studies on genetic control of litter size variability in pigs</li>
+                            </ul>
+                            
+                            <strong>Research Opportunity:</strong> Use genomic tools to identify genes controlling <span class="highlight">phenotypic variability</span> for more sustainable breeding.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodology Innovation</div>
+                        <div class="step-details">
+                            <strong>Statistical Breakthrough:</strong> Double Hierarchical Generalized Linear Model (DHGLM) combined with Bayesian GWAS.
+                            
+                            <ul>
+                                <li><strong>Population:</strong> 69,549 Large White sows, 264,419 litter records</li>
+                                <li><strong>Genotyping:</strong> 2,679 animals, Illumina PorcineSNP60 (40,969 SNPs after QC)</li>
+                                <li><strong>Novel approach:</strong> First application of DHGLM for variance genetics in pigs</li>
+                                <li><strong>Bayesian Variable Selection:</strong> Multi-SNP analysis with strict priors (π₁ = 0.001)</li>
+                            </ul>
+                            
+                            <strong>Key Innovation:</strong> Simultaneous modeling of trait <span class="highlight">mean and variance</span> using deregressed EBV.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Major Discoveries</div>
+                        <div class="step-details">
+                            <strong>Genomic Regions:</strong> Novel loci identified across multiple chromosomes with biological relevance.
+                            
+                            <ul>
+                                <li><strong>SSC11:</strong> First TNB QTL on this chromosome (ENOX1 candidate)</li>
+                                <li><strong>SSC7:</strong> Major vQTL hotspot (HSPCB, VEGFA candidates)</li>
+                                <li><strong>Heat shock proteins:</strong> Hsp90 family involvement in developmental stability</li>
+                                <li><strong>Vascular development:</strong> VEGFA role in placental angiogenesis</li>
+                            </ul>
+                            
+                            <strong>Breeding Impact:</strong> Provides genomic tools for <span class="highlight">simultaneous selection</span> to increase mean litter size while reducing variation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="section-methodology">
+                <div class="section-title">Advanced Methodological Framework</div>
+                
+                <div class="methodology-card">
+                    <div class="methodology-title">Double Hierarchical GLM (DHGLM)</div>
+                    <div class="step-details">
+                        The DHGLM represents a statistical breakthrough for analyzing genetic control of trait variability. This method simultaneously models both the mean and variance components of litter size.
+                        
+                        <div class="formula-box">
+                            <div class="formula-title">DHGLM Mathematical Framework</div>
+                            <div class="formula-main">
+                                [y/ψ] = [X 0/0 X<sub>v</sub>][b/b<sub>v</sub>] + [Z 0/0 Z<sub>v</sub>][a/a<sub>v</sub>] + [U 0/0 U<sub>v</sub>][pe/pe<sub>v</sub>] + [e/e<sub>v</sub>]
+                            </div>
+                            <div class="formula-note">
+                                Where ψ is the linearized working variable for log(variance), enabling bivariate analysis
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Preparation and Quality Control</div>
+                            <div class="step-details">
+                                Comprehensive data editing and quality control procedures for genomic analysis
+                                <div class="step-specs">
+                                    <strong>Phenotype filtering:</strong> Litters ≥4 piglets, outliers capped at 27<br>
+                                    <strong>Genotype QC:</strong> GenCall score ≥0.15, MAF ≥0.01, call rate ≥95%<br>
+                                    <strong>Final dataset:</strong> 40,969 SNPs, 2,351 animals for TNB, 2,067 for varTNB
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Variance Component Estimation</div>
+                            <div class="step-details">
+                                DHGLM implementation for simultaneous mean and variance modeling
+                                <div class="step-specs">
+                                    <strong>Response variable:</strong> ψᵢ = log(σ̂²ₑᵢ) + (e²ᵢ/(1-hᵢ) - σ̂²ₑᵢ)/σ̂²ₑᵢ<br>
+                                    <strong>Iterations:</strong> 22 cycles until convergence<br>
+                                    <strong>Genetic correlation:</strong> Between TNB and varTNB estimated
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">EBV Deregression</div>
+                            <div class="step-details">
+                                Advanced deregression methodology for optimal GWAS power
+                                <div class="step-specs">
+                                    <strong>Methodology:</strong> Garrick et al. (2012) approach<br>
+                                    <strong>Parent average removal:</strong> Avoid double counting<br>
+                                    <strong>Reliability threshold:</strong> ≥0.05 for inclusion in GWAS
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Bayesian Variable Selection</div>
+                            <div class="step-details">
+                                Multi-SNP GWAS using advanced Bayesian methodology
+                                <div class="step-specs">
+                                    <strong>Prior specification:</strong> π₁ = 0.001 (strict selection)<br>
+                                    <strong>MCMC cycles:</strong> 500,000 iterations<br>
+                                    <strong>Significance threshold:</strong> Bayes Factor ≥30 ("very strong")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="section-genetic-results">
+                <div class="section-title">Genetic Architecture and Key Discoveries</div>
+                
+                <div class="vqtl-box">
+                    <div class="vqtl-title">🧬 Variance-controlling QTL (vQTL) - First in Pigs</div>
+                    <p>This study introduced the concept of <strong>vQTL</strong> to pig genetics - quantitative trait loci that specifically control trait variability rather than mean levels. These loci can indicate genetic-by-environment interactions, epistasis, or direct variance control mechanisms. The identification of 9 vQTL for litter size variability opens new avenues for breeding more consistent reproductive performance.</p>
+                </div>
+                
+                <div class="table-container">
+                    <div class="section-title">Significant SNPs for Total Number Born (TNB)</div>
+                    <table class="snp-table">
+                        <thead>
+                            <tr>
+                                <th>Chromosome</th>
+                                <th>SNP ID</th>
+                                <th>Position (Mb)</th>
+                                <th>Bayes Factor</th>
+                                <th>Variance Explained</th>
+                                <th>Candidate Gene</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC11</span></td>
+                                <td>ASGA0050328</td>
+                                <td>23.81</td>
+                                <td><span class="bayes-factor">295.5</span></td>
+                                <td><span class="variance-explained">0.36%</span></td>
+                                <td><strong>ENOX1</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC18</span></td>
+                                <td>ALGA0098906</td>
+                                <td>58.86</td>
+                                <td><span class="bayes-factor">35.5</span></td>
+                                <td><span class="variance-explained">0.05%</span></td>
+                                <td><strong>LGALS8</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC1</span></td>
+                                <td>ALGA0001244</td>
+                                <td>17.28</td>
+                                <td><span class="bayes-factor">85.4</span></td>
+                                <td><span class="variance-explained">0.10%</span></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC8</span></td>
+                                <td>ASGA0097249</td>
+                                <td>42.52</td>
+                                <td><span class="bayes-factor">59.9</span></td>
+                                <td><span class="variance-explained">0.02%</span></td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-container">
+                    <div class="section-title">Significant SNPs for Litter Size Variability (varTNB)</div>
+                    <table class="snp-table">
+                        <thead>
+                            <tr>
+                                <th>Chromosome</th>
+                                <th>SNP ID</th>
+                                <th>Position (Mb)</th>
+                                <th>Bayes Factor</th>
+                                <th>Variance Explained</th>
+                                <th>Candidate Gene</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC7</span></td>
+                                <td>INRA0025193</td>
+                                <td>43.76</td>
+                                <td><span class="bayes-factor">167.2</span></td>
+                                <td><span class="variance-explained">0.50%</span></td>
+                                <td><strong>CUL9</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC7</span></td>
+                                <td>ASGA0031511</td>
+                                <td>17.47</td>
+                                <td><span class="bayes-factor">36.6</span></td>
+                                <td><span class="variance-explained">0.06%</span></td>
+                                <td><strong>HSPCB (Hsp90)</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC7</span></td>
+                                <td>Near VEGFA</td>
+                                <td>44.46</td>
+                                <td><span class="bayes-factor">17.5</span></td>
+                                <td><span class="variance-explained">-</span></td>
+                                <td><strong>VEGFA</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="chromosome-tag">SSC15</span></td>
+                                <td>MARC0077161</td>
+                                <td>35.59</td>
+                                <td><span class="bayes-factor">50.9</span></td>
+                                <td><span class="variance-explained">0.10%</span></td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="section" id="section-candidate-genes">
+                <div class="section-title">Key Candidate Genes and Biological Pathways</div>
+                
+                <div class="concept-grid">
+                    <div class="gene-card">
+                        <div class="gene-name">ENOX1 (Ecto-NADH Oxidase 1)</div>
+                        <div class="gene-function">
+                            <strong>Location:</strong> SSC11:24.16-24.48 Mb<br>
+                            <strong>Function:</strong> Cell growth, survival, and defense mechanisms<br>
+                            <strong>Pathway:</strong> Electron transport, mitochondrial membrane function<br>
+                            <strong>Relevance:</strong> First candidate gene for TNB on chromosome 11
+                        </div>
+                    </div>
+                    
+                    <div class="gene-card">
+                        <div class="gene-name">HSPCB (Heat Shock Protein 90)</div>
+                        <div class="gene-function">
+                            <strong>Location:</strong> SSC7:45.11-45.12 Mb<br>
+                            <strong>Function:</strong> Protein folding, developmental stability<br>
+                            <strong>Known role:</strong> Buffers genetic and environmental variation in Drosophila/Arabidopsis<br>
+                            <strong>Relevance:</strong> Key candidate for variance control in litter size
+                        </div>
+                    </div>
+                    
+                    <div class="gene-card">
+                        <div class="gene-name">VEGFA (Vascular Endothelial Growth Factor A)</div>
+                        <div class="gene-function">
+                            <strong>Location:</strong> SSC7:44.46-44.47 Mb<br>
+                            <strong>Function:</strong> Angiogenesis, vasculogenesis in fetus<br>
+                            <strong>Pathway:</strong> Placental vascular development<br>
+                            <strong>Relevance:</strong> Critical for fetal development and litter size variation
+                        </div>
+                    </div>
+                    
+                    <div class="gene-card">
+                        <div class="gene-name">LGALS8 (Galectin-8)</div>
+                        <div class="gene-function">
+                            <strong>Location:</strong> SSC18:58.86-58.88 Mb<br>
+                            <strong>Function:</strong> Cell-cell adhesion, growth regulation<br>
+                            <strong>Pathway:</strong> Integrin-like cell interactions<br>
+                            <strong>Relevance:</strong> Potential role in embryonic development
+                        </div>
+                    </div>
+                    
+                    <div class="gene-card">
+                        <div class="gene-name">CUL9 (Cullin 9)</div>
+                        <div class="gene-function">
+                            <strong>Location:</strong> SSC7:43.72-43.76 Mb<br>
+                            <strong>Function:</strong> p53 regulation, cell cycle control<br>
+                            <strong>Pathway:</strong> Tumor suppression, cytoplasmic anchoring<br>
+                            <strong>Relevance:</strong> Controls cell localization and function
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="section-genetic-parameters">
+                <div class="section-title">Genetic Parameters and Breeding Implications</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Heritability Estimates</div>
+                        <div class="step-details">
+                            <strong>Total Number Born (TNB):</strong>
+                            <div class="formula short">h² = 0.14 ± 0.003</div>
+                            
+                            <strong>Litter Size Variability (varTNB):</strong>
+                            <div class="formula short">h² = 0.006 ± 0.0008</div>
+                            
+                            <strong>Genetic Coefficient of Variation:</strong><br>
+                            • GCV<sub>SDe</sub> = 0.09 for varTNB<br>
+                            • Indicates 9% reduction in genetic SD per generation possible<br><br>
+                            
+                            <strong>Interpretation:</strong> Low heritability for variance traits typical, but sufficient for genetic improvement.
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Genetic Correlations</div>
+                        <div class="step-details">
+                            <strong>Additive Genetic Correlation:</strong>
+                            <div class="formula short"><span class="correlation-highlight">r<sub>A</sub> = +0.49 ± 0.04</span></div>
+                            
+                            <strong>Permanent Environment Correlation:</strong>
+                            <div class="formula short">r<sub>PE</sub> = -0.83 ± 0.02</div>
+                            
+                            <strong>Implications:</strong><br>
+                            • Positive genetic correlation is <span class="highlight">unfavorable</span><br>
+                            • Selection for larger litters increases variance<br>
+                            • Simultaneous selection strategies needed<br><br>
+                            
+                            <strong>Breeding Strategy:</strong> Multi-trait selection to optimize both mean and variance.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="best-practices">
+                    <strong>Breeding Recommendations:</strong>
+                    <ul>
+                        <li><strong>Genomic Selection:</strong> Use identified SNPs for variance control in breeding programs</li>
+                        <li><strong>Multi-trait approach:</strong> Simultaneous selection for TNB and reduced varTNB</li>
+                        <li><strong>Index construction:</strong> Weight traits considering economic and welfare impacts</li>
+                        <li><strong>Validation studies:</strong> Confirm SNP effects in other pig populations</li>
+                        <li><strong>Functional studies:</strong> Investigate causal mutations in candidate genes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section" id="section-biological-significance">
+                <div class="section-title">Biological Significance and Molecular Mechanisms</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Heat Shock Protein Pathway</div>
+                        <div class="step-details">
+                            <strong>Central Role of Hsp90:</strong> The identification of HSPCB (Hsp90) as a candidate for litter size variability aligns with extensive research in model organisms.
+                            
+                            <ul>
+                                <li><strong>Developmental buffering:</strong> Hsp90 maintains protein stability under stress</li>
+                                <li><strong>Environmental canalization:</strong> Reduces phenotypic variation from environmental perturbations</li>
+                                <li><strong>Genetic robustness:</strong> Buffers effects of deleterious mutations</li>
+                                <li><strong>Evolutionary significance:</strong> Facilitates cryptic variation release under stress</li>
+                            </ul>
+                            
+                            <strong>Mechanism:</strong> Molecular chaperone activity maintains developmental stability and reduces trait variance.
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Vascular Development Pathway</div>
+                        <div class="step-details">
+                            <strong>VEGFA Signaling:</strong> Critical role in placental vascularization and fetal development affects litter size consistency.
+                            
+                            <ul>
+                                <li><strong>Angiogenesis regulation:</strong> Controls blood vessel formation in placenta</li>
