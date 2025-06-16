@@ -12,7 +12,77 @@
 <link rel="stylesheet" href="genomics_gwas.css">
 <link rel="stylesheet" href="utilities.css">
 
+<style>
+.mouse-lines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 25px auto;
+    max-width: 95%;
+    padding: 0 15px;
+}
 
+.line-card {
+    background: white;
+    border: 3px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.line-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.line-card.fertility {
+    border-color: #e91e63;
+    background: linear-gradient(135deg, #fad7e4 0%, #ffffff 100%);
+}
+
+.line-card.body-mass {
+    border-color: #f39c12;
+    background: linear-gradient(135deg, #fdeaa7 0%, #ffffff 100%);
+}
+
+.line-card.endurance {
+    border-color: #17a2b8;
+    background: linear-gradient(135deg, #d6eaf8 0%, #ffffff 100%);
+}
+
+.line-card.control {
+    border-color: #34495e;
+    background: linear-gradient(135deg, #d5dbdb 0%, #ffffff 100%);
+}
+
+.line-card h4 {
+    font-size: 1.3em;
+    font-weight: 900;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.line-card p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.experiment-details {
+    background: #d5f4e6;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 95%;
+    border-left: 4px solid #27ae60;
+}
+</style>
 
 
 <script>
