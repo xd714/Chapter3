@@ -105,18 +105,26 @@
             <div class="section" id="section-methodology">
                 <div class="section-title">Monte Carlo Sampling Framework</div>
                 
+                <div class="model-equation">
+                    <div class="equation-title">Animal Model Formulation</div>
+                    <div class="formula">y = Xb + Zu + e</div>
+                    <div class="equation-details">
+                        <strong>Where:</strong> y ~ N(Xb, ZGZ' + R), u ~ N(0, G), e ~ N(0, R)<br>
+                        <strong>Innovation:</strong> Samples of y simulated using N(0, ZGZ' + R) instead of N(Xb, ZGZ' + R)
+                    </div>
+                </div>
+                
                 <div class="flow-container">
                     <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Core Monte Carlo Procedure</div>
+                            <div class="step-title">Monte Carlo Sampling Steps</div>
                             <div class="step-details">
-                                Three-step process for approximating prediction error variances
                                 <div class="step-specs">
-                                    <strong>Step 1:</strong> Simulate n samples of y and u using original data structure<br>
-                                    <strong>Step 2:</strong> Solve mixed model equations for each simulated dataset<br>
-                                    <strong>Step 3:</strong> Calculate sampled PEV using specific formulation<br>
-                                    <strong>Key Innovation:</strong> Use random normal deviates from N(0, ZGZ' + R) instead of N(Xb, ZGZ' + R)
+                                    <strong>Step 1:</strong> Simulate n samples of y and u using pedigree and distributions of original data<br>
+                                    <strong>Step 2:</strong> Set up and solve mixed model equations for each simulated dataset<br>
+                                    <strong>Step 3:</strong> Calculate sampled PEV for chosen formulation<br>
+                                    <strong>Key Insight:</strong> Expectation of Xb does not affect distribution of random variables
                                 </div>
                             </div>
                         </div>
@@ -131,7 +139,7 @@
                                 <div class="step-specs">
                                     <strong>Dataset:</strong> 32,128 purebred Limousin animals with height records<br>
                                     <strong>Pedigree:</strong> 50,435 animals total<br>
-                                    <strong>Variance Components:</strong> σ²g = 1.0, σ²r = 3.0<br>
+                                    <strong>Variance Components:</strong> σ²<sub>g</sub> = 1.0, σ²<sub>r</sub> = 3.0<br>
                                     <strong>Fixed Effects:</strong> Contemporary group, technician, parity of dam, age, sex
                                 </div>
                             </div>
@@ -171,59 +179,112 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Ten Formulations Compared</div>
+                <div class="section-title">Ten PEV Formulations Evaluated</div>
                 
-                <div class="model-comparison">
-                    <div class="model-box model-1">
-                        <div class="model-title">Published Formulations (4)</div>
-                        <div class="step-details">
-                            <strong>PEVGC1:</strong> σ²g - Var(û)
-                            <div class="formula">Uses Cov(u, û) = Var(û), Var(u) = σ²g</div>
-                            
-                            <strong>PEVGC2:</strong> Var(u - û)
-                            <div class="formula">Assumes Cov(u - û, û) = 0</div>
-                            
-                            <strong>PEVGC3:</strong> Weighted combination of GC1 and GC2
-                            <div class="formula">Weights based on asymptotic sampling variances</div>
-                            
-                            <strong>PEVFL:</strong> σ²g - Cov(u, û)
-                            <div class="formula">Uses covariance information directly</div>
-                        </div>
-                    </div>
-                    
-                    <div class="model-box model-2">
-                        <div class="model-title">Alternative Formulations (4)</div>
-                        <div class="step-details">
-                            <strong>PEVAF1-4:</strong> Corrected versions of published formulations
-                            <div class="formula">Rescale from Var(u) to σ²g scale</div>
-                            
-                            <strong>Key Innovation:</strong> Account for sampling effects on Var(u)
-                            <ul>
-                                <li>PEVAF1: σ²g - [Var(û)/Var(u)] × σ²g</li>
-                                <li>PEVAF2: [Var(u - û)/Var(u)] × σ²g</li>
-                                <li>PEVAF3: Weighted combination of AF1 and AF2</li>
-                                <li>PEVAF4: σ²g - [Cov(u, û)/Var(u)] × σ²g</li>
-                            </ul>
-                        </div>
+                <div class="formulation-table">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Formulation</th>
+                                    <th>Mathematical Expression</th>
+                                    <th>Information Used</th>
+                                    <th>Asymptotic Sampling Variance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="published-group">
+                                    <td colspan="4"><strong>Published Formulations</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>GC1</sub></strong></td>
+                                    <td>σ²<sub>g</sub> - Var(û)</td>
+                                    <td>û</td>
+                                    <td>2r⁴σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>GC2</sub></strong></td>
+                                    <td>Var(u - û)</td>
+                                    <td>u - û</td>
+                                    <td>2(1-r²)²σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>GC3</sub></strong></td>
+                                    <td>Weighted combination of GC1 and GC2</td>
+                                    <td>û, u - û</td>
+                                    <td>{[2r⁴(1-r²)²]/[(1-r²)² + r⁴]}σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>FL</sub></strong></td>
+                                    <td>σ²<sub>g</sub> - Cov(u, û)</td>
+                                    <td>Cov(u, û)</td>
+                                    <td>r²(1+r²)σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr class="alternative-group">
+                                    <td colspan="4"><strong>Alternative Formulations (Corrected for Var(u) ≠ σ²<sub>g</sub>)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>AF1</sub></strong></td>
+                                    <td>σ²<sub>g</sub> - [Var(û)/Var(u)] × σ²<sub>g</sub></td>
+                                    <td>û, u</td>
+                                    <td>4r⁴(1-r²)σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>AF2</sub></strong></td>
+                                    <td>[Var(u - û)/Var(u)] × σ²<sub>g</sub></td>
+                                    <td>u - û, u</td>
+                                    <td>4r²(1-r²)²σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>AF3</sub></strong></td>
+                                    <td>Weighted combination of AF1 and AF2</td>
+                                    <td>û, u - û, u</td>
+                                    <td>4r⁴(1-r²)²σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>AF4</sub></strong></td>
+                                    <td>σ²<sub>g</sub> - [Cov(u, û)/Var(u)] × σ²<sub>g</sub></td>
+                                    <td>Cov(u, û), u</td>
+                                    <td>r²(1-r²)σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr class="new-group">
+                                    <td colspan="4"><strong>New Formulations (This Study)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>NF1</sub></strong></td>
+                                    <td>σ²<sub>g</sub> × [1 - Cov(u, û)²/(Var(u) × Var(û))]</td>
+                                    <td>Classical EBV accuracy formula</td>
+                                    <td>4r²(1-r²)²σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PEV<sub>NF2</sub></strong></td>
+                                    <td>{Var(u - û)/[Var(û) + Var(u - û)]} × σ²<sub>g</sub></td>
+                                    <td>û and u - û</td>
+                                    <td>4r⁴(1-r²)²σ⁴<sub>g</sub>/n</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 
-                <div class="model-comparison">
-                    <div class="model-box model-3">
-                        <div class="model-title">New Formulations (2)</div>
-                        <div class="step-details">
-                            <strong>PEVNF1:</strong> Based on classical EBV accuracy formula
-                            <div class="formula">σ²g × [1 - Cov(u, û)²/(Var(u) × Var(û))]</div>
-                            
-                            <strong>PEVNF2:</strong> Implicit weighting approach
-                            <div class="formula">{Var(u - û)/[Var(û) + Var(u - û)]} × σ²g</div>
-                            
-                            <strong>Advantages:</strong>
-                            <ul>
-                                <li>PEVNF2 shows excellent performance across all PEV levels</li>
-                                <li>Symmetric sampling variance curves</li>
-                                <li>Competitive with best weighted formulations</li>
-                            </ul>
+                <div class="key-equations">
+                    <div class="equation-box">
+                        <div class="equation-title">Variance Calculation Algorithm</div>
+                        <div class="formula">
+                            SS<sub>n</sub> = SS<sub>n-1</sub> + [(Tn-1/(n-1)) - x<sub>i</sub>]² × (n-1)/n
+                        </div>
+                        <div class="equation-note">
+                            One-pass updating algorithm based on Chan et al. (1979) for numerically stable variance calculations
+                        </div>
+                    </div>
+                    
+                    <div class="equation-box">
+                        <div class="equation-title">Relationship Matrix Properties</div>
+                        <div class="formula">
+                            u<sub>i</sub> = (u<sub>si</sub> + u<sub>di</sub>)/2 + m<sub>i</sub>
+                        </div>
+                        <div class="equation-note">
+                            Where m<sub>i</sub> ~ N(0, A<sub>m</sub>σ²<sub>g</sub>) and A<sub>m</sub> = (1-F<sub>i</sub>)/2 × σ²<sub>g</sub>
                         </div>
                     </div>
                 </div>
@@ -271,7 +332,7 @@
                             <strong>Performance Hierarchy:</strong> Four formulations emerged as clearly superior.
                             
                             <ul>
-                                <li><span class="highlight">Best Performers:</span> PEVGC3, PEVAF3, PEVAF4, PEVNF2</li>
+                                <li><span class="highlight">Best Performers:</span> PEV<sub>GC3</sub>, PEV<sub>AF3</sub>, PEV<sub>AF4</sub>, PEV<sub>NF2</sub></li>
                                 <li><span class="highlight">Convergence:</span> All formulations converge to exact PEV as samples increase</li>
                                 <li><span class="highlight">PEV Level Dependency:</span> Performance varies with low/medium/high PEV levels</li>
                                 <li><span class="highlight">Practical Recommendation:</span> 300 samples provide satisfactory convergence</li>
@@ -282,47 +343,105 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Detailed Performance Results</div>
+                <div class="section-title">Performance Results by PEV Level</div>
                 
-                <div class="results-grid">
-                    <div class="results-box">
-                        <div class="results-title">Convergence Performance (n=300 samples)</div>
-                        <div class="step-details">
-                            <strong>Low PEV (0.00-0.33):</strong>
-                            <ul>
-                                <li>PEVNF2: R² = 0.95, Slope = 0.95, RMSE = 0.02</li>
-                                <li>PEVGC3: R² = 0.95, Slope = 0.93, RMSE = 0.02</li>
-                                <li>PEVGC2: R² = 0.94, Slope = 0.90, RMSE = 0.02</li>
-                                <li>Poor performers: PEVGC1, PEVFL (R² = 0.65)</li>
-                            </ul>
-                            
-                            <strong>High PEV (0.67-1.00):</strong>
-                            <ul>
-                                <li>PEVNF2: R² = 0.98, Slope = 0.96, RMSE = 0.01</li>
-                                <li>PEVGC3: R² = 0.97, Slope = 0.94, RMSE = 0.02</li>
-                                <li>PEVGC1: R² = 0.96, Slope = 0.91, RMSE = 0.02</li>
-                                <li>Poor performer: PEVGC2 (R² = 0.64)</li>
-                            </ul>
+                <div class="results-comparison">
+                    <div class="performance-table">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>PEV Level</th>
+                                        <th>Formulation</th>
+                                        <th>Intercept</th>
+                                        <th>Slope</th>
+                                        <th>R²</th>
+                                        <th>RMSE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="low-pev-group">
+                                        <td rowspan="4"><strong>Low PEV<br>(0.00-0.33)</strong></td>
+                                        <td><strong>PEV<sub>NF2</sub></strong></td>
+                                        <td>0.01</td>
+                                        <td><span class="highlight">0.95</span></td>
+                                        <td><span class="highlight">0.95</span></td>
+                                        <td><span class="highlight">0.02</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PEV<sub>GC3</sub></strong></td>
+                                        <td>0.01</td>
+                                        <td>0.93</td>
+                                        <td>0.95</td>
+                                        <td>0.02</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PEV<sub>GC2</sub></strong></td>
+                                        <td>0.01</td>
+                                        <td>0.90</td>
+                                        <td>0.94</td>
+                                        <td>0.02</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PEV<sub>GC1</sub></td>
+                                        <td>0.09</td>
+                                        <td>0.62</td>
+                                        <td>0.65</td>
+                                        <td>0.05</td>
+                                    </tr>
+                                    <tr class="high-pev-group">
+                                        <td rowspan="4"><strong>High PEV<br>(0.67-1.00)</strong></td>
+                                        <td><strong>PEV<sub>NF2</sub></strong></td>
+                                        <td>0.04</td>
+                                        <td><span class="highlight">0.96</span></td>
+                                        <td><span class="highlight">0.98</span></td>
+                                        <td><span class="highlight">0.01</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PEV<sub>GC3</sub></strong></td>
+                                        <td>0.06</td>
+                                        <td>0.94</td>
+                                        <td>0.97</td>
+                                        <td>0.02</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PEV<sub>GC1</sub></strong></td>
+                                        <td>0.09</td>
+                                        <td>0.91</td>
+                                        <td>0.96</td>
+                                        <td>0.02</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PEV<sub>GC2</sub></td>
+                                        <td>0.29</td>
+                                        <td>0.67</td>
+                                        <td>0.64</td>
+                                        <td>0.06</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    
-                    <div class="results-box">
-                        <div class="results-title">Sampling Variance Analysis</div>
-                        <div class="step-details">
-                            <strong>PEV Level Dependencies:</strong>
+                </div>
+                
+                <div class="key-findings">
+                    <div class="finding-box best-performers">
+                        <div class="finding-title">🏆 Best Performing Formulations</div>
+                        <div class="finding-content">
+                            <strong>Top 4 Formulations (n=300 samples):</strong>
                             <ul>
-                                <li>Var(û) has lower sampling variance at high PEVexact</li>
-                                <li>Var(u - û) has lower sampling variance at low PEVexact</li>
-                                <li>Best formulations use both information sources with optimal weighting</li>
-                                <li>Symmetric sampling variance curves indicate balanced performance</li>
+                                <li><strong>PEV<sub>GC3</sub>:</strong> Weighted García-Cortés approach with asymptotic sampling variances</li>
+                                <li><strong>PEV<sub>AF3</sub>:</strong> Alternative weighted formulation correcting for Var(u) ≠ σ²<sub>g</sub></li>
+                                <li><strong>PEV<sub>AF4</sub>:</strong> Major improvement over PEV<sub>FL</sub> using covariance information</li>
+                                <li><strong>PEV<sub>NF2</sub>:</strong> New implicit weighting approach with symmetric sampling variance</li>
                             </ul>
                             
-                            <strong>Weighting Strategies:</strong>
+                            <strong>Performance Characteristics:</strong>
                             <ul>
-                                <li>Asymptotic weighting: Computationally efficient</li>
-                                <li>Jackknife weighting: Empirically robust</li>
-                                <li>Independent replicates: Gold standard but computationally expensive</li>
-                                <li>All three approaches give nearly identical results</li>
+                                <li>All converge to exact PEV as sample size increases</li>
+                                <li>PEV<sub>NF2</sub> shows most consistent performance across all PEV levels</li>
+                                <li>Weighted formulations balance performance at low and high PEV levels</li>
+                                <li>Alternative formulations correct sampling bias in published methods</li>
                             </ul>
                         </div>
                     </div>
@@ -332,46 +451,63 @@
             <div class="section" id="section-technical">
                 <div class="section-title">Technical Implementation & Requirements</div>
                 
-                <div class="comparison-grid">
-                    <div class="comparison-box census-box">
-                        <div class="comparison-title">Computational Specifications</div>
-                        <div class="step-details">
-                            <strong>Sample Size Requirements:</strong>
-                            <ul>
-                                <li><span class="highlight">Minimum:</span> 50 samples for basic approximation</li>
-                                <li><span class="highlight">Recommended:</span> 300 samples for satisfactory convergence</li>
-                                <li><span class="highlight">High Precision:</span> 550+ samples for intermediate PEV accuracy ≥ 0.90</li>
-                                <li><span class="highlight">Optimal:</span> 1000 samples for research applications</li>
-                            </ul>
-                            
-                            <strong>Performance Scaling:</strong>
-                            <ul>
-                                <li>Single evaluation: 366 minutes (Irish dataset, 1.5M animals)</li>
-                                <li>300 samples: 1,830 hours on single processor</li>
-                                <li>Parallel implementation: 38.1 hours on 6 × 8-core PCs</li>
-                                <li>Cost-effective: ~€30,000 hardware investment</li>
-                            </ul>
+                <div class="section-title">Sample Size Requirements & Computational Scaling</div>
+                
+                <div class="sample-requirements">
+                    <div class="requirement-box">
+                        <div class="requirement-title">Sample Size Guidelines</div>
+                        <div class="requirement-content">
+                            <div class="sample-grid">
+                                <div class="sample-level">
+                                    <div class="sample-number">50</div>
+                                    <div class="sample-desc">Minimum<br>Basic approximation</div>
+                                </div>
+                                <div class="sample-level recommended">
+                                    <div class="sample-number">300</div>
+                                    <div class="sample-desc">Recommended<br>Satisfactory convergence</div>
+                                </div>
+                                <div class="sample-level">
+                                    <div class="sample-number">550</div>
+                                    <div class="sample-desc">High Precision<br>Intermediate PEV ≥ 0.90</div>
+                                </div>
+                                <div class="sample-level">
+                                    <div class="sample-number">1000</div>
+                                    <div class="sample-desc">Research<br>Maximum precision</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="comparison-box dna-box">
-                        <div class="comparison-title">Algorithmic Implementation</div>
-                        <div class="step-details">
-                            <strong>Numerical Stability:</strong>
+                </div>
+                
+                <div class="computational-scaling">
+                    <div class="scaling-title">Computational Performance Example</div>
+                    <div class="scaling-content">
+                        <div class="dataset-specs">
+                            <strong>Irish Cattle Dataset (January 2007):</strong>
                             <ul>
-                                <li><span class="highlight">Variance Calculation:</span> One-pass updating algorithm (Chan et al.)</li>
-                                <li><span class="highlight">Memory Efficiency:</span> Streaming computation for large datasets</li>
-                                <li><span class="highlight">Precision:</span> Avoids numerical instability of textbook formulas</li>
-                                <li><span class="highlight">Validation:</span> Tested against exact calculations</li>
+                                <li>1,500,000 animals in pedigree</li>
+                                <li>493,092 animals with performance records</li>
+                                <li>15 traits evaluated simultaneously</li>
+                                <li>Single evaluation: 366 minutes on 64-bit PC</li>
                             </ul>
+                        </div>
+                        
+                        <div class="scaling-comparison">
+                            <div class="compute-option">
+                                <div class="compute-title">Single Processor</div>
+                                <div class="compute-details">
+                                    <div class="compute-time">1,830 hours</div>
+                                    <div class="compute-note">300 samples × 366 min</div>
+                                </div>
+                            </div>
                             
-                            <strong>Software Integration:</strong>
-                            <ul>
-                                <li>MiX99 for mixed model equation solving</li>
-                                <li>ASReml for exact PEV reference calculations</li>
-                                <li>Custom algorithms for efficient variance updates</li>
-                                <li>Parallelizable across multiple processors</li>
-                            </ul>
+                            <div class="compute-option recommended-compute">
+                                <div class="compute-title">Parallel Processing</div>
+                                <div class="compute-details">
+                                    <div class="compute-time">38.1 hours</div>
+                                    <div class="compute-note">6 × 8-core PCs (~€30k)</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -382,7 +518,7 @@
                     <div class="method-box method-1">
                         <div class="method-title">Best Performing Formulations</div>
                         <div class="step-details">
-                            <strong>PEVGC3 (Weighted García-Cortés):</strong>
+                            <strong>PEV<sub>GC3</sub> (Weighted García-Cortés):</strong>
                             <ul>
                                 <li>Combines GC1 and GC2 using asymptotic sampling variances</li>
                                 <li>Symmetric performance across PEV levels</li>
@@ -390,10 +526,10 @@
                                 <li>Good computational efficiency</li>
                             </ul>
                             
-                            <strong>PEVAF3 (Alternative Weighted):</strong>
+                            <strong>PEV<sub>AF3</sub> (Alternative Weighted):</strong>
                             <ul>
-                                <li>Corrects for Var(u) ≠ σ²g sampling effects</li>
-                                <li>Improved performance over PEVGC3</li>
+                                <li>Corrects for Var(u) ≠ σ²<sub>g</sub> sampling effects</li>
+                                <li>Improved performance over PEV<sub>GC3</sub></li>
                                 <li>Robust across different PEV ranges</li>
                                 <li>Recommended for practical applications</li>
                             </ul>
@@ -403,15 +539,15 @@
                     <div class="method-box method-2">
                         <div class="method-title">Practical Recommendations</div>
                         <div class="step-details">
-                            <strong>PEVAF4 (Alternative Fouilloux-Laloë):</strong>
+                            <strong>PEV<sub>AF4</sub> (Alternative Fouilloux-Laloë):</strong>
                             <ul>
-                                <li>Major improvement over original PEVFL</li>
+                                <li>Major improvement over original PEV<sub>FL</sub></li>
                                 <li>Excellent performance at low/intermediate PEV</li>
                                 <li>Uses covariance information effectively</li>
-                                <li>Nearly identical to PEVNF2</li>
+                                <li>Nearly identical to PEV<sub>NF2</sub></li>
                             </ul>
                             
-                            <strong>PEVNF2 (New Formulation):</strong>
+                            <strong>PEV<sub>NF2</sub> (New Formulation):</strong>
                             <ul>
                                 <li>Implicitly weights Var(û) and Var(u - û) information</li>
                                 <li>Symmetric sampling variance curves</li>
@@ -424,172 +560,9 @@
             </div>
 
             <div class="section" id="section-applications">
-                <div class="section-title">Applications & Future Implications</div>
+                <div class="section-title">Applications & Practical Implementation</div>
                 
                 <div class="innovation-box">
                     <div class="innovation-title">🎯 Key Innovation</div>
                     <p>First comprehensive comparison of Monte Carlo PEV formulations, identifying optimal approaches for different PEV levels and establishing practical guidelines for large-scale genetic evaluation applications.</p>
                 </div>
-                
-                <div class="theme-container">
-                    <div class="theme-box methodological">
-                        <div class="theme-title">Computational Applications</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Stochastic REML:</strong> Enable variance component estimation with complete datasets</li>
-                                <li><strong>Accuracy Calculation:</strong> Provide unbiased breeding value reliabilities</li>
-                                <li><strong>Selection Response Control:</strong> Manage variance of genetic gain in breeding programs</li>
-                                <li><strong>Large-Scale Evaluation:</strong> Make previously impossible calculations feasible</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="theme-box genetic">
-                        <div class="theme-title">Breeding Program Benefits</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Reduced Bias:</strong> Use complete datasets instead of reduced sets for variance estimation</li>
-                                <li><strong>Improved Accuracy:</strong> Better reliability estimates for breeding value predictions</li>
-                                <li><strong>Risk Management:</strong> Control variance of selection response</li>
-                                <li><strong>Economic Impact:</strong> More efficient breeding decisions with better uncertainty quantification</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-title">Implementation Guidelines</div>
-                
-                <div class="gap-analysis">
-                    <div class="gap-title">📋 Practical Implementation Steps</div>
-                    <div class="gap-content">
-                        <strong>For Routine Genetic Evaluation:</strong>
-                        <ul>
-                            <li>Use PEVAF3 or PEVNF2 for general applications with balanced performance</li>
-                            <li>Implement with 300 samples for satisfactory accuracy</li>
-                            <li>Use parallel processing to reduce computational time</li>
-                            <li>Validate against exact PEV for subset of animals</li>
-                        </ul>
-                        
-                        <strong>For Research Applications:</strong>
-                        <ul>
-                            <li>Use 550+ samples for high precision requirements</li>
-                            <li>Consider PEV level when choosing formulation</li>
-                            <li>Implement multiple formulations for comparison</li>
-                            <li>Use asymptotic weighting for computational efficiency</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="significance-box">
-                    <div class="significance-title">🔬 Future Research Directions</div>
-                    <div class="significance-content">
-                        <strong>Methodological Extensions:</strong>
-                        <ul>
-                            <li>Adaptation to genomic evaluation models with marker effects</li>
-                            <li>Extension to multi-trait and random regression models</li>
-                            <li>Development of adaptive sampling strategies</li>
-                            <li>Integration with Bayesian methods and MCMC</li>
-                        </ul>
-                        
-                        <strong>Computational Advances:</strong>
-                        <ul>
-                            <li>GPU acceleration for massive parallel processing</li>
-                            <li>Cloud computing implementations for accessibility</li>
-                            <li>Distributed computing across multiple institutions</li>
-                            <li>Real-time accuracy estimation in breeding programs</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="section-title">Technical Specifications Summary</div>
-                
-                <div class="coverage-stats">
-                    <div class="stat-box">
-                        <div class="stat-number">10</div>
-                        <div class="stat-label">Formulations Compared</div>
-                    </div>
-                    
-                    <div class="stat-box">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Top Performers Identified</div>
-                    </div>
-                    
-                    <div class="stat-box">
-                        <div class="stat-number">300</div>
-                        <div class="stat-label">Recommended Sample Size</div>
-                    </div>
-                    
-                    <div class="stat-box">
-                        <div class="stat-number">100K</div>
-                        <div class="stat-label">Monte Carlo Samples Used</div>
-                    </div>
-                </div>
-                
-                <div class="experiment-details">
-                    <strong>Validation Dataset Characteristics:</strong>
-                    <ul>
-                        <li>32,128 Limousin cattle with height records</li>
-                        <li>50,435 animals in complete pedigree</li>
-                        <li>PEV range: 0.00 to 1.00 (categorized as low/medium/high)</li>
-                        <li>Exact PEV calculated using ASReml with full matrix inversion</li>
-                        <li>18,855 non-inbred animals used for final analysis</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section" id="section-impact">
-                <div class="section-title">Research Impact & Legacy</div>
-                
-                <div class="theme-container">
-                    <div class="theme-box historical">
-                        <div class="theme-title">Historical Context</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Pre-2009:</strong> Limited options for PEV approximation in large datasets</li>
-                                <li><strong>García-Cortés Era:</strong> Initial Monte Carlo formulations (1995)</li>
-                                <li><strong>Computational Barrier:</strong> Matrix inversion limitations restricting applications</li>
-                                <li><strong>Industry Need:</strong> Growing demand for accuracy estimation in genomic era</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="theme-box methodological">
-                        <div class="theme-title">Methodological Impact</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Standardization:</strong> Established benchmarks for PEV approximation methods</li>
-                                <li><strong>Correction Formulas:</strong> Improved published methods with sampling corrections</li>
-                                <li><strong>Performance Metrics:</strong> Comprehensive evaluation framework for future methods</li>
-                                <li><strong>Practical Guidelines:</strong> Sample size recommendations for different applications</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-title">Limitations & Future Challenges</div>
-                
-                <div class="gap-analysis">
-                    <div class="gap-title">⚠️ Current Limitations</div>
-                    <div class="gap-content">
-                        <strong>Computational Constraints:</strong>
-                        <ul>
-                            <li>Still computationally intensive despite improvements (1,830 hours for Irish dataset)</li>
-                            <li>Memory requirements scale with dataset size and number of samples</li>
-                            <li>Parallel processing requires significant hardware investment</li>
-                            <li>Real-time applications remain challenging for largest evaluations</li>
-                        </ul>
-                        
-                        <strong>Methodological Considerations:</strong>
-                        <ul>
-                            <li>Performance varies significantly across PEV levels within formulations</li>
-                            <li>Optimal sample size depends on precision requirements and computational budget</li>
-                            <li>Limited evaluation of genomic models with dense marker effects</li>
-                            <li>Inbreeding corrections not fully validated in this study</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="significance-box">
-                    <div class="significance-title">🌟 Long-term Significance</div>
-                    <div class="significance-content">
-                        <strong>Enabling Technologies:</strong>
