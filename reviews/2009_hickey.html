@@ -4,407 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estimation of Prediction Error Variances via Monte Carlo Sampling Methods</title>
-    
-    <style>
-/* ============================================
-   CORE VARIABLES & AUTOMATIC THEMING
-   ============================================ */
-:root {
-    /* Color palette */
-    --color-1: #e74c3c;   /* Red */
-    --color-2: #3498db;   /* Blue */
-    --color-3: #27ae60;   /* Green */
-    --color-4: #f39c12;   /* Orange */
-    --color-5: #9b59b6;   /* Purple */
-    --color-6: #1abc9c;   /* Teal */
-    
-    /* Darker variants */
-    --color-1-dark: #c0392b;
-    --color-2-dark: #2980b9;
-    --color-3-dark: #229954;
-    --color-4-dark: #d68910;
-    --color-5-dark: #8e44ad;
-    --color-6-dark: #17a2b8;
-    
-    /* Lighter variants */
-    --color-1-light: #fadbd8;
-    --color-2-light: #d6eaf8;
-    --color-3-light: #d5f4e6;
-    --color-4-light: #fdeaa7;
-    --color-5-light: #e8d5f2;
-    --color-6-light: #d0f0ed;
-    
-    /* Default theme */
-    --primary-color: var(--color-2);
-    --primary-hover: var(--color-2-dark);
-    --primary-light: var(--color-2-light);
-    --secondary-color: #2c3e50;
-    --accent-color: var(--color-1);
-    --success-color: var(--color-3);
-    --warning-color: var(--color-4);
-    --info-color: #17a2b8;
-    --purple-color: var(--color-5);
-    
-    /* Background colors */
-    --bg-main: #f5f5f5;
-    --bg-white: white;
-    --bg-light: #f8f9fa;
-    --bg-code: #ecf0f1;
-    
-    /* Text colors */
-    --text-primary: #2c3e50;
-    --text-secondary: #555;
-    --text-muted: #666;
-    --text-light: #7f8c8d;
-    
-    /* Border colors */
-    --border-light: #ddd;
-    --border-primary: var(--primary-color);
-}
+    <link rel="stylesheet" href="style.css">
 
-/* ============================================
-   BASE STYLES
-   ============================================ */
-* {
-    box-sizing: border-box;
-}
+<script>
+(function() {
+    'use strict';
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: var(--bg-main);
-    line-height: 1.6;
-    color: var(--text-primary);
-}
-
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    background: var(--bg-white);
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    overflow: hidden;
-}
-
-.content {
-    padding: 40px 60px;
-}
-
-.section {
-    margin: 45px auto;
-    max-width: 95%;
-    padding: 0 15px;
-}
-
-.section-title {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 25px;
-    border-bottom: 3px solid var(--primary-color);
-    padding-bottom: 8px;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: var(--accent-color);
-}
-
-/* ============================================
-   SAMPLE SIZE REQUIREMENTS - FIXED STYLING
-   ============================================ */
-.sample-requirements {
-    margin: 30px auto;
-    max-width: 95%;
-}
-
-.requirement-box {
-    background: linear-gradient(135deg, var(--bg-white) 0%, var(--primary-light) 100%);
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.requirement-title {
-    font-size: 1.3em;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.sample-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-    gap: 20px !important;
-    margin: 20px 0 !important;
-}
-
-.sample-level {
-    background: var(--bg-white);
-    border: 3px solid var(--border-light);
-    border-radius: 12px;
-    padding: 25px 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-}
-
-.sample-level:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-.sample-level.recommended {
-    border-color: var(--success-color) !important;
-    background: linear-gradient(135deg, var(--color-3-light) 0%, var(--bg-white) 100%) !important;
-    transform: scale(1.05) !important;
-    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.2) !important;
-}
-
-.sample-level.recommended::before {
-    content: '⭐ RECOMMENDED' !important;
-    position: absolute !important;
-    top: -12px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    background: var(--success-color) !important;
-    color: white !important;
-    padding: 4px 12px !important;
-    border-radius: 15px !important;
-    font-size: 0.7em !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
-}
-
-.sample-number {
-    font-size: 3em !important;
-    font-weight: 900 !important;
-    color: var(--primary-color) !important;
-    margin-bottom: 10px !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-}
-
-.sample-level.recommended .sample-number {
-    color: var(--success-color) !important;
-}
-
-.sample-desc {
-    color: var(--text-secondary);
-    font-weight: 600;
-    line-height: 1.4;
-    font-size: 0.9em;
-}
-
-/* ============================================
-   COMPUTATIONAL SCALING SECTION
-   ============================================ */
-.computational-scaling {
-    margin: 30px auto;
-    max-width: 95%;
-    background: var(--bg-light);
-    border-radius: 12px;
-    padding: 30px;
-    border-left: 6px solid var(--info-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.scaling-title {
-    font-size: 1.3em;
-    font-weight: 700;
-    color: var(--info-color);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.dataset-specs {
-    background: var(--bg-white);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    border: 1px solid var(--border-light);
-}
-
-.dataset-specs strong {
-    color: var(--text-primary);
-    font-size: 1.1em;
-}
-
-.dataset-specs ul {
-    margin: 15px 0 0 0;
-    padding-left: 20px;
-}
-
-.dataset-specs li {
-    margin-bottom: 8px;
-    color: var(--text-secondary);
-}
-
-.scaling-comparison {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.compute-option {
-    background: var(--bg-white);
-    border: 2px solid var(--border-light);
-    border-radius: 10px;
-    padding: 25px;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.compute-option:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-.recommended-compute {
-    border-color: var(--success-color);
-    background: linear-gradient(135deg, var(--color-3-light) 0%, var(--bg-white) 100%);
-}
-
-.recommended-compute::before {
-    content: '✓ RECOMMENDED';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--success-color);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.7em;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.compute-title {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 15px;
-}
-
-.compute-time {
-    font-size: 2.5em;
-    font-weight: 900;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.recommended-compute .compute-time {
-    color: var(--success-color);
-}
-
-.compute-note {
-    color: var(--text-muted);
-    font-size: 0.9em;
-    font-style: italic;
-}
-
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-@media (max-width: 768px) {
-    .content {
-        padding: 25px 20px;
-    }
-    
-    .sample-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
-    }
-    
-    .scaling-comparison {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .sample-number {
-        font-size: 2.5em !important;
-    }
-    
-    .compute-time {
-        font-size: 2em;
-    }
-}
-
-@media (max-width: 480px) {
-    .sample-grid {
-        grid-template-columns: 1fr !important;
-    }
-    
-    .sample-number {
-        font-size: 2em !important;
-    }
-    
-    .compute-time {
-        font-size: 1.8em;
-    }
-}
-    </style>
-
-    <script>
-    (function() {
-        'use strict';
-
-        function initTheme() {
-            const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
-            
-            let seed = 0;
-            
-            // Mix all character codes into the seed with prime multipliers
-            for (let i = 0; i < filename.length; i++) {
-                seed += filename.charCodeAt(i) * (31 + (i % 7));
-            }
-
-            // Extract year if any (4-digit number in filename)
-            const yearMatch = filename.match(/\d{4}/);
-            if (yearMatch) {
-                seed += parseInt(yearMatch[0]) * 13;
-            }
-
-            // Further mix with golden ratio to scatter more
-            seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
-
-            const themeNumber = (seed % 30) + 1; // Result: 1 to 30
-
-            document.body.setAttribute('data-theme', 'auto-' + themeNumber);
-            if (yearMatch) {
-                document.body.setAttribute('data-year', yearMatch[0]);
-            }
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
         }
 
-        function initBackToTop() {
-            const btn = document.createElement('div');
-            btn.className = 'back-to-top';
-            btn.setAttribute('aria-label', 'Back to top');
-            btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-            document.body.appendChild(btn);
-            
-            window.onscroll = () => {
-                btn.classList.toggle('visible', window.pageYOffset > 300);
-            };
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
         }
 
-        document.readyState === 'loading'
-            ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
-            : (initTheme(), initBackToTop());
-    })();
-    </script>
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
 </head>
 <body>
     <div class="container">
