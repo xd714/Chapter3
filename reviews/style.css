@@ -1520,6 +1520,24 @@ sub, sup {
 sub { bottom: -0.25em; }
 sup { top: -0.5em; }
 
+
+/* For phylogenetic trees */
+.tree-node { 
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+}
+
+/* For chemical structures */
+.molecule-diagram {
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+}
+
+/* For statistical plots */
+.plot-container {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 /* ============================================
    TABLES (UNIFIED & FIXED)
    ============================================ */
