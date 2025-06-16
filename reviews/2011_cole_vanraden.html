@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use of Haplotypes to Estimate Mendelian Sampling Effects and Selection Limits</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Use of Haplotypes to Estimate Mendelian Sampling Effects and Selection Limits</h1>
+            <p>Genomic Breeding Strategy and Selection Theory</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> J.B. Cole, P.M. VanRaden</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Animal Improvement Programs Laboratory, ARS, USDA, Beltsville, MD, USA</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, 128 (2011) 446–455</p>
+                <p class="text-top-large">
+                    <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1439-0388.2011.00922.x"
+                       target="_blank" 
+                       class="paper-link">
+                        View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Information & Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Cole, J.B., & VanRaden, P.M. (2011). Use of haplotypes to estimate Mendelian sampling effects and selection limits. Journal of Animal Breeding and Genetics, 128(6), 446-455.</p>
+                    
+                    <p><strong>Research Context:</strong> This paper addresses a fundamental challenge in genomic selection: predicting the unpredictable Mendelian sampling component of genetic merit using haplotype information from dense SNP genotyping.</p>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">Key Innovation</div>
+                    <p>First comprehensive framework for using haplotypes to estimate Mendelian sampling variance and calculate theoretical selection limits in dairy cattle populations using dense SNP marker data.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Problem Statement</div>
+                        <div class="analysis-content">
+                            <strong>Core Challenge:</strong> Mendelian sampling (MS) variance creates unpredictable genetic variation within families that traditional breeding values cannot capture.
+                            
+                            <ul>
+                                <li><strong>Traditional limitation:</strong> Parent average (PA) doesn't predict individual MS effects</li>
+                                <li><strong>Breeding impact:</strong> Genomic selection's increased reliability comes from better MS estimation</li>
+                                <li><strong>Population risk:</strong> Intensive selection reduces genetic diversity while increasing inbreeding</li>
+                                <li><strong>Opportunity:</strong> Dense SNP data enables direct inspection of chromosomal-level genetic variation</li>
+                            </ul>
+                            
+                            <strong>Research Gap:</strong> No methodology existed to systematically estimate MS variance bounds and theoretical selection limits using haplotype information.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodology</div>
+                        <div class="analysis-content">
+                            <strong>Haplotype-Based MS Estimation:</strong> Two-boundary approach using linkage assumptions.
+                            
+                            <ul>
+                                <li><strong>Lower bound (MSU):</strong> Assumes all loci unlinked - individual marker effects</li>
+                                <li><strong>Upper bound (MSC):</strong> Assumes perfect linkage within chromosomes</li>
+                                <li><strong>Validation:</strong> Expected MS (½Va) falls between bounds</li>
+                                <li><strong>Selection limits:</strong> Combine best haplotypes vs. best individual alleles</li>
+                            </ul>
+                            
+                            <strong>Datasets:</strong> 43,382 SNPs in Holstein (40,351), Brown Swiss (1,455), and Jersey (4,064) cattle using BovineSNP50 BeadChip.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Key Findings</div>
+                        <div class="analysis-content">
+                            <strong>MS Variance Patterns:</strong> Clear breed differences in genetic potential.
+                            
+                            <ul>
+                                <li><strong>Holstein superiority:</strong> Largest MS variance and selection limits across all traits</li>
+                                <li><strong>Selection potential:</strong> Current best animals well below theoretical limits</li>
+                                <li><strong>Inbreeding relationship:</strong> Strong negative correlation (-0.73 to -0.86) between genomic inbreeding and MSU</li>
+                                <li><strong>Practical implications:</strong> Haplotype selection could dramatically improve genetic merit</li>
+                            </ul>
+                            
+                            <strong>Selection Limits:</strong> Holstein NM$ limits of $7,515 (lower) to $23,588 (upper) vs. current best $2,528.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Mathematical Framework</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">Mendelian Sampling Variance (Complete Linkage)</div>
+                        <div class="formula-main">
+                            MSC = Σ<sub>c=1</sub><sup>30</sup> (Σ<sub>m=1</sub><sup>nc</sup> s<sub>m</sub>a<sub>m</sub> - Σ<sub>m=1</sub><sup>nc</sup> d<sub>m</sub>a<sub>m</sub>)<sup>2</sup>
+                        </div>
+                        <div class="formula-note">Upper bound assuming perfect linkage within chromosomes</div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">Mendelian Sampling Variance (No Linkage)</div>
+                        <div class="formula-main">
+                            MSU = Σ<sub>m=1</sub><sup>43,382</sup> (s<sub>m</sub>a<sub>m</sub> - d<sub>m</sub>a<sub>m</sub>)<sup>2</sup>
+                        </div>
+                        <div class="formula-note">Lower bound assuming all loci unlinked</div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">Selection Limits</div>
+                    <div class="formula-main">
+                        SL<sub>C</sub> = Σ<sub>c=1</sub><sup>30</sup> max<sub>H</sub> (Σ<sub>m=1</sub><sup>nc</sup> h<sub>m</sub>a<sub>m</sub>)
+                    </div>
+                    <div class="formula-main">
+                        SL<sub>U</sub> = Σ<sub>m=1</sub><sup>43,382</sup> max<sub>L</sub> (l<sub>m</sub>a<sub>m</sub>)
+                    </div>
+                    <div class="formula-note">Where H = haplotype set, L = loci set, a<sub>m</sub> = marker effect</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Methodology Flow</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Genotype Data Processing</div>
+                            <div class="step-details">
+                                Obtain dense SNP genotypes using BovineSNP50 BeadChip
+                                <div class="step-specs">
+                                    <strong>SNP markers:</strong> 43,382 across genome<br>
+                                    <strong>Populations:</strong> Holstein (40,351), Brown Swiss (1,455), Jersey (4,064)<br>
+                                    <strong>Quality control:</strong> Standard genomic evaluation pipeline<br>
+                                    <strong>Marker effects:</strong> Estimated using Bayes A model (h=1.12)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Haplotype Imputation</div>
+                            <div class="step-details">
+                                Reconstruct parental chromosome combinations using findhap.f90
+                                <div class="step-specs">
+                                    <strong>Method:</strong> Combined population and pedigree haplotyping<br>
+                                    <strong>Program:</strong> Fortran findhap.f90 (VanRaden et al. 2011)<br>
+                                    <strong>Output:</strong> Maternal and paternal haplotypes per chromosome<br>
+                                    <strong>Validation:</strong> Comparison with known parent-offspring relationships
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">MS Variance Calculation</div>
+                            <div class="step-details">
+                                Compute upper and lower bounds using linkage assumptions
+                                <div class="step-specs">
+                                    <strong>MSC calculation:</strong> Perfect linkage within chromosomes<br>
+                                    <strong>MSU calculation:</strong> All markers unlinked<br>
+                                    <strong>Expected MS:</strong> ½ additive genetic variance (validation)<br>
+                                    <strong>Traits analyzed:</strong> DPR, milk yield, NM$, protein yield
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Selection Limit Estimation</div>
+                            <div class="step-details">
+                                Calculate theoretical genetic merit limits using optimal haplotype combinations
+                                <div class="step-specs">
+                                    <strong>Lower bound (SLC):</strong> Best 30 haplotypes (one per chromosome)<br>
+                                    <strong>Upper bound (SLU):</strong> Best allele at each locus independently<br>
+                                    <strong>Adjustment:</strong> Inbreeding correction using homozygosity effects<br>
+                                    <strong>Comparison:</strong> Current population vs. theoretical limits
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Correlation Analysis</div>
+                            <div class="step-details">
+                                Examine relationships between inbreeding, MS variance, and genetic merit
+                                <div class="step-specs">
+                                    <strong>Genomic inbreeding:</strong> Marker-based homozygosity calculation<br>
+                                    <strong>MS correlations:</strong> Validation of theoretical expectations<br>
+                                    <strong>Temporal trends:</strong> 1990-2010 genetic variance changes<br>
+                                    <strong>Merit relationships:</strong> GEBV correlation with MS variance
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Key Results by Trait</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Lifetime Net Merit (NM$)</div>
+                        <div class="analysis-content">
+                            <strong>Holstein Performance:</strong>
+                            <ul>
+                                <li>Lower selection limit: $7,515</li>
+                                <li>Upper selection limit: $23,588</li>
+                                <li>Current best DGV: $2,528</li>
+                                <li>Best active bull GEBV: $1,588</li>
+                            </ul>
+                            
+                            <strong>Genetic Potential:</strong> ~5× improvement possible with optimal haplotype selection
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Daughter Pregnancy Rate (%)</div>
+                        <div class="analysis-content">
+                            <strong>Fertility Improvement Potential:</strong>
+                            <ul>
+                                <li>Holstein limits: 40% (lower) to 139% (upper)</li>
+                                <li>Current best: 8% across breeds</li>
+                                <li>Strong genetic basis for fertility improvement</li>
+                            </ul>
+                            
+                            <strong>Breeding Impact:</strong> Substantial fertility gains possible despite low heritability
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Milk & Protein Yield</div>
+                        <div class="analysis-content">
+                            <strong>Production Limits:</strong>
+                            <ul>
+                                <li>Milk: 11,310 kg (lower) to 35,419 kg (upper) in Holstein</li>
+                                <li>Protein: 312 kg (lower) to 1,138 kg (upper) in Holstein</li>
+                                <li>Current levels well below theoretical maximums</li>
+                            </ul>
+                            
+                            <strong>Selection History:</strong> Despite 40+ years of milk selection, substantial genetic potential remains
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Inbreeding and MS Variance Relationships</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box">
+                        <div class="comparison-title">Genomic Inbreeding Effects</div>
+                        <div class="analysis-content">
+                            <strong>Strong Negative Correlations with MSU:</strong>
+                            <ul>
+                                <li>Brown Swiss: -0.73 to -0.86</li>
+                                <li>Holstein: -0.12 to -0.84</li>
+                                <li>Jersey: -0.01 to -0.86</li>
+                            </ul>
+                            
+                            <strong>Validation:</strong> Confirms theoretical expectation that inbreeding reduces MS variance
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box">
+                        <div class="comparison-title">Temporal Trends (1990-2010)</div>
+                        <div class="analysis-content">
+                            <strong>MS Variance Changes:</strong>
+                            <ul>
+                                <li>Slight negative slopes across breeds</li>
+                                <li>Only Holstein significant (p < 0.05)</li>
+                                <li>Inbreeding increased but MS variance maintained</li>
+                            </ul>
+                            
+                            <strong>Interpretation:</strong> Elite animals not heavily inbred; genetic diversity preserved in selection candidates
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Practical Applications</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Breeding Program Applications</div>
+                        <div class="analysis-content">
+                            <strong>Mate Selection Strategies:</strong>
+                            <ul>
+                                <li>Factorial mating designs using haplotype information</li>
+                                <li>Optimization of MS variance in offspring</li>
+                                <li>Balance between genetic gain and diversity maintenance</li>
+                                <li>Embryo screening potential for extreme genetic merit</li>
+                            </ul>
+                            
+                            <strong>Implementation:</strong> 2^29 possible autosome combinations provide vast selection potential
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Population Management</div>
+                        <div class="analysis-content">
+                            <strong>Genetic Diversity Strategies:</strong>
+                            <ul>
+                                <li>Optimal contribution schemes balancing gain and inbreeding</li>
+                                <li>MS variance as selection criterion</li>
+                                <li>Long-term genetic sustainability</li>
+                                <li>Haplotype diversity preservation</li>
+                            </ul>
+                            
+                            <strong>Future Directions:</strong> Integration with genomic selection for sustainable genetic improvement
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Study Limitations and Future Directions</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">Current Limitations</div>
+                    <div class="gap-content">
+                        <strong>Methodological Constraints:</strong>
+                        <ul>
+                            <li><strong>Marker effect shrinkage:</strong> Bayesian regression underestimates true genetic variance</li>
+                            <li><strong>Linkage assumptions:</strong> Perfect vs. no linkage may not reflect biological reality</li>
+                            <li><strong>Population assumptions:</strong> Closed populations without mutation or epistasis</li>
+                            <li><strong>Time horizon:</strong> Long-term selection may change allele frequencies substantially</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Future Research Opportunities</div>
+                    <div class="significance-content">
+                        <strong>Methodological Advances:</strong>
+                        <ul>
+                            <li>Incorporate recombination mapping and LD block structure</li>
+                            <li>Develop dynamic selection limit models accounting for allele frequency changes</li>
+                            <li>Integrate epistatic effects and QTL interactions</li>
+                            <li>Extend to other livestock species and traits</li>
+                        </ul>
+                        
+                        <strong>Practical Applications:</strong>
+                        <ul>
+                            <li>Commercial breeding program implementation</li>
+                            <li>Economic optimization of genetic gain vs. diversity trade-offs</li>
+                            <li>Integration with genomic prediction software</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Impact and Significance</div>
+                
+                <div class="legacy-box">
+                    <p><strong>Scientific Contribution:</strong> This paper established the theoretical foundation for haplotype-based Mendelian sampling estimation, providing the first systematic approach to calculate selection limits using dense genomic data. The methodology has influenced subsequent research in genomic selection optimization and genetic diversity management.</p>
+                    
+                    <p><strong>Practical Impact:</strong> The framework enables breeding programs to:</p>
+                    <ul>
+                        <li>Quantify theoretical genetic potential in livestock populations</li>
+                        <li>Optimize mating decisions using haplotype information</li>
+                        <li>Balance short-term genetic gain with long-term sustainability</li>
+                        <li>Implement advanced selection strategies beyond traditional genomic prediction</li>
+                    </ul>
+                    
+                    <p><strong>Long-term Influence:</strong> The concepts introduced have been extended to optimal contribution selection, mate allocation algorithms, and modern breeding program design, representing a fundamental advance in quantitative genetics methodology.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
