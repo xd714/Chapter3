@@ -6,161 +6,6 @@
     <title>Variation in Actual Relationship as a Consequence of Mendelian Sampling and Linkage</title>
     <link rel="stylesheet" href="style.css">
 
-<style>
-/* Additional styles for mathematical content */
-.formula-box {
-    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.9) 100%);
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 95%;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.formula-title {
-    font-weight: 700;
-    color: var(--primary-hover);
-    margin-bottom: 10px;
-    font-size: 1.1em;
-}
-
-.formula-main {
-    font-family: 'Times New Roman', serif;
-    font-size: 1.2em;
-    text-align: center;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 15px 0;
-    line-height: 1.4;
-}
-
-.formula-note {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    text-align: center;
-    margin-top: 10px;
-    font-style: italic;
-}
-
-.formula-main sub,
-.formula-main sup {
-    font-size: 0.7em;
-    position: relative;
-    line-height: 0;
-}
-
-.formula-main sub { bottom: -0.25em; }
-.formula-main sup { top: -0.5em; }
-
-pre {
-    background: var(--bg-code);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 15px;
-    overflow-x: auto;
-    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-    font-size: 0.9em;
-    line-height: 1.4;
-}
-
-code {
-    background: var(--bg-code);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-    font-size: 0.9em;
-}
-
-.stat-box {
-    background: linear-gradient(135deg, var(--bg-white) 0%, var(--primary-light) 100%);
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    border-top: 4px solid var(--primary-color);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    margin: 15px 0;
-}
-
-.stat-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-.stat-number {
-    font-size: 2.2em;
-    font-weight: 900;
-    color: var(--primary-color);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 8px;
-}
-
-.stat-label {
-    color: var(--text-secondary);
-    margin-top: 8px;
-    font-weight: 500;
-    font-size: 0.95em;
-}
-
-.math-table {
-    margin: 25px auto;
-    max-width: 98%;
-    border-collapse: collapse;
-    background: var(--bg-white);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.math-table th {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-weight: 700;
-}
-
-.math-table td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.math-table tr:hover {
-    background: var(--primary-light);
-}
-
-.relationship-type {
-    background: var(--primary-light);
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    color: var(--primary-hover);
-    font-size: 0.9em;
-}
-
-@media (max-width: 768px) {
-    .formula-main {
-        font-size: 1.0em;
-        word-wrap: break-word;
-    }
-    
-    .stat-number {
-        font-size: 1.8em;
-    }
-    
-    .math-table {
-        font-size: 0.85em;
-    }
-    
-    pre {
-        font-size: 0.8em;
-        padding: 10px;
-    }
-}
-</style>
-
 <script>
 (function() {
     'use strict';
@@ -380,7 +225,7 @@ code {
                             </div>
                             
                             <strong>Integration Function:</strong>
-                            <div class="formula medium">
+                            <div class="formula">
                                 w<sub>n</sub>(l) = (2/l²)(¼)<sup>n</sup> ∑<sub>r=1</sub><sup>n</sup> (n choose r) × [2rl - 1 + e<sup>-2rl</sup>]/r²
                             </div>
                             
@@ -405,7 +250,7 @@ code {
                             </div>
                             
                             <strong>Generalization for g Generations:</strong>
-                            <div class="formula medium">
+                            <div class="formula">
                                 Var<sub>HS,g</sub>(k̂₁, l) = 4w<sub>g</sub>(l) - 2w<sub>g-1</sub>(l) + ½w<sub>g-2</sub>(l)
                             </div>
                             
@@ -450,48 +295,50 @@ code {
                         <div class="step-details">
                             <strong>Model Specifications:</strong> 22 autosomes, total map length 35.9 Morgans
                             
-                            <table class="math-table">
-                                <thead>
-                                    <tr>
-                                        <th>Relationship</th>
-                                        <th>Expected R</th>
-                                        <th>SD(R)</th>
-                                        <th>CV</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><span class="relationship-type">Full sibs</span></td>
-                                        <td>0.5</td>
-                                        <td>0.0384</td>
-                                        <td>0.077</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="relationship-type">Half sibs</span></td>
-                                        <td>0.25</td>
-                                        <td>0.0251</td>
-                                        <td>0.100</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="relationship-type">Uncle-nephew</span></td>
-                                        <td>0.25</td>
-                                        <td>0.0251</td>
-                                        <td>0.100</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="relationship-type">First cousins</span></td>
-                                        <td>0.125</td>
-                                        <td>0.0214</td>
-                                        <td>0.171</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="relationship-type">Second cousins</span></td>
-                                        <td>0.0313</td>
-                                        <td>0.0117</td>
-                                        <td>0.374</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Relationship</th>
+                                            <th>Expected R</th>
+                                            <th>SD(R)</th>
+                                            <th>CV</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="relationship-type">Full sibs</span></td>
+                                            <td>0.5</td>
+                                            <td>0.0384</td>
+                                            <td>0.077</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="relationship-type">Half sibs</span></td>
+                                            <td>0.25</td>
+                                            <td>0.0251</td>
+                                            <td>0.100</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="relationship-type">Uncle-nephew</span></td>
+                                            <td>0.25</td>
+                                            <td>0.0251</td>
+                                            <td>0.100</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="relationship-type">First cousins</span></td>
+                                            <td>0.125</td>
+                                            <td>0.0214</td>
+                                            <td>0.171</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="relationship-type">Second cousins</span></td>
+                                            <td>0.0313</td>
+                                            <td>0.0117</td>
+                                            <td>0.374</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     
@@ -710,276 +557,6 @@ var_half_sib <- function(l) {
             </div>
 
             <div class="section" id="section-9">
-                <div class="section-title">Inbreeding Applications</div>
-                
-                <div class="analysis-grid">
-                    <div class="analysis-card why-card">
-                        <div class="analysis-title">Actual vs. Pedigree Inbreeding</div>
-                        <div class="step-details">
-                            <strong>Key Insight:</strong> Variation in actual inbreeding directly parallels relationship variation
-                            
-                            <div class="formula-box">
-                                <div class="formula-title">Inbreeding-Relationship Connection</div>
-                                <div class="formula-main">
-                                    F(offspring) = θ(parents)<br>
-                                    Var[F(offspring)] = Var[θ(parents)]
-                                </div>
-                                <div class="formula-note">Actual inbreeding follows genomic coancestry of parents</div>
-                            </div>
-                            
-                            <strong>Practical Example:</strong>
-                            <ul>
-                                <li>Cousin mating: Expected F = 0.0625</li>
-                                <li>Standard deviation = 0.024</li>
-                                <li>Coefficient of variation = 38.4%</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card how-card">
-                        <div class="analysis-title">Variance Partitioning</div>
-                        <div class="step-details">
-                            <strong>Between vs. Within Family Components:</strong> Decomposing inbreeding variance
-                            
-                            <div class="formula-box">
-                                <div class="formula-title">Variance Decomposition</div>
-                                <div class="formula-main">
-                                    Var(F<sub>total</sub>) = Var(F<sub>between</sub>) + Var(F<sub>within</sub>)<br>
-                                    Var(F<sub>between</sub>) = ¼Var(R<sub>parents</sub>)
-                                </div>
-                            </div>
-                            
-                            <strong>Full Sib Mating Example:</strong>
-                            <ul>
-                                <li>Total variance: 0.00191</li>
-                                <li>Between families: 0.00038 (20%)</li>
-                                <li>Within families: 0.00152 (80%)</li>
-                            </ul>
-                            
-                            <p><strong>Implication:</strong> Most inbreeding variance occurs within families, making family-based studies powerful for detecting inbreeding effects.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card what-card">
-                        <div class="analysis-title">Inbreeding Depression Studies</div>
-                        <div class="step-details">
-                            <strong>Enhanced Methodology:</strong> Using actual rather than pedigree inbreeding
-                            
-                            <ul>
-                                <li><strong>Traditional approach:</strong> Regress phenotype on pedigree F</li>
-                                <li><strong>Genomic approach:</strong> Regress phenotype on actual F</li>
-                                <li><strong>Advantage:</strong> Within-family analysis eliminates environmental confounding</li>
-                                <li><strong>Power:</strong> Higher precision with dense markers</li>
-                            </ul>
-                            
-                            <div class="best-practices">
-                                <strong>Best Practice:</strong> Combine pedigree information with genomic data to maximize power for detecting inbreeding effects on fitness traits.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="section-10">
-                <div class="section-title">Extensions and Special Cases</div>
-                
-                <div class="theme-container">
-                    <div class="theme-box historical">
-                        <div class="theme-title">Species Without Male Recombination</div>
-                        <div class="step-details">
-                            <strong>Drosophila Model:</strong> No recombination in males
-                            
-                            <div class="formula-box">
-                                <div class="formula-title">Modified Variance Formula</div>
-                                <div class="formula-main">
-                                    Var(k̂₁) = (½)<sup>m</sup>{w<sub>g-1-m</sub>(l) + (¼)<sup>g-1-m</sup>[1-(½)<sup>m</sup>]}
-                                </div>
-                                <div class="formula-note">where m = number of male transmissions</div>
-                            </div>
-                            
-                            <strong>Implications:</strong>
-                            <ul>
-                                <li>Increased variance due to larger linkage blocks</li>
-                                <li>Sex of transmitting parent matters</li>
-                                <li>Paternal chromosomes transmitted intact</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="theme-box methodological">
-                        <div class="theme-title">Complex Pedigree Structures</div>
-                        <div class="step-details">
-                            <strong>Double First Cousins:</strong> Two pairs of grandparents in common
-                            
-                            <div class="formula-box">
-                                <div class="formula-title">Bilineal Relationship</div>
-                                <div class="formula-main">
-                                    Var<sub>DFC</sub>(R, l) = 4w₄(l) - 2w₃(l) + ¾w₂(l) - ¼w₁(l)
-                                </div>
-                                <div class="formula-note">Double the variance of regular first cousins</div>
-                            </div>
-                            
-                            <strong>General Bilineal Formula:</strong>
-                            <ul>
-                                <li>Maternal coancestry: θ<sup>m</sup></li>
-                                <li>Paternal coancestry: θ<sup>p</sup></li>
-                                <li>Independence assumption: E(k̂₁<sup>m</sup>k̂₁<sup>p</sup>) = θ<sup>m</sup>θ<sup>p</sup></li>
-                                <li>Final relationship: R = ½(k̂₁<sup>m</sup> + k̂₁<sup>p</sup>)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="section-11">
-                <div class="section-title">Practical Applications and Software</div>
-                
-                <div class="software-grid">
-                    <div class="software-card">
-                        <div class="software-name">GWAS Quality Control</div>
-                        <div class="step-details">
-                            <strong>Relationship Screening:</strong> Identify unexpected relationships in study samples
-                            
-                            <ul>
-                                <li><strong>Expected relationships:</strong> Use pedigree to predict genome sharing</li>
-                                <li><strong>Observed relationships:</strong> Estimate from SNP data</li>
-                                <li><strong>Quality control:</strong> Flag discrepancies beyond expected variance</li>
-                                <li><strong>Applications:</strong> Sample mix-ups, undisclosed relationships</li>
-                            </ul>
-                            
-                            <div class="formula-box">
-                                <div class="formula-title">QC Threshold</div>
-                                <div class="formula-main">|R̂ - R<sub>pedigree</sub>| > 2 × SD(R)</div>
-                                <div class="formula-note">Flag relationships outside 2 standard deviations</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="software-card">
-                        <div class="software-name">Population Genetics</div>
-                        <div class="step-details">
-                            <strong>Demographic Inference:</strong> Use relationship distributions to infer population history
-                            
-                            <ul>
-                                <li><strong>Effective population size:</strong> From background relatedness</li>
-                                <li><strong>Bottlenecks:</strong> Increased sharing in recent generations</li>
-                                <li><strong>Migration:</strong> Patterns of distant relationships</li>
-                                <li><strong>Consanguinity:</strong> Elevated inbreeding coefficients</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="software-card">
-                        <div class="software-name">Breeding Programs</div>
-                        <div class="step-details">
-                            <strong>Selection Strategies:</strong> Optimize genetic gain while managing inbreeding
-                            
-                            <ul>
-                                <li><strong>Optimal contribution:</strong> Weight by relationship variance</li>
-                                <li><strong>Diversity maintenance:</strong> Account for uncertainty in relationships</li>
-                                <li><strong>Long-term response:</strong> Balance gain vs. inbreeding accumulation</li>
-                                <li><strong>Genomic selection:</strong> Use actual rather than expected relationships</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="section-12">
-                <div class="section-title">Limitations and Future Directions</div>
-                
-                <div class="gap-analysis">
-                    <div class="gap-title">Current Limitations</div>
-                    <div class="gap-content">
-                        <strong>Theoretical Assumptions:</strong>
-                        <ul>
-                            <li><strong>Haldane mapping:</strong> Assumes no interference, may overestimate recombination</li>
-                            <li><strong>No structural variation:</strong> Doesn't account for CNVs, inversions</li>
-                            <li><strong>Infinite sites:</strong> Assumes sufficient marker density</li>
-                            <li><strong>Non-inbred founders:</strong> Extensions needed for inbred populations</li>
-                        </ul>
-                        
-                        <strong>Computational Challenges:</strong>
-                        <ul>
-                            <li><strong>Complex pedigrees:</strong> Limited formulae for irregular structures</li>
-                            <li><strong>Population structure:</strong> Admixture complicates relationship inference</li>
-                            <li><strong>Rare variants:</strong> Low-frequency alleles affect IBD detection</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="innovation-box">
-                    <div class="innovation-title">Future Research Directions</div>
-                    <p><strong>Methodological Extensions:</strong> Incorporate modern genomic complexities including structural variants, population stratification, and admixture. Develop efficient algorithms for complex pedigrees and integrate with sequence-based approaches.</p>
-                    
-                    <p><strong>Applications:</strong> Extend to conservation genetics, personalized medicine, and evolutionary studies. Combine with functional genomics to understand the biological significance of relationship variation.</p>
-                </div>
-            </div>
-
-            <div class="section" id="section-13">
-                <div class="section-title">Impact and Legacy</div>
-                
-                <div class="analysis-grid">
-                    <div class="analysis-card why-card">
-                        <div class="analysis-title">Theoretical Contributions</div>
-                        <div class="step-details">
-                            <strong>Foundational Framework:</strong> First comprehensive mathematical treatment
-                            
-                            <ul>
-                                <li><strong>Unification:</strong> Brought together scattered results into coherent theory</li>
-                                <li><strong>Generalization:</strong> Framework applicable to any relationship type</li>
-                                <li><strong>Computational tools:</strong> Practical formulae for software implementation</li>
-                                <li><strong>Validation:</strong> Theory confirmed by empirical studies</li>
-                            </ul>
-                            
-                            <div class="stat-box">
-                                <div class="stat-number">800+</div>
-                                <div class="stat-label">Citations (Google Scholar)</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card how-card">
-                        <div class="analysis-title">Practical Impact</div>
-                        <div class="step-details">
-                            <strong>Genomic Applications:</strong> Enabled modern genomic technologies
-                            
-                            <ul>
-                                <li><strong>Genomic selection:</strong> Theoretical basis for breeding programs</li>
-                                <li><strong>GWAS methodology:</strong> Quality control and population structure</li>
-                                <li><strong>Relationship software:</strong> GCTA, KING, PLINK implementations</li>
-                                <li><strong>Forensic genetics:</strong> Kinship testing and identification</li>
-                            </ul>
-                            
-                            <div class="stat-box">
-                                <div class="stat-number">$Billions</div>
-                                <div class="stat-label">Economic impact in agriculture</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card what-card">
-                        <div class="analysis-title">Scientific Influence</div>
-                        <div class="step-details">
-                            <strong>Continuing Relevance:</strong> Still actively cited and extended
-                            
-                            <ul>
-                                <li><strong>Educational use:</strong> Standard reference in quantitative genetics courses</li>
-                                <li><strong>Method development:</strong> Basis for new statistical approaches</li>
-                                <li><strong>Cross-disciplinary:</strong> Applications in ecology, evolution, medicine</li>
-                                <li><strong>Open questions:</strong> Continues to inspire new research</li>
-                            </ul>
-                            
-                            <div class="stat-box">
-                                <div class="stat-number">15+</div>
-                                <div class="stat-label">Years of continued citation</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="section-14">
                 <div class="section-title">Key Takeaways and Conclusions</div>
                 
                 <div class="legacy-box">
