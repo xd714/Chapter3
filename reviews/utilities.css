@@ -1,0 +1,929 @@
+/* ============================================
+   UTILITIES STYLESHEET
+   Helper classes for rapid development
+   Optional - can be included for convenience
+   Version: 2.0
+   ============================================ */
+
+/* ============================================
+   SPACING UTILITIES
+   ============================================ */
+
+/* Margin utilities */
+.m-0 { margin: 0; }
+.m-1 { margin: 0.5rem; }
+.m-2 { margin: 1rem; }
+.m-3 { margin: 1.5rem; }
+.m-4 { margin: 2rem; }
+.m-5 { margin: 2.5rem; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 2.5rem; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 2.5rem; }
+
+.ml-0 { margin-left: 0; }
+.ml-1 { margin-left: 0.5rem; }
+.ml-2 { margin-left: 1rem; }
+.ml-3 { margin-left: 1.5rem; }
+.ml-4 { margin-left: 2rem; }
+.ml-5 { margin-left: 2.5rem; }
+
+.mr-0 { margin-right: 0; }
+.mr-1 { margin-right: 0.5rem; }
+.mr-2 { margin-right: 1rem; }
+.mr-3 { margin-right: 1.5rem; }
+.mr-4 { margin-right: 2rem; }
+.mr-5 { margin-right: 2.5rem; }
+
+.mx-0 { margin-left: 0; margin-right: 0; }
+.mx-1 { margin-left: 0.5rem; margin-right: 0.5rem; }
+.mx-2 { margin-left: 1rem; margin-right: 1rem; }
+.mx-3 { margin-left: 1.5rem; margin-right: 1.5rem; }
+.mx-4 { margin-left: 2rem; margin-right: 2rem; }
+.mx-5 { margin-left: 2.5rem; margin-right: 2.5rem; }
+
+.my-0 { margin-top: 0; margin-bottom: 0; }
+.my-1 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+.my-2 { margin-top: 1rem; margin-bottom: 1rem; }
+.my-3 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+.my-4 { margin-top: 2rem; margin-bottom: 2rem; }
+.my-5 { margin-top: 2.5rem; margin-bottom: 2.5rem; }
+
+/* Padding utilities */
+.p-0 { padding: 0; }
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+.p-5 { padding: 2.5rem; }
+
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: 0.5rem; }
+.pt-2 { padding-top: 1rem; }
+.pt-3 { padding-top: 1.5rem; }
+.pt-4 { padding-top: 2rem; }
+.pt-5 { padding-top: 2.5rem; }
+
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: 0.5rem; }
+.pb-2 { padding-bottom: 1rem; }
+.pb-3 { padding-bottom: 1.5rem; }
+.pb-4 { padding-bottom: 2rem; }
+.pb-5 { padding-bottom: 2.5rem; }
+
+.pl-0 { padding-left: 0; }
+.pl-1 { padding-left: 0.5rem; }
+.pl-2 { padding-left: 1rem; }
+.pl-3 { padding-left: 1.5rem; }
+.pl-4 { padding-left: 2rem; }
+.pl-5 { padding-left: 2.5rem; }
+
+.pr-0 { padding-right: 0; }
+.pr-1 { padding-right: 0.5rem; }
+.pr-2 { padding-right: 1rem; }
+.pr-3 { padding-right: 1.5rem; }
+.pr-4 { padding-right: 2rem; }
+.pr-5 { padding-right: 2.5rem; }
+
+.px-0 { padding-left: 0; padding-right: 0; }
+.px-1 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.px-2 { padding-left: 1rem; padding-right: 1rem; }
+.px-3 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-4 { padding-left: 2rem; padding-right: 2rem; }
+.px-5 { padding-left: 2.5rem; padding-right: 2.5rem; }
+
+.py-0 { padding-top: 0; padding-bottom: 0; }
+.py-1 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-2 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-3 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-4 { padding-top: 2rem; padding-bottom: 2rem; }
+.py-5 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+
+/* ============================================
+   TEXT UTILITIES
+   ============================================ */
+
+/* Text alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* Font weight */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; }
+
+/* Font style */
+.italic { font-style: italic; }
+.not-italic { font-style: normal; }
+
+/* Font size */
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-base { font-size: 1rem; line-height: 1.5rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.text-5xl { font-size: 3rem; line-height: 1; }
+
+/* Text decoration */
+.underline { text-decoration: underline; }
+.line-through { text-decoration: line-through; }
+.no-underline { text-decoration: none; }
+
+/* Text transform */
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+.normal-case { text-transform: none; }
+
+/* ============================================
+   COLOR UTILITIES
+   ============================================ */
+
+/* Text colors */
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-light { color: var(--text-light); }
+.text-white { color: white; }
+.text-black { color: black; }
+.text-gray { color: #6b7280; }
+
+.text-success { color: var(--success-color); }
+.text-warning { color: var(--warning-color); }
+.text-info { color: var(--info-color); }
+.text-accent { color: var(--accent-color); }
+.text-purple { color: var(--purple-color); }
+
+/* Background colors */
+.bg-primary { background-color: var(--primary-color); }
+.bg-primary-light { background-color: var(--primary-light); }
+.bg-secondary { background-color: var(--secondary-color); }
+.bg-success { background-color: var(--success-color); }
+.bg-warning { background-color: var(--warning-color); }
+.bg-info { background-color: var(--info-color); }
+.bg-accent { background-color: var(--accent-color); }
+.bg-purple { background-color: var(--purple-color); }
+
+.bg-white { background-color: var(--bg-white); }
+.bg-light { background-color: var(--bg-light); }
+.bg-main { background-color: var(--bg-main); }
+.bg-code { background-color: var(--bg-code); }
+
+.bg-transparent { background-color: transparent; }
+
+/* ============================================
+   DISPLAY UTILITIES
+   ============================================ */
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-inline-flex { display: inline-flex; }
+.d-grid { display: grid; }
+.d-table { display: table; }
+.d-table-cell { display: table-cell; }
+.d-table-row { display: table-row; }
+
+/* ============================================
+   FLEXBOX UTILITIES
+   ============================================ */
+
+/* Flex direction */
+.flex-row { flex-direction: row; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-col { flex-direction: column; }
+.flex-col-reverse { flex-direction: column-reverse; }
+
+/* Flex wrap */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/* Justify content */
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Align items */
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
+
+/* Align self */
+.self-auto { align-self: auto; }
+.self-start { align-self: flex-start; }
+.self-end { align-self: flex-end; }
+.self-center { align-self: center; }
+.self-stretch { align-self: stretch; }
+.self-baseline { align-self: baseline; }
+
+/* Flex grow and shrink */
+.flex-grow { flex-grow: 1; }
+.flex-grow-0 { flex-grow: 0; }
+.flex-shrink { flex-shrink: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+
+/* Flex basis */
+.flex-1 { flex: 1 1 0%; }
+.flex-auto { flex: 1 1 auto; }
+.flex-initial { flex: 0 1 auto; }
+.flex-none { flex: none; }
+
+/* ============================================
+   GRID UTILITIES
+   ============================================ */
+
+/* Grid template columns */
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+/* Grid gap */
+.gap-0 { gap: 0; }
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+.gap-4 { gap: 2rem; }
+.gap-5 { gap: 2.5rem; }
+.gap-6 { gap: 3rem; }
+
+.gap-x-0 { column-gap: 0; }
+.gap-x-1 { column-gap: 0.5rem; }
+.gap-x-2 { column-gap: 1rem; }
+.gap-x-3 { column-gap: 1.5rem; }
+.gap-x-4 { column-gap: 2rem; }
+.gap-x-5 { column-gap: 2.5rem; }
+
+.gap-y-0 { row-gap: 0; }
+.gap-y-1 { row-gap: 0.5rem; }
+.gap-y-2 { row-gap: 1rem; }
+.gap-y-3 { row-gap: 1.5rem; }
+.gap-y-4 { row-gap: 2rem; }
+.gap-y-5 { row-gap: 2.5rem; }
+
+/* ============================================
+   BORDER UTILITIES
+   ============================================ */
+
+/* Border width */
+.border-0 { border-width: 0; }
+.border { border-width: 1px; }
+.border-2 { border-width: 2px; }
+.border-3 { border-width: 3px; }
+.border-4 { border-width: 4px; }
+
+.border-t-0 { border-top-width: 0; }
+.border-t { border-top-width: 1px; }
+.border-t-2 { border-top-width: 2px; }
+.border-t-3 { border-top-width: 3px; }
+.border-t-4 { border-top-width: 4px; }
+
+.border-b-0 { border-bottom-width: 0; }
+.border-b { border-bottom-width: 1px; }
+.border-b-2 { border-bottom-width: 2px; }
+.border-b-3 { border-bottom-width: 3px; }
+.border-b-4 { border-bottom-width: 4px; }
+
+.border-l-0 { border-left-width: 0; }
+.border-l { border-left-width: 1px; }
+.border-l-2 { border-left-width: 2px; }
+.border-l-3 { border-left-width: 3px; }
+.border-l-4 { border-left-width: 4px; }
+
+.border-r-0 { border-right-width: 0; }
+.border-r { border-right-width: 1px; }
+.border-r-2 { border-right-width: 2px; }
+.border-r-3 { border-right-width: 3px; }
+.border-r-4 { border-right-width: 4px; }
+
+/* Border style */
+.border-solid { border-style: solid; }
+.border-dashed { border-style: dashed; }
+.border-dotted { border-style: dotted; }
+.border-double { border-style: double; }
+.border-none { border-style: none; }
+
+/* Border color */
+.border-primary { border-color: var(--primary-color); }
+.border-secondary { border-color: var(--secondary-color); }
+.border-success { border-color: var(--success-color); }
+.border-warning { border-color: var(--warning-color); }
+.border-info { border-color: var(--info-color); }
+.border-accent { border-color: var(--accent-color); }
+.border-light { border-color: var(--border-light); }
+.border-white { border-color: white; }
+.border-black { border-color: black; }
+.border-transparent { border-color: transparent; }
+
+/* Border radius */
+.rounded-none { border-radius: 0; }
+.rounded-sm { border-radius: 0.125rem; }
+.rounded { border-radius: 0.25rem; }
+.rounded-md { border-radius: 0.375rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-3xl { border-radius: 1.5rem; }
+.rounded-full { border-radius: 9999px; }
+
+.rounded-t-none { border-top-left-radius: 0; border-top-right-radius: 0; }
+.rounded-t-sm { border-top-left-radius: 0.125rem; border-top-right-radius: 0.125rem; }
+.rounded-t { border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; }
+.rounded-t-md { border-top-left-radius: 0.375rem; border-top-right-radius: 0.375rem; }
+.rounded-t-lg { border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; }
+
+/* ============================================
+   SHADOW UTILITIES
+   ============================================ */
+
+.shadow-none { box-shadow: none; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+.shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+.shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+.shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.shadow-inner { box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); }
+
+/* ============================================
+   POSITION UTILITIES
+   ============================================ */
+
+.static { position: static; }
+.fixed { position: fixed; }
+.absolute { position: absolute; }
+.relative { position: relative; }
+.sticky { position: sticky; }
+
+/* Position values */
+.top-0 { top: 0; }
+.top-1 { top: 0.5rem; }
+.top-2 { top: 1rem; }
+.top-3 { top: 1.5rem; }
+.top-4 { top: 2rem; }
+.top-5 { top: 2.5rem; }
+
+.bottom-0 { bottom: 0; }
+.bottom-1 { bottom: 0.5rem; }
+.bottom-2 { bottom: 1rem; }
+.bottom-3 { bottom: 1.5rem; }
+.bottom-4 { bottom: 2rem; }
+.bottom-5 { bottom: 2.5rem; }
+
+.left-0 { left: 0; }
+.left-1 { left: 0.5rem; }
+.left-2 { left: 1rem; }
+.left-3 { left: 1.5rem; }
+.left-4 { left: 2rem; }
+.left-5 { left: 2.5rem; }
+
+.right-0 { right: 0; }
+.right-1 { right: 0.5rem; }
+.right-2 { right: 1rem; }
+.right-3 { right: 1.5rem; }
+.right-4 { right: 2rem; }
+.right-5 { right: 2.5rem; }
+
+/* Z-index */
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+/* ============================================
+   WIDTH & HEIGHT UTILITIES
+   ============================================ */
+
+/* Width */
+.w-0 { width: 0; }
+.w-1 { width: 0.5rem; }
+.w-2 { width: 1rem; }
+.w-3 { width: 1.5rem; }
+.w-4 { width: 2rem; }
+.w-5 { width: 2.5rem; }
+.w-6 { width: 3rem; }
+.w-8 { width: 4rem; }
+.w-10 { width: 5rem; }
+.w-12 { width: 6rem; }
+
+.w-full { width: 100%; }
+.w-1\/2 { width: 50%; }
+.w-1\/3 { width: 33.333333%; }
+.w-2\/3 { width: 66.666667%; }
+.w-1\/4 { width: 25%; }
+.w-3\/4 { width: 75%; }
+.w-1\/5 { width: 20%; }
+.w-2\/5 { width: 40%; }
+.w-3\/5 { width: 60%; }
+.w-4\/5 { width: 80%; }
+
+.w-auto { width: auto; }
+.w-fit { width: fit-content; }
+.w-max { width: max-content; }
+.w-min { width: min-content; }
+
+/* Height */
+.h-0 { height: 0; }
+.h-1 { height: 0.5rem; }
+.h-2 { height: 1rem; }
+.h-3 { height: 1.5rem; }
+.h-4 { height: 2rem; }
+.h-5 { height: 2.5rem; }
+.h-6 { height: 3rem; }
+.h-8 { height: 4rem; }
+.h-10 { height: 5rem; }
+.h-12 { height: 6rem; }
+
+.h-full { height: 100%; }
+.h-screen { height: 100vh; }
+.h-auto { height: auto; }
+.h-fit { height: fit-content; }
+.h-max { height: max-content; }
+.h-min { height: min-content; }
+
+/* Min/Max width */
+.min-w-0 { min-width: 0; }
+.min-w-full { min-width: 100%; }
+.min-w-fit { min-width: fit-content; }
+.min-w-max { min-width: max-content; }
+.min-w-min { min-width: min-content; }
+
+.max-w-none { max-width: none; }
+.max-w-xs { max-width: 20rem; }
+.max-w-sm { max-width: 24rem; }
+.max-w-md { max-width: 28rem; }
+.max-w-lg { max-width: 32rem; }
+.max-w-xl { max-width: 36rem; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-3xl { max-width: 48rem; }
+.max-w-4xl { max-width: 56rem; }
+.max-w-5xl { max-width: 64rem; }
+.max-w-6xl { max-width: 72rem; }
+.max-w-7xl { max-width: 80rem; }
+.max-w-full { max-width: 100%; }
+
+/* Min/Max height */
+.min-h-0 { min-height: 0; }
+.min-h-full { min-height: 100%; }
+.min-h-screen { min-height: 100vh; }
+.min-h-fit { min-height: fit-content; }
+
+.max-h-0 { max-height: 0; }
+.max-h-full { max-height: 100%; }
+.max-h-screen { max-height: 100vh; }
+.max-h-fit { max-height: fit-content; }
+
+/* ============================================
+   OVERFLOW UTILITIES
+   ============================================ */
+
+.overflow-auto { overflow: auto; }
+.overflow-hidden { overflow: hidden; }
+.overflow-visible { overflow: visible; }
+.overflow-scroll { overflow: scroll; }
+
+.overflow-x-auto { overflow-x: auto; }
+.overflow-x-hidden { overflow-x: hidden; }
+.overflow-x-visible { overflow-x: visible; }
+.overflow-x-scroll { overflow-x: scroll; }
+
+.overflow-y-auto { overflow-y: auto; }
+.overflow-y-hidden { overflow-y: hidden; }
+.overflow-y-visible { overflow-y: visible; }
+.overflow-y-scroll { overflow-y: scroll; }
+
+/* ============================================
+   OPACITY UTILITIES
+   ============================================ */
+
+.opacity-0 { opacity: 0; }
+.opacity-25 { opacity: 0.25; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+/* ============================================
+   CURSOR UTILITIES
+   ============================================ */
+
+.cursor-auto { cursor: auto; }
+.cursor-default { cursor: default; }
+.cursor-pointer { cursor: pointer; }
+.cursor-wait { cursor: wait; }
+.cursor-text { cursor: text; }
+.cursor-move { cursor: move; }
+.cursor-help { cursor: help; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* ============================================
+   USER SELECT UTILITIES
+   ============================================ */
+
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+.select-auto { user-select: auto; }
+
+/* ============================================
+   POINTER EVENTS UTILITIES
+   ============================================ */
+
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* ============================================
+   VISIBILITY UTILITIES
+   ============================================ */
+
+.visible { visibility: visible; }
+.invisible { visibility: hidden; }
+
+/* ============================================
+   TRANSITION UTILITIES
+   ============================================ */
+
+.transition-none { transition-property: none; }
+.transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition-shadow { transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition-transform { transition-property: transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+
+/* Duration */
+.duration-75 { transition-duration: 75ms; }
+.duration-100 { transition-duration: 100ms; }
+.duration-150 { transition-duration: 150ms; }
+.duration-200 { transition-duration: 200ms; }
+.duration-300 { transition-duration: 300ms; }
+.duration-500 { transition-duration: 500ms; }
+.duration-700 { transition-duration: 700ms; }
+.duration-1000 { transition-duration: 1000ms; }
+
+/* ============================================
+   TRANSFORM UTILITIES
+   ============================================ */
+
+.transform { transform: var(--tw-transform); }
+.transform-gpu { transform: var(--tw-transform); }
+.transform-none { transform: none; }
+
+/* Scale */
+.scale-0 { transform: scale(0); }
+.scale-50 { transform: scale(0.5); }
+.scale-75 { transform: scale(0.75); }
+.scale-90 { transform: scale(0.9); }
+.scale-95 { transform: scale(0.95); }
+.scale-100 { transform: scale(1); }
+.scale-105 { transform: scale(1.05); }
+.scale-110 { transform: scale(1.1); }
+.scale-125 { transform: scale(1.25); }
+.scale-150 { transform: scale(1.5); }
+
+/* Rotate */
+.rotate-0 { transform: rotate(0deg); }
+.rotate-1 { transform: rotate(1deg); }
+.rotate-2 { transform: rotate(2deg); }
+.rotate-3 { transform: rotate(3deg); }
+.rotate-6 { transform: rotate(6deg); }
+.rotate-12 { transform: rotate(12deg); }
+.rotate-45 { transform: rotate(45deg); }
+.rotate-90 { transform: rotate(90deg); }
+.rotate-180 { transform: rotate(180deg); }
+
+/* Translate */
+.translate-x-0 { transform: translateX(0); }
+.translate-x-1 { transform: translateX(0.25rem); }
+.translate-x-2 { transform: translateX(0.5rem); }
+.translate-x-3 { transform: translateX(0.75rem); }
+.translate-x-4 { transform: translateX(1rem); }
+
+.translate-y-0 { transform: translateY(0); }
+.translate-y-1 { transform: translateY(0.25rem); }
+.translate-y-2 { transform: translateY(0.5rem); }
+.translate-y-3 { transform: translateY(0.75rem); }
+.translate-y-4 { transform: translateY(1rem); }
+
+/* ============================================
+   SCIENTIFIC NOTATION UTILITIES
+   ============================================ */
+
+.scientific-notation {
+    font-family: 'Times New Roman', serif;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.superscript {
+    vertical-align: super;
+    font-size: 0.7em;
+    line-height: 0;
+}
+
+.subscript {
+    vertical-align: sub;
+    font-size: 0.7em;
+    line-height: 0;
+}
+
+/* ============================================
+   ACADEMIC SPECIFIC UTILITIES
+   ============================================ */
+
+.citation-style {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.equation-number {
+    float: right;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.figure-caption {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.table-caption {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.reference-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.reference-link:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}
+
+.hypothesis {
+    font-style: italic;
+    background: var(--primary-light);
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--primary-color);
+    margin: 1rem 0;
+}
+
+.objective {
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.25rem;
+    display: inline-block;
+}
+
+/* ============================================
+   PRINT UTILITIES
+   ============================================ */
+
+@media print {
+    .print-hidden { display: none !important; }
+    .print-visible { display: block !important; }
+    .print-break-before { page-break-before: always; }
+    .print-break-after { page-break-after: always; }
+    .print-break-inside-avoid { page-break-inside: avoid; }
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+/* Responsive display utilities */
+@media (max-width: 768px) {
+    .mobile-hidden { display: none !important; }
+    .mobile-visible { display: block !important; }
+    
+    .mobile-text-center { text-align: center; }
+    .mobile-text-left { text-align: left; }
+    
+    .mobile-full-width { width: 100% !important; }
+    .mobile-p-2 { padding: 1rem !important; }
+    .mobile-m-1 { margin: 0.5rem !important; }
+}
+
+@media (min-width: 769px) {
+    .desktop-hidden { display: none !important; }
+    .desktop-visible { display: block !important; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .tablet-hidden { display: none !important; }
+    .tablet-visible { display: block !important; }
+}
+
+/* ============================================
+   ACCESSIBILITY UTILITIES
+   ============================================ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+.focus-visible:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.focus-within:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   HIGH CONTRAST MODE UTILITIES
+   ============================================ */
+
+@media (prefers-contrast: high) {
+    .high-contrast-border {
+        border: 2px solid black !important;
+    }
+    
+    .high-contrast-text {
+        color: black !important;
+    }
+    
+    .high-contrast-bg {
+        background: white !important;
+    }
+}
+
+/* ============================================
+   REDUCED MOTION UTILITIES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .motion-reduce-transform {
+        transform: none !important;
+    }
+    
+    .motion-reduce-transition {
+        transition: none !important;
+    }
+    
+    .motion-reduce-animation {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   CUSTOM SCIENTIFIC UTILITIES
+   ============================================ */
+
+.p-value {
+    font-style: italic;
+    font-weight: 600;
+}
+
+.significant {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.non-significant {
+    color: var(--text-muted);
+}
+
+.confidence-interval {
+    font-family: 'Courier New', monospace;
+    background: var(--bg-light);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.statistical-symbol {
+    font-style: italic;
+    font-weight: 600;
+    font-family: 'Times New Roman', serif;
+}
+
+.greek-letter {
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+}
+
+.degrees-freedom {
+    font-size: 0.8em;
+    vertical-align: sub;
+}
+
+.effect-size-small { color: var(--warning-color); }
+.effect-size-medium { color: var(--info-color); }
+.effect-size-large { color: var(--success-color); }
+
+.correlation-strong { color: var(--success-color); font-weight: 700; }
+.correlation-moderate { color: var(--warning-color); font-weight: 600; }
+.correlation-weak { color: var(--text-muted); }
+
+/* ============================================
+   GENETICS-SPECIFIC UTILITIES
+   ============================================ */
+
+.allele {
+    font-style: italic;
+    font-weight: 600;
+}
+
+.genotype {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    background: var(--bg-light);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.phenotype {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.heritability-high { color: var(--success-color); }
+.heritability-moderate { color: var(--warning-color); }
+.heritability-low { color: var(--accent-color); }
+
+.breeding-value-positive { color: var(--success-color); }
+.breeding-value-negative { color: var(--accent-color); }
+.breeding-value-neutral { color: var(--text-muted); }
+
+.chromosome {
+    font-weight: 700;
+    color: var(--info-color);
+}
+
+.locus {
+    font-style: italic;
+    color: var(--purple-color);
+}
+
+.marker {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    background: var(--primary-light);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+/* ============================================
+   END OF UTILITIES STYLESHEET
+   ============================================ */

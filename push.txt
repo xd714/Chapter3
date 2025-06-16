@@ -1,3 +1,31 @@
 git add .
 git commit -m "update"
 git push origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="core-academic.css">
+<link rel="stylesheet" href="components-scientific.css">
+<link rel="stylesheet" href="genetics-breeding.css">
+<link rel="stylesheet" href="utilities.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="core-academic.css">
+<link rel="stylesheet" href="components-scientific.css">
+<link rel="stylesheet" href="genetics-pedigree.css">
+<link rel="stylesheet" href="genetics-genomics.css">
