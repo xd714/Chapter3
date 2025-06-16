@@ -1,14 +1,12 @@
 /* ============================================
    UNIFIED ACADEMIC PAPERS STYLESHEET
-   CLEANED & OPTIMIZED VERSION
+   WITH FULLY AUTOMATIC COLOR THEMES
+   IMPROVED VERSION
    ============================================ */
 
-/* ============================================
-   CSS CUSTOM PROPERTIES (VARIABLES)
-   ============================================ */
-
+/* Base Color Palette for Auto-Generation */
 :root {
-    /* Core Color Palette - Reduced from 30 to 15 most useful colors */
+    /* 20 distinct colors for automatic cycling */
     --color-1: #e74c3c;   /* Red */
     --color-2: #3498db;   /* Blue */
     --color-3: #27ae60;   /* Green */
@@ -24,6 +22,11 @@
     --color-13: #00bcd4;  /* Cyan */
     --color-14: #ff5722;  /* Deep Orange */
     --color-15: #607d8b;  /* Blue Gray */
+    --color-16: #795548;  /* Brown */
+    --color-17: #ff9800;  /* Amber */
+    --color-18: #4caf50;  /* Light Green */
+    --color-19: #673ab7;  /* Deep Purple */
+    --color-20: #009688;  /* Teal Green */
     
     /* Darker variants for hover effects */
     --color-1-dark: #c0392b;
@@ -41,6 +44,11 @@
     --color-13-dark: #0097a7;
     --color-14-dark: #e64a19;
     --color-15-dark: #546e7a;
+    --color-16-dark: #5d4037;
+    --color-17-dark: #ef6c00;
+    --color-18-dark: #388e3c;
+    --color-19-dark: #512da8;
+    --color-20-dark: #00796b;
     
     /* Lighter variants for subtle backgrounds */
     --color-1-light: #fadbd8;
@@ -58,8 +66,47 @@
     --color-13-light: #b2ebf2;
     --color-14-light: #ffccbc;
     --color-15-light: #cfd8dc;
+    --color-16-light: #d7ccc8;
+    --color-17-light: #ffe0b2;
+    --color-18-light: #c8e6c9;
+    --color-19-light: #d1c4e9;
+    --color-20-light: #b2dfdb;
+    /* NEW: 10 additional beautiful colors */
+    --color-21: #ff6b6b;  /* Coral Red */
+    --color-22: #4ecdc4;  /* Mint Teal */
+    --color-23: #45b7d1;  /* Sky Blue */
+    --color-24: #96ceb4;  /* Sage Green */
+    --color-25: #ffeaa7;  /* Warm Yellow */
+    --color-26: #dda0dd;  /* Plum */
+    --color-27: #98d8c8;  /* Seafoam */
+    --color-28: #f7dc6f;  /* Gold */
+    --color-29: #bb8fce;  /* Lavender */
+    --color-30: #85c1e9;  /* Powder Blue */
     
-    /* Default theme (fallback) */
+    /* Dark variants for new colors */
+    --color-21-dark: #ff5252;
+    --color-22-dark: #26a69a;
+    --color-23-dark: #2196f3;
+    --color-24-dark: #66bb6a;
+    --color-25-dark: #ffcc02;
+    --color-26-dark: #ba68c8;
+    --color-27-dark: #4db6ac;
+    --color-28-dark: #ffc107;
+    --color-29-dark: #9c27b0;
+    --color-30-dark: #42a5f5;
+    
+    /* Light variants for new colors */
+    --color-21-light: #ffcdd2;
+    --color-22-light: #b2dfdb;
+    --color-23-light: #bbdefb;
+    --color-24-light: #c8e6c9;
+    --color-25-light: #fff9c4;
+    --color-26-light: #e1bee7;
+    --color-27-light: #b2dfdb;
+    --color-28-light: #fff8e1;
+    --color-29-light: #e8eaf6;
+    --color-30-light: #e3f2fd;    
+    /* Default theme (fallback) - will be overridden by JavaScript */
     --primary-color: var(--color-2);
     --primary-hover: var(--color-2-dark);
     --primary-light: var(--color-2-light);
@@ -91,9 +138,11 @@
 }
 
 /* ============================================
-   AUTOMATIC THEME GENERATION (OPTIMIZED)
+   AUTOMATIC THEME GENERATION
+   CSS Custom Properties will be set by JavaScript
    ============================================ */
 
+/* Auto-theme classes that will be applied by JavaScript */
 [data-theme="auto-1"] {
     --primary-color: var(--color-1);
     --primary-hover: var(--color-1-dark);
@@ -196,9 +245,113 @@
     --primary-color: var(--color-15);
     --primary-hover: var(--color-15-dark);
     --primary-light: var(--color-15-light);
+    --accent-color: var(--color-16);
+}
+
+[data-theme="auto-16"] {
+    --primary-color: var(--color-16);
+    --primary-hover: var(--color-16-dark);
+    --primary-light: var(--color-16-light);
+    --accent-color: var(--color-17);
+}
+
+[data-theme="auto-17"] {
+    --primary-color: var(--color-17);
+    --primary-hover: var(--color-17-dark);
+    --primary-light: var(--color-17-light);
+    --accent-color: var(--color-18);
+}
+
+[data-theme="auto-18"] {
+    --primary-color: var(--color-18);
+    --primary-hover: var(--color-18-dark);
+    --primary-light: var(--color-18-light);
+    --accent-color: var(--color-19);
+}
+
+[data-theme="auto-19"] {
+    --primary-color: var(--color-19);
+    --primary-hover: var(--color-19-dark);
+    --primary-light: var(--color-19-light);
+    --accent-color: var(--color-20);
+}
+
+[data-theme="auto-20"] {
+    --primary-color: var(--color-20);
+    --primary-hover: var(--color-20-dark);
+    --primary-light: var(--color-20-light);
     --accent-color: var(--color-1);
 }
 
+[data-theme="auto-21"] {
+    --primary-color: var(--color-21);
+    --primary-hover: var(--color-21-dark);
+    --primary-light: var(--color-21-light);
+    --accent-color: var(--color-22);
+}
+
+[data-theme="auto-22"] {
+    --primary-color: var(--color-22);
+    --primary-hover: var(--color-22-dark);
+    --primary-light: var(--color-22-light);
+    --accent-color: var(--color-23);
+}
+
+[data-theme="auto-23"] {
+    --primary-color: var(--color-23);
+    --primary-hover: var(--color-23-dark);
+    --primary-light: var(--color-23-light);
+    --accent-color: var(--color-24);
+}
+
+[data-theme="auto-24"] {
+    --primary-color: var(--color-24);
+    --primary-hover: var(--color-24-dark);
+    --primary-light: var(--color-24-light);
+    --accent-color: var(--color-25);
+}
+
+[data-theme="auto-25"] {
+    --primary-color: var(--color-25);
+    --primary-hover: var(--color-25-dark);
+    --primary-light: var(--color-25-light);
+    --accent-color: var(--color-26);
+}
+
+[data-theme="auto-26"] {
+    --primary-color: var(--color-26);
+    --primary-hover: var(--color-26-dark);
+    --primary-light: var(--color-26-light);
+    --accent-color: var(--color-27);
+}
+
+[data-theme="auto-27"] {
+    --primary-color: var(--color-27);
+    --primary-hover: var(--color-27-dark);
+    --primary-light: var(--color-27-light);
+    --accent-color: var(--color-28);
+}
+
+[data-theme="auto-28"] {
+    --primary-color: var(--color-28);
+    --primary-hover: var(--color-28-dark);
+    --primary-light: var(--color-28-light);
+    --accent-color: var(--color-29);
+}
+
+[data-theme="auto-29"] {
+    --primary-color: var(--color-29);
+    --primary-hover: var(--color-29-dark);
+    --primary-light: var(--color-29-light);
+    --accent-color: var(--color-30);
+}
+
+[data-theme="auto-30"] {
+    --primary-color: var(--color-30);
+    --primary-hover: var(--color-30-dark);
+    --primary-light: var(--color-30-light);
+    --accent-color: var(--color-1);
+}
 /* ============================================
    BASE STYLES
    ============================================ */
@@ -295,7 +448,6 @@ body {
     transform: translateY(20px) scale(0.8);
     border: none;
     backdrop-filter: blur(10px);
-    /* Ensure minimum touch target size */
     min-width: 44px;
     min-height: 44px;
 }
@@ -723,32 +875,80 @@ body {
 }
 
 /* Card variant styles */
-.model-1, .method-1 { border-color: var(--accent-color); border-left: 5px solid var(--accent-color); }
-.model-1 .model-title, .method-1 .method-title { color: var(--accent-color); }
+.model-1, .method-1 { 
+    border-color: var(--accent-color); 
+    border-left: 5px solid var(--accent-color); 
+}
+.model-1 .model-title, 
+.method-1 .method-title { 
+    color: var(--accent-color); 
+}
 
-.model-2, .method-2 { border-color: var(--success-color); border-left: 5px solid var(--success-color); }
-.model-2 .model-title, .method-2 .method-title { color: var(--success-color); }
+.model-2, .method-2 { 
+    border-color: var(--success-color); 
+    border-left: 5px solid var(--success-color); 
+}
+.model-2 .model-title, 
+.method-2 .method-title { 
+    color: var(--success-color); 
+}
 
-.model-3, .method-3 { border-color: var(--warning-color); border-left: 5px solid var(--warning-color); }
-.model-3 .model-title, .method-3 .method-title { color: var(--warning-color); }
+.model-3, .method-3 { 
+    border-color: var(--warning-color); 
+    border-left: 5px solid var(--warning-color); 
+}
+.model-3 .model-title, 
+.method-3 .method-title { 
+    color: var(--warning-color); 
+}
 
-.hard-sweep { border-color: var(--accent-color); border-left: 5px solid var(--accent-color); }
-.hard-sweep .model-title { color: var(--accent-color); }
+.hard-sweep { 
+    border-color: var(--accent-color); 
+    border-left: 5px solid var(--accent-color); 
+}
+.hard-sweep .model-title { 
+    color: var(--accent-color); 
+}
 
-.soft-sweep { border-color: var(--success-color); border-left: 5px solid var(--success-color); }
-.soft-sweep .model-title { color: var(--success-color); }
+.soft-sweep { 
+    border-color: var(--success-color); 
+    border-left: 5px solid var(--success-color); 
+}
+.soft-sweep .model-title { 
+    color: var(--success-color); 
+}
 
-.census-box { border-color: var(--accent-color); border-left: 5px solid var(--accent-color); }
-.census-box .comparison-title { color: var(--accent-color); }
+.census-box { 
+    border-color: var(--accent-color); 
+    border-left: 5px solid var(--accent-color); 
+}
+.census-box .comparison-title { 
+    color: var(--accent-color); 
+}
 
-.dna-box { border-color: var(--success-color); border-left: 5px solid var(--success-color); }
-.dna-box .comparison-title { color: var(--success-color); }
+.dna-box { 
+    border-color: var(--success-color); 
+    border-left: 5px solid var(--success-color); 
+}
+.dna-box .comparison-title { 
+    color: var(--success-color); 
+}
 
-.gwas-box { border-color: var(--primary-color); border-left: 5px solid var(--primary-color); }
-.gwas-box .analysis-title { color: var(--primary-color); }
+.gwas-box { 
+    border-color: var(--primary-color); 
+    border-left: 5px solid var(--primary-color); 
+}
+.gwas-box .analysis-title { 
+    color: var(--primary-color); 
+}
 
-.prs-box { border-color: var(--success-color); border-left: 5px solid var(--success-color); }
-.prs-box .analysis-title { color: var(--success-color); }
+.prs-box { 
+    border-color: var(--success-color); 
+    border-left: 5px solid var(--success-color); 
+}
+.prs-box .analysis-title { 
+    color: var(--success-color); 
+}
 
 /* Analysis card variants */
 .analysis-card {
@@ -767,22 +967,34 @@ body {
 }
 
 .why-card { border-top-color: var(--accent-color); }
-.why-card::before { background: linear-gradient(90deg, var(--accent-color) 0%, var(--color-1-dark) 100%); }
+.why-card::before { 
+    background: linear-gradient(90deg, var(--accent-color) 0%, var(--color-1-dark) 100%); 
+}
 
 .how-card { border-top-color: var(--primary-color); }
-.how-card::before { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); }
+.how-card::before { 
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); 
+}
 
 .what-card { border-top-color: var(--success-color); }
-.what-card::before { background: linear-gradient(90deg, var(--success-color) 0%, var(--color-3-dark) 100%); }
+.what-card::before { 
+    background: linear-gradient(90deg, var(--success-color) 0%, var(--color-3-dark) 100%); 
+}
 
 .theory-card { border-top-color: var(--accent-color); }
-.theory-card::before { background: linear-gradient(90deg, var(--accent-color) 0%, var(--color-1-dark) 100%); }
+.theory-card::before { 
+    background: linear-gradient(90deg, var(--accent-color) 0%, var(--color-1-dark) 100%); 
+}
 
 .detection-card { border-top-color: var(--primary-color); }
-.detection-card::before { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); }
+.detection-card::before { 
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); 
+}
 
 .evolution-card { border-top-color: var(--success-color); }
-.evolution-card::before { background: linear-gradient(90deg, var(--success-color) 0%, var(--color-3-dark) 100%); }
+.evolution-card::before { 
+    background: linear-gradient(90deg, var(--success-color) 0%, var(--color-3-dark) 100%); 
+}
 
 /* Theme box variants */
 .theme-box {
@@ -790,11 +1002,26 @@ body {
     background: var(--primary-light);
 }
 
-.theme-box.historical { border-left-color: var(--purple-color); background: var(--color-5-light); }
-.theme-box.methodological { border-left-color: var(--accent-color); background: var(--color-1-light); }
-.theme-box.phenotypic { border-left-color: var(--warning-color); background: var(--color-4-light); }
-.theme-box.genetic { border-left-color: var(--success-color); background: var(--color-3-light); }
-.theme-box.comparative { border-left-color: var(--secondary-color); background: var(--color-10-light); }
+.theme-box.historical { 
+    border-left-color: var(--purple-color); 
+    background: var(--color-5-light); 
+}
+.theme-box.methodological { 
+    border-left-color: var(--accent-color); 
+    background: var(--color-1-light); 
+}
+.theme-box.phenotypic { 
+    border-left-color: var(--warning-color); 
+    background: var(--color-4-light); 
+}
+.theme-box.genetic { 
+    border-left-color: var(--success-color); 
+    background: var(--color-3-light); 
+}
+.theme-box.comparative { 
+    border-left-color: var(--secondary-color); 
+    background: var(--color-10-light); 
+}
 
 .historical .theme-title { color: var(--purple-color); }
 .methodological .theme-title { color: var(--accent-color); }
@@ -1689,13 +1916,31 @@ ul li::marker {
     }
 
     /* Stagger animations for grid items */
-    .model-comparison > *:nth-child(1) { animation: fadeInUp 0.6s ease-out; animation-delay: 0.1s; }
-    .model-comparison > *:nth-child(2) { animation: fadeInUp 0.6s ease-out; animation-delay: 0.2s; }
-    .model-comparison > *:nth-child(3) { animation: fadeInUp 0.6s ease-out; animation-delay: 0.3s; }
+    .model-comparison > *:nth-child(1) { 
+        animation: fadeInUp 0.6s ease-out; 
+        animation-delay: 0.1s; 
+    }
+    .model-comparison > *:nth-child(2) { 
+        animation: fadeInUp 0.6s ease-out; 
+        animation-delay: 0.2s; 
+    }
+    .model-comparison > *:nth-child(3) { 
+        animation: fadeInUp 0.6s ease-out; 
+        animation-delay: 0.3s; 
+    }
 
-    .analysis-grid > *:nth-child(1) { animation: fadeInUp 0.6s ease-out; animation-delay: 0.1s; }
-    .analysis-grid > *:nth-child(2) { animation: fadeInUp 0.6s ease-out; animation-delay: 0.2s; }
-    .analysis-grid > *:nth-child(3) { animation: fadeInUp 0.6s ease-out; animation-delay: 0.3s; }
+    .analysis-grid > *:nth-child(1) { 
+        animation: fadeInUp 0.6s ease-out; 
+        animation-delay: 0.1s; 
+    }
+    .analysis-grid > *:nth-child(2) { 
+        animation: fadeInUp 0.6s ease-out; 
+        animation-delay: 0.2s; 
+    }
+    .analysis-grid > *:nth-child(3) { 
+        animation: fadeInUp 0.6s ease-out; 
+        animation-delay: 0.3s; 
+    }
 
     .back-to-top.visible {
         animation: pulseIn 0.6s ease-out;
