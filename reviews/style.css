@@ -1786,9 +1786,6 @@ ul li::marker {
         height: 40px;
     }
     
-        .sample-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
     
     .formulation-table {
         font-size: 0.8em;
