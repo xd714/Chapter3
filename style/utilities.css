@@ -1,8 +1,8 @@
 /* ============================================
    UTILITIES STYLESHEET
    Helper classes for rapid development
-   Optional - can be included for convenience
-   Version: 2.0
+   Refined for better typography consistency
+   Version: 2.1
    ============================================ */
 
 /* ============================================
@@ -110,7 +110,7 @@
 .py-5 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 
 /* ============================================
-   TEXT UTILITIES
+   TEXT UTILITIES (ENHANCED)
    ============================================ */
 
 /* Text alignment */
@@ -119,7 +119,7 @@
 .text-right { text-align: right; }
 .text-justify { text-align: justify; }
 
-/* Font weight */
+/* Font weight - consistent with main style */
 .font-light { font-weight: 300; }
 .font-normal { font-weight: 400; }
 .font-medium { font-weight: 500; }
@@ -132,16 +132,22 @@
 .italic { font-style: italic; }
 .not-italic { font-style: normal; }
 
-/* Font size */
-.text-xs { font-size: 0.75rem; line-height: 1rem; }
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-.text-base { font-size: 1rem; line-height: 1.5rem; }
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-.text-2xl { font-size: 1.5rem; line-height: 2rem; }
-.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-.text-5xl { font-size: 3rem; line-height: 1; }
+/* Font size - improved hierarchy matching main style */
+.text-xs { font-size: 0.75rem; line-height: 1.2; }    /* 12px */
+.text-sm { font-size: 0.875rem; line-height: 1.4; }   /* 14px */
+.text-base { font-size: 1rem; line-height: 1.6; }     /* 16px - base body text */
+.text-lg { font-size: 1.125rem; line-height: 1.65; }  /* 18px */
+.text-xl { font-size: 1.25rem; line-height: 1.65; }   /* 20px - section titles */
+.text-2xl { font-size: 1.5rem; line-height: 1.4; }    /* 24px - major headings */
+.text-3xl { font-size: 1.875rem; line-height: 1.3; }  /* 30px */
+.text-4xl { font-size: 2.25rem; line-height: 1.2; }   /* 36px - main headers */
+.text-5xl { font-size: 3rem; line-height: 1.1; }      /* 48px - hero text */
+
+/* Academic specific text sizes */
+.text-caption { font-size: 0.8rem; line-height: 1.3; color: var(--text-secondary); }
+.text-formula { font-size: 1rem; line-height: 1.3; font-family: 'Times New Roman', serif; }
+.text-code { font-size: 0.9rem; line-height: 1.4; font-family: 'Courier New', monospace; }
+.text-citation { font-size: 0.95rem; line-height: 1.7; font-style: italic; }
 
 /* Text decoration */
 .underline { text-decoration: underline; }
@@ -153,6 +159,22 @@
 .lowercase { text-transform: lowercase; }
 .capitalize { text-transform: capitalize; }
 .normal-case { text-transform: none; }
+
+/* Line height utilities */
+.leading-none { line-height: 1; }
+.leading-tight { line-height: 1.25; }
+.leading-snug { line-height: 1.375; }
+.leading-normal { line-height: 1.6; }
+.leading-relaxed { line-height: 1.75; }
+.leading-loose { line-height: 2; }
+
+/* Letter spacing */
+.tracking-tighter { letter-spacing: -0.05em; }
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+.tracking-wide { letter-spacing: 0.025em; }
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.1em; }
 
 /* ============================================
    COLOR UTILITIES
@@ -641,8 +663,9 @@
 
 .scientific-notation {
     font-family: 'Times New Roman', serif;
-    font-size: 0.9em;
+    font-size: 0.95rem;
     white-space: nowrap;
+    line-height: 1.4;
 }
 
 .superscript {
@@ -664,34 +687,40 @@
 .citation-style {
     font-style: italic;
     color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
 }
 
 .equation-number {
     float: right;
     font-weight: 700;
     color: var(--primary-color);
+    font-size: 0.9rem;
 }
 
 .figure-caption {
-    font-size: 0.9em;
+    font-size: 0.85rem;
     color: var(--text-secondary);
     text-align: center;
     margin-top: 0.5rem;
     font-style: italic;
+    line-height: 1.4;
 }
 
 .table-caption {
-    font-size: 0.9em;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     text-align: center;
     margin-bottom: 0.5rem;
     font-weight: 600;
+    line-height: 1.3;
 }
 
 .reference-link {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
+    font-size: inherit;
 }
 
 .reference-link:hover {
@@ -702,9 +731,11 @@
 .hypothesis {
     font-style: italic;
     background: var(--primary-light);
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     border-left: 4px solid var(--primary-color);
     margin: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 .objective {
@@ -713,6 +744,7 @@
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.25rem;
     display: inline-block;
+    font-size: 1.1rem;
 }
 
 /* ============================================
@@ -725,13 +757,24 @@
     .print-break-before { page-break-before: always; }
     .print-break-after { page-break-after: always; }
     .print-break-inside-avoid { page-break-inside: avoid; }
+    
+    /* Adjust font sizes for print */
+    .text-xs { font-size: 10px; }
+    .text-sm { font-size: 12px; }
+    .text-base { font-size: 14px; }
+    .text-lg { font-size: 16px; }
+    .text-xl { font-size: 18px; }
+    .text-2xl { font-size: 20px; }
+    .text-3xl { font-size: 24px; }
+    .text-4xl { font-size: 28px; }
+    .text-5xl { font-size: 32px; }
 }
 
 /* ============================================
    RESPONSIVE UTILITIES
    ============================================ */
 
-/* Responsive display utilities */
+/* Mobile font size adjustments */
 @media (max-width: 768px) {
     .mobile-hidden { display: none !important; }
     .mobile-visible { display: block !important; }
@@ -742,6 +785,15 @@
     .mobile-full-width { width: 100% !important; }
     .mobile-p-2 { padding: 1rem !important; }
     .mobile-m-1 { margin: 0.5rem !important; }
+    
+    /* Responsive text sizing */
+    .mobile-text-sm { font-size: 0.8rem !important; }
+    .mobile-text-base { font-size: 0.9rem !important; }
+    .mobile-text-lg { font-size: 1rem !important; }
+    .mobile-text-xl { font-size: 1.1rem !important; }
+    .mobile-text-2xl { font-size: 1.3rem !important; }
+    .mobile-text-3xl { font-size: 1.6rem !important; }
+    .mobile-text-4xl { font-size: 1.9rem !important; }
 }
 
 @media (min-width: 769px) {
@@ -752,6 +804,11 @@
 @media (min-width: 769px) and (max-width: 1024px) {
     .tablet-hidden { display: none !important; }
     .tablet-visible { display: block !important; }
+    
+    /* Tablet text adjustments */
+    .tablet-text-sm { font-size: 0.85rem !important; }
+    .tablet-text-base { font-size: 0.95rem !important; }
+    .tablet-text-lg { font-size: 1.05rem !important; }
 }
 
 /* ============================================
@@ -802,11 +859,18 @@
     
     .high-contrast-text {
         color: black !important;
+        font-weight: 600 !important;
     }
     
     .high-contrast-bg {
         background: white !important;
     }
+    
+    /* Increase text sizes for better readability */
+    .text-xs { font-size: 0.8rem; }
+    .text-sm { font-size: 0.95rem; }
+    .text-base { font-size: 1.1rem; }
+    .text-lg { font-size: 1.25rem; }
 }
 
 /* ============================================
@@ -834,6 +898,7 @@
 .p-value {
     font-style: italic;
     font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .significant {
@@ -850,31 +915,34 @@
     background: var(--bg-light);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
+    font-size: 0.9rem;
 }
 
 .statistical-symbol {
     font-style: italic;
     font-weight: 600;
     font-family: 'Times New Roman', serif;
+    font-size: 1rem;
 }
 
 .greek-letter {
     font-family: 'Times New Roman', serif;
     font-style: italic;
+    font-size: 1.05rem;
 }
 
 .degrees-freedom {
-    font-size: 0.8em;
+    font-size: 0.75em;
     vertical-align: sub;
 }
 
-.effect-size-small { color: var(--warning-color); }
-.effect-size-medium { color: var(--info-color); }
-.effect-size-large { color: var(--success-color); }
+.effect-size-small { color: var(--warning-color); font-size: 0.9rem; }
+.effect-size-medium { color: var(--info-color); font-size: 0.95rem; }
+.effect-size-large { color: var(--success-color); font-size: 1rem; font-weight: 600; }
 
-.correlation-strong { color: var(--success-color); font-weight: 700; }
-.correlation-moderate { color: var(--warning-color); font-weight: 600; }
-.correlation-weak { color: var(--text-muted); }
+.correlation-strong { color: var(--success-color); font-weight: 700; font-size: 1rem; }
+.correlation-moderate { color: var(--warning-color); font-weight: 600; font-size: 0.95rem; }
+.correlation-weak { color: var(--text-muted); font-size: 0.9rem; }
 
 /* ============================================
    GENETICS-SPECIFIC UTILITIES
@@ -883,6 +951,7 @@
 .allele {
     font-style: italic;
     font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .genotype {
@@ -891,37 +960,69 @@
     background: var(--bg-light);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
+    font-size: 0.9rem;
 }
 
 .phenotype {
     font-weight: 600;
     color: var(--text-primary);
+    font-size: 1rem;
 }
 
-.heritability-high { color: var(--success-color); }
-.heritability-moderate { color: var(--warning-color); }
-.heritability-low { color: var(--accent-color); }
+.heritability-high { color: var(--success-color); font-weight: 700; }
+.heritability-moderate { color: var(--warning-color); font-weight: 600; }
+.heritability-low { color: var(--accent-color); font-weight: 500; }
 
-.breeding-value-positive { color: var(--success-color); }
-.breeding-value-negative { color: var(--accent-color); }
+.breeding-value-positive { color: var(--success-color); font-weight: 600; }
+.breeding-value-negative { color: var(--accent-color); font-weight: 600; }
 .breeding-value-neutral { color: var(--text-muted); }
 
 .chromosome {
     font-weight: 700;
     color: var(--info-color);
+    font-size: 0.95rem;
 }
 
 .locus {
     font-style: italic;
     color: var(--purple-color);
+    font-size: 0.95rem;
 }
 
 .marker {
     font-family: 'Courier New', monospace;
-    font-size: 0.9em;
+    font-size: 0.85rem;
     background: var(--primary-light);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
+}
+
+/* ============================================
+   ENHANCED TEXT READABILITY
+   ============================================ */
+
+.readable-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    letter-spacing: 0.015em;
+}
+
+.academic-text {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+}
+
+.small-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.large-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 /* ============================================

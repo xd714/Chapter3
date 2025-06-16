@@ -4,10 +4,10 @@
 library(stringr)
 
 # Define the old CSS link pattern to find
-new_css_links <- '<link rel="stylesheet" href="style.css">'
+new_css_links <- '<link rel="stylesheet" href="../style/main.css">'
 
 # Define the new CSS links to replace with
-old_css_pattern <- '<link rel="stylesheet" href="../style/main.css">'
+old_css_pattern <- '<link rel="stylesheet" href="style.css">'
 
 # Function to process a single HTML file
 process_html_file <- function(file_path) {
