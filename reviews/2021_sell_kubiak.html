@@ -52,6 +52,7 @@
             padding: 25px;
             margin: 20px 0;
             font-family: 'Courier New', monospace;
+            overflow-x: auto;
         }
         
         .matrix-equation {
@@ -59,27 +60,62 @@
             align-items: center;
             justify-content: center;
             margin: 15px 0;
-            flex-wrap: wrap;
-            gap: 10px;
+            flex-wrap: nowrap;
+            gap: 15px;
+            min-width: fit-content;
         }
         
-        .matrix, .vector {
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px 15px;
             border-left: 2px solid var(--text-primary);
             border-right: 2px solid var(--text-primary);
-            padding: 10px 15px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 4px;
+            min-width: 200px;
+        }
+        
+        .vector {
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px 0;
+            border-left: 1px solid var(--text-primary);
+            border-right: 1px solid var(--text-primary);
+            padding: 15px 12px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 4px;
+            min-width: 80px;
+        }
+        
+        .matrix div, .vector div {
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        
+        .matrix-3x3 {
+            display: table;
+            border-left: 2px solid var(--text-primary);
+            border-right: 2px solid var(--text-primary);
+            padding: 15px 20px;
             background: rgba(255,255,255,0.7);
             border-radius: 4px;
         }
         
-        .vector {
-            border-left: 1px solid var(--text-primary);
-            border-right: 1px solid var(--text-primary);
+        .matrix-row {
+            display: table-row;
         }
         
-        .matrix div, .vector div {
-            margin: 5px 0;
+        .matrix-cell {
+            display: table-cell;
+            padding: 8px 15px;
             text-align: center;
-            font-size: 0.95em;
+            vertical-align: middle;
+            font-size: 0.9em;
+            white-space: nowrap;
         }
         
         .equals, .plus {
@@ -447,7 +483,7 @@
                                 <strong>Transformation from Variance to SD Scale:</strong>
                                 <div class="formula-box">
                                     <div class="formula-title">Genetic Coefficient of Variation on SD Scale</div>
-                                    <div class="formula-main">GCV<sub>SDe</sub> = (σ²<sub>av</sub>(σ²<sub>e</sub>)/σ²<sub>e</sub>)  &asymp; 0.5σ<sub>av</sub></div>
+                                    <div class="formula-main">GCV<sub>SDe</sub> = (σ²<sub>av</sub>(σ²<sub>e</sub>)/σ²<sub>e</sub>) × 0.5σ<sub>av</sub></div>
                                 </div>
                                 
                                 <div class="step-specs">
@@ -476,45 +512,59 @@
                                 <strong>Trivariate Models for Mean Traits:</strong>
                                 <div class="matrix-container">
                                     <div class="matrix-equation">
-                                        <div class="matrix-left">
-                                            <div class="vector">
-                                                <div>y<sub>meanTNB</sub></div>
-                                                <div>y<sub>meanNBA</sub></div>
-                                                <div>y<sub>meanLW</sub></div>
-                                            </div>
+                                        <div class="vector">
+                                            <div>y<sub>meanTNB</sub></div>
+                                            <div>y<sub>meanNBA</sub></div>
+                                            <div>y<sub>meanLW</sub></div>
                                         </div>
                                         <div class="equals">=</div>
-                                        <div class="matrix-middle">
-                                            <div class="matrix">
-                                                <div>X<sub>meanTNB</sub> &nbsp;&nbsp; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</div>
-                                                <div>0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X<sub>meanNBA</sub> &nbsp;&nbsp;&nbsp; 0</div>
-                                                <div>0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X<sub>meanLW</sub></div>
+                                        <div class="matrix-3x3">
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">X<sub>meanTNB</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">X<sub>meanNBA</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">X<sub>meanLW</sub></div>
                                             </div>
                                         </div>
-                                        <div class="matrix-right">
-                                            <div class="vector">
-                                                <div>β<sub>meanTNB</sub></div>
-                                                <div>β<sub>meanNBA</sub></div>
-                                                <div>β<sub>meanLW</sub></div>
-                                            </div>
+                                        <div class="vector">
+                                            <div>β<sub>meanTNB</sub></div>
+                                            <div>β<sub>meanNBA</sub></div>
+                                            <div>β<sub>meanLW</sub></div>
                                         </div>
                                         <div class="plus">+</div>
                                     </div>
                                     
                                     <div class="matrix-equation">
-                                        <div class="matrix-left">
-                                            <div class="matrix">
-                                                <div>Z<sub>meanTNB</sub> &nbsp;&nbsp; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</div>
-                                                <div>0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Z<sub>meanNBA</sub> &nbsp;&nbsp;&nbsp; 0</div>
-                                                <div>0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Z<sub>meanLW</sub></div>
+                                        <div class="matrix-3x3">
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">Z<sub>meanTNB</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">Z<sub>meanNBA</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">Z<sub>meanLW</sub></div>
                                             </div>
                                         </div>
-                                        <div class="matrix-right">
-                                            <div class="vector">
-                                                <div>a<sub>meanTNB</sub></div>
-                                                <div>a<sub>meanNBA</sub></div>
-                                                <div>a<sub>meanLW</sub></div>
-                                            </div>
+                                        <div class="vector">
+                                            <div>a<sub>meanTNB</sub></div>
+                                            <div>a<sub>meanNBA</sub></div>
+                                            <div>a<sub>meanLW</sub></div>
                                         </div>
                                         <div class="plus">+</div>
                                         <div class="vector">
@@ -530,10 +580,22 @@
                                     <div class="formula-main">a ~ N(0, <strong>G</strong> ⊗ <strong>A</strong>)</div>
                                     <div class="matrix-definition">
                                         <strong>where G =</strong>
-                                        <div class="covariance-matrix">
-                                            <div>σ²<sub>a,TNB</sub> &nbsp;&nbsp;&nbsp; σ<sub>a,TNB,NBA</sub> &nbsp;&nbsp;&nbsp; σ<sub>a,TNB,LW</sub></div>
-                                            <div>σ<sub>a,NBA,TNB</sub> &nbsp;&nbsp;&nbsp; σ²<sub>a,NBA</sub> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; σ<sub>a,NBA,LW</sub></div>
-                                            <div>σ<sub>a,LW,TNB</sub> &nbsp;&nbsp;&nbsp;&nbsp; σ<sub>a,LW,NBA</sub> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; σ²<sub>a,LW</sub></div>
+                                        <div class="matrix-3x3" style="display: inline-table; margin-left: 10px;">
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">σ²<sub>a,TNB</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,TNB,NBA</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,TNB,LW</sub></div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">σ<sub>a,NBA,TNB</sub></div>
+                                                <div class="matrix-cell">σ²<sub>a,NBA</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,NBA,LW</sub></div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">σ<sub>a,LW,TNB</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,LW,NBA</sub></div>
+                                                <div class="matrix-cell">σ²<sub>a,LW</sub></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
