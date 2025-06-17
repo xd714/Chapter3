@@ -290,12 +290,58 @@
                     <div class="step-details">
                         The DHGLM represents a statistical breakthrough for analyzing genetic control of trait variability. This method simultaneously models both the mean and variance components of litter size.
                         
-                        <div class="formula-box">
-                            <div class="formula-title">DHGLM Mathematical Framework</div>
-                            <div class="formula-main">
-                                [y/ψ] = [X 0/0 X<sub>v</sub>][b/b<sub>v</sub>] + [Z 0/0 Z<sub>v</sub>][a/a<sub>v</sub>] + [U 0/0 U<sub>v</sub>][pe/pe<sub>v</sub>] + [e/e<sub>v</sub>]
+                        <div class="matrix-container">
+                            <div class="matrix-equation">
+                                <div class="vector">
+                                    <div>y</div>
+                                    <div>ψ</div>
+                                </div>
+                                <span class="equals">=</span>
+                                <div class="matrix">
+                                    <div>X</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>X<sub>v</sub></div>
+                                    <div>0</div>
+                                </div>
+                                <div class="vector">
+                                    <div>b</div>
+                                    <div>b<sub>v</sub></div>
+                                </div>
+                                <span class="plus">+</span>
+                                <div class="matrix">
+                                    <div>Z</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>Z<sub>v</sub></div>
+                                    <div>0</div>
+                                </div>
+                                <div class="vector">
+                                    <div>a</div>
+                                    <div>a<sub>v</sub></div>
+                                </div>
+                                <span class="plus">+</span>
+                                <div class="matrix">
+                                    <div>U</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>U<sub>v</sub></div>
+                                    <div>0</div>
+                                </div>
+                                <div class="vector">
+                                    <div>pe</div>
+                                    <div>pe<sub>v</sub></div>
+                                </div>
+                                <span class="plus">+</span>
+                                <div class="vector">
+                                    <div>e</div>
+                                    <div>e<sub>v</sub></div>
+                                </div>
                             </div>
-                            <div class="formula-note">
+                            <div class="matrix-definition">
                                 Where ψ is the linearized working variable for log(variance), enabling bivariate analysis
                             </div>
                         </div>
@@ -538,10 +584,10 @@
                         <div class="model-title">Heritability Estimates</div>
                         <div class="step-details">
                             <strong>Total Number Born (TNB):</strong>
-                            <div class="formula short">h² = 0.14 ± 0.003</div>
+                            <div class="formula">h² = 0.14 ± 0.003</div>
                             
                             <strong>Litter Size Variability (varTNB):</strong>
-                            <div class="formula short">h² = 0.006 ± 0.0008</div>
+                            <div class="formula">h² = 0.006 ± 0.0008</div>
                             
                             <strong>Genetic Coefficient of Variation:</strong><br>
                             • GCV<sub>SDe</sub> = 0.09 for varTNB<br>
@@ -555,10 +601,23 @@
                         <div class="model-title">Genetic Correlations</div>
                         <div class="step-details">
                             <strong>Additive Genetic Correlation:</strong>
-                            <div class="formula short"><span class="correlation-highlight">r<sub>A</sub> = +0.49 ± 0.04</span></div>
+                            <div class="formula"><span class="correlation-highlight">r<sub>A</sub> = +0.49 ± 0.04</span></div>
                             
                             <strong>Permanent Environment Correlation:</strong>
-                            <div class="formula short">r<sub>PE</sub> = -0.83 ± 0.02</div>
+                            <div class="formula">r<sub>PE</sub> = -0.83 ± 0.02</div>
+                            
+                            <div class="matrix-container">
+                                <div class="matrix-equation">
+                                    <span style="font-weight: bold; margin-right: 10px;">G =</span>
+                                    <div class="covariance-matrix">
+                                        <div>σ²<sub>TNB</sub>&nbsp;&nbsp;&nbsp;&nbsp;σ<sub>TNB,varTNB</sub></div>
+                                        <div>σ<sub>TNB,varTNB</sub>&nbsp;&nbsp;&nbsp;&nbsp;σ²<sub>varTNB</sub></div>
+                                    </div>
+                                </div>
+                                <div class="matrix-definition">
+                                    Where σ<sub>TNB,varTNB</sub> = r<sub>G</sub> × σ<sub>TNB</sub> × σ<sub>varTNB</sub> = 0.49
+                                </div>
+                            </div>
                             
                             <strong>Implications:</strong><br>
                             • Positive genetic correlation is <span class="highlight">unfavorable</span><br>
