@@ -4,10 +4,10 @@
 library(stringr)
 
 # Define the old CSS link pattern to find
-new_css_links <- '<link rel="stylesheet" href="style.css">'
+new_css_links <- '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">'
 
 # Define the new CSS links to replace with
-old_css_pattern <- '<link rel="stylesheet" href="../style/main.css">'
+old_css_pattern <- '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
 
 # Function to process a single HTML file
 process_html_file <- function(file_path) {
