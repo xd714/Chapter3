@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GWAS Tutorial - Quality Control and Statistical Analysis</title>
+        <link rel="stylesheet" href="style.css">
+
+
+
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+                        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">  Back to Index</a>
+        </div>
+        <div class="header">
+            <h1>A Tutorial on Conducting Genome-Wide Association Studies</h1>
+            <p>Comprehensive Guide to Quality Control and Statistical Analysis</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Andries T. Marees, Hilde de Kluiver, Sven Stringer, Florence Vorspan, Emmanuel Curis, Cynthia Marie-Claire, Eske M. Derks</p>
+                <p class="text-small text-top"><strong>Institutions:</strong> Amsterdam Medical Center, QIMR Berghofer, VU University</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1002/mpr.1608" 
+                       target="_blank" 
+                       class="paper-link">
+                         Original Paper (Int J Methods Psychiatr Res 2018)
+                    </a>
+                </p>
+                <p class="text-top-large">
+                    <a href="https://github.com/MareesAT/GWA_tutorial/" 
+                       target="_blank" 
+                       class="paper-link">
+                        💻 GitHub Tutorial Scripts
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-1">
+                <div class="section-title">Tutorial Objectives & Scope</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Marees, A.T., de Kluiver, H., Stringer, S., Vorspan, F., Curis, E., Marie-Claire, C., & Derks, E.M. (2018). A tutorial on conducting genome-wide association studies: Quality control and statistical analysis. International Journal of Methods in Psychiatric Research, 27(2), e1608.</p>
+                    
+                    <p><strong>Primary Goal:</strong> Make GWAS accessible to researchers without formal genetics training by providing theoretical background, practical guidelines, and hands-on experience through example scripts and simulated data.</p>
+                    
+                    <p><strong>Target Audience:</strong> Social scientists, clinicians, and researchers interested in incorporating genetic analyses into their studies but lacking formal genetics background.</p>
+                </div>
+                
+                <div class="section-title">Software Tools and Resources</div>
+                
+                <div class="software-grid">
+            <div class="software-card">
+                        <div class="software-name">PLINK v1.07/1.9</div>
+                        <div class="step-details"><p>Free, open-source whole-genome association analysis toolset. Primary software for QC procedures and statistical analyses.</p></div>
+                    </div>
+                    
+                    <div class="software-card">
+            <div class="software-name">PRSice</div>
+                        <div class="step-details"><p>Specialized software for polygenic risk score analysis. Handles clumping, p-value thresholds, and visualization.</p></div>
+                    </div>
+                    
+                    <div class="software-card">
+            <div class="software-name">R Statistical Software</div>
+                        <div class="step-details"><p>Free programming language for data visualization, statistical analysis, and generating tutorial graphs.</p></div>
+                    </div>
+                    
+                    <div class="software-card">
+            <div class="software-name">Alternative Tools</div>
+                        <div class="step-details"><p>GenABEL, SNPTEST, family-based GWAS tools. GNU/Linux recommended for optimal performance.</p></div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Quality Control Pipeline - The Seven Essential Steps</div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Critical Importance:</strong> Without extensive QC, GWAS will not generate reliable results. Raw genotype data are inherently imperfect and require rigorous quality control to avoid spurious associations.
+                </div>
+                
+                <div class="flow-container">
+            <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+            <div class="step-title">Missingness of SNPs and Individuals</div>
+                            <div class="step-details">
+                                Remove SNPs and individuals with high rates of missing genotype data
+                                <div class="step-specs">
+                                    <strong>Commands:</strong> --geno (SNPs), --mind (individuals)<br>
+                                    <strong>Thresholds:</strong> First filter at 0.2 (>20%), then 0.02 (>2%)<br>
+                                    <strong>Order:</strong> Filter SNPs before individuals<br>
+                                    <strong>Rationale:</strong> High missingness indicates poor DNA quality or technical problems
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+            <div class="step-number">2</div>
+                        <div class="step-content">
+            <div class="step-title">Sex Discrepancy Check</div>
+                            <div class="step-details">
+                                Verify consistency between recorded and genetic sex
+                                <div class="step-specs">
+                                    <strong>Command:</strong> --check-sex<br>
+                                    <strong>Method:</strong> X chromosome heterozygosity/homozygosity rates<br>
+                                    <strong>Expected:</strong> Males >0.8 homozygosity, Females <0.2<br>
+                                    <strong>Indicates:</strong> Sample mix-ups, contamination, or labeling errors
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+            <div class="step-number">3</div>
+                        <div class="step-content">
+            <div class="step-title">Minor Allele Frequency (MAF) Filtering</div>
+                            <div class="step-details">
+                                Exclude SNPs with very low minor allele frequencies
+                                <div class="step-specs">
+                                    <strong>Command:</strong> --maf<br>
+                                    <strong>Large samples (N=100,000):</strong> MAF ≥ 0.01<br>
+                                    <strong>Moderate samples (N=10,000):</strong> MAF ≥ 0.05<br>
+                                    <strong>Reason:</strong> Low power to detect associations, prone to genotyping errors
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+            <div class="step-number">4</div>
+                        <div class="step-content">
+            <div class="step-title">Hardy-Weinberg Equilibrium (HWE)</div>
+                            <div class="step-details">
+                                Remove markers deviating from expected genotype frequencies
+                                <div class="step-specs">
+                                    <strong>Command:</strong> --hwe<br>
+                                    <strong>Binary traits:</strong> p < 1e-10 (cases), p < 1e-6 (controls)<br>
+                                    <strong>Quantitative traits:</strong> p < 1e-6<br>
+                                    <strong>Indicates:</strong> Genotyping errors, population stratification, selection
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+            <div class="step-number">5</div>
+                        <div class="step-content">
+            <div class="step-title">Heterozygosity Rate Assessment</div>
+                            <div class="step-details">
+                                Identify individuals with abnormal heterozygosity patterns
+                                <div class="step-specs">
+                                    <strong>Method:</strong> Calculate genome-wide heterozygosity rates<br>
+                                    <strong>Threshold:</strong> Remove individuals ±3 SD from mean<br>
+                                    <strong>High heterozygosity:</strong> Sample contamination<br>
+                                    <strong>Low heterozygosity:</strong> Inbreeding, DNA degradation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+            <div class="step-number">6</div>
+                        <div class="step-content">
+            <div class="step-title">Relatedness Detection</div>
+                            <div class="step-details">
+                                Identify and handle cryptic relatedness between individuals
+                                <div class="step-specs">
+                                    <strong>Commands:</strong> --genome, --min<br>
+                                    <strong>Threshold:</strong> π-hat > 0.2 (second-degree relatives)<br>
+                                    <strong>Method:</strong> Identity by descent (IBD) calculation<br>
+                                    <strong>Note:</strong> Use independent SNPs (pruning) and autosomal chromosomes only
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+            <div class="step-number">7</div>
+                        <div class="step-content">
+            <div class="step-title">Population Stratification Control</div>
+                            <div class="step-details">
+                                Detect and control for population substructure
+                                <div class="step-specs">
+                                    <strong>Method:</strong> Multidimensional Scaling (MDS) analysis<br>
+                                    <strong>Commands:</strong> --genome, --cluster --mds-plot k<br>
+                                    <strong>Dimensions:</strong> Typically k=10 components<br>
+                                    <strong>Anchoring:</strong> Compare against 1000 Genomes reference populations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="section-title">Statistical Analysis Approaches</div>
+                
+                <div class="analysis-comparison">
+            <div class="analysis-box gwas-box">
+                        <div class="analysis-title">Single-Variant GWAS</div>
+                        <div class="step-details">
+                            <strong>Binary Traits:</strong><br>
+                            • --assoc: χ² test (no covariates)<br>
+                            • --logistic: Logistic regression (with covariates)<br><br>
+                            
+                            <strong>Quantitative Traits:</strong><br>
+                            • --assoc: Student's t-test (no covariates)<br>
+                            • --linear: Linear regression (with covariates)<br><br>
+                            
+                            <strong>Genetic Models:</strong><br>
+                            • Additive (1 df): Most common, assumes linear effect<br>
+                            • Genotypic (2 df): aa vs Aa vs AA<br>
+                            • Dominant (1 df): [aa & Aa] vs AA<br>
+                            • Recessive (1 df): aa vs [Aa & AA]<br><br>
+                            
+                            <strong>Multiple Testing:</strong><br>
+                            • Genome-wide significance: p < 5×10⁻⁸<br>
+                            • African populations: p < 1×10⁻⁸<br>
+                            • Alternatives: Bonferroni, FDR, permutation testing
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-box prs-box">
+            <div class="analysis-title">Polygenic Risk Scores (PRS)</div>
+                        <div class="step-details">
+                            <strong>Concept:</strong> Aggregate genetic risk across genome into single score<br><br>
+                            
+                            <strong>Requirements:</strong><br>
+                            • Large discovery GWAS (for weights)<br>
+                            • Independent target sample (~2,000 subjects)<br>
+                            • Same ancestry populations<br><br>
+                            
+                            <strong>Calculation:</strong><br>
+                            <div class="formula short"><div class="formula medium">PRS = Σ(Number of risk alleles × Weight)</div></div>
+                            
+                            <strong>Pre-processing:</strong><br>
+                            • Clumping: Remove correlated SNPs<br>
+                            • P-value thresholds: Multiple analyses (0.5, 0.1, 0.05, etc.)<br>
+                            • LD pruning: Ensure independence<br><br>
+                            
+                            <strong>Applications:</strong><br>
+                            • Cross-trait prediction<br>
+                            • Disease risk assessment<br>
+                            • Genetic architecture studies<br>
+                            • Clinical prediction (limited current utility)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Key Technical Concepts & Definitions</div>
+                
+                <div class="qc-grid">
+            <div class="qc-card">
+                        <div class="qc-title">Linkage Disequilibrium (LD)</div>
+                        <div class="step-details"><p>Non-random association between alleles at different loci. SNPs in LD are correlated, requiring pruning/clumping for independent analyses.</p></div>
+                    </div>
+                    
+                    <div class="qc-card">
+            <div class="qc-title">Population Stratification</div>
+                        <div class="step-details"><p>Presence of multiple subpopulations with different allele frequencies. Can cause false positive associations (example: "chopsticks gene").</p></div>
+                    </div>
+                    
+                    <div class="qc-card">
+            <div class="qc-title">Clumping vs Pruning</div>
+                        <div class="step-details">
+                            <strong>Clumping:</strong> Keeps most significant SNP per LD block<br>
+                            <strong>Pruning:</strong> Removes correlated SNPs regardless of significance
+                        </div>
+                    </div>
+                    
+                    <div class="qc-card">
+            <div class="qc-title">SNP-heritability</div>
+                        <div class="step-details"><p>Fraction of phenotypic variance explained by all SNPs in analysis. Different from traditional heritability estimates.</p></div>
+                    </div>
+                    
+                    <div class="qc-card">
+            <div class="qc-title">Summary Statistics</div>
+                        <div class="step-details"><p>GWAS results including chromosome, position, SNP ID, MAF, effect size, standard error, and p-value. Often shared between researchers.</p></div>
+                    </div>
+                    
+                    <div class="qc-card">
+            <div class="qc-title">Anchoring</div>
+                        <div class="step-details"><p>Comparing study population against known reference populations (1000 Genomes, HapMap) to identify ethnic outliers.</p></div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Data Formats and File Structure</div>
+                
+                <div class="flow-step">
+            <div class="step-number">📁</div>
+                    <div class="step-content">
+            <div class="step-title">PLINK File Formats</div>
+                        <div class="step-details">
+                            <strong>Text Format:</strong><br>
+                            • .ped: Individual IDs and genotypes<br>
+                            • .map: Genetic marker information<br><br>
+                            
+                            <strong>Binary Format (Recommended):</strong><br>
+                            • .bed: Binary genotype data<br>
+                            • .bim: SNP information (replaces .map)<br>
+                            • .fam: Individual information (replaces part of .ped)<br>
+                            • .cov: Covariate file (optional)<br><br>
+                            
+                            <strong>Command Structure:</strong><br>
+                            <div class="formula short">plink --bfile filename --assoc --out results</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Best Practices and Recommendations</div>
+                
+                <div class="best-practices">
+                    <strong>✅ Essential Guidelines:</strong>
+                    <ul>
+                        <li><span class="highlight">Power Calculations:</span> Ensure adequate sample size before conducting study</li>
+                        <li><span class="highlight">Ethnic Homogeneity:</span> Analyze ethnic groups separately, combine with meta-analysis</li>
+                        <li><span class="highlight">QC Documentation:</span> Maintain detailed records of all filtering steps and thresholds</li>
+                        <li><span class="highlight">Replication:</span> Validate findings in independent samples</li>
+                        <li><span class="highlight">Functional Follow-up:</span> Use post-GWAS tools (GTEx, FUMA, pathway analysis)</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Common Pitfalls:</strong>
+                    <ul>
+                        <li>Inadequate sample sizes leading to underpowered studies</li>
+                        <li>Insufficient quality control causing spurious associations</li>
+                        <li>Ignoring population stratification</li>
+                        <li>Inappropriate multiple testing correction</li>
+                        <li>Over-interpretation of individual SNP effects</li>
+                    </ul>
+                </div>
+                
+                <div class="section-title">Tutorial Resources and Implementation</div>
+                
+                <div class="flow-step">
+            <div class="step-number">💻</div>
+                    <div class="step-content">
+            <div class="step-title">Hands-on Materials</div>
+                        <div class="step-details">
+                            <strong>Simulated Dataset:</strong> HapMap CEU population (N=207) with binary phenotype for realistic practice<br><br>
+                            
+                            <strong>GitHub Repository Includes:</strong><br>
+                            • 1_QC_GWAS.zip: Complete quality control pipeline<br>
+                            • 2_Population_stratification.zip: MDS analysis and anchoring<br>
+                            • 3_Association_GWAS.zip: Statistical association tests<br>
+                            • 4_PRS.doc: Polygenic risk score tutorial using PRSice<br><br>
+                            
+                            <strong>Learning Approach:</strong> Step-by-step scripts with explanations, allowing researchers to practice with real genetic data while learning theoretical concepts.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Impact and Future Directions</div>
+                
+                <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 20px 0;">
+                    <strong>Contribution to Field:</strong> This tutorial democratizes GWAS methodology by making it accessible to non-genetics specialists, potentially bringing new expertise and perspectives to genetic association studies.
+                    
+                    <ul style="margin-top: 15px;">
+                        <li><span class="highlight">Interdisciplinary Integration:</span> Enables collaboration between genetics and other fields</li>
+                        <li><span class="highlight">Reproducible Research:</span> Promotes standardized QC practices and analysis pipelines</li>
+                        <li><span class="highlight">Educational Resource:</span> Provides foundation for understanding genetic architecture</li>
+                        <li><span class="highlight">Clinical Translation:</span> Facilitates development of polygenic risk scores for healthcare applications</li>
+                    </ul>
+                    
+                    <strong>Future Considerations:</strong> While this tutorial covers essential GWAS concepts, emerging methods like rare variant analysis, multi-ethnic GWAS, and advanced post-GWAS analyses continue to evolve the field.
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body></html>

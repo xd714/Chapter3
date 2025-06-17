@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use of Haplotypes to Estimate Mendelian Sampling Effects and Selection Limits</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Use of Haplotypes to Estimate Mendelian Sampling Effects and Selection Limits</h1>
+            <p>Revolutionary Framework for Genomic Breeding Optimization</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> J.B. Cole, P.M. VanRaden</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Animal Improvement Programs Laboratory, ARS, USDA, Beltsville, MD, USA</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, 128 (2011) 446–455</p>
+                <p class="text-top-large">
+                    <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1439-0388.2011.00922.x"
+                       target="_blank" 
+                       class="paper-link">
+                        View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Information & Revolutionary Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Cole, J.B., & VanRaden, P.M. (2011). Use of haplotypes to estimate Mendelian sampling effects and selection limits. Journal of Animal Breeding and Genetics, 128(6), 446-455.</p>
+                    
+                    <p><strong>Revolutionary Context:</strong> This groundbreaking paper introduced the first systematic method to predict the "unpredictable" - using dense SNP data to estimate Mendelian sampling effects that had previously been considered random noise in breeding programs. It fundamentally changed how we think about genetic potential and selection limits.</p>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🧬 Paradigm-Shifting Innovation</div>
+                    <p>Transformed Mendelian sampling from an uncontrollable source of genetic variation into a predictable and manageable component of breeding programs, opening new frontiers in genetic optimization and revealing the true genetic potential hidden within livestock populations.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-1">
+                <div class="section-title">🔍 WHY, HOW, WHAT - The Complete Research Story</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">🤔 WHY - The Burning Problem</div>
+                        <div class="analysis-content">
+                            <strong>🎯 The Genetic Selection Paradox:</strong>
+                            <p>Imagine you're a cattle breeder. You select the best bull and the best cow, but their offspring can vary dramatically in genetic merit - some exceptional, others disappointing. This variation is called <span class="highlight">Mendelian sampling</span>, and it had been the "black box" of breeding programs.</p>
+                            
+                            <strong>💔 Critical Problems:</strong>
+                            <ul>
+                                <li><strong>Unpredictable genetics:</strong> Parent average only tells half the story - individual offspring genetic merit was essentially a genetic lottery</li>
+                                <li><strong>Lost opportunities:</strong> Elite animals with exceptional Mendelian sampling combinations were identified only after expensive progeny testing</li>
+                                <li><strong>Inbreeding acceleration:</strong> BLUP-based selection was creating genetic bottlenecks, using few elite sires repeatedly</li>
+                                <li><strong>Genetic diversity erosion:</strong> Intensive selection was reducing the very genetic variation that enables future progress</li>
+                            </ul>
+                            
+                            <strong>🚨 The Urgent Need:</strong>
+                            <p>With genomic selection revolutionizing animal breeding, there was desperate need for methods to:</p>
+                            <ul>
+                                <li>Predict individual genetic potential before phenotypic expression</li>
+                                <li>Quantify theoretical limits of genetic improvement</li>
+                                <li>Balance genetic gain with diversity preservation</li>
+                                <li>Optimize mating decisions using genomic information</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">🔬 HOW - The Breakthrough Methodology</div>
+                        <div class="analysis-content">
+                            <strong>🧩 The Haplotype Revolution:</strong>
+                            <p>Cole & VanRaden's genius was recognizing that dense SNP data could reveal the actual chromosomal segments inherited from each parent - the physical basis of Mendelian sampling.</p>
+                            
+                            <strong>🔧 The Two-Boundary Framework:</strong>
+                            <div class="method-grid">
+                                <div class="method-card">
+                                    <div class="method-title">Lower Bound (MSU)</div>
+                                    <p><strong>Assumption:</strong> All 43,382 SNPs unlinked</p>
+                                    <p><strong>Formula:</strong> Sum of squared differences for each marker independently</p>
+                                    <p><strong>Reality:</strong> Conservative estimate - minimum possible MS variance</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">Upper Bound (MSC)</div>
+                                    <p><strong>Assumption:</strong> Perfect linkage within each of 30 chromosomes</p>
+                                    <p><strong>Formula:</strong> Sum of squared chromosome-level effects</p>
+                                    <p><strong>Reality:</strong> Maximum possible MS variance</p>
+                                </div>
+                            </div>
+                            
+                            <strong>🎯 Selection Limit Calculation:</strong>
+                            <div class="step-specs">
+                                <strong>SLC (Conservative limit):</strong> Combine the best haplotype from each chromosome<br>
+                                <strong>SLU (Theoretical maximum):</strong> Select the best allele at every single SNP position<br>
+                                <strong>Reality check:</strong> True limits lie between these boundaries
+                            </div>
+                            
+                            <strong>🔍 Massive Dataset Analysis:</strong>
+                            <ul>
+                                <li><strong>Holstein:</strong> 40,351 animals - the genetic powerhouse</li>
+                                <li><strong>Brown Swiss:</strong> 1,455 animals - moderate diversity</li>
+                                <li><strong>Jersey:</strong> 4,064 animals - compact but efficient genetics</li>
+                                <li><strong>SNP density:</strong> 43,382 markers across the genome</li>
+                                <li><strong>Traits analyzed:</strong> Fertility (DPR), production (milk, protein), and economics (NM$)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">💥 WHAT - Mind-Blowing Discoveries</div>
+                        <div class="analysis-content">
+                            <strong>🚀 Genetic Potential Explosion:</strong>
+                            <p>The results were staggering - revealing hidden genetic potential that dwarfed current animal performance:</p>
+                            
+                            <strong>💰 Holstein Net Merit ($) - The Economic Goldmine:</strong>
+                            <ul>
+                                <li><strong>Current best bull:</strong> $1,588 GEBV</li>
+                                <li><strong>Best observed DGV:</strong> $2,528</li>
+                                <li><strong>Theoretical lower limit:</strong> $7,515 (3× better!)</li>
+                                <li><strong>Theoretical upper limit:</strong> $23,588 (15× better!)</li>
+                            </ul>
+                            
+                            <strong>🥛 Production Potential - Beyond Imagination:</strong>
+                            <div class="results-grid">
+                                <div class="stat-box">
+                                    <div class="stat-number">35,419</div>
+                                    <div class="stat-label">kg milk (Holstein upper limit)<br>vs. current ~11,000 kg</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">1,138</div>
+                                    <div class="stat-label">kg protein (Holstein upper limit)<br>vs. current ~350 kg</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">139%</div>
+                                    <div class="stat-label">Daughter pregnancy rate (Holstein upper limit)<br>vs. current ~50%</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🧬 Inbreeding-MS Relationship - The Genetic Trade-off:</strong>
+                            <ul>
+                                <li><strong>Strong negative correlations:</strong> -0.73 to -0.86 between genomic inbreeding and MS variance</li>
+                                <li><strong>Critical insight:</strong> As populations become more inbred, genetic potential decreases</li>
+                                <li><strong>Breeding strategy impact:</strong> Need to balance selection intensity with diversity maintenance</li>
+                            </ul>
+                            
+                            <strong>🎯 Breed Differences - Genetic Diversity Patterns:</strong>
+                            <ul>
+                                <li><strong>Holstein dominance:</strong> Largest genetic variance and highest selection limits across all traits</li>
+                                <li><strong>Jersey efficiency:</strong> Moderate limits but high genetic merit density</li>
+                                <li><strong>Brown Swiss stability:</strong> Consistent performance across traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🧮 Mathematical Framework - The Genetic Equations</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">📊 Mendelian Sampling Variance (Complete Linkage)</div>
+                        <div class="formula-main">
+                            MSC = Σ<sub>c=1</sub><sup>30</sup> (Σ<sub>m=1</sub><sup>nc</sup> s<sub>m</sub>a<sub>m</sub> - Σ<sub>m=1</sub><sup>nc</sup> d<sub>m</sub>a<sub>m</sub>)<sup>2</sup>
+                        </div>
+                        <div class="formula-note">
+                            <strong>Upper bound:</strong> Assumes entire chromosomes inherited as blocks<br>
+                            <strong>Biological meaning:</strong> Maximum possible Mendelian sampling variance<br>
+                            <strong>s<sub>m</sub>, d<sub>m</sub>:</strong> Sire and dam haplotypes; <strong>a<sub>m</sub>:</strong> marker effects
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">📈 Mendelian Sampling Variance (No Linkage)</div>
+                        <div class="formula-main">
+                            MSU = Σ<sub>m=1</sub><sup>43,382</sup> (s<sub>m</sub>a<sub>m</sub> - d<sub>m</sub>a<sub>m</sub>)<sup>2</sup>
+                        </div>
+                        <div class="formula-note">
+                            <strong>Lower bound:</strong> Each SNP inherited independently<br>
+                            <strong>Biological meaning:</strong> Minimum possible Mendelian sampling variance<br>
+                            <strong>Reality:</strong> True MS variance lies between MSU and MSC
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">🎯 Selection Limits - The Genetic Ceiling</div>
+                    <div class="formula-main">
+                        SL<sub>C</sub> = Σ<sub>c=1</sub><sup>30</sup> max<sub>H</sub> (Σ<sub>m=1</sub><sup>nc</sup> h<sub>m</sub>a<sub>m</sub>)
+                    </div>
+                    <div class="formula-main">
+                        SL<sub>U</sub> = Σ<sub>m=1</sub><sup>43,382</sup> max<sub>L</sub> (l<sub>m</sub>a<sub>m</sub>)
+                    </div>
+                    <div class="formula-note">
+                        <strong>SL<sub>C</sub>:</strong> Realistic limit using best chromosome haplotypes<br>
+                        <strong>SL<sub>U</sub>:</strong> Theoretical maximum using best allele at each locus<br>
+                        <strong>H:</strong> Haplotype population; <strong>L:</strong> All observed alleles
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚙️ Detailed Methodology Flow - Step by Step</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">🧬 Massive Genotype Collection</div>
+                            <div class="step-details">
+                                <strong>The Foundation:</strong> Assembled the largest dairy cattle genomic dataset of its time
+                                <div class="step-specs">
+                                    <strong>Platform:</strong> Illumina BovineSNP50 BeadChip - cutting-edge technology<br>
+                                    <strong>Coverage:</strong> 43,382 SNPs spanning entire bovine genome<br>
+                                    <strong>Quality control:</strong> Rigorous filtering for call rate, MAF, and Hardy-Weinberg equilibrium<br>
+                                    <strong>Population scope:</strong> Bulls and cows from major AI organizations
+                                </div>
+                                <p><strong>Why this mattered:</strong> This density was revolutionary - enough to capture most linkage disequilibrium blocks and enable accurate haplotype reconstruction.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">🧩 Haplotype Reconstruction Magic</div>
+                            <div class="step-details">
+                                <strong>The Challenge:</strong> Determine which chromosome came from which parent
+                                <div class="step-specs">
+                                    <strong>Software:</strong> findhap.f90 - specialized Fortran program<br>
+                                    <strong>Method:</strong> Combined population-based and pedigree-based phasing<br>
+                                    <strong>Output:</strong> Maternal and paternal haplotypes for each chromosome<br>
+                                    <strong>Validation:</strong> Cross-checked against known parent-offspring relationships
+                                </div>
+                                <p><strong>Breakthrough insight:</strong> For the first time, researchers could see the actual genetic "recipe" each parent contributed to their offspring - the physical basis of Mendelian sampling.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">📊 Marker Effect Estimation</div>
+                            <div class="step-details">
+                                <strong>The Prediction Engine:</strong> Quantify the genetic value of each DNA variant
+                                <div class="step-specs">
+                                    <strong>Model:</strong> Bayesian (Bayes A) with heavy-tailed priors<br>
+                                    <strong>Innovation:</strong> Accounts for few large-effect and many small-effect QTL<br>
+                                    <strong>Parameter:</strong> h = 1.12 (controls departure from normality)<br>
+                                    <strong>Shrinkage:</strong> Small effects regressed toward zero, large effects preserved
+                                </div>
+                                <p><strong>Statistical sophistication:</strong> This model captures the biological reality that most SNPs have tiny effects while a few have substantial impact on traits.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">🎲 MS Variance Calculation</div>
+                            <div class="step-details">
+                                <strong>The Core Innovation:</strong> Bracket the true Mendelian sampling variance
+                                <div class="step-specs">
+                                    <strong>MSC calculation:</strong> Sum chromosome-level effects (perfect linkage assumption)<br>
+                                    <strong>MSU calculation:</strong> Sum individual marker effects (no linkage assumption)<br>
+                                    <strong>Validation:</strong> Expected MS = ½ additive genetic variance falls between bounds<br>
+                                    <strong>Biological verification:</strong> MSC > MSU as expected from linkage theory
+                                </div>
+                                <p><strong>Elegant solution:</strong> By calculating both extremes, they provided bounds that must contain the true biological value, regardless of the actual linkage patterns.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">🚀 Selection Limit Discovery</div>
+                            <div class="step-details">
+                                <strong>The Holy Grail:</strong> Calculate theoretical maximum genetic merit
+                                <div class="step-specs">
+                                    <strong>Lower bound (SLC):</strong> Best haplotype per chromosome (realistic scenario)<br>
+                                    <strong>Upper bound (SLU):</strong> Best allele at every locus (theoretical maximum)<br>
+                                    <strong>Inbreeding adjustment:</strong> -6% per 1% homozygosity increase for NM$<br>
+                                    <strong>Comparison baseline:</strong> Current population DGV and GEBV values
+                                </div>
+                                <p><strong>Mind-blowing realization:</strong> The genetic potential hidden in existing populations was orders of magnitude greater than anyone had imagined!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">🔗 Relationship Analysis</div>
+                            <div class="step-details">
+                                <strong>The Genetic Trade-offs:</strong> Understand inbreeding-diversity dynamics
+                                <div class="step-specs">
+                                    <strong>Genomic inbreeding:</strong> Marker-based homozygosity calculation<br>
+                                    <strong>Temporal analysis:</strong> 1990-2010 trends in MS variance<br>
+                                    <strong>Correlation studies:</strong> MS variance vs. inbreeding coefficients<br>
+                                    <strong>GEBV relationships:</strong> High-merit animals vs. MS variance patterns
+                                </div>
+                                <p><strong>Critical insight:</strong> Elite animals weren't heavily inbred, suggesting sustainable genetic improvement was possible with proper management.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏆 Spectacular Results by Trait - The Genetic Goldmine</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">💰 Lifetime Net Merit (NM$) - Economic Revolution</div>
+                        <div class="analysis-content">
+                            <strong>🎯 Holstein - The Genetic Superpower:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">$1,588</div>
+                                    <div class="stat-label">Current best bull GEBV</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">$7,515</div>
+                                    <div class="stat-label">Realistic selection limit (SLC)</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">$23,588</div>
+                                    <div class="stat-label">Theoretical maximum (SLU)</div>
+                                </div>
+                            </div>
+                            
+                            <strong>💡 Economic Impact:</strong>
+                            <ul>
+                                <li><span class="highlight">4.7× improvement</span> with realistic haplotype selection</li>
+                                <li><span class="highlight">14.8× improvement</span> at theoretical maximum</li>
+                                <li>Potential for <span class="highlight">$5,927 additional profit</span> per cow lifetime with optimal breeding</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🤱 Daughter Pregnancy Rate (%) - Fertility Breakthrough</div>
+                        <div class="analysis-content">
+                            <strong>🔥 Fertility Explosion Potential:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">7.2%</div>
+                                    <div class="stat-label">Current best Holstein bull</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">40%</div>
+                                    <div class="stat-label">Realistic limit (SLC)</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">139%</div>
+                                    <div class="stat-label">Theoretical maximum</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🚀 Revolutionary Implications:</strong>
+                            <ul>
+                                <li><span class="highlight">5.6× fertility improvement</span> possible with haplotype selection</li>
+                                <li>Could solve the <span class="highlight">dairy fertility crisis</span> that has plagued the industry</li>
+                                <li>Dramatic reduction in <span class="highlight">reproductive costs and veterinary interventions</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🥛 Milk & Protein Yield - Production Revolution</div>
+                        <div class="analysis-content">
+                            <strong>📈 Production Limits - Beyond Imagination:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">35,419</div>
+                                    <div class="stat-label">kg milk (Holstein SLU)<br>vs. ~11,000 current</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">1,138</div>
+                                    <div class="stat-label">kg protein (Holstein SLU)<br>vs. ~350 current</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">3.2×</div>
+                                    <div class="stat-label">Realistic improvement<br>with optimal selection</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🌟 Historical Context:</strong>
+                            <ul>
+                                <li>Despite <span class="highlight">40+ years of intensive milk selection</span>, vast genetic potential remains untapped</li>
+                                <li>Current production levels are only <span class="highlight">30% of theoretical potential</span></li>
+                                <li>Protein yield could triple with optimal genetic combinations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🧬 Inbreeding-MS Variance Dynamics - The Genetic Balancing Act</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box">
+                        <div class="comparison-title">📉 Genomic Inbreeding Effects - The Diversity Trade-off</div>
+                        <div class="analysis-content">
+                            <strong>💥 Powerful Negative Correlations:</strong>
+                            <div class="mouse-lines">
+                                <div class="line-card fertility">
+                                    <h4>Brown Swiss</h4>
+                                    <p>-0.73 to -0.86<br><small>Strong MS reduction with inbreeding</small></p>
+                                </div>
+                                <div class="line-card body-mass">
+                                    <h4>Holstein</h4>
+                                    <p>-0.12 to -0.84<br><small>Variable by trait</small></p>
+                                </div>
+                                <div class="line-card endurance">
+                                    <h4>Jersey</h4>
+                                    <p>-0.01 to -0.86<br><small>Trait-dependent patterns</small></p>
+                                </div>
+                            </div>
+                            
+                            <strong>🎯 Critical Insights:</strong>
+                            <ul>
+                                <li><span class="highlight">Inbreeding kills genetic potential</span> - as homozygosity increases, MS variance plummets</li>
+                                <li><span class="highlight">Breed differences</span> reflect population structure and selection history</li>
+                                <li><span class="highlight">Holstein anomalies</span> for milk and NM$ suggest major QTL effects (DGAT1, BTA18)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box">
+                        <div class="comparison-title">📅 Temporal Trends (1990-2010) - Genetic Evolution</div>
+                        <div class="analysis-content">
+                            <strong>⏰ 20-Year Genetic Journey:</strong>
+                            <ul>
+                                <li><strong>MS variance trends:</strong> Slight decline across breeds (genetic erosion concern)</li>
+                                <li><strong>Holstein significance:</strong> Only breed showing statistically significant MS reduction</li>
+                                <li><strong>Inbreeding increase:</strong> All breeds showed rising homozygosity levels</li>
+                                <li><strong>Elite animal patterns:</strong> Top performers not heavily inbred (smart selection)</li>
+                            </ul>
+                            
+                            <strong>🔬 Interpretation - The Good News:</strong>
+                            <ul>
+                                <li><span class="highlight">Genetic diversity maintained</span> in selection candidates despite inbreeding trends</li>
+                                <li><span class="highlight">Sustainable breeding possible</span> with proper genetic management</li>
+                                <li><span class="highlight">Room for optimization</span> using haplotype-based selection strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🛠️ Revolutionary Applications - From Theory to Practice</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">🎯 Advanced Breeding Strategies</div>
+                        <div class="analysis-content">
+                            <strong>🧬 Haplotype-Optimized Mating:</strong>
+                            <ul>
+                                <li><strong>Factorial mating designs:</strong> Cross-classify potential parents and simulate 2<sup>29</sup> possible offspring combinations</li>
+                                <li><strong>MS variance optimization:</strong> Select matings producing high-merit, high-variance offspring for maximum future potential</li>
+                                <li><strong>Balanced strategies:</strong> Trade-off between immediate genetic gain and long-term genetic sustainability</li>
+                                <li><strong>Embryo screening potential:</strong> Genotype embryos to select extreme genetic merit before implantation</li>
+                            </ul>
+                            
+                            <strong>💡 Game-Changing Implementation:</strong>
+                            <ul>
+                                <li><span class="highlight">AI organizations</span> can optimize sire selection based on haplotype complementarity</li>
+                                <li><span class="highlight">Dairy farmers</span> can make informed mating decisions using genomic compatibility scores</li>
+                                <li><span class="highlight">Breeding companies</span> can develop elite lines through systematic haplotype accumulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">🌱 Population Management Revolution</div>
+                        <div class="analysis-content">
+                            <strong>⚖️ Genetic Diversity Optimization:</strong>
+                            <ul>
+                                <li><strong>Optimal contribution schemes:</strong> Balance genetic gain with inbreeding control using MS variance constraints</li>
+                                <li><strong>Haplotype diversity indices:</strong> Monitor and preserve rare but valuable genetic combinations</li>
+                                <li><strong>Long-term sustainability:</strong> Prevent genetic erosion while maximizing selection response</li>
+                                <li><strong>Crisis prevention:</strong> Early warning systems for genetic bottlenecks</li>
+                            </ul>
+                            
+                            <strong>🔮 Future-Proofing Strategies:</strong>
+                            <ul>
+                                <li><span class="highlight">Gene bank optimization:</span> Preserve haplotypes with maximum MS potential</li>
+                                <li><span class="highlight">Crossbreeding design:</span> Exploit heterosis while maintaining breed integrity</li>
+                                <li><span class="highlight">Climate adaptation:</span> Select for environmental resilience using MS variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚠️ Study Limitations and Future Frontiers</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">🔍 Current Methodological Constraints</div>
+                    <div class="gap-content">
+                        <strong>📊 Statistical Limitations:</strong>
+                        <ul>
+                            <li><strong>Marker effect shrinkage:</strong> Bayesian regression systematically underestimates true genetic variance - reality likely even more exciting!</li>
+                            <li><strong>Linkage assumptions:</strong> Perfect vs. no linkage are extremes - real biology lies somewhere between</li>
+                            <li><strong>Population closure:</strong> Assumes no mutation, migration, or new genetic variants entering</li>
+                            <li><strong>Epistasis ignorance:</strong> Gene-by-gene interactions could dramatically alter selection limits</li>
+                        </ul>
+                        
+                        <strong>⏰ Temporal Challenges:</strong>
+                        <ul>
+                            <li><strong>Selection pressure:</strong> Intensive selection will change allele frequencies, altering future limits</li>
+                            <li><strong>Environmental change:</strong> Climate change may shift optimal genetic combinations</li>
+                            <li><strong>Economic evolution:</strong> Changing market values will modify trait importance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🚀 Exciting Future Research Directions</div>
+                    <div class="significance-content">
+                        <strong>🧬 Next-Generation Methodologies:</strong>
+                        <ul>
+                            <li><strong>Recombination mapping:</strong> Use actual LD block structure instead of chromosome-level assumptions</li>
+                            <li><strong>Dynamic selection models:</strong> Account for changing allele frequencies during multi-generation selection</li>
+                            <li><strong>Epistatic networks:</strong> Incorporate gene-by-gene interactions into selection limit calculations</li>
+                            <li><strong>Multi-trait optimization:</strong> Simultaneously optimize correlated traits with biological constraints</li>
+                        </ul>
+                        
+                        <strong>🌍 Expanding Applications:</strong>
+                        <ul>
+                            <li><strong>Species diversification:</strong> Apply to pigs, sheep, poultry, aquaculture, and plant breeding</li>
+                            <li><strong>Conservation genetics:</strong> Optimize genetic rescue programs for endangered populations</li>
+                            <li><strong>Human genetics:</strong> Theoretical applications to polygenic score optimization</li>
+                            <li><strong>Synthetic biology:</strong> Design optimal genetic constructs for biotechnology</li>
+                        </ul>
+                        
+                        <strong>💻 Technological Integration:</strong>
+                        <ul>
+                            <li><strong>Machine learning:</strong> AI-powered haplotype selection and mating optimization</li>
+                            <li><strong>Real-time genomics:</strong> Integration with commercial breeding software platforms</li>
+                            <li><strong>Economic modeling:</strong> Cost-benefit optimization of genetic improvement strategies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🌟 Impact and Legacy - Revolutionary Transformation</div>
+                
+                <div class="legacy-box">
+                    <p><strong>🔬 Scientific Revolution:</strong> This paper fundamentally transformed quantitative genetics by proving that the "random" component of inheritance could be predicted and optimized. It shifted the paradigm from accepting Mendelian sampling as uncontrollable noise to recognizing it as the key to unlocking genetic potential.</p>
+                    
+                    <p><strong>💰 Economic Transformation:</strong> By revealing the hidden genetic goldmine within existing populations, this work has guided billions of dollars in breeding investments toward more efficient strategies:</p>
+                    <ul>
+                        <li><span class="highlight">AI industry revolution:</span> Sire selection now considers haplotype complementarity</li>
+                        <li><span class="highlight">Breeding program optimization:</span> Long-term genetic sustainability balanced with short-term gains</li>
+                        <li><span class="highlight">Risk management:</span> Genetic diversity preservation strategies prevent catastrophic losses</li>
+                        <li><span class="highlight">Investment guidance:</span> Quantified ROI for different genetic improvement strategies</li>
+                    </ul>
+                    
+                    <p><strong>🧬 Methodological Legacy:</strong> The haplotype-based framework spawned entire research fields:</p>
+                    <ul>
+                        <li><strong>Optimal contribution selection:</strong> Mathematical optimization of breeding decisions</li>
+                        <li><strong>Mate allocation algorithms:</strong> Computer-assisted breeding program management</li>
+                        <li><strong>Genetic diversity metrics:</strong> Population-level genetic health monitoring</li>
+                        <li><strong>Selection limit theory:</strong> Fundamental understanding of genetic improvement boundaries</li>
+                    </ul>
+                    
+                    <p><strong>🌍 Global Impact:</strong> This methodology has been adopted worldwide, influencing breeding programs across species and continents. It provided the theoretical foundation for the genomic revolution that followed, enabling sustainable genetic improvement in the face of growing global food demands.</p>
+                    
+                    <p><strong>🔮 Future Vision:</strong> As we enter the era of gene editing and synthetic biology, the principles established in this paper provide the roadmap for optimizing genetic potential while preserving the diversity essential for adaptation and resilience.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎯 Key Takeaways for Modern Breeding</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">🧠 Theoretical Breakthroughs</div>
+                        <div class="analysis-content">
+                            <ul>
+                                <li><strong>Mendelian sampling quantification:</strong> First systematic method to estimate the "unestimable"</li>
+                                <li><strong>Selection limit theory:</strong> Mathematical framework for genetic potential assessment</li>
+                                <li><strong>Haplotype optimization:</strong> Chromosome-level genetic improvement strategies</li>
+                                <li><strong>Inbreeding-diversity balance:</strong> Quantified trade-offs in breeding decisions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">🔬 Methodological Innovations</div>
+                        <div class="analysis-content">
+                            <ul>
+                                <li><strong>Two-boundary framework:</strong> Elegant solution to linkage uncertainty</li>
+                                <li><strong>Dense SNP utilization:</strong> Maximum information extraction from genomic data</li>
+                                <li><strong>Population-scale analysis:</strong> Statistical power through large datasets</li>
+                                <li><strong>Multi-trait evaluation:</strong> Comprehensive genetic merit assessment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">🚀 Practical Applications</div>
+                        <div class="analysis-content">
+                            <ul>
+                                <li><strong>Breeding program optimization:</strong> Data-driven genetic improvement strategies</li>
+                                <li><strong>Mating decisions:</strong> Haplotype-informed breeding choices</li>
+                                <li><strong>Population management:</strong> Genetic diversity preservation tools</li>
+                                <li><strong>Economic optimization:</strong> ROI maximization in genetic improvement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

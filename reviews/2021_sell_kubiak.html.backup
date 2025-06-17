@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection for Litter Size and Birthweight: Maximum, Mean and Variability</title>
+    <link rel="stylesheet" href="style.css">
+    
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Selection for Litter Size and Litter Birthweight in Large White Pigs</h1>
+            <p>Maximum, Mean and Variability of Reproduction Traits</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Author:</strong> Ewa Sell-Kubiak</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Department of Genetics and Animal Breeding, Poznan University of Life Sciences, Poland</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Animal 15 (2021) 100352</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1016/j.animal.2021.100352"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Paper Overview & Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Sell-Kubiak, E. (2021). Selection for litter size and litter birthweight in Large White pigs: Maximum, mean and variability of reproduction traits. Animal, 15(9), 100352.</p>
+                    
+                    <p><strong>Context:</strong> Danish sows increased litter size from 11.7 to 17.5 piglets (2000-2019), creating management challenges including lactation capacity limitations, decreased birthweight, and increased stillborn rates.</p>
+                    
+                    <p><strong>Dataset:</strong> 23,193 Large White sows from Topigs Norsvin with 152,282 litter records, requiring ≥5 parities per sow with 1st parity recorded.</p>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">Key Innovation: Balanced Selection Strategy</div>
+                    <p>This study introduces a comprehensive framework for balancing litter size optimization with trait uniformity by analyzing maximum, mean, and variability phenotypes simultaneously, providing practical breeding solutions for sustainable pig production.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-analysis">
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Management & Welfare Challenges</div>
+                        <div class="analysis-content">
+                            <strong>Increasing Litter Size Challenges:</strong>
+                            <ul>
+                                <li><span class="highlight">Lactation capacity</span> - Number of teats vs. piglet number mismatch</li>
+                                <li><span class="highlight">Decreasing birthweight</span> - Larger litters produce smaller piglets</li>
+                                <li><span class="highlight">Higher stillborn rates</span> - Welfare issues for sows and piglets</li>
+                                <li><span class="highlight">Management complexity</span> - Difficulty handling very large litters</li>
+                            </ul>
+                            
+                            <strong>Biological Limitations:</strong>
+                            <ul>
+                                <li><span class="highlight">Uterine capacity</span> - Physical limits to reproduction</li>
+                                <li><span class="highlight">Trait variability</span> - Increased variation with genetic improvement</li>
+                                <li><span class="highlight">Correlated responses</span> - Positive correlation between mean and variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Comprehensive Trait Analysis</div>
+                        <div class="analysis-content">
+                            <strong>Three-Trait Framework:</strong>
+                            
+                            <div class="method-comparison">
+                                <div class="method-box method-1">
+                                    <div class="method-title">1. Maximum Traits (max)</div>
+                                    <ul>
+                                        <li><strong>Definition:</strong> Highest value from ≥5 records per sow</li>
+                                        <li><strong>Purpose:</strong> Assess maximum uterine capacity</li>
+                                        <li><strong>Traits:</strong> maxTNB, maxNBA, maxLW</li>
+                                        <li><strong>Advantage:</strong> Higher heritability (0.24-0.31)</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="method-box method-2">
+                                    <div class="method-title">2. Mean Traits (mean)</div>
+                                    <ul>
+                                        <li><strong>Definition:</strong> Average across all parities per sow</li>
+                                        <li><strong>Purpose:</strong> Assess consistent performance</li>
+                                        <li><strong>Traits:</strong> meanTNB, meanNBA, meanLW</li>
+                                        <li><strong>Challenge:</strong> Lower heritability (0.05-0.08)</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="method-box method-3">
+                                    <div class="method-title">3. Variability Traits (LnVar)</div>
+                                    <ul>
+                                        <li><strong>Definition:</strong> Log-transformed variance of residuals</li>
+                                        <li><strong>Purpose:</strong> Assess trait uniformity</li>
+                                        <li><strong>Traits:</strong> LnVarTNB, LnVarNBA, LnVarLW</li>
+                                        <li><strong>Innovation:</strong> Genetic control of trait variation</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <strong>Statistical Models:</strong>
+                            <p>Mixed-effect models in ASReml 4.1 with genetic, permanent environmental, and residual effects, including weighting factors for unequal records per sow.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Key Findings & Recommendations</div>
+                        <div class="analysis-content">
+                            <strong>Heritability Results:</strong>
+                            <ul>
+                                <li><span class="highlight">Maximum traits:</span> h² = 0.24-0.31 (high response potential)</li>
+                                <li><span class="highlight">Mean traits:</span> h² = 0.05-0.08 (slower response)</li>
+                                <li><span class="highlight">Variability traits:</span> h² = 0.004-0.007 (limited but possible)</li>
+                            </ul>
+
+                            <strong>Critical Correlations:</strong>
+                            <ul>
+                                <li><span class="highlight">Mean-Variability:</span> rg = 0.66-0.74 (strong positive)</li>
+                                <li><span class="highlight">Cross-trait:</span> rg = 0.33-0.99 (highly variable)</li>
+                                <li><span class="highlight">Implication:</span> Increased size → increased variation</li>
+                            </ul>
+
+                            <strong>Breeding Recommendations:</strong>
+                            <ul>
+                                <li><span class="highlight">Balanced approach:</span> Consider mean + variability simultaneously</li>
+                                <li><span class="highlight">Maximum traits:</span> Use for identification, not direct selection</li>
+                                <li><span class="highlight">Sow longevity:</span> 15% reach maximum after parity 6</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mathematical">
+                <div class="section-title">Mathematical Models & Methods</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Classical Reproduction Traits Model</div>
+                            <div class="step-details">
+                                <strong>Base Model for TNB, NBA, LW:</strong>
+                                <div class="formula">y = Xβ + Za + Upe + e</div>
+                                
+                                <div class="step-specs">
+                                    <strong>Where:</strong><br>
+                                    • y = vector of observations<br>
+                                    • X, Z, U = incidence matrices<br>
+                                    • β = fixed effects (farm-year-season, parity, age)<br>
+                                    • a = additive genetic effects<br>
+                                    • pe = permanent environmental effects<br>
+                                    • e = residual effects
+                                </div>
+                                
+                                <strong>Fixed Effects:</strong>
+                                <ul>
+                                    <li>Farm-year-season of farrowing (1,435 levels)</li>
+                                    <li>Parity of sow (10 levels)</li>
+                                    <li>Age at first insemination</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Maximum Value Traits Model</div>
+                            <div class="step-details">
+                                <strong>Model for maxTNB, maxNBA, maxLW:</strong>
+                                <div class="formula">y₁ = X₁β₁ + Z₁a₁ + e₁</div>
+                                
+                                <div class="step-specs">
+                                    <strong>Key Differences:</strong><br>
+                                    • Single record per sow (highest value)<br>
+                                    • No permanent environmental effect<br>
+                                    • Farm-year-season (1,265 levels)<br>
+                                    • Effects recorded at maximum value occurrence
+                                </div>
+                                
+                                <strong>Selection Criteria:</strong>
+                                <p>First occurrence of maximum value used if multiple parities achieved the same maximum (following Freyer, 2018 approach).</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Mean Value Traits Model</div>
+                            <div class="step-details">
+                                <strong>Model for meanTNB, meanNBA, meanLW:</strong>
+                                <div class="formula">y₂ = X₂β₂ + Z₂a₂ + e₂</div>
+                                
+                                <div class="step-specs">
+                                    <strong>Weighting System:</strong><br>
+                                    • Residuals weighted by number of litters per sow<br>
+                                    • Accounts for unequal information per animal<br>
+                                    • Farm-year-season of first farrowing (1,007 levels)<br>
+                                    • Age at first insemination (meanLW only)
+                                </div>
+                                
+                                <strong>Calculation:</strong>
+                                <div class="formula">meanTrait = Σ(observations per sow) / n</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Variability Traits Model</div>
+                            <div class="step-details">
+                                <strong>Two-Step Process:</strong>
+                                
+                                <strong>Step 1: Residual Calculation</strong>
+                                <p>Obtain residuals from classical model (1) for each observation</p>
+                                
+                                <strong>Step 2: Variance Calculation & Log-Transformation</strong>
+                                <div class="formula">LnVar = ln(Var(residuals per sow))</div>
+                                
+                                <strong>Model for LnVarTNB, LnVarNBA, LnVarLW:</strong>
+                                <div class="formula">y₃ = X₃β₃ + Z₃a₃ + e₃</div>
+                                
+                                <div class="step-specs">
+                                    <strong>Fixed Effects:</strong><br>
+                                    • Farm-year-season of first farrowing (1,007 levels)<br>
+                                    • Weighted residuals (number of observations per sow)<br>
+                                    • Unique variability value per sow per trait
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Coefficient of Variation (GCVSDe)</div>
+                            <div class="step-details">
+                                <strong>Transformation from Variance to SD Scale:</strong>
+                                <div class="formula-box">
+                                    <div class="formula-title">Genetic Coefficient of Variation on SD Scale</div>
+                                    <div class="formula-main">GCV<sub>SDe</sub> = (σ²<sub>av</sub>(σ²<sub>e</sub>)/σ²<sub>e</sub>) &asymp; 0.5σ<sub>av</sub></div>
+                                </div>
+                                
+                                <div class="step-specs">
+                                    <strong>Purpose:</strong><br>
+                                    • Translate variance-level estimates to SD scale<br>
+                                    • Assess potential response to selection<br>
+                                    • Compare across different traits<br>
+                                    • Practical interpretation for breeders
+                                </div>
+                                
+                                <strong>Results:</strong>
+                                <ul>
+                                    <li>LnVarTNB: GCV<sub>SDe</sub> = 0.080 (8% potential change)</li>
+                                    <li>LnVarNBA: GCV<sub>SDe</sub> = 0.063 (6% potential change)</li>
+                                    <li>LnVarLW: GCV<sub>SDe</sub> = 0.087 (9% potential change)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">Multivariate Correlation Analysis</div>
+                            <div class="step-details">
+                                <strong>Trivariate Models for Mean Traits:</strong>
+                                <div class="matrix-container">
+                                    <div class="matrix-equation">
+                                        <div class="vector">
+                                            <div>y<sub>meanTNB</sub></div>
+                                            <div>y<sub>meanNBA</sub></div>
+                                            <div>y<sub>meanLW</sub></div>
+                                        </div>
+                                        <div class="equals">=</div>
+                                        <div class="matrix-3x3">
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">X<sub>meanTNB</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">X<sub>meanNBA</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">X<sub>meanLW</sub></div>
+                                            </div>
+                                        </div>
+                                        <div class="vector">
+                                            <div>β<sub>meanTNB</sub></div>
+                                            <div>β<sub>meanNBA</sub></div>
+                                            <div>β<sub>meanLW</sub></div>
+                                        </div>
+                                        <div class="plus">+</div>
+                                    </div>
+                                    
+                                    <div class="matrix-equation">
+                                        <div class="matrix-3x3">
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">Z<sub>meanTNB</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">Z<sub>meanNBA</sub></div>
+                                                <div class="matrix-cell">0</div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">0</div>
+                                                <div class="matrix-cell">Z<sub>meanLW</sub></div>
+                                            </div>
+                                        </div>
+                                        <div class="vector">
+                                            <div>a<sub>meanTNB</sub></div>
+                                            <div>a<sub>meanNBA</sub></div>
+                                            <div>a<sub>meanLW</sub></div>
+                                        </div>
+                                        <div class="plus">+</div>
+                                        <div class="vector">
+                                            <div>e<sub>meanTNB</sub></div>
+                                            <div>e<sub>meanNBA</sub></div>
+                                            <div>e<sub>meanLW</sub></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <strong>Genetic Variance-Covariance Structure:</strong>
+                                <div class="formula-box">
+                                    <div class="formula-main">a ~ N(0, <strong>G</strong> ⊗ <strong>A</strong>)</div>
+                                    <div class="matrix-definition">
+                                        <strong>where G =</strong>
+                                        <div class="matrix-3x3" style="display: inline-table; margin-left: 10px;">
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">σ²<sub>a,TNB</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,TNB,NBA</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,TNB,LW</sub></div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">σ<sub>a,NBA,TNB</sub></div>
+                                                <div class="matrix-cell">σ²<sub>a,NBA</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,NBA,LW</sub></div>
+                                            </div>
+                                            <div class="matrix-row">
+                                                <div class="matrix-cell">σ<sub>a,LW,TNB</sub></div>
+                                                <div class="matrix-cell">σ<sub>a,LW,NBA</sub></div>
+                                                <div class="matrix-cell">σ²<sub>a,LW</sub></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <strong>Weighting Matrix:</strong>
+                                <div class="formula-box">
+                                    <div class="formula-main">Var(e) = <strong>W</strong> × diag(σ²<sub>e,TNB</sub>, σ²<sub>e,NBA</sub>, σ²<sub>e,LW</sub>) ⊗ <strong>I</strong></div>
+                                    <div class="formula-note">where <strong>W</strong> = weighting factor based on number of observations per sow</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-simulation">
+                <div class="section-title">Breeding Simulation Analysis</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box">
+                        <div class="comparison-title">SelAction 2.1 Framework</div>
+                        <div class="step-details">
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li>1:5 mating ratio (200 boars, 1,000 sows)</li>
+                                <li>6 male + 6 female piglets kept per sow</li>
+                                <li>Selection intensity: 0.033 (males), 0.167 (females)</li>
+                            </ul>
+                            
+                            <strong>Information Sources:</strong>
+                            <ul>
+                                <li><strong>Sows:</strong> Own performance + BLUP + 5 full-sib + 24 half-sib</li>
+                                <li><strong>Boars:</strong> BLUP + 6 full-sib + 24 half-sib information</li>
+                            </ul>
+                            
+                            <strong>Input Parameters:</strong>
+                            <p>Heritabilities, phenotypic variations, and genetic/phenotypic correlations from ASReml results</p>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box">
+                        <div class="comparison-title">Four Breeding Scenarios</div>
+                        <div class="step-details">
+                            <strong>Scenario 1: Mean Increase Only</strong>
+                            <ul>
+                                <li>Economic value = 1 for single mean trait</li>
+                                <li>Result: 1.1-2.8% yearly increase in variability</li>
+                            </ul>
+                            
+                            <strong>Scenario 2: Variability Decrease Only</strong>
+                            <ul>
+                                <li>Economic value = -1 for single LnVar trait</li>
+                                <li>Result: Similar magnitude decrease in means</li>
+                            </ul>
+                            
+                            <strong>Scenario 3: Maintain Mean + Reduce Variability</strong>
+                            <ul>
+                                <li>Mean: economic value ≈ 0.11, LnVar: -1</li>
+                                <li>Result: Difficult to achieve, limited success</li>
+                            </ul>
+                            
+                            <strong>Scenario 4: Increase Mean + Reduce Variability</strong>
+                            <ul>
+                                <li>Mean: economic value ≈ 0.11, LnVar: -1</li>
+                                <li>Result: Only NBA scenario somewhat successful</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">0.31</div>
+                        <div class="stat-label">Heritability<br>maxTNB<br>(vs 0.12 for TNB)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">0.74</div>
+                        <div class="stat-label">Genetic Correlation<br>Mean-Variability<br>(Strong Positive)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">6-9%</div>
+                        <div class="stat-label">Maximum Change<br>Genetic SD<br>(TNB, LW)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-implications">
+                <div class="section-title">Practical Implications & Findings</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Maximum Traits: Use with Caution</div>
+                        <ul>
+                            <li><strong>Higher heritability:</strong> 2.5× higher than classical traits</li>
+                            <li><strong>Faster genetic gain:</strong> Theoretical advantage for selection</li>
+                            <li><strong>Hidden costs:</strong> Increased stillborn ratio and trait variability</li>
+                            <li><strong>Recommendation:</strong> Use for identification of early-maturing sows, not direct selection</li>
+                            <li><strong>Optimal use:</strong> Identify sows reaching peak performance by parity 3</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Sow Longevity Insights</div>
+                        <ul>
+                            <li><strong>Extended productivity:</strong> 15% of sows reach maximum after parity 6</li>
+                            <li><strong>Economic impact:</strong> Retaining productive sows beyond parity 5 beneficial</li>
+                            <li><strong>Selection timing:</strong> Maintain selection decisions at parity 3</li>
+                            <li><strong>Management strategy:</strong> Use genomic selection to predict late-parity performance</li>
+                            <li><strong>Industry practice:</strong> Challenge current culling strategies</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Complex Correlation Challenge:</strong> The strong positive genetic correlations (0.66-0.74) between mean and variability traits create a fundamental trade-off - improving average performance automatically increases variation, making simultaneous improvement in both directions extremely challenging.
+                </div>
+                
+                <div class="solution-box">
+                    <strong>Balanced Breeding Solution:</strong> Implement multi-trait selection indices that explicitly include variability traits with appropriate economic weights, focusing on sustainable genetic gain while maintaining trait uniformity for improved animal welfare and farm management.
+                </div>
+            </div>
+
+            <div class="section" id="section-future">
+                <div class="section-title">Future Directions & Limitations</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">Research Limitations</div>
+                    <div class="gap-content">
+                        <ul>
+                            <li><strong>Single breed focus:</strong> Results specific to Large White pigs</li>
+                            <li><strong>Minimum record requirement:</strong> ≥5 parities may bias toward longer-lived sows</li>
+                            <li><strong>Limited genomic information:</strong> No molecular genetic analysis</li>
+                            <li><strong>Simulation constraints:</strong> Theoretical breeding scenarios vs. real-world complexity</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Industry Impact & Future Research</div>
+                    <div class="significance-content">
+                        <strong>Immediate Applications:</strong>
+                        <ul>
+                            <li>Breeding program design incorporating variability traits</li>
+                            <li>Economic weight determination for balanced selection</li>
+                            <li>Sow management strategies for extended productive life</li>
+                            <li>Genomic selection for predicting maximum performance timing</li>
+                        </ul>
+                        
+                        <strong>Future Research Needs:</strong>
+                        <ul>
+                            <li>Genomic analysis of variability traits</li>
+                            <li>Multi-breed validation studies</li>
+                            <li>Integration with functional trait selection (teat number, milk production)</li>
+                            <li>Economic modeling of welfare costs vs. production benefits</li>
+                            <li>Investigation of epigenetic effects on trait variability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

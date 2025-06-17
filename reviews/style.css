@@ -2191,7 +2191,228 @@ html {
 }
 
 
+/* ============================================
+   MOBILE VIEWPORT FIXES - Add these to your style.css
+   ============================================ */
 
+/* 1. Add this at the very top of your CSS file */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* 2. Modify the body selector - find your existing body rule and update it */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: var(--bg-main);
+    line-height: 1.6;
+    color: var(--text-primary);
+    /* ADD THESE LINES: */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    width: 100%;
+    max-width: 100vw; /* Never exceed viewport width */
+    box-sizing: border-box;
+}
+
+/* 3. Add universal box-sizing and width constraints */
+*, *::before, *::after {
+    box-sizing: border-box;
+    max-width: 100%; /* Prevent any element from exceeding container width */
+}
+
+/* 4. Fix container width issues */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: var(--bg-white);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    overflow: hidden;
+    position: relative;
+    /* ADD THESE LINES: */
+    width: calc(100% - 40px); /* Account for body padding */
+    min-width: 0; /* Allow shrinking below content width */
+}
+
+/* 5. Fix formula and table overflow issues */
+.formula {
+    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.8) 100%);
+    padding: 15px 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    border: 2px solid var(--primary-color);
+    font-size: 1.0em;
+    color: var(--text-primary);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: block;
+    /* MODIFY THESE LINES: */
+    width: 100%; /* Change from fit-content */
+    max-width: 100%; /* Ensure it doesn't exceed container */
+    min-width: 0; /* Allow shrinking */
+    line-height: 1.3;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--primary-light);
+    box-sizing: border-box;
+}
+
+/* 6. Fix table container overflow */
+.table-container {
+    margin: 30px auto;
+    max-width: 100%; /* Change from 95% */
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 7. Improve mobile responsiveness - UPDATE your existing mobile breakpoint */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Reduce padding */
+        margin: 0; /* Remove any margin */
+        width: 100vw; /* Full viewport width */
+        overflow-x: hidden;
+    }
+    
+    .container {
+        border-radius: 8px;
+        margin: 10px auto;
+        width: calc(100vw - 20px); /* Full width minus padding */
+        max-width: none; /* Remove max-width constraint */
+    }
+    
+    .header {
+        padding: 30px 15px; /* Reduce horizontal padding */
+    }
+    
+    .content {
+        padding: 25px 15px; /* Reduce horizontal padding */
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Fix all sections and containers */
+    .section,
+    .flow-container,
+    .model-comparison,
+    .method-comparison,
+    .comparison-grid,
+    .analysis-grid,
+    .theme-container,
+    .concept-grid,
+    .method-grid,
+    .software-grid,
+    .qc-grid,
+    .species-grid,
+    .equation-grid {
+        margin: 25px 0; /* Remove auto margins */
+        max-width: 100%;
+        padding: 0; /* Remove horizontal padding */
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Fix formula on mobile */
+    .formula {
+        font-size: 0.85em;
+        padding: 10px;
+        width: 100%;
+        min-width: 0;
+        white-space: normal; /* Allow wrapping on very small screens */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* Fix matrix containers */
+    .matrix-container {
+        padding: 15px 10px;
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .matrix-equation {
+        min-width: 0;
+        flex-wrap: wrap; /* Allow wrapping */
+    }
+    
+    /* Ensure all cards and boxes fit */
+    .step-content,
+    .model-box,
+    .analysis-card,
+    .citation,
+    .citation-box,
+    .innovation-box,
+    .problem-box,
+    .solution-box {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* 8. Extra small mobile devices */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    .container {
+        width: calc(100vw - 10px);
+        margin: 5px auto;
+        border-radius: 6px;
+    }
+    
+    .content {
+        padding: 20px 10px;
+    }
+    
+    .header {
+        padding: 20px 10px;
+    }
+    
+    .formula {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+}
+
+/* 9. Fix for very wide content that might cause horizontal scroll */
+img, video, iframe, object, embed {
+    max-width: 100%;
+    height: auto;
+}
+
+pre, code {
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 10. Ensure grid items don't overflow */
+.model-comparison > *,
+.method-comparison > *,
+.comparison-grid > *,
+.analysis-grid > *,
+.concept-grid > *,
+.method-grid > * {
+    min-width: 0; /* Allow grid items to shrink */
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
 
 

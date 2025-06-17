@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Considerations When Using Mendelian Sampling Variances for Selection Decisions in Genomic Selection Programs</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Practical Considerations When Using Mendelian Sampling Variances for Selection Decisions in Genomic Selection Programs</h1>
+            <p>Real-World Implementation of Advanced Genomic Selection Theory</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> T.A.M. Niehoff, J. ten Napel, M.P.L. Calus</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Animal Breeding and Genomics, Wageningen University & Research, Netherlands</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, 2025; 142:419–437</p>
+                <p class="text-top-large">
+                    <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/jbg.12913"
+                       target="_blank" 
+                       class="paper-link">
+                        View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Information & Research Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Niehoff, T.A.M., ten Napel, J., & Calus, M.P.L. (2025). Practical Considerations When Using Mendelian Sampling Variances for Selection Decisions in Genomic Selection Programs. Journal of Animal Breeding and Genetics, 142(4), 419-437.</p>
+                    
+                    <p><strong>Research Context:</strong> This groundbreaking study represents the first comprehensive evaluation of Mendelian sampling variance (MSV) criteria in large-scale commercial breeding programs using estimated rather than assumed marker effects. It bridges the gap between theoretical advances and practical implementation in genomic selection.</p>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🧬 Practical Innovation Breakthrough</div>
+                    <p>First real-world validation that MSV-considering selection criteria can maintain up to 20% more genetic variance while achieving equal or superior commercial genetic gains compared to traditional GEBV-based selection in commercial breeding programs.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-1">
+                <div class="section-title">🔍 WHY, HOW, WHAT - The Complete Research Journey</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">🤔 WHY - The Implementation Gap</div>
+                        <div class="analysis-content">
+                            <strong>🎯 The Theory-Practice Divide:</strong>
+                            <p>While theoretical advances in Mendelian sampling variance had shown promise in simulation studies, <span class="highlight">no study had tested these methods in realistic commercial breeding programs</span> using estimated rather than known marker effects.</p>
+                            
+                            <strong>💔 Critical Knowledge Gaps:</strong>
+                            <ul>
+                                <li><strong>Estimation accuracy impact:</strong> How do imperfect SNP effect estimates affect MSV-based selection performance?</li>
+                                <li><strong>Scale dependency:</strong> Do benefits scale with genomic prediction accuracy and training population size?</li>
+                                <li><strong>Commercial viability:</strong> Can MSV methods maintain competitive genetic gains while preserving diversity?</li>
+                                <li><strong>Long-term sustainability:</strong> What are the trade-offs between immediate gains and future genetic potential?</li>
+                            </ul>
+                            
+                            <strong>🚨 Industry Urgent Needs:</strong>
+                            <p>Commercial breeding companies needed validated, practical methods to:</p>
+                            <ul>
+                                <li>Maintain genetic diversity without sacrificing genetic progress</li>
+                                <li>Optimize long-term genetic gains beyond simple GEBV maximization</li>
+                                <li>Balance selection intensity with sustainable breeding practices</li>
+                                <li>Implement advanced theoretical concepts in real breeding workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">🔬 HOW - Comprehensive Simulation Framework</div>
+                        <div class="analysis-content">
+                            <strong>🧩 Realistic Breeding Program Design:</strong>
+                            <p>The authors created a comprehensive pig breeding simulation that mirrors real commercial operations with unprecedented detail and complexity.</p>
+                            
+                            <strong>🔧 Multi-Generational Selection Criteria:</strong>
+                            <div class="method-grid">
+                                <div class="method-card">
+                                    <div class="method-title">Index5 (1 Gen Ahead)</div>
+                                    <p><strong>Target:</strong> Maximize offspring performance</p>
+                                    <p><strong>Formula:</strong> BV + x<sub>m</sub> × √(2σ²<sub>gamMS</sub>)</p>
+                                    <p><strong>Application:</strong> AI boar selection for production</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">ExpBVSelGrOff (2 Gen Ahead)</div>
+                                    <p><strong>Target:</strong> Maximize grand-offspring breeding values</p>
+                                    <p><strong>Innovation:</strong> Considers full-sib variance and gametic MSV</p>
+                                    <p><strong>Strategy:</strong> Population improvement focus</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">ExpBVSelGrGrOff (3 Gen Ahead)</div>
+                                    <p><strong>Target:</strong> Maximize great-grand-offspring performance</p>
+                                    <p><strong>Complexity:</strong> Considers quartet matings and multi-generation variance</p>
+                                    <p><strong>Vision:</strong> Long-term genetic optimization</p>
+                                </div>
+                            </div>
+                            
+                            <strong>🎯 Experimental Design Excellence:</strong>
+                            <div class="step-specs">
+                                <strong>Population Structure:</strong> 40 males + 400 females selected per generation<br>
+                                <strong>Genetic Architecture:</strong> 6,000 QTLs with gamma distribution (shape=0.4)<br>
+                                <strong>Genomic Array:</strong> 20,000 SNPs strategically distributed across genome<br>
+                                <strong>Training Populations:</strong> 1, 3, or 6 generations for accuracy comparison
+                            </div>
+                            
+                            <strong>🔍 Innovative Selection Algorithm:</strong>
+                            <ul>
+                                <li><strong>GCA-inspired approach:</strong> Iterative reduction using "tester" concept from hybrid breeding</li>
+                                <li><strong>Computational efficiency:</strong> Evaluates subset rather than all possible matings</li>
+                                <li><strong>Scalable design:</strong> Manages millions of potential mating combinations</li>
+                                <li><strong>Practical implementation:</strong> Bridges theory-practice gap for commercial use</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">💥 WHAT - Revolutionary Practical Discoveries</div>
+                        <div class="analysis-content">
+                            <strong>🚀 Commercial Genetic Gains:</strong>
+                            <p>The results demonstrated that MSV criteria can deliver superior commercial performance while maintaining genetic sustainability:</p>
+                            
+                            <strong>💰 Key Performance Metrics:</strong>
+                            <ul>
+                                <li><strong>Commercial genetic level:</strong> 2% higher with longest planning horizon + largest reference population</li>
+                                <li><strong>Genetic variance retention:</strong> Up to 20% more compared to GEBV-only selection</li>
+                                <li><strong>No negative trade-offs:</strong> MSV criteria never performed worse than GEBV selection</li>
+                                <li><strong>Accuracy dependency:</strong> Benefits increase with genomic prediction accuracy</li>
+                            </ul>
+                            
+                            <strong>🧬 Genetic Diversity Preservation:</strong>
+                            <div class="results-grid">
+                                <div class="stat-box">
+                                    <div class="stat-number">20%</div>
+                                    <div class="stat-label">More genetic variance<br>retained vs GEBV</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">14%</div>
+                                    <div class="stat-label">Higher gametic MSV<br>with ExpBVSelGrGrOff</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">2%</div>
+                                    <div class="stat-label">More beneficial alleles<br>preserved in population</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🎯 Accuracy and Implementation Insights:</strong>
+                            <ul>
+                                <li><strong>MSV prediction accuracy:</strong> 0.26-0.55 correlation (lower than GEBV but sufficient)</li>
+                                <li><strong>Selection overlap:</strong> 67-95% animals would be selected by both MSV and GEBV criteria</li>
+                                <li><strong>Training population effect:</strong> Larger populations amplify MSV benefits</li>
+                                <li><strong>Shrinkage patterns:</strong> MSV estimates more shrunken than GEBVs but still effective</li>
+                            </ul>
+                            
+                            <strong>⚖️ Balanced Performance Profile:</strong>
+                            <ul>
+                                <li><span class="highlight">Initial genetic gain trade-off</span> compensated by superior long-term performance</li>
+                                <li><span class="highlight">Commercial competitiveness maintained</span> throughout selection program</li>
+                                <li><span class="highlight">Sustainable breeding practices</span> without sacrificing profitability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🧮 Mathematical Framework - Advanced Selection Criteria</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">📊 Index5 - One Generation Ahead</div>
+                        <div class="formula-main">
+                            I5 = BV<sub>animal</sub> + x<sub>m</sub> × √(2σ²<sub>gamMS_animal</sub>)
+                        </div>
+                        <div class="formula-note">
+                            <strong>Application:</strong> AI boar selection for production<br>
+                            <strong>Focus:</strong> Maximizes probability of producing top-ranking offspring<br>
+                            <strong>x<sub>m</sub>:</strong> Normalized truncation point for market selection intensity
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">📈 ExpBVSelGrOff - Two Generations Ahead</div>
+                        <div class="formula-main">
+                            ExpBVSelGrOff = (BV<sub>sire</sub> + BV<sub>dam</sub>)/2 + i<sub>i</sub>√(σ²<sub>FS</sub>) + √2i<sub>m</sub>√((1-k<sub>i</sub>)σ²<sub>FS</sub>/4 + σ²<sub>gamMS_off</sub>)
+                        </div>
+                        <div class="formula-note">
+                            <strong>Innovation:</strong> Predicts expected breeding value of selected grand-offspring<br>
+                            <strong>Components:</strong> Parent average + full-sib variance + gametic MSV<br>
+                            <strong>k<sub>i</sub>:</strong> Variance reduction coefficient from selection
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">🎯 ExpBVSelGrGrOff - Three Generations Ahead</div>
+                    <div class="formula-main">
+                        ExpBVSelGrGrOff = (BV<sub>A</sub> + BV<sub>B</sub> + BV<sub>C</sub> + BV<sub>D</sub>)/4 + i<sub>i</sub>((√σ²<sub>FS_AxB</sub> + √σ²<sub>FS_CxD</sub>)/2) + i<sub>i</sub>√((1-k<sub>i</sub>)σ²<sub>FS_AxB</sub>/4 + (1-k<sub>i</sub>)σ²<sub>FS_CxD</sub>/4 + σ²<sub>gamMS_off_AxB</sub> + σ²<sub>gamMS_off_CxD</sub>) + i<sub>m</sub>√2√((1-k<sub>i</sub>)σ²<sub>off(AxB)x(CxD)</sub>/4 + σ²<sub>gamMS_off_(AxB)x(CxD)</sub>)
+                    </div>
+                    <div class="formula-note">
+                        <strong>Complexity:</strong> Considers quartet mating combinations (A×B, C×D)<br>
+                        <strong>Long-term vision:</strong> Maximizes great-grand-offspring performance<br>
+                        <strong>Implementation:</strong> Requires sophisticated selection algorithms
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚙️ Simulation Design - Commercial Breeding Reality</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">🧬 Realistic Population History</div>
+                            <div class="step-details">
+                                <strong>Foundation:</strong> 400 generations of random mating to establish realistic LD structure
+                                <div class="step-specs">
+                                    <strong>Effective population size:</strong> Ne = 100 (typical for livestock breeds)<br>
+                                    <strong>Mutation rate:</strong> 5×10⁻⁵ per generation<br>
+                                    <strong>Genome structure:</strong> 18 chromosome pairs, 1 Morgan each<br>
+                                    <strong>Starting alleles:</strong> 64,000-66,000 segregating loci after history
+                                </div>
+                                <p><strong>Innovation:</strong> Creates realistic genetic architecture with natural LD patterns rather than artificial simulation starting points.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">🎯 Strategic QTL and SNP Design</div>
+                            <div class="step-details">
+                                <strong>Genetic Architecture:</strong> Realistic distribution of effect sizes and genomic coverage
+                                <div class="step-specs">
+                                    <strong>QTLs:</strong> 6,000 randomly chosen loci with gamma distribution effects<br>
+                                    <strong>SNP array:</strong> 20,000 markers covering genome evenly<br>
+                                    <strong>Selection strategy:</strong> Highest MAF SNPs within equal-sized bins<br>
+                                    <strong>Effect distribution:</strong> Many small + few large effects (realistic)
+                                </div>
+                                <p><strong>Commercial relevance:</strong> Mirrors actual SNP chip design and QTL architecture found in real breeding programs.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">⚖️ Burn-in and Equilibrium</div>
+                            <div class="step-details">
+                                <strong>Equilibration Phase:</strong> 10 generations of genomic selection to reach Bulmer equilibrium
+                                <div class="step-specs">
+                                    <strong>Selection structure:</strong> 40 males + 400 females per generation<br>
+                                    <strong>Selection basis:</strong> GEBV-based truncation selection<br>
+                                    <strong>Mating design:</strong> 1 male : 10 females, nested structure<br>
+                                    <strong>Equilibrium target:</strong> Stable genetic variances and LD patterns
+                                </div>
+                                <p><strong>Critical importance:</strong> Ensures realistic starting conditions that reflect commercial breeding program dynamics.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">🔬 Multi-Criteria Evaluation</div>
+                            <div class="step-details">
+                                <strong>Comprehensive Testing:</strong> 19 generations comparing 5 selection strategies
+                                <div class="step-specs">
+                                    <strong>Selection criteria:</strong> Random, GEBV, Index5, ExpBVSelGrOff, ExpBVSelGrGrOff<br>
+                                    <strong>Training populations:</strong> 1, 3, or 6 generations for accuracy testing<br>
+                                    <strong>Replication:</strong> 100 replicates for statistical power<br>
+                                    <strong>Dual selection:</strong> Population improvement + AI boar selection
+                                </div>
+                                <p><strong>Methodological rigor:</strong> Most comprehensive evaluation of MSV methods ever conducted in realistic breeding scenarios.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏆 Results Deep Dive - Practical Performance Insights</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">💰 Commercial Genetic Performance</div>
+                        <div class="analysis-content">
+                            <strong>🎯 AI Boar Selection Success:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">2%</div>
+                                    <div class="stat-label">Higher genetic level<br>with ExpBVSelGrGrOff + 6-gen training</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Equal</div>
+                                    <div class="stat-label">Or better performance<br>vs GEBV in all scenarios</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Significant</div>
+                                    <div class="stat-label">Gains from generation 8<br>with larger training sets</div>
+                                </div>
+                            </div>
+                            
+                            <strong>💡 Key Commercial Insights:</strong>
+                            <ul>
+                                <li><span class="highlight">No competitive disadvantage</span> - MSV criteria maintain market competitiveness</li>
+                                <li><span class="highlight">Accuracy-dependent benefits</span> - larger training populations amplify advantages</li>
+                                <li><span class="highlight">Long-term focus pays off</span> - criteria planning further ahead show superior performance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🧬 Genetic Diversity Preservation</div>
+                        <div class="analysis-content">
+                            <strong>🔥 Variance Retention Success:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">20%</div>
+                                    <div class="stat-label">More genetic variance<br>among selection candidates</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">14%</div>
+                                    <div class="stat-label">Higher average gametic MSV<br>with ExpBVSelGrGrOff</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Fewer</div>
+                                    <div class="stat-label">Beneficial alleles lost<br>vs GEBV selection</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🚀 Diversity Mechanisms:</strong>
+                            <ul>
+                                <li><span class="highlight">Reduced Bulmer effect</span> - less negative LD between beneficial alleles</li>
+                                <li><span class="highlight">Rare allele protection</span> - MSV criteria favor heterozygosity at low-frequency variants</li>
+                                <li><span class="highlight">Sustained genetic potential</span> - maintains raw material for future selection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🎯 Prediction Accuracy Insights</div>
+                        <div class="analysis-content">
+                            <strong>📊 Accuracy Hierarchy:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">0.72</div>
+                                    <div class="stat-label">GEBV accuracy for<br>selection candidates (6-gen)</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">0.65</div>
+                                    <div class="stat-label">Mendelian sampling<br>term accuracy (6-gen)</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">0.55</div>
+                                    <div class="stat-label">Gametic MSV prediction<br>accuracy (6-gen)</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🔬 Implementation Reality:</strong>
+                            <ul>
+                                <li><span class="highlight">Sufficient accuracy</span> - MSV prediction accuracy adequate for practical benefits</li>
+                                <li><span class="highlight">Shrinkage patterns</span> - MSV more shrunken than GEBV but relationship maintained</li>
+                                <li><span class="highlight">Selection overlap</span> - 67-95% agreement between MSV and GEBV criteria</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🛠️ Practical Implementation Framework</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">🎯 Commercial Integration Strategies</div>
+                        <div class="analysis-content">
+                            <strong>🧬 Multi-Trait Index Adaptation:</strong>
+                            <ul>
+                                <li><strong>Index allele effects:</strong> α<sub>index</sub> = w<sub>trait1</sub>α<sub>trait1</sub> + w<sub>trait2</sub>α<sub>trait2</sub> + ... + w<sub>traitk</sub>α<sub>traitk</sub></li>
+                                <li><strong>Practical approach:</strong> Treat selection index as single "trait" for MSV calculation</li>
+                                <li><strong>Weight flexibility:</strong> Accommodate changing economic values over time</li>
+                                <li><strong>Implementation ease:</strong> Minimal modification to existing evaluation systems</li>
+                            </ul>
+                            
+                            <strong>💡 Selection Intensity Solutions:</strong>
+                            <ul>
+                                <li><span class="highlight">Theoretical calculation</span> from selection fraction when contributions are equal</li>
+                                <li><span class="highlight">Realized intensity estimation</span> from actual selection differentials in complex scenarios</li>
+                                <li><span class="highlight">Overlapping generation adjustments</span> for practical breeding program variations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">🌱 Advanced Selection Algorithms</div>
+                        <div class="analysis-content">
+                            <strong>⚖️ Computational Efficiency Solutions:</strong>
+                            <ul>
+                                <li><strong>Tester approach:</strong> Use top 100 animals as "testers" instead of evaluating all combinations</li>
+                                <li><strong>Iterative reduction:</strong> Progressively narrow candidate pool based on average MSV criteria values</li>
+                                <li><strong>GCA-inspired method:</strong> Adapt general combining ability concepts for MSV selection</li>
+                                <li><strong>Scalable implementation:</strong> Balance computational cost with selection accuracy</li>
+                            </ul>
+                            
+                            <strong>🔮 Optimal Contribution Integration:</strong>
+                            <ul>
+                                <li><span class="highlight">MSV as "breeding value"</span> - use ExpBVSelGrGrOff in place of GEBV in OCS software</li>
+                                <li><span class="highlight">Diversity constraint compatibility</span> - combine with relationship-based restrictions</li>
+                                <li><span class="highlight">Software adaptation</span> - MateSel can directly use mating-specific values</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎯 Critical Assessment and Future Impact</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-title">🔬 Methodological Rigor</div>
+                        <div class="analysis-content">
+                            <strong>Simulation Excellence:</strong>
+                            <ul>
+                                <li><span class="highlight">Realistic population structure</span> - 400 generations of history, proper LD patterns</li>
+                                <li><span class="highlight">Commercial scale</span> - 40 males + 400 females per generation mirrors industry</li>
+                                <li><span class="highlight">Statistical power</span> - 100 replicates across 19 generations ensure robust conclusions</li>
+                                <li><span class="highlight">Comprehensive metrics</span> - 15 different performance measures assessed</li>
+                            </ul>
+                            
+                            <strong>Key Innovations:</strong>
+                            <ul>
+                                <li>First study using <strong>estimated rather than known</strong> marker effects for MSV criteria</li>
+                                <li>Novel selection algorithm inspired by GCA from hybrid breeding</li>
+                                <li>Multi-generational planning horizons (1-3 generations ahead)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-title">⚖️ Practical Implications</div>
+                        <div class="analysis-content">
+                            <strong>Commercial Viability:</strong>
+                            <ul>
+                                <li><span class="highlight">No competitive disadvantage</span> - MSV criteria never performed worse than GEBV</li>
+                                <li><span class="highlight">Sustained diversity</span> - 20% more genetic variance retained without sacrificing gain</li>
+                                <li><span class="highlight">Scalable benefits</span> - advantages increase with larger training populations</li>
+                            </ul>
+                            
+                            <strong>Implementation Readiness:</strong>
+                            <ul>
+                                <li><strong>Software compatibility:</strong> Can integrate with existing genomic evaluation systems</li>
+                                <li><strong>Data requirements:</strong> Only needs phased genotypes, SNP effects, and genetic map</li>
+                                <li><strong>Computational feasibility:</strong> Efficient algorithms developed for large-scale use</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🚀 Paradigm Shift in Breeding Strategy</div>
+                    <div class="significance-content">
+                        <p>This work represents a fundamental shift from <strong>short-term genetic gain maximization</strong> to <strong>sustainable genetic improvement</strong>. By demonstrating that variance-considering criteria can maintain commercial competitiveness while preserving genetic potential, Niehoff et al. provide breeding companies with a practical pathway to long-term sustainability.</p>
+                        
+                        <p>The study's most significant contribution is proving that <strong>"genetic diversity and genetic gain are not mutually exclusive"</strong> - a paradigm that could transform how the industry approaches breeding program design in an era of increasing genetic uniformity concerns.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚠️ Implementation Challenges and Future Directions</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">🔍 Current Limitations and Solutions</div>
+                    <div class="gap-content">
+                        <strong>📊 Methodological Constraints:</strong>
+                        <ul>
+                            <li><strong>MSV prediction accuracy:</strong> Lower than GEBV accuracy but sufficient for practical benefits</li>
+                            <li><strong>Shrinkage bias:</strong> MSV estimates more shrunken than GEBVs - systematic but manageable</li>
+                            <li><strong>Computational complexity:</strong> Quartet evaluations challenging for ExpBVSelGrGrOff</li>
+                            <li><strong>Single-trait limitation:</strong> Study focused on daily gain - need multi-trait validation</li>
+                        </ul>
+                        
+                        <strong>⏰ Practical Implementation Gaps:</strong>
+                        <ul>
+                            <li><strong>Real data validation:</strong> Simulation results need confirmation in commercial programs</li>
+                            <li><strong>Non-additive effects:</strong> Dominance and epistasis impacts on MSV methods unknown</li>
+                            <li><strong>Index weight changes:</strong> Adaptation strategies when economic values shift</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🚀 Promising Future Research Directions</div>
+                    <div class="significance-content">
+                        <strong>🧬 Advanced Prediction Methods:</strong>
+                        <ul>
+                            <li><strong>PEV incorporation:</strong> Include prediction error variance in progeny variance estimates</li>
+                            <li><strong>GWAS-informed priors:</strong> Use major QTL information to improve MSV accuracy</li>
+                            <li><strong>Dynamic model updating:</strong> Adapt to changing allele frequencies and effect estimates</li>
+                            <li><strong>Cross-species validation:</strong> Test in dairy cattle, poultry, and plant breeding programs</li>
+                        </ul>
+                        
+                        <strong>🌍 Commercial Deployment:</strong>
+                        <ul>
+                            <li><strong>Multi-trait extension:</strong> Apply MSV criteria to selection indices combining multiple economically important traits</li>
+                            <li><strong>Breed-specific validation:</strong> Test across dairy cattle, poultry, and plant breeding programs with different genetic architectures</li>
+                            <li><strong>Integration with existing software:</strong> Incorporate MSV criteria into commercial breeding management platforms</li>
+                            <li><strong>Economic impact assessment:</strong> Quantify long-term financial benefits of improved genetic diversity retention</li>
+                        </ul>
+                        
+                        <strong>💡 Methodological Advances:</strong>
+                        <ul>
+                            <li><strong>Prediction error incorporation:</strong> Include SNP effect uncertainty (PEV) in progeny variance predictions</li>
+                            <li><strong>Non-additive effects:</strong> Extend methods to account for dominance and epistatic interactions</li>
+                            <li><strong>Dynamic index weighting:</strong> Develop adaptive strategies for changing economic values over time</li>
+                            <li><strong>Computational optimization:</strong> Improve algorithms for large-scale commercial implementation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📈 Industry Impact and Implementation Roadmap</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">🏭 Commercial Adoption Strategy</div>
+                        <div class="analysis-content">
+                            <strong>📅 Phase 1: Pilot Implementation (Years 1-2):</strong>
+                            <ul>
+                                <li><strong>Training population optimization:</strong> Build larger reference populations to maximize MSV prediction accuracy</li>
+                                <li><strong>Software integration:</strong> Adapt existing genomic evaluation systems to calculate MSV criteria</li>
+                                <li><strong>Staff training:</strong> Educate breeding teams on MSV concepts and implementation</li>
+                                <li><strong>Validation studies:</strong> Test MSV criteria in controlled commercial breeding scenarios</li>
+                            </ul>
+                            
+                            <strong>🚀 Phase 2: Full Deployment (Years 3-5):</strong>
+                            <ul>
+                                <li><strong>Multi-trait extension:</strong> Apply MSV to complex selection indices</li>
+                                <li><strong>Cross-population validation:</strong> Test across different breeds and species</li>
+                                <li><strong>Economic evaluation:</strong> Quantify return on investment from improved genetic sustainability</li>
+                                <li><strong>Industry standardization:</strong> Develop best practices and guidelines for MSV implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">🔬 Research and Development Priorities</div>
+                        <div class="analysis-content">
+                            <strong>🎯 High-Priority Research Areas:</strong>
+                            <ul>
+                                <li><strong>Real-world validation:</strong> Longitudinal studies in commercial breeding programs</li>
+                                <li><strong>Multi-trait optimization:</strong> Extend MSV criteria to complex breeding objectives</li>
+                                <li><strong>Prediction accuracy improvement:</strong> Develop methods to better estimate gametic MSV</li>
+                                <li><strong>Cost-benefit analysis:</strong> Economic modeling of long-term genetic gain vs. diversity trade-offs</li>
+                            </ul>
+                            
+                            <strong>🔧 Technical Development Needs:</strong>
+                            <ul>
+                                <li><strong>Algorithm optimization:</strong> Scalable solutions for large breeding populations</li>
+                                <li><strong>Software development:</strong> User-friendly interfaces for breeding program managers</li>
+                                <li><strong>Integration protocols:</strong> Seamless connection with existing breeding databases</li>
+                                <li><strong>Quality control systems:</strong> Monitoring tools for MSV prediction accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏆 Conclusions and Legacy</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Key Takeaways for the Breeding Industry</div>
+                    <p><strong>Game-Changing Insight:</strong> This study definitively proves that genetic diversity preservation and commercial genetic gain are <em>complementary rather than competing objectives</em> in modern genomic selection programs.</p>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">✅ Validated Benefits</div>
+                        <div class="analysis-content">
+                            <ul>
+                                <li><strong>Commercial competitiveness maintained:</strong> MSV criteria never underperformed GEBV selection</li>
+                                <li><strong>Genetic sustainability enhanced:</strong> Up to 20% more genetic variance preserved</li>
+                                <li><strong>Implementation feasibility confirmed:</strong> Methods work with estimated marker effects</li>
+                                <li><strong>Scalable advantages:</strong> Benefits increase with better genomic prediction accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🔮 Future Opportunities</div>
+                        <div class="analysis-content">
+                            <ul>
+                                <li><strong>Multi-species application:</strong> Potential for dairy, poultry, and plant breeding</li>
+                                <li><strong>Enhanced prediction methods:</strong> Integration of uncertainty estimates and major QTL effects</li>
+                                <li><strong>Economic optimization:</strong> Balance of genetic gain, diversity, and profitability</li>
+                                <li><strong>Industry transformation:</strong> Shift toward sustainable breeding practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🌟 Scientific and Practical Legacy</div>
+                    <div class="significance-content">
+                        <p>Niehoff et al. (2025) marks a watershed moment in genomic selection, providing the first robust evidence that <strong>advanced theoretical concepts can be successfully translated into practical breeding tools</strong> without sacrificing commercial performance.</p>
+                        
+                        <p>By bridging the gap between theory and practice, this work opens the door to a new era of <strong>sustainable genomic selection</strong> that balances immediate commercial needs with long-term genetic stewardship, ensuring the continued improvement and adaptability of livestock and crop populations for future generations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--secondary-color); color: white; text-align: center; padding: 30px; margin-top: 50px;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="margin: 0 0 10px 0; font-size: 1.1em; font-weight: 600;">
+                Research Summary: Practical Considerations When Using Mendelian Sampling Variances for Selection Decisions in Genomic Selection Programs
+            </p>
+            <p style="margin: 0 0 15px 0; font-size: 0.95em; opacity: 0.9;">
+                <strong>Authors:</strong> T.A.M. Niehoff, J. ten Napel, M.P.L. Calus (2025)
+            </p>
+            <p style="margin: 0 0 15px 0; font-size: 0.9em; opacity: 0.8;">
+                <strong>Publication:</strong> Journal of Animal Breeding and Genetics, 142(4), 419-437
+            </p>
+            <p style="margin: 0; font-size: 0.8em; opacity: 0.6;">
+                <strong>DOI:</strong> <a href="https://doi.org/10.1111/jbg.12913" target="_blank" style="color: rgba(255,255,255,0.8); text-decoration: none;">10.1111/jbg.12913</a>
+            </p>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="margin: 0; font-size: 0.75em; opacity: 0.6; font-style: italic;">
+                    This comprehensive summary was created to facilitate understanding and implementation of advanced genomic selection methodologies in commercial breeding programs.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

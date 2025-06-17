@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribution of Fitness Effects from DNA Sequence Data</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>What can we learn about the distribution of fitness effects of new mutations from DNA sequence data?</h1>
+            <p>Comprehensive Analysis of DFE Inference Methods and Optimal Sampling Strategies</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Peter D. Keightley, Adam Eyre-Walker</p>
+                <p class="text-small text-top"><strong>Institution:</strong> University of Edinburgh, University of Sussex</p>
+                <p class="text-small text-top"><strong>Year:</strong> 2010</p>
+                <p class="text-top-large">
+                    <a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2009.0266"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-1">
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Research Questions</div>
+                        <div class="analysis-content">
+                            <strong>Central Problem:</strong> How can we optimally extract information about the distribution of fitness effects (DFE) from DNA sequence data?
+                            
+                            <ul>
+                                <li>What sampling strategy maximizes information content?</li>
+                                <li>How many alleles vs. sequence length should be prioritized?</li>
+                                <li>Can single genes provide meaningful DFE estimates?</li>
+                                <li>How do slightly advantageous mutations affect DFE inference?</li>
+                            </ul>
+                            
+                            <strong>Motivation:</strong> <span class="highlight">DFE parameters are central to understanding evolutionary processes</span>, from quantitative genetic variation to molecular clock rates.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodology</div>
+                        <div class="analysis-content">
+                            <strong>Simulation Framework:</strong> Comprehensive analysis using site frequency spectrum (SFS) data
+                            
+                            <ul>
+                                <li><strong>Population Model:</strong> Random mating, effective size N<sub>e</sub>, mutation-selection-drift balance</li>
+                                <li><strong>DFE Models:</strong> Gamma distribution, discrete classes, partially reflected distribution</li>
+                                <li><strong>Parameter Estimation:</strong> Maximum likelihood using simplex algorithm</li>
+                                <li><strong>Validation:</strong> 100 replicates per scenario, multiple sampling strategies</li>
+                            </ul>
+                            
+                            <strong>Key Innovation:</strong> Systematic optimization of sequencing effort allocation between sample size and sequence length.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Key Findings</div>
+                        <div class="analysis-content">
+                            <strong>Optimal Strategy:</strong> <span class="highlight">~10 alleles</span> provides best parameter estimates for fixed sequencing effort
+                            
+                            <ul>
+                                <li><span class="highlight">Shape parameter (β)</span> estimated more accurately than mean effect</li>
+                                <li><span class="highlight">Single genes</span> require ≥200 alleles for meaningful estimates</li>
+                                <li><span class="highlight">Complex DFEs</span> need >1000 alleles for accurate characterization</li>
+                                <li><span class="highlight">Slightly advantageous mutations</span> don't substantially bias deleterious DFE estimates</li>
+                            </ul>
+                            
+                            <strong>Practical Impact:</strong> Provides evidence-based guidelines for designing genomic studies targeting DFE inference.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-2">
+                <div class="section-title">Mathematical Framework & Models</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Gamma Distribution Model</div>
+                        <div class="step-details">
+                            <strong>Primary DFE Model:</strong>
+                            <div class="formula-box">
+                                <div class="formula-title">Gamma PDF for Selection Effects</div>
+                                <div class="formula-main">f(S) = (α<sup>β</sup> / Γ(β)) S<sup>β-1</sup> e<sup>-αS</sup></div>
+                                <div class="formula-note">where S = 4N<sub>e</sub>s, α = scale parameter, β = shape parameter</div>
+                            </div>
+                            <strong>Parameters:</strong><br>
+                            • Scale (α) and shape (β) parameters<br>
+                            • Population mutation rate: N<sub>e</sub>μ = 0.001<br>
+                            • Additive fitness effects: 1, 1-s/2, 1-s
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Partially Reflected Distribution</div>
+                        <div class="step-details">
+                            <strong>Testing Advantageous Mutations:</strong>
+                            <div class="formula-box">
+                                <div class="formula-title">Partially Reflected PDF</div>
+                                <div class="formula-main">f'(S) = 1/(1 + e<sup>S</sup>) f(|S|)</div>
+                                <div class="formula-note">Balances slightly advantageous (+s) and deleterious (-s) mutations</div>
+                            </div>
+                            <strong>Properties:</strong><br>
+                            • Equal density for weak effects (S → 0)<br>
+                            • Rare advantageous for strong effects (|S| >> 1)<br>
+                            • Tests robustness of deleterious-only assumption
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-3">
+                        <div class="model-title">Discrete Classes Model</div>
+                        <div class="step-details">
+                            <strong>Flexible Alternative:</strong>
+                            <div class="formula-box">
+                                <div class="formula-title">m-Class Discrete Model</div>
+                                <div class="formula-main">DFE = Σ p<sub>i</sub> δ(s - s<sub>i</sub>)</div>
+                                <div class="formula-note">2m parameters: selection strengths s<sub>i</sub> and proportions p<sub>i</sub></div>
+                            </div>
+                            <strong>Applications:</strong><br>
+                            • Tests for multimodal distributions<br>
+                            • Assesses model complexity requirements<br>
+                            • Evaluates mean and variance estimation accuracy
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-3">
+                <div class="section-title">Experimental Design and Optimization</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Fixed Sequencing Effort Analysis</div>
+                            <div class="step-details">
+                                Investigate optimal allocation of limited sequencing resources
+                                <div class="step-specs">
+                                    <strong>Scenarios:</strong> 4×10⁵ and 4×10⁶ total sites<br>
+                                    <strong>Allele range:</strong> 4 to 128 individuals<br>
+                                    <strong>Trade-off:</strong> Sample size vs. sequence length per individual<br>
+                                    <strong>Metric:</strong> Root mean squared error (RMSE) of parameter estimates
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Increasing Sample Size Analysis</div>
+                            <div class="step-details">
+                                Evaluate benefits of larger sample sizes with fixed sequence length
+                                <div class="step-specs">
+                                    <strong>Whole genome:</strong> 10⁶ sites per individual<br>
+                                    <strong>Single gene:</strong> 1,000-5,000 sites per individual<br>
+                                    <strong>Sample sizes:</strong> Up to 1,024 alleles<br>
+                                    <strong>Assessment:</strong> Bias and precision of estimates
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Model Complexity Evaluation</div>
+                            <div class="step-details">
+                                Compare simple vs. complex DFE models using likelihood ratios
+                                <div class="step-specs">
+                                    <strong>Models:</strong> 1 to 4 discrete effect classes<br>
+                                    <strong>Parameters:</strong> 2m total (effects and proportions)<br>
+                                    <strong>Optimization:</strong> 10 random starts for global maximum<br>
+                                    <strong>Validation:</strong> Mean and variance estimation accuracy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-4">
+                <div class="section-title">Key Results and Performance Metrics</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Optimal Sampling Strategy</div>
+                        <div class="step-details">
+                            <strong>Fixed Effort Results:</strong>
+                            <ul>
+                                <li><span class="highlight">~10 alleles optimal</span> for most scenarios</li>
+                                <li>Shape parameter (β) more stable than mean (N<sub>e</sub>s)</li>
+                                <li>Leptokurtic distributions (low β) especially challenging</li>
+                                <li>Ridge in likelihood surface between N<sub>e</sub>s and β parameters</li>
+                            </ul>
+                            
+                            <div class="experiment-details">
+                                <strong>Performance Example (β = 0.5, N<sub>e</sub>s = 100):</strong><br>
+                                • 10 alleles: RMSE<sub>β</sub> = 0.061, unbiased<br>
+                                • 128 alleles: RMSE<sub>β</sub> = 0.089, increased variance
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Single Gene Analysis Challenges</div>
+                        <div class="step-details">
+                            <strong>Gene-Level Limitations:</strong>
+                            <ul>
+                                <li><span class="highlight">1,000 bp genes:</span> Essentially uninformative estimates</li>
+                                <li><span class="highlight">5,000 bp genes:</span> Require ≥200 alleles for reasonable β estimates</li>
+                                <li><span class="highlight">Human context:</span> Average gene ~1,300 bp - insufficient for DFE inference</li>
+                                <li><span class="highlight">Drosophila context:</span> Average gene ~1,800 bp - marginally feasible for long genes</li>
+                            </ul>
+                            
+                            <div class="warning-box">
+                                <strong>Practical Implication:</strong> Single-gene DFE estimation requires very large genes and substantial sample sizes, limiting applicability in most organisms.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Complex Distribution Inference</div>
+                        <div class="step-details">
+                            <strong>Multi-Class Model Results:</strong>
+                            <ul>
+                                <li><span class="highlight">3-class vs 4-class:</span> Minimal likelihood improvement unless >1,000 alleles</li>
+                                <li><span class="highlight">Mean estimation:</span> Requires >1,000 alleles for accuracy</li>
+                                <li><span class="highlight">Variance estimation:</span> Even more demanding, needs extremely large samples</li>
+                                <li><span class="highlight">Extreme effects:</span> Poorly captured unless massive sample sizes</li>
+                            </ul>
+                            
+                            <div class="best-practices">
+                                <strong>Recommendation:</strong> Complex DFE characterization feasible only with whole-genome scale data and thousands of individuals.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-5">
+                <div class="section-title">Robustness and Model Violations</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Advantageous Mutations Impact</div>
+                        <div class="step-details">
+                            <strong>Partially Reflected Model Results:</strong>
+                            <ul>
+                                <li>Shape parameter estimates remain accurate (β̂ ≈ 0.47-0.48 vs. true 0.5)</li>
+                                <li>Mean effects show minimal bias with adequate sample sizes</li>
+                                <li>Absolute selection strength distribution well-estimated</li>
+                                <li>SFS patterns similar between models for practical purposes</li>
+                            </ul>
+                            
+                            <strong>Biological Interpretation:</strong> Slightly advantageous mutations don't substantially compromise deleterious DFE inference, supporting the robustness of standard methods.
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Parameter Estimation Challenges</div>
+                        <div class="step-details">
+                            <strong>Statistical Issues:</strong>
+                            <ul>
+                                <li><strong>Likelihood Ridge:</strong> High N<sub>e</sub>s + low β ≈ Low N<sub>e</sub>s + high β</li>
+                                <li><strong>Infinite Estimates:</strong> ML can approach ∞ with sparse data</li>
+                                <li><strong>Mean Sensitivity:</strong> Arithmetic mean heavily influenced by extreme values</li>
+                                <li><strong>Diminishing Returns:</strong> RMSE decline slower than √n with increasing sample size</li>
+                            </ul>
+                            
+                            <strong>Practical Solutions:</strong> Focus on shape parameter estimation, use robust optimization with multiple starting points.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-6">
+                <div class="section-title">Citation and Methodological Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Keightley, P.D. & Eyre-Walker, A. (2010). What can we learn about the distribution of fitness effects of new mutations from DNA sequence data? <em>Philosophical Transactions of the Royal Society B</em>, 365(1544), 1187-1193.</p>
+                    
+                    <p><strong>Methodological Foundation:</strong></p>
+                    <ul class="list-top">
+                        <li><strong>EWWP2006 Method:</strong> Site frequency spectrum analysis using equilibrium diffusion theory</li>
+                        <li><strong>Maximum Likelihood:</strong> Poisson likelihood for SNP counts, simplex optimization</li>
+                        <li><strong>Simulation Validation:</strong> Extensive testing across parameter space</li>
+                        <li><strong>Model Comparison:</strong> Gamma vs. discrete classes vs. partially reflected distributions</li>
+                    </ul>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">Research Innovation</div>
+                    <p>This study provides the first comprehensive analysis of optimal experimental design for DFE inference from DNA sequence data. The systematic evaluation of sampling strategies, model complexity requirements, and robustness to violations offers crucial guidance for genomic studies. The finding that modest sample sizes (~10 alleles) optimize parameter estimation efficiency has important implications for study design and resource allocation in population genomics.</p>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Broader Significance</div>
+                    <div class="significance-content">
+                        The distribution of fitness effects is fundamental to evolutionary biology, influencing everything from the molecular clock to the evolution of sex. This work establishes practical limits and optimal strategies for DFE inference, enabling more informed experimental design in the genomics era. The demonstration that single genes typically provide insufficient information for reliable DFE estimation has important implications for candidate gene studies and highlights the need for genome-wide approaches.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

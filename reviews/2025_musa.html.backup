@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haplotype Diversity Preservation in Genomic Selection</title>
+   <link rel="stylesheet" href="style.css">
+
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        <div class="header">
+            <h1>A Similarity Matrix for Preserving Haplotype Diversity Amongst Parents in Genomic Selection</h1>
+            <p>Advanced Computational Framework for Sustainable Breeding</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Abdulraheem A. Musa, Norbert Reinsch</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Research Institute for Farm Animal Biology (FBN), Dummerstorf, Germany</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1111/jbg.12930" 
+                       target="_blank" 
+                       class="paper-link">
+                         Access Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-4">
+                <div class="section-title">Paper Information & Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Musa, A.A., & Reinsch, N. (2025). A Similarity Matrix for Preserving Haplotype Diversity Amongst Parents in Genomic Selection. Journal of Animal Breeding and Genetics, 0:1–17.</p>
+                    
+                    <p><strong>Key Foundation References:</strong></p>
+                    <ul class="list-top">
+                        <li>Meuwissen, T.H.E., Hayes, B.J., and Goddard, M.E. (2001). Genetics, 157:1819–1829</li>
+                        <li>Bonk, S., et al. (2016). Genetics, Selection, Evolution, 48:1–11</li>
+                        <li>Kemper, K.E., et al. (2012). Journal of Dairy Science, 95:4646–4656</li>
+                        <li>Santos, D.J.A., et al. (2019). Journal of Dairy Science, 102:5279–5294</li>
+                    </ul>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🚀 Key Innovation</div>
+                    <p>This paper introduces a novel <strong>similarity matrix</strong> that quantifies haplotype relationships between parents based on Mendelian sampling variance (MSV), enabling optimal parent selection that balances genetic gain with diversity preservation in genomic breeding programs.</p>
+                </div>
+                
+                <div class="section-title">Computational Framework Development</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Enhanced MSV Computation</div>
+                            <div class="step-details">
+                                Develop computationally efficient representation of Mendelian Sampling Variance prediction
+                                <div class="step-specs">
+                                    <strong>Innovation:</strong> Parent-specific marker effects vector m<sub>i</sub><br>
+                                    <strong>Speed improvement:</strong> 73-fold faster than previous methods<br>
+                                    <strong>Formula:</strong>
+                                    <div class="formula">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div>
+                                    <strong>Key advantage:</strong> Single universal matrix R for all parents
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Haplotype Similarity Measure</div>
+                            <div class="step-details">
+                                Define similarity between parents based on shared segregation patterns
+                                <div class="step-specs">
+                                    <strong>Core concept:</strong> Quantify shared heterozygous markers with large effects<br>
+                                    <strong>Similarity formula:</strong>
+                                    <div class="formula">s<sub>i,j</sub> = |m<sub>i</sub>'Rm<sub>j</sub>|</div>
+                                    <strong>Interpretation:</strong> High similarity = many shared chromosome segments<br>
+                                    <strong>Self-similarity:</strong> Equals individual's MSV
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Matrix Construction</div>
+                            <div class="step-details">
+                                Build comprehensive similarity matrix for breeding decisions
+                                <div class="matrix-visual">
+                                    S = [s<sub>i,j</sub>] where s<sub>i,i</sub> = MSV<sub>i</sub> and s<sub>i,j</sub> = similarity
+                                </div>
+                                <div class="step-specs">
+                                    <strong>Diagonal elements:</strong> Individual MSVs<br>
+                                    <strong>Off-diagonal elements:</strong> Pairwise similarities<br>
+                                    <strong>Standardization:</strong>
+                                    <div class="formula">K = D<sup>-1</sup>SD<sup>-1</sup> where D = √diag(S)</div>
+                                    <strong>Properties:</strong> All elements in [0,1] range
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Multi-trait and Multi-chromosome Extension</div>
+                            <div class="step-details">
+                                Extend framework to complex breeding scenarios
+                                <div class="step-specs">
+                                    <strong>Multiple traits:</strong> Use index weights a for aggregate genotype<br>
+                                    <strong>Multiple chromosomes:</strong> Sum contributions from each chromosome<br>
+                                    <strong>Zygote similarity:</strong>
+                                    <div class="formula">s<sub>ij,uv</sub> = |m<sub>i</sub>'Rm<sub>u</sub>| + |m<sub>j</sub>'Rm<sub>v</sub>|</div>
+                                    <strong>Flexibility:</strong> Adaptable to any breeding system
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">MOCS: Mendelian Sampling-based Optimal Contribution Selection</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Traditional Approaches</div>
+                        <div class="step-details">
+                            <strong>Truncation Selection (TS):</strong> Select top individuals by GEBV
+                            <div class="formula">Selection based on: GEBV ranking only</div>
+                            <strong>Optimal Contribution Selection (OCS):</strong> Control inbreeding
+                            <div class="formula">Constraint: Genomic relationship matrix (GRM)</div>
+                            <strong>Limitations:</strong><br>
+                            • TS: Increases inbreeding, loses diversity<br>
+                            • OCS: Trait-neutral, may not maximize genetic gain<br>
+                            • Both lack haplotype-specific diversity control
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">MOCS Innovation</div>
+                        <div class="step-details">
+                            <strong>Objective:</strong> Maximize genetic return while preserving haplotype diversity<br><br>
+                            <strong>Optimization problem:</strong>
+                            <div class="formula">maximize: r<sub>t+1</sub> = n<sub>t</sub>'r<sub>t</sub></div>
+                            <div class="formula">subject to: Q<sub>t+1</sub> ≤ n<sub>t</sub>'Q<sub>t</sub>n<sub>t</sub>/2</div>
+                            <strong>Key Components:</strong><br>
+                            • r<sub>t</sub> = selection criterion (BV or index)<br>
+                            • Q<sub>t</sub> = similarity matrix (S or K)<br>
+                            • n<sub>t</sub> = optimal parent contributions<br><br>
+                            <strong>Advantages:</strong><br>
+                            • Trait-specific diversity preservation<br>
+                            • Balances gain with sustainability<br>
+                            • Computationally efficient
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-title">Validation Studies</div>
+                        <div class="step-details">
+                            Comprehensive evaluation using empirical and simulated data
+                            <div class="step-specs">
+                                <strong>Empirical data:</strong> 265 Holstein-Friesian cows, 10,304 markers<br>
+                                <strong>Simulation:</strong> 50 generations, 1000 cattle, 10 chromosomes<br>
+                                <strong>Metrics:</strong> Genetic gain, variance, inbreeding, allele diversity<br>
+                                <strong>Comparisons:</strong> MOCS vs TS vs OCS across multiple scenarios
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="section-3">
+                <div class="section-title">Why, How, What Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Critical Challenge</div>
+                        <div class="step-details">
+                            <strong>Core Problem:</strong> Genomic selection accelerates genetic gain but rapidly depletes genetic diversity.
+                            
+                            <ul>
+                                <li>Traditional methods focus on short-term gains</li>
+                                <li>Existing approaches lack <span class="highlight">trait-specific diversity control</span></li>
+                                <li>OCS controls inbreeding but not haplotype diversity</li>
+                                <li>Risk of losing valuable genetic variants for future adaptation</li>
+                            </ul>
+                            
+                            <strong>Opportunity:</strong> Develop similarity matrix that captures haplotype relationships for sustainable breeding decisions.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Methodological Innovation</div>
+                        <div class="step-details">
+                            <strong>Key Breakthrough:</strong> Similarity matrix based on Mendelian sampling patterns.
+                            
+                            <ul>
+                                <li><strong>Step 1:</strong> Efficient MSV computation using parent-specific marker vectors</li>
+                                <li><strong>Step 2:</strong> Quantify pairwise haplotype similarities via bilinear forms</li>
+                                <li><strong>Step 3:</strong> Construct similarity matrix S with MSVs on diagonal</li>
+                                <li><strong>Step 4:</strong> Apply MOCS optimization with haplotype diversity constraints</li>
+                            </ul>
+                            
+                            <strong>Validation:</strong> Test on Holstein data and 50-generation simulations across multiple breeding scenarios.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Key Achievements</div>
+                        <div class="step-details">
+                            <strong>Results:</strong> MOCS with similarity matrix outperforms traditional methods.
+                            
+                            <ul>
+                                <li><span class="highlight">73-fold speed improvement</span> in MSV computation</li>
+                                <li><span class="highlight">Up to 4.5 standard deviations</span> more long-term genetic variability</li>
+                                <li><span class="highlight">5-44% more favorable QTL alleles</span> retained</li>
+                                <li>Reduced inbreeding while maintaining genetic gain</li>
+                            </ul>
+                            
+                            <strong>Impact:</strong> Enables sustainable genomic selection with preserved haplotype diversity for long-term breeding success.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="section-2">
+                <div class="section-title">Technical Implementation Details</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box" style="border-color: #9b59b6;">
+                        <div class="model-title" style="color: #9b59b6;">Computational Efficiency</div>
+                        <div class="step-details">
+                            <strong>Previous Method (Bonk et al. 2016):</strong>
+                            <div class="formula">var(b<sub>i</sub>) = m'R<sub>i</sub>m</div>
+                            <strong>New Method:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div>
+                            <strong>Key Improvements:</strong><br>
+                            • Single matrix R for all parents<br>
+                            • Parent-specific marker vectors m<sub>i</sub><br>
+                            • No repetitive matrix adjustments<br>
+                            • Scales efficiently with population size
+                        </div>
+                    </div>
+                    
+                    <div class="model-box" style="border-color: #f39c12;">
+                        <div class="model-title" style="color: #f39c12;">Similarity Interpretation</div>
+                        <div class="step-details">
+                            <strong>High Similarity Parents:</strong>
+                            <div class="formula">Many shared heterozygous markers with large effects</div>
+                            <strong>Low Similarity Parents:</strong>
+                            <div class="formula">Different heterozygous markers or linkage phases</div>
+                            <strong>Biological Meaning:</strong><br>
+                            • Reflects potential for diverse offspring<br>
+                            • Captures trait-specific relationships<br>
+                            • Independent of family structure<br>
+                            • Enables diversity-conscious mating decisions
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="section-1">
+                <div class="section-title">Practical Applications & Future Directions</div>
+                
+                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin-bottom: 20px;">
+                    <h4 style="margin-top: 0; color: #27ae60;">Immediate Applications</h4>
+                    <ul>
+                        <li><strong>Livestock Breeding:</strong> Balance genetic gain with diversity in dairy cattle, beef, swine</li>
+                        <li><strong>Plant Breeding:</strong> Optimize parent selection for crop improvement programs</li>
+                        <li><strong>Conservation:</strong> Manage endangered breed populations while improving performance</li>
+                        <li><strong>Breeding Program Design:</strong> Set sustainable long-term breeding strategies</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff8e8; padding: 20px; border-radius: 8px; border-left: 4px solid #f39c12;">
+                    <h4 style="margin-top: 0; color: #f39c12;">Future Research Directions</h4>
+                    <ul>
+                        <li><strong>Multi-objective Optimization:</strong> Integrate with economic weights and environmental adaptation</li>
+                        <li><strong>Non-additive Effects:</strong> Extend to dominance and epistatic interactions</li>
+                        <li><strong>Dynamic Constraints:</strong> Adaptive similarity thresholds based on population structure</li>
+                        <li><strong>Validation Studies:</strong> Test across diverse species and breeding systems</li>
+                        <li><strong>Software Development:</strong> Create user-friendly tools for breeding program implementation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
