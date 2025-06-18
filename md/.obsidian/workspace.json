@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1.1 du6_research_methodology.md",
+                "file": "3.3 1992 garcias Monto-Carlo method.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1.1 du6_research_methodology"
+              "title": "3.3 1992 garcias Monto-Carlo method"
             }
           }
         ]
@@ -170,8 +170,11 @@
   },
   "active": "57bee96bc394a40f",
   "lastOpenFiles": [
-    "1.2 methodology_literatures.md",
     "1.1 du6_research_methodology.md",
+    "3.3 1992 garcias Monto-Carlo method.md",
+    "3.3 1992 Monto-Carlo mthod.md",
+    "New Text Document.txt",
+    "1.2 methodology_literatures.md",
     "1. research genetic variance steps.md",
     "3.1 reasons considering MSE and how to calculate its PEV.md",
     "1.2 I have a md notes, please verify if the steps work.md",
@@ -194,8 +197,6 @@
     "5. reasons for considering MSE even only 1 family.md",
     "4. literature support dBV as phnotype in GWAs.md",
     "3. prove genetic bottle neck eased after moving to new mouse house.md",
-    "literature support dBV as phnotype in GWAs.md",
-    "2. how PEV of Mendelian sampling variance calculated.md",
     "未命名",
     "mendelian_sampling_flowchart.html"
   ]
