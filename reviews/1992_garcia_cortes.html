@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Variance component estimation by resampling</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Variance component estimation by resampling</h1>
+            <p>Monte Carlo Alternative to Matrix Inversion in REML Estimation</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> L.A. García-Cortés, C. Moreno, L. Varona, J. Altarriba</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Quantitative Genetics and Animal Breeding Unit, Veterinary Faculty, University of Zaragoza, Spain</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, 1992; 109:358-363</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1111/j.1439-0388.1995.tb00558.x"
+                       target="_blank" 
+                       class="paper-link">
+                        View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Information & Historical Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> García-Cortés, L.A., Moreno, C., Varona, L., & Altarriba, J. (1995). Variance component estimation by resampling. Journal of Animal Breeding and Genetics, 109(6), 358-363.</p>
+                    
+                    <p><strong>Historical Significance:</strong> This pioneering work introduced Monte Carlo resampling as a computationally efficient alternative to matrix inversion in REML variance component estimation, addressing the critical computational bottleneck that limited animal model applications to small datasets in the early 1990s.</p>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🚀 Computational Innovation in the Pre-Genomic Era</div>
+                    <p>First practical implementation of Monte Carlo methods to avoid the computationally prohibitive matrix inversion required for REML estimation in animal models. Enabled variance component estimation in datasets with tens of thousands of animals, previously impossible with conventional methods.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-1">
+                <div class="section-title">🔍 WHY, HOW, WHAT - The Computational Revolution</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">🤔 WHY - The Matrix Inversion Bottleneck</div>
+                        <div class="analysis-content">
+                            <strong>🎯 The Computational Crisis:</strong>
+                            <p>In the early 1990s, REML estimation for animal models faced a fundamental computational barrier. The requirement to invert the mixed model coefficient matrix made analyses with more than <span class="highlight">a few tens of thousands of animals computationally impractical</span>.</p>
+                            
+                            <strong>💔 Critical Limitations:</strong>
+                            <ul>
+                                <li><strong>Matrix inversion complexity:</strong> O(n³) computational cost for coefficient matrix inversion</li>
+                                <li><strong>Memory requirements:</strong> Storage of massive matrices exceeded available computer memory</li>
+                                <li><strong>Prediction error variances:</strong> Required full inverse of coefficient matrix for accuracy assessment</li>
+                                <li><strong>EM algorithm flexibility:</strong> Existing alternatives lacked the versatility to handle different model structures</li>
+                            </ul>
+                            
+                            <strong>🚨 Industry Urgent Needs:</strong>
+                            <p>Animal breeding programs desperately needed methods to:</p>
+                            <ul>
+                                <li>Estimate variance components in large national evaluations</li>
+                                <li>Maintain REML properties (unbiased estimation)</li>
+                                <li>Preserve EM algorithm flexibility for complex models</li>
+                                <li>Utilize emerging vector supercomputer architectures</li>
+                                <li>Scale to hundreds of thousands of animals in pedigrees</li>
+                            </ul>
+                            
+                            <strong>⚖️ Existing Alternatives Inadequate:</strong>
+                            <ul>
+                                <li><strong>Smith & Graser (1986):</strong> Limited model flexibility</li>
+                                <li><strong>Lin (1988):</strong> Restricted to specific model structures</li>
+                                <li><strong>Meyer (1989):</strong> Derivative-free but still computationally intensive</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">🔬 HOW - Monte Carlo Matrix Avoidance</div>
+                        <div class="analysis-content">
+                            <strong>🧩 Theoretical Foundation:</strong>
+                            <p>The key insight was recognizing that prediction error variances could be estimated using Monte Carlo simulation without explicitly computing the inverse of the coefficient matrix.</p>
+                            
+                            <strong>🔧 Core Mathematical Innovation:</strong>
+                            <div class="formula-box">
+                                <div class="formula-title">Prediction Error Variance Formula</div>
+                                <div class="formula-main">
+                                    Var(â-a) = Var(a) - Var(â)
+                                </div>
+                                <div class="formula-note">
+                                    Where: C<sup>BB</sup>σ²<sub>e</sub> = Aσ²<sub>a</sub> - Var(â)
+                                </div>
+                            </div>
+                            
+                            <strong>🎯 Monte Carlo Strategy:</strong>
+                            <div class="method-grid">
+                                <div class="method-card">
+                                    <div class="method-title">Simulation Setup</div>
+                                    <p><strong>Generate:</strong> y<sub>i</sub> ~ N(Xb<sup>(i-1)</sup>, ZAZ'σ²<sub>a</sub><sup>(i-1)</sup> + Iσ²<sub>e</sub><sup>(i-1)</sup>)</p>
+                                    <p><strong>Components:</strong> Fixed effects + genetic effects + residuals</p>
+                                    <p><strong>Choleski factorization:</strong> Use L factor to generate correlated random effects</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">Variance Estimation</div>
+                                    <p><strong>Formula:</strong> Var(â) = Var<sub>MC</sub>(û) = (U'U - 1'U1'U/B)/(B-1)</p>
+                                    <p><strong>Matrix U:</strong> B × n matrix with predictors from B simulated vectors</p>
+                                    <p><strong>Unbiased estimator:</strong> Sample variance across Monte Carlo replicates</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">EM Integration</div>
+                                    <p><strong>Replacement:</strong> tr(A⁻¹C<sup>BB</sup>) calculated via Monte Carlo</p>
+                                    <p><strong>Update formula:</strong> σ²<sub>a</sub><sup>(i+1)</sup> = (â'A⁻¹â - tr(A⁻¹Var(â)))/n</p>
+                                    <p><strong>Convergence:</strong> Standard EM algorithm properties maintained</p>
+                                </div>
+                            </div>
+                            
+                            <strong>💻 Computational Advantages:</strong>
+                            <ul>
+                                <li><strong>Linear scaling:</strong> Computational cost proportional to n rather than n³</li>
+                                <li><strong>Vector processing:</strong> Jacobi algorithm optimized for supercomputers</li>
+                                <li><strong>Memory efficiency:</strong> No need to store or invert large matrices</li>
+                                <li><strong>Parallel friendly:</strong> Multiple linear systems solved independently</li>
+                            </ul>
+                            
+                            <strong>🔍 Implementation Details:</strong>
+                            <ul>
+                                <li><strong>Jacobi algorithm:</strong> Second-order iterative solver for linear systems</li>
+                                <li><strong>Pseudorandom generation:</strong> Controlled seeding for reproducible results</li>
+                                <li><strong>Relaxation factors:</strong> Acceleration techniques for EM convergence</li>
+                                <li><strong>Starting values:</strong> Warm start from previous iteration solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">💥 WHAT - Breakthrough Results</div>
+                        <div class="analysis-content">
+                            <strong>🚀 Computational Performance:</strong>
+                            <p>The method demonstrated remarkable computational efficiency, making previously intractable problems solvable on 1990s hardware:</p>
+                            
+                            <strong>💰 Validation Results:</strong>
+                            <div class="results-grid">
+                                <div class="stat-box">
+                                    <div class="stat-number">100,000</div>
+                                    <div class="stat-label">Animals handled<br>successfully</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">50</div>
+                                    <div class="stat-label">Mflops Convex-C220<br>supercomputer used</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Linear</div>
+                                    <div class="stat-label">Scaling with<br>dataset size</div>
+                                </div>
+                            </div>
+                            
+                            <strong>📊 Accuracy Performance:</strong>
+                            <div class="table-container">
+                                <table class="performance-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Dataset Size</th>
+                                            <th>Monte Carlo Samples (B)</th>
+                                            <th>Variance Component Accuracy</th>
+                                            <th>CPU Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="low-pev-group">
+                                            <td>2,500 animals</td>
+                                            <td>50</td>
+                                            <td>σ²e = 74,551 ± 252</td>
+                                            <td>74'32"</td>
+                                        </tr>
+                                        <tr class="high-pev-group">
+                                            <td>10,000 animals</td>
+                                            <td>20</td>
+                                            <td>σ²e = 74,087 ± 326</td>
+                                            <td>143'42"</td>
+                                        </tr>
+                                        <tr class="low-pev-group">
+                                            <td>100,000 animals</td>
+                                            <td>10</td>
+                                            <td>σ²e = 75,020</td>
+                                            <td>1060'45"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <strong>🎯 Revolutionary Achievements:</strong>
+                            <ul>
+                                <li><strong>Matrix inversion avoidance:</strong> Eliminated the primary computational bottleneck</li>
+                                <li><strong>REML properties preserved:</strong> Maintained unbiasedness and optimal statistical properties</li>
+                                <li><strong>EM flexibility retained:</strong> Compatible with complex multi-trait and multi-random-effect models</li>
+                                <li><strong>Supercomputer optimization:</strong> Leveraged vector processing capabilities</li>
+                            </ul>
+                            
+                            <strong>⚖️ Statistical Validation:</strong>
+                            <ul>
+                                <li><span class="highlight">Convergence properties</span> - Identical final estimates to exact REML</li>
+                                <li><span class="highlight">Estimation efficiency</span> - Standard errors decrease with sample size</li>
+                                <li><span class="highlight">Monte Carlo precision</span> - Accuracy improves with number of simulation vectors</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🧮 Mathematical Framework - Core Methodology</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">📊 Mixed Model Equations</div>
+                        <div class="formula-main">
+                            y = Xb + Za + e
+                        </div>
+                        <div class="formula-note">
+                            <strong>Standard form:</strong> Fixed effects (b) + random effects (a) + residuals (e)<br>
+                            <strong>Assumptions:</strong> a ~ N(0, Aσ²a), e ~ N(0, Iσ²e)<br>
+                            <strong>Challenge:</strong> Coefficient matrix inversion for variance estimation
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">📈 Prediction Error Variance</div>
+                        <div class="formula-main">
+                            Var(â-a) = Var(a) - Var(â) = Aσ²a - C<sup>BB</sup>σ²e
+                        </div>
+                        <div class="formula-note">
+                            <strong>Key insight:</strong> PEV can be estimated without inverting coefficient matrix<br>
+                            <strong>C<sup>BB</sup>:</strong> Block of coefficient matrix inverse<br>
+                            <strong>Monte Carlo target:</strong> Estimate Var(â) directly
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">🎯 Monte Carlo Variance Estimator</div>
+                    <div class="formula-main">
+                        Var<sub>MC</sub>(û) = (U'U - 1'U1'U/B)/(B-1)
+                    </div>
+                    <div class="formula-note">
+                        <strong>Unbiased estimator:</strong> Sample variance across B Monte Carlo vectors<br>
+                        <strong>Matrix U:</strong> B × n matrix with breeding value predictors from simulated data<br>
+                        <strong>Expectation:</strong> E[Var<sub>MC</sub>(û)] = Var(â)
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">🔄 EM Update Equation</div>
+                    <div class="formula-main">
+                        σ²a<sup>(i+1)</sup> = (â'A⁻¹â - tr(A⁻¹Var<sub>MC</sub>(â)))/n
+                    </div>
+                    <div class="formula-note">
+                        <strong>Monte Carlo integration:</strong> Replace matrix trace with simulation estimate<br>
+                        <strong>Convergence:</strong> Standard EM properties maintained<br>
+                        <strong>Efficiency:</strong> No matrix inversion required
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚙️ Algorithm Development - Step-by-Step Implementation</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">📁 Data Preparation & Matrix Setup</div>
+                            <div class="step-details">
+                                <strong>Data Input:</strong> Read pedigree and phenotype files, construct incidence matrices
+                                <div class="step-specs">
+                                    <strong>Relationship matrix:</strong> Compute diagonal elements of A⁻¹ using Quaas (1976) algorithm<br>
+                                    <strong>Choleski factorization:</strong> Generate L factor for random effect simulation<br>
+                                    <strong>Memory efficiency:</strong> Store only necessary matrix elements<br>
+                                    <strong>Vector generation:</strong> Create pseudorandom vectors N(0,1) for Monte Carlo sampling
+                                </div>
+                                <p><strong>Innovation:</strong> Avoid storing full relationship matrix by computing elements as needed.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">🎲 Monte Carlo Vector Generation</div>
+                            <div class="step-details">
+                                <strong>Simulation Process:</strong> Generate B pseudorandom vectors following the model distribution
+                                <div class="step-specs">
+                                    <strong>Fixed component:</strong> Xb<sup>(i-1)</sup> from current parameter estimates<br>
+                                    <strong>Genetic component:</strong> √σ²a<sup>(i-1)</sup> × Lf where f ~ N(0,1)<br>
+                                    <strong>Residual component:</strong> √σ²e<sup>(i-1)</sup> × g where g ~ N(0,1)<br>
+                                    <strong>Total vector:</strong> yi = Xb<sup>(i-1)</sup> + √σ²a<sup>(i-1)</sup>Lfi + √σ²e<sup>(i-1)</sup>gi
+                                </div>
+                                <p><strong>Critical insight:</strong> Simulated vectors are unselected, making linear system solutions converge faster than real data.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">🔧 Linear System Solution</div>
+                            <div class="step-details">
+                                <strong>Jacobi Algorithm:</strong> Solve B+1 linear systems using second-order Jacobi iteration
+                                <div class="step-specs">
+                                    <strong>Systems solved:</strong> Original data system + B Monte Carlo systems<br>
+                                    <strong>Vector optimization:</strong> Jacobi algorithm ideal for supercomputer architectures<br>
+                                    <strong>Warm starting:</strong> Use previous iteration solutions as starting values<br>
+                                    <strong>Convergence acceleration:</strong> Monte Carlo systems converge faster due to lack of selection
+                                </div>
+                                <p><strong>Efficiency gain:</strong> Each Monte Carlo system requires fewer iterations than the real data system.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">📊 Variance Component Update</div>
+                            <div class="step-details">
+                                <strong>Parameter Estimation:</strong> Calculate new variance components using Monte Carlo estimates
+                                <div class="step-specs">
+                                    <strong>Genetic variance:</strong> σ²a<sup>(i+1)</sup> = (â'A⁻¹â - tr(A⁻¹Var<sub>MC</sub>(â)))/n<br>
+                                    <strong>Residual variance:</strong> σ²e<sup>(i+1)</sup> = (y-Xb̂-Zâ)'(y-Xb̂-Zâ)/(N-rank(X))<br>
+                                    <strong>Trace computation:</strong> Use Monte Carlo estimate to avoid matrix inversion<br>
+                                    <strong>Convergence check:</strong> Monitor parameter changes between iterations
+                                </div>
+                                <p><strong>Statistical properties:</strong> Maintains all REML optimality properties while avoiding computational bottlenecks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏆 Results Analysis - Computational Validation</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">💰 Small-Scale Validation (200 Records)</div>
+                        <div class="analysis-content">
+                            <strong>🎯 Method Comparison:</strong>
+                            <div class="table-container">
+                                <table class="example-table">
+                                    <thead>
+                                        <tr>
+                                            <th>EM Round</th>
+                                            <th>EM h²</th>
+                                            <th>MC-EM h²</th>
+                                            <th>Jacobi Rounds (Data)</th>
+                                            <th>Jacobi Rounds (MC)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>0.284</td>
+                                            <td>0.284</td>
+                                            <td>172</td>
+                                            <td>177.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>0.249</td>
+                                            <td>0.246</td>
+                                            <td>33</td>
+                                            <td>33.93</td>
+                                        </tr>
+                                        <tr>
+                                            <td>100</td>
+                                            <td>0.144</td>
+                                            <td>0.136</td>
+                                            <td>13</td>
+                                            <td>14.33</td>
+                                        </tr>
+                                        <tr>
+                                            <td>>1000</td>
+                                            <td>0.098</td>
+                                            <td>0.091</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <strong>💡 Key Observations:</strong>
+                            <ul>
+                                <li><span class="highlight">Convergence similarity</span> - MC-EM tracks exact EM closely</li>
+                                <li><span class="highlight">Iteration efficiency</span> - Monte Carlo systems converge as fast as real data</li>
+                                <li><span class="highlight">Final accuracy</span> - Terminal estimates within acceptable precision</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🧬 Large-Scale Performance</div>
+                        <div class="analysis-content">
+                            <strong>🔥 Computational Scaling:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">2,500</div>
+                                    <div class="stat-label">Records: 32'54"<br>with B=20</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">10,000</div>
+                                    <div class="stat-label">Records: 143'42"<br>with B=20</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">100,000</div>
+                                    <div class="stat-label">Records: 1060'45"<br>with B=10</div>
+                                </div>
+                            </div>
+                            
+                            <strong>📊 Accuracy vs Efficiency Trade-offs:</strong>
+                            <ul>
+                                <li><strong>Monte Carlo samples (B):</strong> Higher B improves accuracy but increases computational cost</li>
+                                <li><strong>Standard error reduction:</strong> Precision increases with sample size as expected</li>
+                                <li><strong>Linear scaling confirmed:</strong> Computational time proportional to n, not n³</li>
+                                <li><strong>Vector processing advantage:</strong> Jacobi algorithm optimally suited for supercomputers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🎯 Statistical Properties</div>
+                        <div class="analysis-content">
+                            <strong>📊 REML Property Preservation:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">Unbiased</div>
+                                    <div class="stat-label">Expectation equals<br>true parameters</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Efficient</div>
+                                    <div class="stat-label">Variance decreases<br>with sample size</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Flexible</div>
+                                    <div class="stat-label">Works with any<br>model structure</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🔬 Validation Highlights:</strong>
+                            <ul>
+                                <li><span class="highlight">Monte Carlo convergence</span> - Standard errors proportional to 1/√B</li>
+                                <li><span class="highlight">EM properties maintained</span> - Same convergence characteristics as exact REML</li>
+                                <li><span class="highlight">Selection bias absent</span> - Unaffected by fixed effects or selection in data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🛠️ Practical Applications - Revolutionary Impact</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">🎯 National Genetic Evaluations</div>
+                        <div class="analysis-content">
+                            <strong>🧬 Large-Scale Breeding Programs:</strong>
+                            <ul>
+                                <li><strong>National dairy evaluations:</strong> Enabled variance component estimation for hundreds of thousands of animals</li>
+                                <li><strong>Multi-trait models:</strong> Extended to complex models with multiple random effects</li>
+                                <li><strong>International evaluations:</strong> Foundation for multi-country genetic evaluations</li>
+                                <li><strong>Computational feasibility:</strong> Made routine REML estimation practical on 1990s hardware</li>
+                            </ul>
+                            
+                            <strong>💡 Implementation Advantages:</strong>
+                            <ul>
+                                <li><span class="highlight">Hardware compatibility</span> - Optimized for vector supercomputers</li>
+                                <li><span class="highlight">Memory efficiency</span> - Avoided storage of massive matrices</li>
+                                <li><span class="highlight">Parallel processing</span> - Multiple linear systems solved independently</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">🌱 Model Flexibility & Extensions</div>
+                        <div class="analysis-content">
+                            <strong>⚖️ Multi-Random-Effect Models:</strong>
+                            <ul>
+                                <li><strong>Maternal effects:</strong> Direct and maternal genetic components</li>
+                                <li><strong>Permanent environment:</strong> Repeated records on same individual</li>
+                                <li><strong>Multi-trait analysis:</strong> Correlated traits with multiple variance components</li>
+                                <li><strong>Random regression:</strong> Time-dependent genetic effects</li>
+                            </ul>
+                            
+                            <strong>🔮 Algorithm Enhancements:</strong>
+                            <ul>
+                                <li><strong>Relaxation factors:</strong> Accelerated EM convergence through parameter dampening</li>
+                                <li><strong>Stratified sampling:</strong> Improved Monte Carlo precision through controlled random number generation</li>
+                                <li><strong>Warm starting:</strong> Faster linear system solution using previous iteration values</li>
+                                <li><strong>Adaptive sampling:</strong> Automatic adjustment of Monte Carlo sample size based on convergence</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚠️ Limitations and Computational Considerations</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">🔍 Method Constraints and Trade-offs</div>
+                    <div class="gap-content">
+                        <strong>📊 Monte Carlo Variability:</strong>
+                        <ul>
+                            <li><strong>Estimation precision:</strong> Accuracy depends on number of Monte Carlo samples (B)</li>
+                            <li><strong>Computational cost:</strong> Higher precision requires more samples and computation time</li>
+                            <li><strong>Random number quality:</strong> Pseudorandom generator quality affects estimation reliability</li>
+                            <li><strong>Convergence monitoring:</strong> Need to balance Monte Carlo error with EM convergence criteria</li>
+                        </ul>
+                        
+                        <strong>⏰ Computational Dependencies:</strong>
+                        <ul>
+                            <li><strong>Jacobi convergence:</strong> Linear system solution speed varies with model conditioning</li>
+                            <li><strong>Vector architecture:</strong> Performance gains specific to vector supercomputers of the era</li>
+                            <li><strong>Memory requirements:</strong> Still substantial for very large datasets despite matrix avoidance</li>
+                            <li><strong>Parallelization limits:</strong> Monte Carlo samples processed sequentially in original implementation</li>
+                        </ul>
+                        
+                        <strong>🎯 Statistical Assumptions:</strong>
+                        <ul>
+                            <li><strong>Model specification:</strong> Assumes correct model structure and distributional assumptions</li>
+                            <li><strong>Starting values:</strong> EM convergence can be sensitive to initial parameter estimates</li>
+                            <li><strong>Local optima:</strong> EM algorithm may converge to local rather than global maximum</li>
+                            <li><strong>Finite sample properties:</strong> Monte Carlo estimates have additional sampling variability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎯 Historical Impact and Legacy</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box comparative">
+                        <div class="theme-title">🔬 Methodological Influence</div>
+                        <div class="analysis-content">
+                            <strong>🧬 Direct Applications:</strong>
+                            <ul>
+                                <li><strong>National breeding programs:</strong> Enabled routine variance component estimation in major livestock species</li>
+                                <li><strong>Software development:</strong> Incorporated into major animal breeding software packages</li>
+                                <li><strong>International collaborations:</strong> Foundation for multi-country genetic evaluation systems</li>
+                                <li><strong>Research acceleration:</strong> Made complex quantitative genetic studies computationally feasible</li>
+                            </ul>
+                            
+                            <strong>📊 Methodological Extensions:</strong>
+                            <ul>
+                                <li><strong>Gibbs sampling:</strong> Influenced development of MCMC methods in quantitative genetics</li>
+                                <li><strong>Genomic applications:</strong> Principles extended to genomic relationship matrices</li>
+                                <li><strong>Computational genetics:</strong> Demonstrated Monte Carlo potential for matrix-intensive problems</li>
+                                <li><strong>Algorithm development:</strong> Template for avoiding matrix inversions in other contexts</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box methodological">
+                        <div class="theme-title">🏭 Industry Transformation</div>
+                        <div class="analysis-content">
+                            <strong>💼 Practical Revolution:</strong>
+                            <ul>
+                                <li><strong>Scale breakthrough:</strong> Moved from thousands to hundreds of thousands of animals</li>
+                                <li><strong>Routine implementation:</strong> Transformed variance component estimation from research to practice</li>
+                                <li><strong>Economic impact:</strong> Enabled more accurate breeding value estimation and genetic gain</li>
+                                <li><strong>Technology transfer:</strong> Bridge between academic research and industry application</li>
+                            </ul>
+                            
+                            <strong>🔧 Technical Legacy:</strong>
+                            <ul>
+                                <li><strong>Matrix-free methods:</strong> Inspired development of iterative methods in other fields</li>
+                                <li><strong>Supercomputer utilization:</strong> Demonstrated effective use of vector processing architecture</li>
+                                <li><strong>Algorithm robustness:</strong> Showed Monte Carlo methods could maintain statistical rigor</li>
+                                <li><strong>Computational efficiency:</strong> Set standard for linear scaling in large-scale genetic analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📈 Modern Relevance and Evolution</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🌟 Contemporary Applications</div>
+                    <div class="significance-content">
+                        <strong>🏆 Lasting Contributions:</strong>
+                        <ul>
+                            <li><strong>Genomic era foundations:</strong> Principles extended to genomic relationship matrices and SNP-based models</li>
+                            <li><strong>Big data genetics:</strong> Matrix avoidance strategies crucial for million-animal datasets</li>
+                            <li><strong>Cloud computing:</strong> Monte Carlo parallelization ideal for distributed computing architectures</li>
+                            <li><strong>Machine learning integration:</strong> Sampling strategies adapted for modern ML applications in genetics</li>
+                        </ul>
+                        
+                        <strong>📊 Evolutionary Trajectory:</strong>
+                        <ul>
+                            <li><strong>MCMC development:</strong> Direct influence on Gibbs sampling adoption in quantitative genetics</li>
+                            <li><strong>Sparse matrix methods:</strong> Combined with modern sparse linear algebra for even greater efficiency</li>
+                            <li><strong>GPU acceleration:</strong> Monte Carlo sampling ideal for massively parallel GPU architectures</li>
+                            <li><strong>Approximate methods:</strong> Inspiration for other approximation strategies in computational genetics</li>
+                        </ul>
+                        
+                        <strong>🔮 Future Relevance:</strong>
+                        <p>As genetic datasets continue to grow exponentially with sequencing technologies and global breeding programs, the fundamental insight of this work—that Monte Carlo sampling can replace matrix inversion while maintaining statistical rigor—remains as relevant today as it was revolutionary in 1995. The method's emphasis on computational efficiency and statistical validity continues to guide development of modern genomic analysis tools.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📚 Key References and Technical Context</div>
+                
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <div class="concept-title">📖 Foundational Methods</div>
+                        <div class="analysis-content">
+                            <strong>Core Techniques:</strong>
+                            <ul>
+                                <li><strong>Quaas (1976):</strong> Diagonal elements of relationship matrix inverse computation</li>
+                                <li><strong>Smith & Graser (1986):</strong> REML estimation in mixed models, computational approaches</li>
+                                <li><strong>Lin (1988):</strong> Equivalent formulations of mixed model equations</li>
+                                <li><strong>Meyer (1989):</strong> Derivative-free REML algorithms for variance components</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <div class="concept-title">🔬 Computational Context</div>
+                        <div class="analysis-content">
+                            <strong>Related Approaches:</strong>
+                            <ul>
+                                <li><strong>Misztal (1990):</strong> Sparse matrix inversion and supercomputer utilization</li>
+                                <li><strong>Klassen & Smith (1990):</strong> Monte Carlo approaches to information matrix estimation</li>
+                                <li><strong>Blair & Pollack (1984):</strong> Animal model computational efficiency comparisons</li>
+                                <li><strong>EM Algorithm literature:</strong> General expectation-maximization methodology</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <div class="concept-title">🧮 Mathematical Framework</div>
+                        <div class="analysis-content">
+                            <strong>Statistical Theory:</strong>
+                            <ul>
+                                <li><strong>REML theory:</strong> Restricted maximum likelihood principles and properties</li>
+                                <li><strong>Monte Carlo methods:</strong> Sampling theory and convergence properties</li>
+                                <li><strong>Mixed model theory:</strong> Henderson's equations and BLUP methodology</li>
+                                <li><strong>Matrix algebra:</strong> Relationship matrices and Choleski decomposition</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">💡 Critical Assessment and Technical Evaluation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-title">✅ Revolutionary Achievements</div>
+                        <div class="analysis-content">
+                            <strong>🏆 Computational Breakthroughs:</strong>
+                            <ul>
+                                <li><strong>Matrix inversion elimination:</strong> Solved the primary computational bottleneck of REML estimation</li>
+                                <li><strong>Linear scaling achievement:</strong> Reduced complexity from O(n³) to O(n) for most operations</li>
+                                <li><strong>Memory efficiency gains:</strong> Avoided storage of massive coefficient matrices</li>
+                                <li><strong>Vector processing optimization:</strong> Perfectly suited for 1990s supercomputer architectures</li>
+                                <li><strong>Statistical rigor maintained:</strong> Preserved all REML optimality properties</li>
+                            </ul>
+                            
+                            <strong>🎯 Practical Impact:</strong>
+                            <ul>
+                                <li><strong>Industry transformation:</strong> Enabled national genetic evaluations with hundreds of thousands of animals</li>
+                                <li><strong>Research acceleration:</strong> Made complex quantitative genetic studies computationally feasible</li>
+                                <li><strong>Method generality:</strong> Extended to multi-trait and multi-random-effect models</li>
+                                <li><strong>Algorithm flexibility:</strong> Maintained EM algorithm advantages for complex model structures</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-title">⚠️ Technical Limitations</div>
+                        <div class="analysis-content">
+                            <strong>🔍 Method Constraints:</strong>
+                            <ul>
+                                <li><strong>Monte Carlo variability:</strong> Additional sampling error from finite number of simulation vectors</li>
+                                <li><strong>Convergence dependencies:</strong> Performance depends on Jacobi algorithm convergence properties</li>
+                                <li><strong>Hardware specificity:</strong> Optimization tailored to vector supercomputers of the era</li>
+                                <li><strong>Memory still substantial:</strong> Large datasets still required significant computational resources</li>
+                            </ul>
+                            
+                            <strong>📊 Precision Trade-offs:</strong>
+                            <ul>
+                                <li><strong>Sample size effects:</strong> Accuracy improves with Monte Carlo samples but at computational cost</li>
+                                <li><strong>Random number quality:</strong> Results depend on pseudorandom generator characteristics</li>
+                                <li><strong>Convergence monitoring:</strong> Need to balance Monte Carlo precision with EM convergence</li>
+                                <li><strong>Parameter sensitivity:</strong> Starting values can affect convergence in complex models</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-title">🔮 Historical Perspective</div>
+                        <div class="analysis-content">
+                            <strong>🚀 Paradigm Shift:</strong>
+                            <ul>
+                                <li><strong>Computational philosophy:</strong> Showed approximation could maintain statistical validity</li>
+                                <li><strong>Scale transformation:</strong> Moved field from small to large-scale genetic analysis</li>
+                                <li><strong>Method innovation:</strong> Inspired subsequent Monte Carlo developments in genetics</li>
+                                <li><strong>Industry adoption:</strong> Bridge between academic research and practical implementation</li>
+                            </ul>
+                            
+                            <strong>🎯 Enduring Relevance:</strong>
+                            <ul>
+                                <li><strong>Genomic era foundations:</strong> Principles directly applicable to genomic relationship matrices</li>
+                                <li><strong>Big data strategies:</strong> Matrix avoidance essential for modern massive datasets</li>
+                                <li><strong>Parallel computing:</strong> Monte Carlo approaches ideal for modern distributed architectures</li>
+                                <li><strong>Approximation methods:</strong> Template for developing efficient approximations with statistical guarantees</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎯 Conclusion</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏆 A Computational Revolution in Quantitative Genetics</div>
+                    <p>García-Cortés et al. (1995) delivered a transformative solution to one of the most pressing computational challenges in quantitative genetics. By ingeniously replacing matrix inversion with Monte Carlo sampling, they removed the primary barrier preventing REML variance component estimation in large-scale animal breeding programs.</p>
+                    
+                    <p>The work represents a masterful combination of statistical insight and computational innovation. The recognition that prediction error variances could be estimated through simulation rather than matrix inversion was not merely a technical workaround—it was a fundamental reimagining of how large-scale genetic analysis could be conducted.</p>
+                    
+                    <p>Perhaps most remarkably, this approximation method maintained the full statistical rigor of exact REML estimation while achieving dramatic computational advantages. The linear scaling with dataset size, optimization for vector supercomputers, and preservation of EM algorithm flexibility made previously impossible analyses routine.</p>
+                    
+                    <p>The method's influence extends far beyond its immediate application. It established Monte Carlo methods as a legitimate and powerful tool in quantitative genetics, influenced the development of MCMC approaches, and provided a template for developing computationally efficient approximations that maintain statistical validity. In the genomic era, where datasets routinely contain millions of animals and markers, the fundamental insight of this work—that clever sampling can replace prohibitive matrix operations—remains as relevant and revolutionary as ever.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

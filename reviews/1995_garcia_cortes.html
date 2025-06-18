@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Estimation of prediction-error variances by resampling</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Estimation of prediction-error variances by resampling</h1>
+            <p>Pioneering Monte Carlo Approach for BLUP Accuracy Assessment</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> L. A. García-Cortés, C. Moreno, L. Varona, J. Altarriba</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Quantitative Genetics and Animal Breeding Unit, Faculty of Veterinary Science, University of Zaragoza, Spain</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, 1995; 112:176-182</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1111/j.1439-0388.1995.tb00558.x"
+                       target="_blank" 
+                       class="paper-link">
+                        View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Paper Information & Historical Context</div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> García-Cortés, L. A., Moreno, C., Varona, L., & Altarriba, J. (1995). Estimation of prediction-error variances by resampling. Journal of Animal Breeding and Genetics, 112(3), 176-182.</p>
+                    
+                    <p><strong>Historical Significance:</strong> This 1995 paper was ahead of its time, introducing Monte Carlo resampling methods for estimating prediction error variances (PEV) when exact computation of inverse matrix elements was computationally prohibitive. The work predated many modern computational advances and provided crucial methodology for genetic evaluation systems dealing with large datasets.</p>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Computational Innovation Breakthrough</div>
+                    <p>First systematic application of Monte Carlo resampling to approximate prediction error variances in mixed model equations, achieving 0.96 correlation with exact PEV while avoiding computationally expensive matrix inversions. Introduced three distinct methods with optimal pooling strategy.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-1">
+                <div class="section-title">🔍 WHY, HOW, WHAT - The Computational Challenge</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">🤔 WHY - The Computational Bottleneck</div>
+                        <div class="analysis-content">
+                            <strong>💻 The Matrix Inversion Problem:</strong>
+                            <p>In the mid-1990s, evaluating prediction error variances (PEV) required calculating specific inverse elements of the coefficient matrix C from mixed-model equations. For large datasets with complex pedigree structures, this became <span class="highlight">computationally intractable</span>.</p>
+                            
+                            <strong>⚠️ Existing Method Limitations:</strong>
+                            <ul>
+                                <li><strong>Bound methods (Van Raden & Freeman 1985):</strong> Only provided upper/lower bounds, not actual estimates</li>
+                                <li><strong>Meyer's approximation (1989):</strong> Slight overestimation, especially problematic for tested animals</li>
+                                <li><strong>Direct inversion:</strong> Computationally impossible for large coefficient matrices</li>
+                                <li><strong>Memory constraints:</strong> 1990s hardware couldn't handle full matrix storage and inversion</li>
+                            </ul>
+                            
+                            <strong>🎯 Industry Critical Needs:</strong>
+                            <ul>
+                                <li>Accurate reliability estimates for genetic evaluations</li>
+                                <li>Consistent (unbiased) PEV estimation methods</li>
+                                <li>Computationally feasible approaches for large datasets</li>
+                                <li>Methods generalizable to complex models and multiple traits</li>
+                                <li>Integration with EM-REML variance component estimation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">🔬 HOW - Monte Carlo Resampling Framework</div>
+                        <div class="analysis-content">
+                            <strong>🧩 Three-Step Resampling Protocol:</strong>
+                            <p>The authors developed a systematic Monte Carlo approach using the distributional properties of BLUP predictors to avoid direct matrix inversion.</p>
+                            
+                            <strong>📊 Core Methodology:</strong>
+                            <div class="method-grid">
+                                <div class="method-card">
+                                    <div class="method-title">Step 1: Simulation</div>
+                                    <p><strong>Data Generation:</strong> Simulate B samples using N(0, ZGZ' + R)</p>
+                                    <p><strong>Key Insight:</strong> Expectation Xb doesn't affect random variable distributions</p>
+                                    <p><strong>Advantage:</strong> Uses same data structure without original phenotypes</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">Step 2: BLUP Solutions</div>
+                                    <p><strong>Linear Systems:</strong> Solve mixed model equations for each simulated dataset</p>
+                                    <p><strong>Output:</strong> B sets of predicted breeding values â<sub>i</sub></p>
+                                    <p><strong>Efficiency:</strong> Vectorizable computations for parallel processing</p>
+                                </div>
+                                <div class="method-card">
+                                    <div class="method-title">Step 3: Empirical Estimation</div>
+                                    <p><strong>Variance Calculation:</strong> Compute empirical variances from B replicates</p>
+                                    <p><strong>PEV Estimation:</strong> Three distinct methods with different assumptions</p>
+                                    <p><strong>Pooling Strategy:</strong> Optimal combination using sampling variance weights</p>
+                                </div>
+                            </div>
+                            
+                            <strong>🔧 Three PEV Estimation Methods:</strong>
+                            <ul>
+                                <li><strong>Method 1:</strong> PEV₁(â<sub>i</sub>) = G<sub>ii</sub> - û'<sub>i</sub>û<sub>i</sub>/B (assumes Cov(a,â) = Var(â))</li>
+                                <li><strong>Method 2:</strong> PEV₂(â<sub>i</sub>) = (u<sub>i</sub> - û<sub>i</sub>)'(u<sub>i</sub> - û<sub>i</sub>)/B (direct prediction error variance)</li>
+                                <li><strong>Method 3:</strong> Optimal pooling of Methods 1 and 2 using inverse sampling variances as weights</li>
+                            </ul>
+                            
+                            <strong>🎯 Computational Advantages:</strong>
+                            <ul>
+                                <li><strong>Vectorization potential:</strong> All operations involve solving linear systems</li>
+                                <li><strong>Memory efficiency:</strong> No need to store or invert large matrices</li>
+                                <li><strong>Flexibility:</strong> Easily adaptable to different models and traits</li>
+                                <li><strong>Consistency:</strong> Provides unbiased estimates rather than bounds</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">💥 WHAT - Empirical Validation Results</div>
+                        <div class="analysis-content">
+                            <strong>🎯 Simulation Design Excellence:</strong>
+                            <p>Comprehensive validation using 2,500 animals across 10 non-overlapping generations with realistic pedigree structure (10% animals used as parents).</p>
+                            
+                            <strong>📈 Performance Metrics - Method Comparison:</strong>
+                            <div class="results-grid">
+                                <div class="stat-box">
+                                    <div class="stat-number">0.473</div>
+                                    <div class="stat-label">Method 1 correlation<br>with B=20 samples</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">0.413</div>
+                                    <div class="stat-label">Method 2 correlation<br>with B=20 samples</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">0.558</div>
+                                    <div class="stat-label">Method 3 (pooled)<br>correlation with B=20</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🚀 Scalability with Sample Size:</strong>
+                            <div class="results-grid">
+                                <div class="stat-box">
+                                    <div class="stat-number">0.931</div>
+                                    <div class="stat-label">Method 1 correlation<br>with B=500 samples</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">0.912</div>
+                                    <div class="stat-label">Method 2 correlation<br>with B=500 samples</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">0.963</div>
+                                    <div class="stat-label">Method 3 (pooled)<br>correlation with B=500</div>
+                                </div>
+                            </div>
+                            
+                            <strong>⚡ Computational Efficiency:</strong>
+                            <ul>
+                                <li><strong>B=20:</strong> 2 min 18 s on Convex C220 (1990s supercomputer)</li>
+                                <li><strong>B=500:</strong> 53 min 18 s - still feasible for routine evaluation</li>
+                                <li><strong>Linear scaling:</strong> Computation time scales linearly with number of samples</li>
+                                <li><strong>No memory explosion:</strong> Avoids storage of large inverse matrices</li>
+                            </ul>
+                            
+                            <strong>🎯 Method-Specific Performance:</strong>
+                            <ul>
+                                <li><strong>Method 1 advantage:</strong> Better for animals with high PEV (low reliability)</li>
+                                <li><strong>Method 2 advantage:</strong> Better for animals with low PEV (high reliability)</li>
+                                <li><strong>Method 3 superiority:</strong> Consistently best across entire parameter space</li>
+                                <li><strong>Heritability dependence:</strong> Optimal method depends on trait heritability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🧮 Mathematical Framework - Core Equations</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">📊 Method 1: Genetic Variance Approach</div>
+                        <div class="formula-main">
+                            PEV₁(âᵢ) = Gᵢᵢ - û'ᵢûᵢ/B
+                        </div>
+                        <div class="formula-note">
+                            <strong>Assumption:</strong> Cov(a, â) = Var(â)<br>
+                            <strong>Advantage:</strong> Better for high PEV animals (low reliability)<br>
+                            <strong>Application:</strong> Uses genetic variance minus empirical predictor variance
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">📈 Method 2: Direct Prediction Error</div>
+                        <div class="formula-main">
+                            PEV₂(âᵢ) = (uᵢ - ûᵢ)'(uᵢ - ûᵢ)/B
+                        </div>
+                        <div class="formula-note">
+                            <strong>No assumptions:</strong> Direct calculation of prediction error variance<br>
+                            <strong>Advantage:</strong> Better for low PEV animals (high reliability)<br>
+                            <strong>Implementation:</strong> Empirical variance of prediction errors across replicates
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">🎯 Method 3: Optimal Pooled Estimator</div>
+                    <div class="formula-main">
+                        PEV₃ = [Var(aᵢ) - VarMC(âᵢ)]²σ̂⁴MC(uᵢ-âᵢ) + VarMC(aᵢ - âᵢ)²σ̂⁴MC(âᵢ) / [σ̂⁴MC(uᵢ-âᵢ) + σ̂⁴MC(âᵢ)]
+                    </div>
+                    <div class="formula-note">
+                        <strong>Optimal weighting:</strong> Uses reciprocals of asymptotic sampling variances<br>
+                        <strong>Performance:</strong> Superior to individual methods across entire parameter space<br>
+                        <strong>Assumption:</strong> Methods 1 and 2 provide uncorrelated estimates (empirically verified)
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚙️ Methodological Development - Algorithm Details</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">📋 Model Framework</div>
+                            <div class="step-details">
+                                <strong>Animal Model:</strong> y = Xb + Za + e
+                                <div class="step-specs">
+                                    <strong>Distributions:</strong><br>
+                                    y ~ N(Xb, ZGZ' + R)<br>
+                                    a ~ N(0, G)<br>
+                                    e ~ N(0, R)<br>
+                                    <strong>BLUP Property:</strong> (a - â) ~ N(0, C⁻¹⁺⁺)<br>
+                                    <strong>Challenge:</strong> Computing C⁻¹⁺⁺ elements directly is computationally prohibitive
+                                </div>
+                                <p><strong>Foundation:</strong> Exploits distributional properties of BLUP predictors to avoid matrix inversion.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">🎲 Simulation Protocol</div>
+                            <div class="step-details">
+                                <strong>Data Simulation Strategy:</strong> Generate B independent datasets from the same distributional structure
+                                <div class="step-specs">
+                                    <strong>Sampling distribution:</strong> N(0, ZGZ' + R) instead of N(Xb, ZGZ' + R)<br>
+                                    <strong>Rationale:</strong> Fixed effects Xb don't affect random variable distributions<br>
+                                    <strong>Implementation:</strong> Use normal random deviates (though not strictly required)<br>
+                                    <strong>Efficiency:</strong> Reuse same coefficient matrix structure across replicates
+                                </div>
+                                <p><strong>Innovation:</strong> Eliminates need for actual phenotypic data while maintaining statistical properties.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">🔄 Iterative BLUP Solutions</div>
+                            <div class="step-details">
+                                <strong>Linear System Solutions:</strong> Solve mixed model equations B times using simulated data
+                                <div class="step-specs">
+                                    <strong>Output:</strong> B sets of breeding value predictions âᵢ⁽ᵇ⁾<br>
+                                    <strong>Vectorization:</strong> All computations involve standard linear algebra operations<br>
+                                    <strong>Parallelization:</strong> Individual solutions are independent and parallelizable<br>
+                                    <strong>Memory efficiency:</strong> Only need to store current solution set, not full coefficient matrix inverse
+                                </div>
+                                <p><strong>Computational advantage:</strong> Leverages existing mixed model solving algorithms without modification.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">📊 Empirical Variance Calculation</div>
+                            <div class="step-details">
+                                <strong>Statistical Inference:</strong> Calculate empirical variances from the B replicate solutions
+                                <div class="step-specs">
+                                    <strong>Predictor variance:</strong> VarMC(âᵢ) = û'ᵢûᵢ/B<br>
+                                    <strong>Prediction error variance:</strong> VarMC(aᵢ - âᵢ) = (uᵢ - ûᵢ)'(uᵢ - ûᵢ)/B<br>
+                                    <strong>Additive genetic variance:</strong> VarMC(aᵢ) = u'ᵢuᵢ/B ≈ Gᵢᵢ<br>
+                                    <strong>Asymptotic properties:</strong> Sampling variances follow known distributions for large B
+                                </div>
+                                <p><strong>Statistical rigor:</strong> Provides consistent estimators with known asymptotic properties for uncertainty quantification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏆 Results Analysis - Performance Validation</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">💰 Correlation Performance</div>
+                        <div class="analysis-content">
+                            <strong>📈 Sample Size Effects:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">B=20</div>
+                                    <div class="stat-label">Method 3: r=0.558<br>2 min 18 s computation</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">B=100</div>
+                                    <div class="stat-label">Method 3: r=0.838<br>10 min 28 s computation</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">B=500</div>
+                                    <div class="stat-label">Method 3: r=0.963<br>53 min 18 s computation</div>
+                                </div>
+                            </div>
+                            
+                            <strong>💡 Key Performance Insights:</strong>
+                            <ul>
+                                <li><span class="highlight">Rapid improvement:</span> Correlation increases dramatically from B=20 to B=100</li>
+                                <li><span class="highlight">Diminishing returns:</span> Smaller gains from B=100 to B=500</li>
+                                <li><span class="highlight">Practical trade-off:</span> B=100 provides good accuracy with reasonable computation time</li>
+                                <li><span class="highlight">Method superiority:</span> Pooled method consistently outperforms individual approaches</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🧬 Method-Specific Advantages</div>
+                        <div class="analysis-content">
+                            <strong>🔥 Performance by Animal Type:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">High PEV</div>
+                                    <div class="stat-label">Method 1 superior<br>Low reliability animals</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Low PEV</div>
+                                    <div class="stat-label">Method 2 superior<br>High reliability animals</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">All Cases</div>
+                                    <div class="stat-label">Method 3 optimal<br>Pooled approach wins</div>
+                                </div>
+                            </div>
+                            
+                            <strong>📊 Statistical Properties:</strong>
+                            <ul>
+                                <li><span class="highlight">Uncorrelated errors:</span> Methods 1 and 2 provide independent information</li>
+                                <li><span class="highlight">Optimal weighting:</span> Inverse sampling variances provide best combination</li>
+                                <li><span class="highlight">Bias properties:</span> All methods provide consistent (unbiased) estimates</li>
+                                <li><span class="highlight">Heritability dependence:</span> Optimal method choice depends on trait h²</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">🎯 Computational Efficiency</div>
+                        <div class="analysis-content">
+                            <strong>⚡ 1995 Hardware Performance:</strong>
+                            <div class="coverage-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">Linear</div>
+                                    <div class="stat-label">Time scaling<br>with sample size B</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Vector</div>
+                                    <div class="stat-label">Operations enable<br>parallel computation</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">Memory</div>
+                                    <div class="stat-label">Efficient - no large<br>matrix storage needed</div>
+                                </div>
+                            </div>
+                            
+                            <strong>🔧 Implementation Advantages:</strong>
+                            <ul>
+                                <li><span class="highlight">Algorithmic flexibility:</span> Works with any mixed model solver</li>
+                                <li><span class="highlight">Model generalization:</span> Easily extended to multiple traits and complex models</li>
+                                <li><span class="highlight">Hardware scalability:</span> Benefits from parallel processing and vectorization</li>
+                                <li><span class="highlight">Memory conservation:</span> Avoids storage of large coefficient matrix inverses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🛠️ Practical Applications - Variance Component Estimation</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">🎯 EM-REML Integration</div>
+                        <div class="analysis-content">
+                            <strong>🧬 Variance Component Estimation:</strong>
+                            <ul>
+                                <li><strong>Method 1 application:</strong> σ²<sub>a(est)</sub> = û'û + (û'A⁻¹û - tr(A⁻¹V<sub>MC</sub>(û)))/n</li>
+                                <li><strong>Method 2 application:</strong> σ²<sub>a(est)</sub> = (û'A⁻¹û + tr(A⁻¹V<sub>MC</sub>(a-û)))/n</li>
+                                <li><strong>Method 3 integration:</strong> Use pooled PEV estimates in trace calculations</li>
+                                <li><strong>Computational advantage:</strong> Avoid direct inverse element calculation</li>
+                            </ul>
+                            
+                            <strong>📊 Empirical Validation Results:</strong>
+                            <p>Testing with 1000 animals, h² = 0.25, true variances σ²<sub>a</sub> = 25,000, σ²<sub>e</sub> = 75,000:</p>
+                            <ul>
+                                <li><strong>Method 1:</strong> Mean σ²<sub>a</sub> = 26,981 (SD = 1,428)</li>
+                                <li><strong>Method 2:</strong> Mean σ²<sub>a</sub> = 28,012 (SD = 4,743)</li>
+                                <li><strong>Method 3:</strong> Mean σ²<sub>a</sub> = 26,046 (SD = 1,070) - most accurate and precise</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">🌱 Breeding Program Applications</div>
+                        <div class="analysis-content">
+                            <strong>⚖️ Genetic Evaluation Systems:</strong>
+                            <ul>
+                                <li><strong>Reliability estimation:</strong> Convert PEV to reliability measures for breeding value publication</li>
+                                <li><strong>Selection decisions:</strong> Quantify uncertainty in genetic merit rankings</li>
+                                <li><strong>Breeding program design:</strong> Optimize data collection strategies based on PEV patterns</li>
+                                <li><strong>Quality control:</strong> Identify animals or traits with unexpectedly high prediction errors</li>
+                            </ul>
+                            
+                            <strong>🔮 Historical Impact:</strong>
+                            <ul>
+                                <li><span class="highlight">Methodological foundation:</span> Established Monte Carlo as viable alternative to direct computation</li>
+                                <li><span class="highlight">Computational paradigm:</span> Demonstrated trade-off between computation time and accuracy</li>
+                                <li><span class="highlight">Statistical rigor:</span> Provided consistent estimators with known sampling properties</li>
+                                <li><span class="highlight">Implementation flexibility:</span> Easily integrated into existing genetic evaluation pipelines</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚠️ Limitations and Considerations</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">🔍 Methodological Constraints</div>
+                    <div class="gap-content">
+                        <strong>📊 Computational Trade-offs:</strong>
+                        <ul>
+                            <li><strong>Sample size dependency:</strong> Accuracy strongly depends on number of Monte Carlo samples B</li>
+                            <li><strong>Computational burden:</strong> Still requires solving B sets of mixed model equations</li>
+                            <li><strong>Memory requirements:</strong> Must store all B solution vectors for variance calculation</li>
+                            <li><strong>Random seed sensitivity:</strong> Results vary with random number generator initialization</li>
+                        </ul>
+                        
+                        <strong>⏰ Statistical Assumptions:</strong>
+                        <ul>
+                            <li><strong>Normality requirement:</strong> Asymptotic sampling variances assume normal distributions</li>
+                            <li><strong>Independence assumption:</strong> Methods 1 and 2 pooling assumes uncorrelated errors
