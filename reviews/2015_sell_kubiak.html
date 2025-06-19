@@ -289,53 +289,69 @@
                     <div class="methodology-title">Double Hierarchical GLM (DHGLM)</div>
                     <div class="step-details">
                         The DHGLM represents a statistical breakthrough for analyzing genetic control of trait variability. This method simultaneously models both the mean and variance components of litter size.
-<div class="matrix-equation">
-    <div class="vector-2">
-        <div>y</div>
-        <div>ψ</div>
-    </div>
-    <span class="equals">=</span>
-    <div class="matrix-2x2">
-        <div>X</div>
-        <div>0</div>
-        <div>0</div>
-        <div>X<sub>v</sub></div>
-    </div>
-    <div class="vector-2">
-        <div>b</div>
-        <div>b<sub>v</sub></div>
-    </div>
-    <span class="plus">+</span>
-    <div class="matrix-2x2">
-        <div>Z</div>
-        <div>0</div>
-        <div>0</div>
-        <div>Z<sub>v</sub></div>
-    </div>
-    <div class="vector-2">
-        <div>a</div>
-        <div>a<sub>v</sub></div>
-    </div>
-    <span class="plus">+</span>
-    <div class="matrix-2x2">
-        <div>U</div>
-        <div>0</div>
-        <div>0</div>
-        <div>U<sub>v</sub></div>
-    </div>
-    <div class="vector-2">
-        <div>pe</div>
-        <div>pe<sub>v</sub></div>
-    </div>
-    <span class="plus">+</span>
-    <div class="vector-2">
-        <div>e</div>
-        <div>e<sub>v</sub></div>
+<div class="matrix-container">
+    <div class="matrix-equation">
+        <div class="vector-flexible">
+            <div class="vector-row"><div class="vector-cell">y</div></div>
+            <div class="vector-row"><div class="vector-cell">ψ</div></div>
+        </div>
+        <span class="equals">=</span>
+        <div class="matrix-flexible">
+            <div class="matrix-row">
+                <div class="matrix-cell">X</div>
+                <div class="matrix-cell">0</div>
+            </div>
+            <div class="matrix-row">
+                <div class="matrix-cell">0</div>
+                <div class="matrix-cell">X<sub>v</sub></div>
+            </div>
+        </div>
+        <div class="vector-flexible">
+            <div class="vector-row"><div class="vector-cell">b</div></div>
+            <div class="vector-row"><div class="vector-cell">b<sub>v</sub></div></div>
+        </div>
+        <span class="plus">+</span>
+        <div class="matrix-flexible">
+            <div class="matrix-row">
+                <div class="matrix-cell">Z</div>
+                <div class="matrix-cell">0</div>
+            </div>
+            <div class="matrix-row">
+                <div class="matrix-cell">0</div>
+                <div class="matrix-cell">Z<sub>v</sub></div>
+            </div>
+        </div>
+        <div class="vector-flexible">
+            <div class="vector-row"><div class="vector-cell">a</div></div>
+            <div class="vector-row"><div class="vector-cell">a<sub>v</sub></div></div>
+        </div>
+        <span class="plus">+</span>
+        <div class="matrix-flexible">
+            <div class="matrix-row">
+                <div class="matrix-cell">U</div>
+                <div class="matrix-cell">0</div>
+            </div>
+            <div class="matrix-row">
+                <div class="matrix-cell">0</div>
+                <div class="matrix-cell">U<sub>v</sub></div>
+            </div>
+        </div>
+        <div class="vector-flexible">
+            <div class="vector-row"><div class="vector-cell">pe</div></div>
+            <div class="vector-row"><div class="vector-cell">pe<sub>v</sub></div></div>
+        </div>
+        <span class="plus">+</span>
+        <div class="vector-flexible">
+            <div class="vector-row"><div class="vector-cell">e</div></div>
+            <div class="vector-row"><div class="vector-cell">e<sub>v</sub></div></div>
+        </div>
     </div>
 </div>
-                            <div class="matrix-definition">
-                                Where ψ is the linearized working variable for log(variance), enabling bivariate analysis
-                            </div>
+    <div class="matrix-definition">
+        Where ψ is the linearized working variable for log(variance), enabling bivariate analysis
+    </div>
+</div>
+
                         </div>
                     </div>
                 </div>

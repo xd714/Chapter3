@@ -1411,6 +1411,57 @@ table tr:last-child td {
     min-width: fit-content;
 }
 
+
+/* Flexible matrix styling using table display */
+.matrix-flexible {
+    display: inline-table;
+    border-left: 2px solid var(--text-primary);
+    border-right: 2px solid var(--text-primary);
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 4px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.matrix-row {
+    display: table-row;
+}
+
+.matrix-cell {
+    display: table-cell;
+    padding: 8px 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.vector-flexible {
+    display: inline-table;
+    border-left: 1px solid var(--text-primary);
+    border-right: 1px solid var(--text-primary);
+    padding: 15px 12px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 4px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.vector-row {
+    display: table-row;
+}
+
+.vector-cell {
+    display: table-cell;
+    padding: 8px 0;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+
 .matrix {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
