@@ -11,17 +11,42 @@
             "id": "57bee96bc394a40f",
             "type": "leaf",
             "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          },
+          {
+            "id": "04a8a057ce06a486",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "3.3 1992 garcias Monto-Carlo method.md",
+                "file": "4. Why use BV as phenotype not residual.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3.3 1992 garcias Monto-Carlo method"
+              "title": "4. Why use BV as phenotype not residual"
+            }
+          },
+          {
+            "id": "582dc6f7ac45d53f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "5. Results.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "5. Results"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -168,10 +193,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "57bee96bc394a40f",
+  "active": "582dc6f7ac45d53f",
   "lastOpenFiles": [
-    "1.1 du6_research_methodology.md",
+    "4. Why use BV as phenotype not residual.md",
+    "5. Results.md",
+    "3.2 methods of calculating PEV of MSE-.md",
     "3.3 1992 garcias Monto-Carlo method.md",
+    "1.1 du6_research_methodology.md",
     "3.3 1992 Monto-Carlo mthod.md",
     "New Text Document.txt",
     "1.2 methodology_literatures.md",
@@ -180,7 +208,6 @@
     "1.2 I have a md notes, please verify if the steps work.md",
     "1. du6_research_methodology.md",
     "I have a md notes, please verify if the steps work.md",
-    "3.2 methods of calculating PEV of MSE-.md",
     "3. methods of calculating PEV of MSE.md",
     "regenerate and explain more, with supporting liter.md",
     "2. literatures dBV as phnotype in GWAs.md",
@@ -195,8 +222,6 @@
     "1. steps for detect variation.md",
     "6. how PEV of Mendelian sampling variance calculated.md",
     "5. reasons for considering MSE even only 1 family.md",
-    "4. literature support dBV as phnotype in GWAs.md",
-    "3. prove genetic bottle neck eased after moving to new mouse house.md",
     "未命名",
     "mendelian_sampling_flowchart.html"
   ]

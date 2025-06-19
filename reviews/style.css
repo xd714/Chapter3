@@ -1451,6 +1451,37 @@ table tr:last-child td {
     border-radius: 4px;
 }
 
+
+/* Specific class for 2x2 matrices */
+.matrix-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 15px;
+    border-left: 2px solid var(--text-primary);
+    border-right: 2px solid var(--text-primary);
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 4px;
+    min-width: 200px;
+}
+
+/* Specific class for 2-element vectors */
+.vector-2 {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px 0;
+    border-left: 1px solid var(--text-primary);
+    border-right: 1px solid var(--text-primary);
+    padding: 15px 12px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 4px;
+    min-width: 80px;
+}
+
+
+
+
+
 .matrix-row {
     display: table-row;
 }
