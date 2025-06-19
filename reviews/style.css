@@ -1465,6 +1465,13 @@ table tr:last-child td {
     min-width: 200px;
 }
 
+.matrix-2x2 div {
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
 /* Specific class for 2-element vectors */
 .vector-2 {
     display: grid;
@@ -1478,6 +1485,12 @@ table tr:last-child td {
     min-width: 80px;
 }
 
+.vector-2 div {
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 1.2;
+    white-space: nowrap;
+}
 
 
 
