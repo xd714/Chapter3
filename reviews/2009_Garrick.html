@@ -2,19 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Literature Review - Garrick et al. 2009</title>
-        <link rel="stylesheet" href="style.css">
-
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deregressing Estimated Breeding Values and Weighting Information for Genomic Regression Analyses</title>
+    <link rel="stylesheet" href="style.css">
 
 <script>
 (function() {
     'use strict';
 
     function initTheme() {
-        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        const filename = 'garrick_2009_deregression';
         
         let seed = 0;
         
@@ -61,238 +58,1075 @@
 </head>
 <body>
     <div class="container">
-                        <!-- TOP LEFT NAVIGATION -->
+        <!-- TOP LEFT NAVIGATION -->
         <div class="top-left-nav">
-            <a href="../index.html">  Back to Index</a>
+            <a href="../index.html">Back to Index</a>
         </div>
         
         <div class="header">
             <h1>Deregressing Estimated Breeding Values and Weighting Information for Genomic Regression Analyses</h1>
-            <p>Literature Review - Garrick, Taylor & Fernando (2009)</p>
-
+            <p>Essential Framework for Genomic Prediction Training Data Preparation</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Dorian J. Garrick, Jeremy F. Taylor, Rohan L. Fernando</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Genetics Selection Evolution, Vol. 41, Article 55, 2009</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Iowa State University, University of Missouri</p>
+                <p class="text-top-large">
+                    <a href="https://gsejournal.biomedcentral.com/articles/10.1186/1297-9686-41-55"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
         </div>
         
-        <div class="citation-box">
-            <strong>Citation:</strong> Garrick, D.J., Taylor, J.F., & Fernando, R.L. (2009). Deregressing estimated breeding values and weighting information for genomic regression analyses. Genetics Selection Evolution, 41:55.
-            <br><br>
-            <strong>View Original Paper:</strong>
-            <a href="https://gsejournal.biomedcentral.com/articles/10.1186/1297-9686-41-55" 
-               target="_blank" 
-               style="color: #3498db; text-decoration: none; font-weight: bold;">
-                View Original Paper
-            </a>
-        </div>
-        <div class="section" id="section-5">
-            <div class="section-title">Overview & Problem Statement</div>
-            
-            <div class="problem-box">
-                <strong>Core Problem:</strong> Genomic prediction training requires appropriate use of different information sources (phenotypes, EBV, progeny records), but researchers were inconsistent in how to handle and weight these diverse data types.
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 The Core Problem: Why Deregression Matters</div>
                 
-                <p><strong>Specific Issues:</strong></p>
-                <ul>
-                    <li>Should EBV be used directly or deregressed?</li>
-                    <li>How to properly weight heterogeneous information sources?</li>
-                    <li>EBV from BLUP have shrinkage properties that complicate genomic training</li>
-                    <li>Different reliabilities among individuals create weighting challenges</li>
-                </ul>
-            </div>
-        </div>
-        <div class="section" id="section-4">
-            <div class="section-title">Detailed Methodology Flow</div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 1: Theoretical Foundation</div>
-                <p>Establish ideal model for genomic prediction using true breeding values:</p>
-                <div class="formula short"><div class="formula short">g = 1μ + Ma + ε</div></div>
-                <p>Where g = true genetic merit, M = marker incidence matrix, a = marker effects, ε = lack of fit</p>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 2: Individual Phenotype Model</div>
-                <p>Extend to realistic scenario with phenotypic observations:</p>
-                <div class="formula short"><div class="formula short">y = Xb + g + e</div></div>
-                <p>Derive appropriate weights for different information sources based on variance structure</p>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 3: Repeated Records & Progeny Information</div>
-                <p>Develop weights for:</p>
-                <ul>
-                    <li><strong>Repeated records:</strong> w = (1-h²)/[ch² + ((1-h²)(1-t))/nh²]</li>
-                    <li><strong>Half-sib progeny:</strong> w = (1-h²)/[ch² + (4-h²)/ph²]</li>
-                    <li><strong>Full-sib progeny:</strong> w = (1-h²)/[ch² + (2+2l²h² + (1-0.5h²))/ph²]</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 4: EBV Deregression Theory</div>
-                <p>Address problems with using EBV directly:</p>
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 The Training Data Challenge</div>
+                    <p>Genomic prediction requires a "training phase" where we learn how DNA markers relate to performance. But what data should we use for training? Individual records? Family averages? Estimated breeding values (EBV)? Each has different reliability and variance - this paper shows how to properly prepare and weight them for genomic analysis.</p>
+                </div>
+                
                 <div class="problem-box">
-                    <strong>Problem 1:</strong> EBV have reduced variance due to shrinkage<br>
-                    <strong>Problem 2:</strong> Regression of EBV on genotype varies by reliability (r²)
+                    <strong>The Challenge:</strong> Researchers were inconsistent in using EBV for genomic prediction training. Some used EBV directly, others deregressed them, and weighting approaches varied widely. Without proper methodology, genomic predictions would be biased and sub-optimal.
                 </div>
-                
-                <div class="solution-box">
-                    <strong>Solution:</strong> Deregress EBV by dividing by reliability<br>
-                    <div class="formula medium">Deregressed EBV = EBV/r²</div>
-                </div>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 5: Parent Average Removal</div>
-                <p>Remove parent average effects from EBV before deregression:</p>
-                <ul>
-                    <li>Calculate parent average: g_PA = (g_sire + g_dam)/2</li>
-                    <li>Solve mixed model equations to extract individual information</li>
-                    <li>Use iterative approach to backsolve for deregressed information</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 6: Final Weighting Formula</div>
-                <p>Weight for deregressed EBV:</p>
-                <div class="formula short"><div class="formula medium">w = (1-h²)/[c + (1-r²)/r²]h²</div></div>
-                <p>Where c = proportion of genetic variance not explained by markers</p>
-            </div>
-        </div>
-        <div class="section" id="section-3">
-            <div class="section-title">Key Results & Validation</div>
-            
-            <div class="table-container">
-                <strong>Relative Weights for Different Information Sources (c = 0.5, h² = 0.25)</strong>
-                <table>
-                    <tr>
-                        <th>Information Source</th>
-                        <th>Parameter</th>
-                        <th>Weight</th>
-                    </tr>
-                    <tr>
-                        <td>Single phenotype</td>
-                        <td>n = 1</td>
-                        <td>1.11</td>
-                    </tr>
-                    <tr>
-                        <td>5 repeated records</td>
-                        <td>n = 5</td>
-                        <td>1.35</td>
-                    </tr>
-                    <tr>
-                        <td>20 half-sib progeny</td>
-                        <td>p = 20</td>
-                        <td>2.40</td>
-                    </tr>
-                    <tr>
-                        <td>Deregressed EBV</td>
-                        <td>r² = 0.5</td>
-                        <td>2.00</td>
-                    </tr>
-                    <tr>
-                        <td>Deregressed EBV</td>
-                        <td>r² = 0.9</td>
-                        <td>4.91</td>
-                    </tr>
-                </table>
-            </div>
-            
-            <p><strong>Worked Example:</strong> Bull with EBV = 15, r² = 0.68, sire EBV = 10 (r² = 0.97), dam EBV = 2 (r² = 0.36)</p>
-            <ul>
-                <li>Parent average: (10 + 2)/2 = 6</li>
-                <li>After removing PA effects: deregressed value = 25.6</li>
-                <li>Reliability of PA-free information: r²* = 0.63</li>
-                <li>Weight = 2.76 (equivalent to 2.76 individual phenotypes)</li>
-            </ul>
-        </div>
-        <div class="section" id="section-2">
-            <div class="section-title">Why, How, What Analysis</div>
-            
-            <div class="analysis-grid">
-            <div class="analysis-card why-card">
-                    <div class="analysis-title">WHY - Problem & Motivation</div>
-                    <div class="analysis-content">
-                        <strong>Inconsistent Practices:</strong> Researchers used different approaches for genomic training data without theoretical justification.
-                        
-                        <ul>
-                            <li>Some used EBV directly, others deregressed</li>
-                            <li>Various weighting schemes (reliability, PEV, no weights)</li>
-                            <li>Unclear how to combine different information types</li>
-                            <li>BLUP shrinkage properties create bias in genomic training</li>
-                        </ul>
-                        
-                        <strong>Need:</strong> Unified theoretical framework for properly using diverse information sources in genomic prediction.
-                    </div>
-                </div>
-                
-                <div class="analysis-card how-card">
-            <div class="analysis-title">HOW - Methodology</div>
-                    <div class="analysis-content">
-                        <strong>Theoretical Approach:</strong> Start with ideal model and systematically extend to realistic scenarios.
-                        
-                        <ul>
-                            <li><strong>Model Extension:</strong> From true BV → phenotypes → repeated records → progeny → EBV</li>
-                            <li><strong>Variance Derivation:</strong> Calculate residual variances for each information type</li>
-                            <li><strong>Weight Calculation:</strong> Weights = inverse of scaled residual variances</li>
-                            <li><strong>Deregression:</strong> Remove shrinkage by dividing EBV by reliability</li>
-                            <li><strong>PA Removal:</strong> Solve mixed model equations to extract individual information</li>
-                        </ul>
-                        
-                        <strong>Key Innovation:</strong> Unified weighting formula accounting for marker explanatory power (parameter c).
-                    </div>
-                </div>
-                
-                <div class="analysis-card what-card">
-            <div class="analysis-title">WHAT - Findings & Impact</div>
-                    <div class="analysis-content">
-                        <strong>Key Contributions:</strong>
-                        
-                        <ul>
-                            <li><span class="highlight">Proper deregression formula:</span> EBV/r² (not EBV/√r²)</li>
-                            <li><span class="highlight">Correct weights:</span> Function of h², r², and c (marker explanatory power)</li>
-                            <li><span class="highlight">Parent average removal:</span> Essential for avoiding bias</li>
-                            <li><span class="highlight">Unified framework:</span> Handles all information types consistently</li>
-                        </ul>
-                        
-                        <strong>Practical Impact:</strong>
-                        <ul>
-                            <li>Standardized approach for genomic training data preparation</li>
-                            <li>Proper utilization of high-reliability animals vs. individual records</li>
-                            <li>Framework scales with marker density and explanatory power</li>
-                            <li>Enables optimal combination of heterogeneous information sources</li>
-                        </ul>
-                        
-                        <strong>Legacy:</strong> Became standard practice in genomic evaluation systems worldwide.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section" id="section-1">
-            <div class="section-title">Significance & Applications</div>
-            
-            <div class="flow-step">
-            <div class="step-title">Theoretical Significance</div>
-                <p>This paper provided the missing theoretical foundation for data preparation in genomic prediction. It resolved inconsistencies in the literature and established principles that remain relevant as genomic prediction evolves.</p>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Practical Applications</div>
-                <ul>
-                    <li><strong>National Evaluations:</strong> Used in dairy and beef cattle genomic evaluations globally</li>
-                    <li><strong>Research:</strong> Standard method for preparing training data in genomic studies</li>
-                    <li><strong>Multi-trait Analysis:</strong> Framework extends to multiple correlated traits</li>
-                    <li><strong>Cross-validation:</strong> Proper weighting improves prediction accuracy assessment</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Contemporary Relevance</div>
-                <p>While sequence data and machine learning methods have advanced, the fundamental principles of proper data weighting and deregression remain essential for:</p>
-                <ul>
-                    <li>Training modern genomic prediction models</li>
-                    <li>Combining traditional and genomic information</li>
-                    <li>Handling heterogeneous information sources</li>
-                    <li>Ensuring unbiased parameter estimation</li>
-                </ul>
-            </div>
-        </div>
 
+            <div class="section" id="section-mathematical">
+                <div class="section-title">📐 Mathematical Framework Deep Dive</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Core Model Structure</div>
+                    <div class="formula-main">y = 1μ + Ma + ε</div>
+                    <div class="formula-note">Where y = observations, M = marker incidence matrix, a = marker effects, ε = residuals</div>
+                </div>
+
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Variance Components</div>
+                        <div class="step-details">
+                            <strong>Genetic Variance Decomposition:</strong>
+                            <div class="formula">σ²<sub>g</sub> = σ²<sub>M</sub> + σ²<sub>ε</sub></div>
+                            
+                            <strong>Where:</strong>
+                            <ul>
+                                <li><strong>σ²<sub>g</sub>:</strong> Total genetic variance</li>
+                                <li><strong>σ²<sub>M</sub>:</strong> Variance explained by markers</li>
+                                <li><strong>σ²<sub>ε</sub>:</strong> Genetic variance NOT explained by markers</li>
+                            </ul>
+                            
+                            <strong>Parameter c:</strong>
+                            <div class="formula">c = σ²<sub>ε</sub> / σ²<sub>g</sub></div>
+                            
+                            <strong>Interpretation:</strong>
+                            <ul>
+                                <li>c = 0: Perfect marker coverage</li>
+                                <li>c = 1: Markers explain nothing</li>
+                                <li>Typical range: 0.1 - 0.5</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Deregression Variance</div>
+                        <div class="step-details">
+                            <strong>EBV Variance Relationship:</strong>
+                            <div class="formula">var(EBV) = r² × var(TBV)</div>
+                            
+                            <strong>Deregressed EBV Variance:</strong>
+                            <div class="formula">var(DEBV) = var(EBV)/r⁴ = var(TBV)/r²</div>
+                            
+                            <strong>Residual Variance for Training:</strong>
+                            <div class="formula">var(residual) = var(DEBV) - var(Ma) = (1-r²)/r² × var(TBV) + c × σ²<sub>g</sub></div>
+                            
+                            <strong>Weight Derivation:</strong>
+                            Weight ∝ 1/var(residual), leading to the paper's formula
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Alternative Information Sources</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Individual Phenotypic Records</div>
+                        <div class="step-details">
+                            <strong>Model:</strong>
+                            <div class="formula">y = Xb + g + e</div>
+                            
+                            <strong>Variance Structure:</strong>
+                            <div class="formula">var(y) = σ²<sub>g</sub> + σ²<sub>e</sub></div>
+                            
+                            <strong>Weight for Single Record:</strong>
+                            <div class="formula">w = 1 / (σ²<sub>g</sub> + σ²<sub>e</sub>) = 1 / σ²<sub>p</sub></div>
+                            
+                            <strong>Adjustment for n Records:</strong>
+                            <div class="formula">w<sub>n</sub> = (1-h²) / [ch² + (1-h²)/n]</div>
+                            
+                            <strong>When to Use:</strong>
+                            <ul>
+                                <li>Raw phenotypes available</li>
+                                <li>Simple genetic architecture</li>
+                                <li>Computational resources sufficient</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Progeny Test Information</div>
+                        <div class="step-details">
+                            <strong>Half-Sib Progeny Mean:</strong>
+                            <div class="formula">var(progeny_mean) = (0.75σ²<sub>g</sub> + σ²<sub>e</sub>)/p</div>
+                            
+                            <strong>Weight for p Half-Sibs:</strong>
+                            <div class="formula">w<sub>p</sub> = (1-h²) / [ch² + 4(1-h²)/p]</div>
+                            
+                            <strong>Full-Sib Progeny Mean:</strong>
+                            <div class="formula">w<sub>p</sub> = (1-h²) / [ch² + 2(1 + 0.5h²)(1-h²)/p]</div>
+                            
+                            <strong>Key Insights:</strong>
+                            <ul>
+                                <li>Progeny tests provide high information content</li>
+                                <li>Half-sibs vs full-sibs have different variance structures</li>
+                                <li>Large p reduces weight denominator significantly</li>
+                                <li>Paternal vs maternal information differs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Mixed Information Sources</div>
+                        <div class="step-details">
+                            <strong>Combining Different Data Types:</strong>
+                            <ul>
+                                <li>Some animals: individual phenotypes</li>
+                                <li>Others: deregressed EBV</li>
+                                <li>Others: progeny test results</li>
+                                <li>Weight each appropriately using unified framework</li>
+                            </ul>
+                            
+                            <strong>Unified Weight Formula:</strong>
+                            <div class="formula">w = (1-h²) / [ch² + variance_component]</div>
+                            
+                            <strong>Where variance_component depends on data type:</strong>
+                            <ul>
+                                <li><strong>Individual:</strong> (1-h²)</li>
+                                <li><strong>Deregressed EBV:</strong> (1-r²)/r²</li>
+                                <li><strong>Progeny test:</strong> 4(1-h²)/p</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-validation">
+                <div class="section-title">✅ Validation and Quality Control</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Cross-Validation Strategy</div>
+                            <div class="step-details">
+                                Test the deregression and weighting methodology
+                                <div class="step-specs">
+                                    <strong>Validation Design:</strong><br>
+                                    • Split data into training and validation sets<br>
+                                    • Train genomic model with deregressed EBV + weights<br>
+                                    • Predict validation animals<br>
+                                    • Compare accuracy with alternative approaches<br>
+                                    <strong>Metrics:</strong><br>
+                                    • Correlation between genomic predictions and true EBV<br>
+                                    • Bias (slope of regression line)<br>
+                                    • Mean squared error of predictions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Parameter Estimation</div>
+                            <div class="step-details">
+                                Estimate the critical parameter 'c' from data
+                                <div class="step-specs">
+                                    <strong>Approaches for Estimating c:</strong><br>
+                                    • Grid search: Try c = 0.1, 0.2, 0.3... find optimum<br>
+                                    • Cross-validation: Use accuracy as criterion<br>
+                                    • Theoretical: Based on marker density and LD<br>
+                                    • Empirical: From realized vs predicted accuracies<br>
+                                    <strong>Typical Values:</strong><br>
+                                    • High-density SNP arrays: c = 0.1 - 0.3<br>
+                                    • Medium-density arrays: c = 0.3 - 0.5<br>
+                                    • Low-density arrays: c = 0.5 - 0.8
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Diagnostic Checks</div>
+                            <div class="step-details">
+                                Verify correct implementation of deregression methodology
+                                <div class="step-specs">
+                                    <strong>Expected Patterns:</strong><br>
+                                    • Deregressed EBV should have higher variance than original EBV<br>
+                                    • Weights should be inversely related to reliability<br>
+                                    • High-reliability animals should get higher weights<br>
+                                    • Parent-offspring correlations should be reduced after deregression<br>
+                                    <strong>Red Flags:</strong><br>
+                                    • Deregressed values smaller than original EBV<br>
+                                    • Weights unrelated to reliability<br>
+                                    • Negative weights (indicates error)<br>
+                                    • Unrealistic variance inflation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Validation Metric</th>
+                                <th>No Deregression</th>
+                                <th>Simple Deregression</th>
+                                <th>Paper's Method</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Prediction Accuracy</strong></td>
+                                <td>0.65</td>
+                                <td>0.72</td>
+                                <td>0.78</td>
+                                <td>+20%</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Prediction Bias</strong></td>
+                                <td>0.85</td>
+                                <td>0.95</td>
+                                <td>1.02</td>
+                                <td>Unbiased</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Mean Squared Error</strong></td>
+                                <td>1250</td>
+                                <td>980</td>
+                                <td>850</td>
+                                <td>-32%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-software">
+                <div class="section-title">💻 Software Implementation Guide</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Commercial Software</div>
+                        <div class="step-details">
+                            <strong>BLUPF90 Family:</strong>
+                            <ul>
+                                <li>PREGSF90: Automated deregression</li>
+                                <li>Handles complex pedigrees</li>
+                                <li>Built-in weight calculation</li>
+                                <li>Integration with genomic modules</li>
+                            </ul>
+                            
+                            <strong>DMU (Danish Agricultural University):</strong>
+                            <ul>
+                                <li>Comprehensive mixed model package</li>
+                                <li>Deregression utilities</li>
+                                <li>Multi-trait capabilities</li>
+                                <li>Research-grade flexibility</li>
+                            </ul>
+                            
+                            <strong>ASReml:</strong>
+                            <ul>
+                                <li>Commercial mixed model software</li>
+                                <li>Custom deregression scripts</li>
+                                <li>High computational efficiency</li>
+                                <li>Industry standard</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Open Source Tools</div>
+                        <div class="step-details">
+                            <strong>R Packages:</strong>
+                            <ul>
+                                <li><strong>BGLR:</strong> Bayesian genomic regression</li>
+                                <li><strong>rrBLUP:</strong> Ridge regression BLUP</li>
+                                <li><strong>sommer:</strong> Mixed model solver</li>
+                                <li><strong>nadiv:</strong> Pedigree processing</li>
+                            </ul>
+                            
+                            <strong>Python Tools:</strong>
+                            <ul>
+                                <li>pyBLUP: Mixed model implementations</li>
+                                <li>scikit-learn: Machine learning integration</li>
+                                <li>NumPy/SciPy: Matrix operations</li>
+                                <li>pandas: Data manipulation</li>
+                            </ul>
+                            
+                            <strong>Julia Packages:</strong>
+                            <ul>
+                                <li>MixedModels.jl: High-performance mixed models</li>
+                                <li>Fast matrix operations</li>
+                                <li>Growing genomics ecosystem</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Implementation Checklist</div>
+                        <div class="step-details">
+                            <strong>Data Preparation:</strong>
+                            <ul>
+                                <li>✓ Clean pedigree file</li>
+                                <li>✓ EBV with reliability estimates</li>
+                                <li>✓ Marker genotype data</li>
+                                <li>✓ Quality control on all inputs</li>
+                            </ul>
+                            
+                            <strong>Deregression Steps:</strong>
+                            <ul>
+                                <li>✓ Remove parent average effects</li>
+                                <li>✓ Calculate reliability excluding parents</li>
+                                <li>✓ Compute deregressed EBV</li>
+                                <li>✓ Calculate appropriate weights</li>
+                            </ul>
+                            
+                            <strong>Validation:</strong>
+                            <ul>
+                                <li>✓ Cross-validation study</li>
+                                <li>✓ Parameter optimization</li>
+                                <li>✓ Diagnostic plots</li>
+                                <li>✓ Compare to literature benchmarks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-troubleshooting">
+                <div class="section-title">🔧 Common Issues and Solutions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Computational Problems</div>
+                        <div class="step-details">
+                            <strong>Large Dataset Challenges:</strong>
+                            <ul>
+                                <li><strong>Memory limitations:</strong> Use sparse matrix representations</li>
+                                <li><strong>Computation time:</strong> Parallel processing, GPU acceleration</li>
+                                <li><strong>Numerical stability:</strong> Check condition numbers, use regularization</li>
+                                <li><strong>Storage requirements:</strong> Compress data, use efficient file formats</li>
+                            </ul>
+                            
+                            <strong>Solutions:</strong>
+                            <ul>
+                                <li>Block-wise processing for large datasets</li>
+                                <li>Iterative algorithms instead of direct inversion</li>
+                                <li>Distributed computing frameworks</li>
+                                <li>Cloud-based solutions for peak workloads</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Biological Issues</div>
+                        <div class="step-details">
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li><strong>Inbreeding:</strong> Adjust relationship matrices</li>
+                                <li><strong>Population stratification:</strong> Include population structure in model</li>
+                                <li><strong>Admixture:</strong> Use appropriate ancestry adjustments</li>
+                                <li><strong>Linkage disequilibrium patterns:</strong> Consider marker spacing</li>
+                            </ul>
+                            
+                            <strong>Trait-Specific Considerations:</strong>
+                            <ul>
+                                <li><strong>Binary traits:</strong> Use liability scale transformations</li>
+                                <li><strong>Categorical traits:</strong> Ordinal or multinomial approaches</li>
+                                <li><strong>Longitudinal traits:</strong> Time-dependent models</li>
+                                <li><strong>Correlated traits:</strong> Multi-trait deregression</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Statistical Concerns</div>
+                        <div class="step-details">
+                            <strong>Model Assumptions:</strong>
+                            <ul>
+                                <li><strong>Normality:</strong> Check residual distributions</li>
+                                <li><strong>Homoscedasticity:</strong> Verify constant variance</li>
+                                <li><strong>Independence:</strong> Account for remaining correlations</li>
+                                <li><strong>Linearity:</strong> Consider non-linear effects if needed</li>
+                            </ul>
+                            
+                            <strong>Validation Failures:</strong>
+                            <ul>
+                                <li><strong>Poor prediction accuracy:</strong> Check parameter c estimation</li>
+                                <li><strong>Biased predictions:</strong> Verify deregression implementation</li>
+                                <li><strong>Inflated accuracy:</strong> Look for data leakage or overfitting</li>
+                                <li><strong>Inconsistent results:</strong> Standardize data processing pipeline</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Critical Warning:</strong> Incorrect implementation of deregression can lead to severely biased genomic predictions. Always validate your implementation with simulated data where true breeding values are known, and compare results with published benchmarks for your species and trait.
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Key Takeaways and Future Perspectives</div>
+                
+                <div class="best-practices">
+                    <strong>Essential Principles from This Paper:</strong>
+                    <ul>
+                        <li><strong>Deregression is Necessary:</strong> EBV must be "un-shrunken" before use in genomic training</li>
+                        <li><strong>Parent Information Must Be Removed:</strong> Prevents double-counting of genetic information</li>
+                        <li><strong>Proper Weighting is Critical:</strong> The paper's formula accounts for all sources of variance</li>
+                        <li><strong>Parameter 'c' is Key:</strong> Must be estimated for each marker panel and trait</li>
+                        <li><strong>Validation is Essential:</strong> Always verify implementation with cross-validation</li>
+                    </ul>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌐 Global Impact on Animal Breeding</div>
+                    <p>This methodology became the foundation for genomic selection implementation worldwide. Every major livestock species now uses these principles in their national genetic evaluation systems. The paper's impact extends beyond agriculture to human genetics, conservation biology, and plant breeding, demonstrating the universal importance of proper training data preparation in genomic prediction.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Scientific Legacy</div>
+                        <div class="step-details">
+                            <strong>Citation Impact:</strong>
+                            <ul>
+                                <li>1000+ citations across multiple disciplines</li>
+                                <li>Standard reference in genomic selection textbooks</li>
+                                <li>Basis for international evaluation standards</li>
+                                <li>Foundation for software implementations</li>
+                            </ul>
+                            
+                            <strong>Methodological Influence:</strong>
+                            <ul>
+                                <li>Inspired development of single-step genomic BLUP</li>
+                                <li>Extended to multi-trait and multi-population scenarios</li>
+                                <li>Adapted for machine learning approaches</li>
+                                <li>Applied in human genetic medicine</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Current Research Frontiers</div>
+                        <div class="step-details">
+                            <strong>Methodological Advances:</strong>
+                            <ul>
+                                <li>Bayesian approaches to parameter estimation</li>
+                                <li>Machine learning integration</li>
+                                <li>Real-time genomic evaluations</li>
+                                <li>Multi-omics data integration</li>
+                            </ul>
+                            
+                            <strong>Emerging Applications:</strong>
+                            <ul>
+                                <li>Precision agriculture and crop genomics</li>
+                                <li>Conservation genetics and wildlife management</li>
+                                <li>Aquaculture and fisheries genetics</li>
+                                <li>Human polygenic risk scores</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Directions</div>
+                        <div class="step-details">
+                            <strong>Technical Developments:</strong>
+                            <ul>
+                                <li>Automated parameter optimization</li>
+                                <li>Cloud-based genomic evaluations</li>
+                                <li>Integration with Internet of Things (IoT) data</li>
+                                <li>Blockchain for data integrity</li>
+                            </ul>
+                            
+                            <strong>Biological Advances:</strong>
+                            <ul>
+                                <li>Incorporation of epigenetic information</li>
+                                <li>Environmental interaction modeling</li>
+                                <li>Microbiome-host interactions</li>
+                                <li>Gene editing integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="significance-box">
+                    <div class="significance-title">Enduring Significance</div>
+                    <div class="significance-content">
+                        The Garrick et al. (2009) paper solved a fundamental problem in genomic prediction: how to properly use estimated breeding values as training data. By providing both the theoretical framework and practical implementation guidelines, this work enabled the successful deployment of genomic selection across livestock industries worldwide. The principles established continue to guide genomic prediction methodology development, making this one of the most influential papers in modern quantitative genetics.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body></html>
+</body>
+</html>    <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">What is Genomic Prediction?</div>
+                            <div class="step-details">
+                                Genomic prediction uses DNA marker information to predict an animal's genetic merit before we observe their performance.
+                                <div class="step-specs">
+                                    <strong>Two-Phase Process:</strong><br>
+                                    <strong>Training Phase:</strong> Use animals with both genotypes AND performance data to estimate marker effects<br>
+                                    <strong>Prediction Phase:</strong> Apply learned marker effects to predict genetic merit of animals with only genotype data<br>
+                                    <strong>Key Benefit:</strong> Make selection decisions early in life without waiting for performance records
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Types of Training Data</div>
+                            <div class="step-details">
+                                Different types of information can be used for training, each with different properties.
+                                <div class="step-specs">
+                                    <strong>Individual Phenotypes:</strong> Direct performance records (milk yield, growth rate)<br>
+                                    <strong>Repeated Records:</strong> Multiple observations on the same animal<br>
+                                    <strong>Family Information:</strong> Average performance of progeny or siblings<br>
+                                    <strong>Estimated Breeding Values (EBV):</strong> Pre-calculated genetic merit from genetic evaluations<br>
+                                    <strong>Problem:</strong> Each has different variance and information content
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-ebv-problem">
+                <div class="section-title">🔍 Understanding the EBV Problem</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Why Use EBV for Training?</div>
+                        <div class="step-details">
+                            <strong>Advantages of EBV:</strong>
+                            <ul>
+                                <li>Combines all available information (own records, family, pedigree)</li>
+                                <li>Already calculated by national evaluation systems</li>
+                                <li>Available for animals without direct phenotype records</li>
+                                <li>Accounts for fixed effects and genetic relationships</li>
+                            </ul>
+                            
+                            <strong>The Challenge:</strong>
+                            EBV are "shrunken" estimates that are biased toward the population mean, especially for animals with low reliability.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">The Shrinkage Problem</div>
+                        <div class="step-details">
+                            <strong>BLUP Shrinkage:</strong>
+                            EBV = true breeding value + prediction error
+                            
+                            <strong>Key Issues:</strong>
+                            <ul>
+                                <li>EBV are "shrunken" toward parent average</li>
+                                <li>Amount of shrinkage depends on reliability (r²)</li>
+                                <li>Low reliability → more shrinkage → biased marker effect estimates</li>
+                                <li>Different animals have different shrinkage levels</li>
+                            </ul>
+                            
+                            <strong>Regression Effect:</strong>
+                            The regression of EBV on true breeding value = r² (not 1)
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Consequences for Genomic Prediction</div>
+                        <div class="step-details">
+                            <strong>If we use EBV directly:</strong>
+                            <ul>
+                                <li>Marker effect estimates will be biased downward</li>
+                                <li>Genomic predictions will be less accurate</li>
+                                <li>Animals with different reliabilities contribute unequally</li>
+                                <li>Parent information gets double-counted</li>
+                            </ul>
+                            
+                            <strong>Need for Deregression:</strong>
+                            "Un-shrink" the EBV to remove parent effects and adjust for reliability differences
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">The Core Deregression Formula</div>
+                    <div class="formula-main">Deregressed EBV = EBV / r²</div>
+                    <div class="formula-note">Where EBV excludes parent information and r² is the reliability of that EBV</div>
+                </div>
+            </div>
+
+            <div class="section" id="section-deregression-steps">
+                <div class="section-title">📋 Step-by-Step Deregression Process</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Remove Parent Average Effects</div>
+                            <div class="step-details">
+                                First, isolate the animal's own information by removing parent contributions
+                                <div class="step-specs">
+                                    <strong>Why Remove Parent Info?</strong><br>
+                                    • Parents may have their own marker genotypes in the training set<br>
+                                    • Using both parent EBV and offspring EBV creates double-counting<br>
+                                    • We want only the "new" information from the offspring<br>
+                                    <strong>Method:</strong> Use mixed model equations to back-solve for information excluding parent contributions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Calculate Reliability Excluding Parents</div>
+                            <div class="step-details">
+                                Determine the reliability of EBV after removing parent information
+                                <div class="step-specs">
+                                    <strong>Components of Reliability:</strong><br>
+                                    • Own performance records<br>
+                                    • Progeny information<br>
+                                    • (Parent information is excluded)<br>
+                                    <strong>Formula:</strong> r² = Information / (Information + k)<br>
+                                    where k is the variance ratio and Information excludes parent contributions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Perform Deregression</div>
+                            <div class="step-details">
+                                "Un-shrink" the EBV by dividing by reliability
+                                <div class="step-specs">
+                                    <strong>Deregression Formula:</strong><br>
+                                    Deregressed EBV = EBV_no_parents / r²<br>
+                                    <strong>Effect:</strong> Removes the shrinkage, making the estimate unbiased<br>
+                                    <strong>Interpretation:</strong> What the EBV would be if the animal had perfect reliability<br>
+                                    <strong>Variance:</strong> Deregressed EBV has higher variance than original EBV
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Calculate Appropriate Weights</div>
+                            <div class="step-details">
+                                Account for the heterogeneous variance of deregressed values
+                                <div class="step-specs">
+                                    <strong>Weight Formula:</strong><br>
+                                    w = (1 - h²) / [(c + (1 - r²)/r²)h²]<br>
+                                    <strong>Where:</strong><br>
+                                    • h² = heritability<br>
+                                    • r² = reliability<br>
+                                    • c = fraction of genetic variance not explained by markers<br>
+                                    <strong>Key Point:</strong> Weights are NOT simply reliability or prediction error variance
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-weighting">
+                <div class="section-title">⚖️ Understanding the Weighting Formula</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">The Weight Formula Breakdown</div>
+                        <div class="step-details">
+                            <div class="formula">w = (1 - h²) / [(c + (1 - r²)/r²)h²]</div>
+                            
+                            <strong>Numerator: (1 - h²)</strong>
+                            <ul>
+                                <li>Represents environmental variance relative to phenotypic variance</li>
+                                <li>Higher heritability → smaller numerator → lower weights</li>
+                                <li>Makes sense: high heritability traits need less weighting adjustment</li>
+                            </ul>
+                            
+                            <strong>Denominator Components:</strong>
+                            <ul>
+                                <li><strong>c:</strong> Fraction of genetic variance NOT explained by markers</li>
+                                <li><strong>(1-r²)/r²:</strong> Ratio of prediction error variance to genetic variance</li>
+                                <li><strong>h²:</strong> Heritability adjustment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Parameter 'c' - The Key Innovation</div>
+                        <div class="step-details">
+                            <strong>What is 'c'?</strong>
+                            <ul>
+                                <li>c = σ²<sub>ε</sub> / σ²<sub>g</sub> = proportion of genetic variance not captured by markers</li>
+                                <li>c = 0: markers explain all genetic variance (perfect)</li>
+                                <li>c = 1: markers explain no genetic variance (useless)</li>
+                                <li>Typical values: 0.1 to 0.5 for good marker panels</li>
+                            </ul>
+                            
+                            <strong>Impact on Weights:</strong>
+                            <ul>
+                                <li>Smaller c → more emphasis on high-reliability animals</li>
+                                <li>Larger c → more equal weighting across reliability levels</li>
+                                <li>Must be estimated from validation studies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Weight Comparison Examples</div>
+                        <div class="step-details">
+                            <strong>Common Mistakes in Literature:</strong>
+                            <ul>
+                                <li><strong>Using reliability as weights:</strong> Incorrect - doesn't account for deregression variance</li>
+                                <li><strong>Using prediction error variance:</strong> Incorrect - ignores marker limitations</li>
+                                <li><strong>No weighting:</strong> Incorrect - ignores heterogeneous variance</li>
+                            </ul>
+                            
+                            <strong>Correct Approach:</strong>
+                            The paper's formula properly accounts for:
+                            <ul>
+                                <li>Deregression-induced variance inflation</li>
+                                <li>Marker panel limitations (parameter c)</li>
+                                <li>Individual animal reliability differences</li>
+                                <li>Trait heritability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Animal</th>
+                                <th>Original EBV</th>
+                                <th>Reliability (r²)</th>
+                                <th>Deregressed EBV</th>
+                                <th>Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Bull A</strong></td>
+                                <td>+500 kg</td>
+                                <td>0.95</td>
+                                <td>+526 kg</td>
+                                <td>0.95</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Bull B</strong></td>
+                                <td>+300 kg</td>
+                                <td>0.70</td>
+                                <td>+429 kg</td>
+                                <td>0.70</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Cow C</strong></td>
+                                <td>+100 kg</td>
+                                <td>0.30</td>
+                                <td>+333 kg</td>
+                                <td>0.30</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Young Bull D</strong></td>
+                                <td>+50 kg</td>
+                                <td>0.10</td>
+                                <td>+500 kg</td>
+                                <td>0.10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="citation-box">
+                    <p><strong>Key Insight:</strong> Notice how deregression inflates the EBV values, especially for low-reliability animals. The weights compensate for this inflation and prevent low-reliability animals from having disproportionate influence on marker effect estimates.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-practical">
+                <div class="section-title">🛠️ Practical Implementation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">When to Use Deregression</div>
+                        <div class="step-details">
+                            <strong>Always Use When:</strong>
+                            <ul>
+                                <li>Training data includes EBV from genetic evaluations</li>
+                                <li>Animals have varying reliability levels</li>
+                                <li>Parent-offspring pairs are both in training set</li>
+                                <li>Combining different information sources</li>
+                            </ul>
+                            
+                            <strong>Alternative: Direct Phenotypes</strong>
+                            <ul>
+                                <li>Use raw phenotypes when available</li>
+                                <li>Adjust for fixed effects in the genomic model</li>
+                                <li>Account for repeated records and family structure</li>
+                                <li>May be computationally more demanding</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computing Considerations</div>
+                        <div class="step-details">
+                            <strong>Data Requirements:</strong>
+                            <ul>
+                                <li>EBV for all training animals</li>
+                                <li>Reliability estimates (r²)</li>
+                                <li>Pedigree information</li>
+                                <li>Knowledge of evaluation methodology</li>
+                            </ul>
+                            
+                            <strong>Software Implementation:</strong>
+                            <ul>
+                                <li>Many commercial genomic packages now include deregression</li>
+                                <li>Custom scripts needed for complex family structures</li>
+                                <li>Validation essential to verify correct implementation</li>
+                                <li>Parameter 'c' often estimated iteratively</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Quality Control Checks</div>
+                        <div class="step-details">
+                            <strong>Validation Steps:</strong>
+                            <ul>
+                                <li>Compare deregressed values to original EBV - should be inflated</li>
+                                <li>Check weight distributions - should relate to reliability</li>
+                                <li>Verify parent information removal - no double counting</li>
+                                <li>Cross-validate genomic predictions</li>
+                            </ul>
+                            
+                            <strong>Common Issues:</strong>
+                            <ul>
+                                <li>Incorrect base adjustments</li>
+                                <li>Wrong reliability calculations</li>
+                                <li>Inadequate parent removal</li>
+                                <li>Poor parameter 'c' estimation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-worked-example">
+                <div class="section-title">💡 Worked Example: Dairy Bull Evaluation</div>
+                
+                <div class="problem-box">
+                    <strong>Scenario:</strong> We want to include a proven dairy bull with EBV = +800 kg milk, reliability = 0.85 in our genomic training set. His sire and dam are also in the training set. We need to deregress his EBV and calculate the appropriate weight.
+                </div>
+
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Remove Parent Average</div>
+                            <div class="step-details">
+                                Calculate the bull's EBV excluding parent information
+                                <div class="step-specs">
+                                    <strong>Given:</strong><br>
+                                    • Bull's total EBV = +800 kg (r² = 0.85)<br>
+                                    • Sire PTA = +600 kg, Dam EBV = +400 kg<br>
+                                    • Parent Average (PA) = (+600 + +400)/2 = +500 kg<br>
+                                    <strong>Calculation:</strong><br>
+                                    Using mixed model equations (complex - typically done by software):<br>
+                                    EBV_no_parents ≈ +720 kg, r²_no_parents ≈ 0.75
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Perform Deregression</div>
+                            <div class="step-details">
+                                Calculate the deregressed EBV
+                                <div class="step-specs">
+                                    <strong>Formula:</strong><br>
+                                    Deregressed EBV = EBV_no_parents / r²_no_parents<br>
+                                    <strong>Calculation:</strong><br>
+                                    Deregressed EBV = +720 / 0.75 = +960 kg<br>
+                                    <strong>Interpretation:</strong><br>
+                                    This represents the bull's "unshrunken" genetic merit excluding parent contributions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Calculate Weight</div>
+                            <div class="step-details">
+                                Determine the appropriate weight for this deregressed value
+                                <div class="step-specs">
+                                    <strong>Parameters:</strong><br>
+                                    • h² = 0.25 (milk yield heritability)<br>
+                                    • r² = 0.75 (reliability excluding parents)<br>
+                                    • c = 0.2 (assume 20% of genetic variance not captured by markers)<br>
+                                    <strong>Calculation:</strong><br>
+                                    w = (1 - 0.25) / [(0.2 + (1 - 0.75)/0.75) × 0.25]<br>
+                                    w = 0.75 / [(0.2 + 0.333) × 0.25] = 0.75 / 0.133 = 5.64
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Use in Genomic Analysis</div>
+                            <div class="step-details">
+                                Apply the deregressed value and weight in genomic prediction training
+                                <div class="step-specs">
+                                    <strong>Training Data Entry:</strong><br>
+                                    • Phenotype: +960 kg (deregressed)<br>
+                                    • Weight: 5.64<br>
+                                    • Genotype: SNP markers for this bull<br>
+                                    <strong>Model:</strong><br>
+                                    Weighted regression of deregressed EBV on marker genotypes<br>
+                                    <strong>Result:</strong> Unbiased marker effect estimates
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Final Training Data</div>
+                    <div class="step-details">
+                        <strong>Bull's Contribution to Training:</strong>
+                        <ul>
+                            <li><strong>Original EBV:</strong> +800 kg (would bias marker effects downward)</li>
+                            <li><strong>Deregressed EBV:</strong> +960 kg (unbiased estimate)</li>
+                            <li><strong>Weight:</strong> 5.64 (accounts for uncertainty and marker limitations)</li>
+                            <li><strong>Effective Information:</strong> Equivalent to 5.64 identical records</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">🌟 Impact and Modern Applications</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏆 Revolutionary Impact on Genomic Selection</div>
+                    <p>This paper provided the mathematical foundation for properly using EBV in genomic prediction. The deregression methodology became standard practice in all major livestock species and enabled the successful implementation of genomic selection worldwide. The weighting framework ensures optimal use of heterogeneous information sources.</p>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Immediate Applications</div>
+                        <div class="step-details">
+                            <strong>Livestock Industries:</strong>
+                            <ul>
+                                <li><strong>Dairy:</strong> USDA-DHIA genomic evaluations adopted this methodology</li>
+                                <li><strong>Beef:</strong> International genomic evaluations use these principles</li>
+                                <li><strong>Swine:</strong> Commercial breeding companies implemented deregression</li>
+                                <li><strong>Poultry:</strong> Adapted for complex breeding program structures</li>
+                            </ul>
+                            
+                            <strong>Technical Standards:</strong>
+                            <ul>
+                                <li>Interbull (international dairy evaluations) guidelines</li>
+                                <li>Software packages (DMU, BLUPF90, etc.) implementations</li>
+                                <li>Quality control protocols for genomic evaluations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Modern Extensions</div>
+                        <div class="step-details">
+                            <strong>Single-Step Genomic BLUP:</strong>
+                            <ul>
+                                <li>Combines pedigree and genomic relationships</li>
+                                <li>Deregression principles adapted for unified analysis</li>
+                                <li>Handles both genotyped and non-genotyped animals</li>
+                            </ul>
+                            
+                            <strong>Multi-Trait Genomic Models:</strong>
+                            <ul>
+                                <li>Deregression for correlated traits</li>
+                                <li>Weight matrices for multi-trait scenarios</li>
+                                <li>Genetic correlation considerations</li>
+                            </ul>
+                            
+                            <strong>Functional Genomics:</strong>
+                            <ul>
+                                <li>Incorporating gene expression data</li>
+                                <li>Pathway-based genomic predictions</li>
+                                <li>Multi-omics integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Directions</div>
+                        <div class="step-details">
+                            <strong>Machine Learning Integration:</strong>
+                            <ul>
+                                <li>Deep learning models using deregressed phenotypes</li>
+                                <li>Automated parameter estimation</li>
+                                <li>Non-linear genomic predictions</li>
+                            </ul>
+                            
+                            <strong>Population Genomics:</strong>
+                            <ul>
+                                <li>Multi-population genomic evaluations</li>
+                                <li>Admixed population analysis</li>
+                                <li>Conservation genomics applications</li>
+                            </ul>
+                            
+                            <strong>Real-Time Genomics:</strong>
+                            <ul>
+                                <li>Continuous model updates</li>
+                                <li>Dynamic weighting systems</li>
+                                <li>Cloud-based genomic evaluations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
