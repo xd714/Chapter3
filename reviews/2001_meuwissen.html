@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps</h1>
+            <p>The Foundational Paper of Genomic Selection</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> T. H. E. Meuwissen, B. J. Hayes, M. E. Goddard</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Genetics, Vol. 157, pp. 1819-1829, 2001</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Research Institute of Animal Science and Health, Victorian Institute of Animal Science, University of Melbourne</p>
+                <p class="text-top-large">
+                    <a href="https://academic.oup.com/genetics/article/157/4/1819/6048353"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Revolutionary Concept & Problem Statement</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Paradigm Shift</div>
+                    <p>First proposal to use dense genome-wide marker maps (~50,000 markers) to predict total genetic value without establishing linkage phase in each family - a fundamental departure from traditional QTL mapping approaches that launched the genomic selection era.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Core Challenge:</strong> Traditional marker-assisted selection was limited because linkage phase between markers and QTL had to be established separately for every family. Dense marker maps offered the potential to capture all genetic variance through linkage disequilibrium, but created a "large p, small n" problem - estimating ~50,000 effects from only 2,200 phenotypic records.
+                </div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Meuwissen, T. H. E., Hayes, B. J., & Goddard, M. E. (2001). Prediction of total genetic value using genome-wide dense marker maps. Genetics, 157(4), 1819-1829.</p>
+                    
+                    <p><strong>Historical Context:</strong></p>
+                    <ul class="list-top">
+                        <li>Published before human genome completion and SNP chip technology</li>
+                        <li>Predicted that SNP density and genotyping would become cost-effective</li>
+                        <li>Introduced concept of using linkage disequilibrium across populations</li>
+                        <li>Laid theoretical foundation for what became multi-billion dollar genomic selection industry</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">Comprehensive Simulation Framework</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Population Simulation Design</div>
+                            <div class="step-details">
+                                Realistic genetic architecture with mutation-drift equilibrium
+                                <div class="step-specs">
+                                    <strong>Genome Structure:</strong> 10 chromosomes × 100 cM = 1,000 cM total<br>
+                                    <strong>QTL Distribution:</strong> 1 potential QTL per cM (1,000 total)<br>
+                                    <strong>Marker Density:</strong> 1 cM spacing (101 markers per chromosome)<br>
+                                    <strong>Population:</strong> Ne = 100 for 1,000 generations to reach equilibrium
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Model Parameters</div>
+                            <div class="step-details">
+                                Empirically-based mutation and effect distributions
+                                <div class="step-specs">
+                                    <strong>QTL Mutation Rate:</strong> 2.5 × 10⁻⁵ per locus per generation<br>
+                                    <strong>Effect Distribution:</strong> Gamma(shape=0.4, scale=1.66) with random signs<br>
+                                    <strong>Heritability:</strong> 0.5 (genetic variance = environmental variance = 1)<br>
+                                    <strong>Marker Mutation:</strong> 2.5 × 10⁻³ creating multiallelic haplotypes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Training and Testing Structure</div>
+                            <div class="step-details">
+                                Multi-generational evaluation framework
+                                <div class="step-specs">
+                                    <strong>Generation 1001:</strong> 200 animals (genotyped + phenotyped)<br>
+                                    <strong>Generation 1002:</strong> 2,000 animals (20 half-sib families × 100)<br>
+                                    <strong>Generation 1003:</strong> 2,000 juveniles (genotyped only - validation set)<br>
+                                    <strong>Haplotypes:</strong> ~50 different haplotypes per 1-cM segment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Method Comparison</div>
+                            <div class="step-details">
+                                Four approaches with increasing sophistication
+                                <div class="step-specs">
+                                    <strong>Least Squares:</strong> Stepwise selection with likelihood peaks<br>
+                                    <strong>BLUP:</strong> Equal variance assumption across segments<br>
+                                    <strong>BayesA:</strong> Scaled inverse chi-square prior for variances<br>
+                                    <strong>BayesB:</strong> Prior allowing zero variance with high probability
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Method Comparison Framework</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Least Squares (LS)</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Stepwise regression with likelihood-based QTL detection
+                            <div class="formula">y = μ1ₙ + ∑ᵢXᵢgᵢ + e</div>
+                            <strong>QTL Detection:</strong><br>
+                            • Single-segment regression for each 1-cM region<br>
+                            • Include effects with log-likelihood peaks > 14 units<br>
+                            • Simultaneous estimation of selected effects<br><br>
+                            <strong>Limitations:</strong><br>
+                            • Severe overestimation of selected effects<br>
+                            • Poor prediction accuracy (r = 0.32)<br>
+                            • Insufficient degrees of freedom (2.5 d.f. per effect)
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">BLUP Method</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Best Linear Unbiased Prediction with equal variances
+                            <div class="formula">Var(gᵢⱼ) = σ²ᵍ = 0.001</div>
+                            <strong>Assumptions:</strong><br>
+                            • All 1-cM segments have equal variance<br>
+                            • Random effects with known error variance<br>
+                            • Mixed model equations solution<br><br>
+                            <strong>Performance:</strong><br>
+                            • Reasonable accuracy (r = 0.73)<br>
+                            • Regression coefficient b = 0.896 (slight bias)<br>
+                            • Computationally efficient
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-3">
+                        <div class="model-title">BayesA Method</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Bayesian with inverse chi-square priors
+                            <div class="formula">σ²ᵍᵢ ~ χ⁻²(ν, S)</div>
+                            <strong>Innovation:</strong><br>
+                            • Allows variance to differ across segments<br>
+                            • Combines prior information with data<br>
+                            • Gibbs sampling for posterior estimation<br><br>
+                            <strong>Results:</strong><br>
+                            • Higher accuracy than BLUP (r = 0.798)<br>
+                            • Better regression coefficient (b = 0.827)<br>
+                            • Computationally intensive (~2 weeks)
+                        </div>
+                    </div>
+                    
+                    <div class="model-box hard-sweep">
+                        <div class="model-title">BayesB Method</div>
+                        <div class="step-details">
+                            <strong>Approach:</strong> Variable selection with spike-and-slab prior
+                            <div class="formula">σ²ᵍᵢ = 0 with probability π<br>σ²ᵍᵢ ~ χ⁻²(ν, S) with probability (1-π)</div>
+                            <strong>Key Innovation:</strong><br>
+                            • Explicitly models QTL absence (π = 0.947)<br>
+                            • Metropolis-Hastings for variance sampling<br>
+                            • Most realistic genetic architecture<br><br>
+                            <strong>Best Performance:</strong><br>
+                            • Highest accuracy (r = 0.848)<br>
+                            • Nearly unbiased (b = 0.946)<br>
+                            • Computationally feasible (~1 day)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-analysis">
+                <div class="section-title">Comprehensive Results Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">WHY - Genomic Selection Superiority</div>
+                        <div class="step-details">
+                            <strong>Revolutionary Advantage:</strong> Genomic selection achieved accuracy comparable to progeny testing without requiring performance records.
+                            
+                            <ul>
+                                <li><span class="highlight">BayesB accuracy: 0.848</span> vs <span class="highlight">pedigree-based: ~0.4</span></li>
+                                <li>No need to establish linkage phase per family</li>
+                                <li>Captures effects across entire genome simultaneously</li>
+                                <li>Utilizes population-wide linkage disequilibrium</li>
+                                <li>Enables selection of juveniles without phenotypes</li>
+                            </ul>
+                            
+                            <strong>Impact:</strong> Transforms breeding from family-based to population-based genomic prediction.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">HOW - Technical Breakthrough</div>
+                        <div class="step-details">
+                            <strong>Core Innovation:</strong> Overcame "large p, small n" problem through sophisticated Bayesian approaches.
+                            
+                            <ul>
+                                <li><strong>Haplotype Construction:</strong> Combined flanking markers into ~50,000 effects</li>
+                                <li><strong>Prior Knowledge:</strong> Used realistic distributions of QTL effects</li>
+                                <li><strong>Variable Selection:</strong> BayesB automatically identified important regions</li>
+                                <li><strong>Computational Methods:</strong> MCMC sampling with efficient algorithms</li>
+                                <li><strong>Cross-Validation:</strong> Rigorous evaluation on independent generation</li>
+                            </ul>
+                            
+                            <strong>Key Insight:</strong> Most genomic regions have zero effect; few have large effects.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">WHAT - Performance Validation</div>
+                        <div class="step-details">
+                            <strong>Quantitative Results:</strong> Demonstrated clear superiority of Bayesian methods over traditional approaches.
+                            
+                            <ul>
+                                <li><span class="highlight">LS Accuracy:</span> 0.318 (severely biased, b = 0.285)</li>
+                                <li><span class="highlight">BLUP Accuracy:</span> 0.732 (good but limited assumptions)</li>
+                                <li><span class="highlight">BayesA Accuracy:</span> 0.798 (improvement over BLUP)</li>
+                                <li><span class="highlight">BayesB Accuracy:</span> 0.848 (best overall performance)</li>
+                            </ul>
+                            
+                            <strong>Practical Impact:</strong> Established genomic selection as viable alternative to traditional breeding.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Detailed Performance Analysis</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">QTL Detection Capability</div>
+                        <div class="step-details">
+                            <strong>Large QTL Detection (>10% variance):</strong>
+                            <ul>
+                                <li>BayesA and BayesB: Excellent detection accuracy</li>
+                                <li>Clear posterior probability peaks at true positions</li>
+                                <li>Conservative but reliable identification</li>
+                            </ul>
+                            
+                            <strong>Small QTL Detection (<2% variance):</strong>
+                            <ul>
+                                <li>Individual detection: Poor to moderate</li>
+                                <li>Collective contribution: Substantial to total genetic value</li>
+                                <li>BayesB: Non-zero posterior probabilities maintained</li>
+                            </ul>
+                            
+                            <strong>False Positive Control:</strong>
+                            <ul>
+                                <li>LS: Excessive false positives due to likelihood fluctuations</li>
+                                <li>Bayesian methods: Well-controlled false discovery rates</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Robustness Analysis</div>
+                        <div class="step-details">
+                            <strong>Reduced Sample Sizes:</strong>
+                            <ul>
+                                <li>2200 → 500 records: LS accuracy dropped 61% (0.318 → 0.124)</li>
+                                <li>BayesB: Only 17% reduction (0.848 → 0.708)</li>
+                                <li>Still superior to pedigree-based selection</li>
+                            </ul>
+                            
+                            <strong>Marker Density Effects:</strong>
+                            <ul>
+                                <li>1 cM spacing: Optimal performance baseline</li>
+                                <li>2 cM spacing: <4% accuracy reduction</li>
+                                <li>4 cM spacing: 9-13% accuracy reduction</li>
+                                <li>Nec < 2 required for maximum accuracy</li>
+                            </ul>
+                            
+                            <strong>Persistence Across Generations:</strong>
+                            <ul>
+                                <li>Generation 1003: r = 0.848</li>
+                                <li>Generation 1008: r = 0.718 (still highly useful)</li>
+                                <li>Gradual decline due to recombination breakdown</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-technical">
+                <div class="section-title">Technical Implementation & Computational Considerations</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Computational Requirements</div>
+                        <div class="step-details">
+                            <strong>Memory Constraints:</strong>
+                            <ul>
+                                <li>Information matrix (X'X) too large for RAM storage</li>
+                                <li>Solved using iteration on data technique</li>
+                                <li>Quadratic scaling with number of effects</li>
+                            </ul>
+                            
+                            <strong>Processing Time (Pentium 500 PC):</strong>
+                            <ul>
+                                <li><span class="highlight">BayesA:</span> ~2 weeks (most intensive)</li>
+                                <li><span class="highlight">BayesB:</span> ~1 day (many σ²ᵍᵢ = 0)</li>
+                                <li><span class="highlight">BLUP:</span> Hours (simplest assumptions)</li>
+                                <li><span class="highlight">LS:</span> Minutes (but poor performance)</li>
+                            </ul>
+                            
+                            <strong>Scalability:</strong>
+                            <ul>
+                                <li>Feasible for genome sizes up to 30M markers</li>
+                                <li>Modern computers: Dramatically improved performance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Implementation Considerations</div>
+                        <div class="step-details">
+                            <strong>Haplotype Construction:</strong>
+                            <ul>
+                                <li>Assumes known linkage phase (computational challenge)</li>
+                                <li>SNP chips: Require 2+ generations for phase inference</li>
+                                <li>Uncertainty can be modeled in design matrix</li>
+                            </ul>
+                            
+                            <strong>Prior Distribution Sensitivity:</strong>
+                            <ul>
+                                <li>Exact prior shape less critical than expected</li>
+                                <li>Key requirement: High probability at zero variance</li>
+                                <li>BayesB outperformed even with approximate priors</li>
+                            </ul>
+                            
+                            <strong>Model Extensions:</strong>
+                            <ul>
+                                <li>Dominance effects: Can be included if important</li>
+                                <li>REML variance estimation: Possible improvement</li>
+                                <li>Non-additive effects: Framework extensible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Mathematical Framework Details</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Core Statistical Model</div>
+                    <div class="formula-main">y = μ1ₙ + ∑ᵢ Xᵢgᵢ + e</div>
+                    <div class="formula-note">Where y = phenotypes, Xᵢ = design matrix for segment i, gᵢ = haplotype effects, e = residuals</div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box">
+                        <div class="model-title">BayesB Prior Specification</div>
+                        <div class="step-details">
+                            <strong>Variance Prior:</strong>
+                            <div class="formula">σ²ᵍᵢ = 0 with probability π = 0.947</div>
+                            <div class="formula">σ²ᵍᵢ ~ χ⁻²(ν=4.234, S=0.0429) with probability (1-π)</div>
+                            
+                            <strong>Effect Prior:</strong>
+                            <div class="formula">gᵢⱼ|σ²ᵍᵢ ~ N(0, σ²ᵍᵢ)</div>
+                            
+                            <strong>Parameters:</strong>
+                            <ul>
+                                <li>π estimated from expected segregating fraction</li>
+                                <li>ν, S matched to mutation-drift equilibrium</li>
+                                <li>Based on gamma distribution of QTL effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box">
+                        <div class="model-title">MCMC Implementation</div>
+                        <div class="step-details">
+                            <strong>Gibbs Sampling:</strong>
+                            <ul>
+                                <li>10,000 MCMC cycles total</li>
+                                <li>1,000 burn-in cycles discarded</li>
+                                <li>Conditional posterior distributions</li>
+                            </ul>
+                            
+                            <strong>Metropolis-Hastings (BayesB):</strong>
+                            <ul>
+                                <li>100 cycles per variance component</li>
+                                <li>Prior distribution as proposal</li>
+                                <li>Handles discontinuous prior at zero</li>
+                            </ul>
+                            
+                            <strong>Convergence:</strong>
+                            <ul>
+                                <li>Graphical diagnostics for burn-in</li>
+                                <li>Posterior means as final estimates</li>
+                                <li>Stable chains across replicates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">Historical Impact & Future Directions</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏆 Revolutionary Legacy</div>
+                    <p>This paper launched the genomic selection revolution, transforming animal and plant breeding worldwide. The methods described became the foundation for billion-dollar genomic evaluation systems now used across livestock, crops, and forestry industries.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Methodological Contributions</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Statistical Innovation:</strong> First practical solution to "large p, small n" problem in genomics</li>
+                                <li><strong>Bayesian Framework:</strong> Demonstrated superiority of hierarchical priors for genomic prediction</li>
+                                <li><strong>Variable Selection:</strong> BayesB became template for genomic variable selection methods</li>
+                                <li><strong>Cross-Validation:</strong> Established rigorous evaluation standards for genomic prediction</li>
+                                <li><strong>Computational Biology:</strong> Advanced MCMC methods for high-dimensional genetics problems</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Industry Applications</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Dairy Cattle:</strong> First commercial implementation, now standard practice</li>
+                                <li><strong>Plant Breeding:</strong> Accelerated crop improvement across major species</li>
+                                <li><strong>Aquaculture:</strong> Genomic selection in salmon, shrimp, and fish breeding</li>
+                                <li><strong>Forestry:</strong> Tree breeding programs with extended generation intervals</li>
+                                <li><strong>Human Genetics:</strong> Influenced polygenic risk score development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Technological Predictions Realized</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Visionary Predictions (2001)</div>
+                        <div class="step-details">
+                            <strong>Technologies Anticipated:</strong>
+                            <ul>
+                                <li>Dense SNP marker maps would become available</li>
+                                <li>DNA chip technology would make genotyping cost-effective</li>
+                                <li>50,000+ markers would be genotyped routinely</li>
+                                <li>Computational power would handle complex analyses</li>
+                            </ul>
+                            
+                            <strong>Industry Applications Foreseen:</strong>
+                            <ul>
+                                <li>Velogenetics: Ultra-short generation intervals</li>
+                                <li>Selection without phenotypic records</li>
+                                <li>Dramatic increases in genetic gain rates</li>
+                                <li>Revolution in breeding methodology</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Reality Check (2024)</div>
+                        <div class="step-details">
+                            <strong>Predictions Exceeded:</strong>
+                            <ul>
+                                <li>SNP densities: >700,000 markers routinely used</li>
+                                <li>Costs: Dropped from thousands to <$50 per animal</li>
+                                <li>Applications: Extended far beyond livestock</li>
+                                <li>Methods: Sophisticated machine learning approaches</li>
+                            </ul>
+                            
+                            <strong>Industry Transformation:</strong>
+                            <ul>
+                                <li>Multi-billion dollar genomic evaluation industry</li>
+                                <li>Standard practice across breeding programs</li>
+                                <li>2-3x acceleration in genetic gain realized</li>
+                                <li>Foundation for precision agriculture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Limitations & Future Research</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">⚠️ Original Limitations</div>
+                    <div class="gap-content">
+                        <strong>Technical Constraints (2001):</strong>
+                        <ul>
+                            <li>Computational intensity limited practical application</li>
+                            <li>Assumed known linkage phase (major practical hurdle)</li>
+                            <li>Simple additive models only</li>
+                            <li>Required large training populations for accuracy</li>
+                            <li>Population-specific models with limited transferability</li>
+                        </ul>
+                        
+                        <strong>Methodological Assumptions:</strong>
+                        <ul>
+                            <li>Equal recombination rates across genome</li>
+                            <li>Gamma distribution of QTL effects may not be universal</li>
+                            <li>Ignored epistatic interactions</li>
+                            <li>Simple population genetic models</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🔬 Subsequent Developments</div>
+                    <div class="significance-content">
+                        <strong>Methodological Advances:</strong>
+                        <ul>
+                            <li>Machine learning approaches (random forests, neural networks)</li>
+                            <li>Multi-trait and multi-environment models</li>
+                            <li>Integration of functional genomics information</li>
+                            <li>Sequence-based genomic prediction</li>
+                            <li>Cross-population and multi-breed predictions</li>
+                        </ul>
+                        
+                        <strong>Practical Innovations:</strong>
+                        <ul>
+                            <li>Single-step evaluations combining pedigree and genomic data</li>
+                            <li>Low-density genotyping with imputation</li>
+                            <li>Real-time genomic evaluations</li>
+                            <li>Cloud-based genomic prediction services</li>
+                            <li>Integration with reproductive technologies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-equations">
+                <div class="section-title">Mathematical Formulations & Statistical Framework</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">Genetic Variance Model</div>
+                        <div class="formula-main">σ²ᵍᵢ = 2p(1-p)a²</div>
+                        <div class="formula-note">Where p = allele frequency, a = half the difference between homozygotes</div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">Expected Genetic Variance</div>
+                        <div class="formula-main">E(σ²ᵍᵢ) = E(H) × E(a²) = 0.001</div>
+                        <div class="formula-note">H = heterozygosity = 4Nₑm/(4Nₑm + 1)</div>
+                    </div>
+                </div>
+                
+                <div class="matrix-container">
+                    <div class="matrix-definition">
+                        <strong>Mixed Model Equations (BLUP):</strong>
+                    </div>
+                    <div class="matrix-equation">
+                        <div class="matrix-flexible">
+                            <div class="matrix-row">
+                                <div class="matrix-cell">X'X + λI</div>
+                            </div>
+                        </div>
+                        <span class="equals">=</span>
+                        <div class="vector-flexible">
+                            <div class="vector-row">
+                                <div class="vector-cell">X'y</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-definition">
+                        Where λ = σ²ₑ/σ²ᵍ = ratio of error to genetic variance
+                    </div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box">
+                        <div class="model-title">Prior Distributions</div>
+                        <div class="step-details">
+                            <strong>BayesA:</strong>
+                            <div class="formula">σ²ᵍᵢ ~ χ⁻²(ν=4.012, S=0.0020)</div>
+                            
+                            <strong>BayesB:</strong>
+                            <div class="formula">P(σ²ᵍᵢ = 0) = π = 0.947</div>
+                            <div class="formula">σ²ᵍᵢ|σ²ᵍᵢ > 0 ~ χ⁻²(ν=4.234, S=0.0429)</div>
+                            
+                            <strong>Mutation Parameters:</strong>
+                            <ul>
+                                <li>QTL effects: Gamma(shape=0.4, scale=1.66)</li>
+                                <li>Mutation rate: 2.5 × 10⁻⁵ per QTL per generation</li>
+                                <li>Total mutation variance: 5 × 10⁻³ per generation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box">
+                        <div class="model-title">Performance Metrics</div>
+                        <div class="step-details">
+                            <strong>Accuracy Assessment:</strong>
+                            <div class="formula">r_TBV,EBV = Cor(u_true, û)</div>
+                            
+                            <strong>Bias Evaluation:</strong>
+                            <div class="formula">b_TBV,EBV = Reg(u_true on û)</div>
+                            
+                            <strong>Target Values:</strong>
+                            <ul>
+                                <li>Correlation: r → 1 (perfect prediction)</li>
+                                <li>Regression: b → 1 (unbiased prediction)</li>
+                                <li>Unbiased: E(u|û) = û (BLUP property)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results-detail">
+                <div class="section-title">Comprehensive Performance Results</div>
+                
+                <div class="table-container">
+                    <table class="performance-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Accuracy (r)</th>
+                                <th>Bias (b)</th>
+                                <th>Compute Time</th>
+                                <th>Key Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Least Squares</strong></td>
+                                <td>0.318 ± 0.018</td>
+                                <td>0.285 ± 0.024</td>
+                                <td>Minutes</td>
+                                <td>Severe overestimation, poor d.f.</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>BLUP</strong></td>
+                                <td>0.732 ± 0.030</td>
+                                <td>0.896 ± 0.045</td>
+                                <td>Hours</td>
+                                <td>Equal variances, reasonable performance</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>BayesA</strong></td>
+                                <td>0.798</td>
+                                <td>0.827</td>
+                                <td>~2 weeks</td>
+                                <td>Variable variances, computationally intensive</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>BayesB</strong></td>
+                                <td>0.848 ± 0.012</td>
+                                <td>0.946 ± 0.018</td>
+                                <td>~1 day</td>
+                                <td>Variable selection, most realistic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="coverage-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">~50,000</div>
+                        <div class="stat-label">Haplotype Effects Estimated</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">2,200</div>
+                        <div class="stat-label">Phenotypic Records Available</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">2.5</div>
+                        <div class="stat-label">Degrees of Freedom per Effect (LS)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">0.85</div>
+                        <div class="stat-label">Maximum Achievable Accuracy</div>
+                    </div>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Robustness to Sample Size</div>
+                        <div class="step-details">
+                            <strong>Training Set Size Effects:</strong>
+                            <ul>
+                                <li><strong>2200 records:</strong> BayesB r = 0.848 (baseline)</li>
+                                <li><strong>1000 records:</strong> BayesB r = 0.787 (7% reduction)</li>
+                                <li><strong>500 records:</strong> BayesB r = 0.708 (17% reduction)</li>
+                            </ul>
+                            
+                            <strong>Comparative Resilience:</strong>
+                            <ul>
+                                <li>Least Squares: 61% accuracy loss (2200→500)</li>
+                                <li>BLUP: 21% accuracy loss</li>
+                                <li>BayesB: 17% accuracy loss (most robust)</li>
+                            </ul>
+                            
+                            <strong>Practical Implications:</strong>
+                            <ul>
+                                <li>BayesB maintains useful accuracy even with small datasets</li>
+                                <li>Still superior to pedigree-based selection (~0.4)</li>
+                                <li>Demonstrates scalability across breeding program sizes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Marker Density Optimization</div>
+                        <div class="step-details">
+                            <strong>Spacing Effects (BayesB):</strong>
+                            <ul>
+                                <li><strong>1 cM spacing:</strong> r = 0.848 (optimal)</li>
+                                <li><strong>2 cM spacing:</strong> r = 0.810 (4% reduction)</li>
+                                <li><strong>4 cM spacing:</strong> r = 0.737 (13% reduction)</li>
+                            </ul>
+                            
+                            <strong>Linkage Disequilibrium Requirements:</strong>
+                            <ul>
+                                <li>Nₑc < 2 for near-maximum accuracy</li>
+                                <li>2 cM spacing adequate for Nₑ = 100</li>
+                                <li>Denser markers needed for larger populations</li>
+                            </ul>
+                            
+                            <strong>Cost-Benefit Considerations:</strong>
+                            <ul>
+                                <li>Diminishing returns beyond optimal density</li>
+                                <li>Population-specific optimization needed</li>
+                                <li>Trade-off between accuracy and genotyping costs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-legacy">
+                <div class="section-title">Scientific Legacy & Long-term Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">📈 Quantitative Impact</div>
+                    <p><strong>23+ years later:</strong> This paper has been cited >6,000 times and launched a multi-billion dollar industry. Genomic selection is now standard practice in dairy cattle, beef cattle, swine, poultry, aquaculture, and major crop species worldwide.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box historical">
+                        <div class="theme-title">Scientific Milestones Enabled</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>2008:</strong> First commercial dairy genomic evaluations (USA, Canada)</li>
+                                <li><strong>2009:</strong> International genomic evaluations launched</li>
+                                <li><strong>2010s:</strong> Extension to beef cattle, swine, poultry</li>
+                                <li><strong>2015+:</strong> Plant breeding applications accelerated</li>
+                                <li><strong>2020s:</strong> Machine learning and deep learning methods</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box comparative">
+                        <div class="theme-title">Economic Impact</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Genetic Gain:</strong> 2-3x acceleration in livestock improvement</li>
+                                <li><strong>Industry Value:</strong> Billions in annual economic benefits</li>
+                                <li><strong>Cost Reduction:</strong> Decreased need for extensive progeny testing</li>
+                                <li><strong>Generation Interval:</strong> Dramatic reductions in breeding cycles</li>
+                                <li><strong>Global Adoption:</strong> Technology transfer to developing countries</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Conceptual Foundations</div>
+                
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <div class="concept-title">Statistical Innovation</div>
+                        <div class="step-details">
+                            <strong>Core Breakthroughs:</strong>
+                            <ul>
+                                <li>Solved "curse of dimensionality" in genomics</li>
+                                <li>Established Bayesian variable selection paradigm</li>
+                                <li>Demonstrated power of hierarchical priors</li>
+                                <li>Advanced high-dimensional statistical methodology</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <div class="concept-title">Biological Insights</div>
+                        <div class="step-details">
+                            <strong>Genetic Architecture Understanding:</strong>
+                            <ul>
+                                <li>Most genome regions have zero effect</li>
+                                <li>Few regions have large effects</li>
+                                <li>Small effects collectively important</li>
+                                <li>Population LD sufficient for prediction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <div class="concept-title">Computational Biology</div>
+                        <div class="step-details">
+                            <strong>Methodological Advances:</strong>
+                            <ul>
+                                <li>MCMC for genomic applications</li>
+                                <li>Efficient algorithms for large p, small n</li>
+                                <li>Cross-validation in genomic context</li>
+                                <li>Computational genomics foundations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="best-practices">
+                    <strong>Key Principles Established:</strong>
+                    <ul>
+                        <li><strong>Prior Information:</strong> Use biological knowledge to inform statistical models</li>
+                        <li><strong>Variable Selection:</strong> Explicitly model presence/absence of effects</li>
+                        <li><strong>Validation:</strong> Rigorous cross-validation on independent data</li>
+                        <li><strong>Computational Efficiency:</strong> Balance accuracy with practical feasibility</li>
+                        <li><strong>Population Genetics:</strong> Leverage LD patterns across populations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-future">
+                <div class="section-title">Contemporary Relevance & Future Directions</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">🔮 Ongoing Research Frontiers</div>
+                    <div class="significance-content">
+                        <strong>Next-Generation Methods:</strong>
+                        <ul>
+                            <li>Deep learning and neural network approaches</li>
+                            <li>Multi-omics integration (genomics, transcriptomics, metabolomics)</li>
+                            <li>Functional annotation-informed prediction</li>
+                            <li>Sequence-based genomic prediction</li>
+                            <li>Real-time adaptive genomic selection</li>
+                        </ul>
+                        
+                        <strong>Emerging Applications:</strong>
+                        <ul>
+                            <li>Climate adaptation and resilience traits</li>
+                            <li>Disease resistance and animal welfare</li>
+                            <li>Precision agriculture and sustainability</li>
+                            <li>Human polygenic risk scores</li>
+                            <li>Conservation genetics applications</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">🎯 Contemporary Challenges</div>
+                    <div class="gap-content">
+                        <strong>Current Limitations:</strong>
+                        <ul>
+                            <li>Cross-population prediction accuracy remains limited</li>
+                            <li>Genotype × environment interactions not fully captured</li>
+                            <li>Rare variant effects difficult to predict</li>
+                            <li>Long-term response sustainability questions</li>
+                            <li>Computational costs for very large datasets</li>
+                        </ul>
+                        
+                        <strong>Methodological Gaps:</strong>
+                        <ul>
+                            <li>Non-additive effects (dominance, epistasis) integration</li>
+                            <li>Structural variant inclusion in prediction</li>
+                            <li>Multi-trait optimization with constraints</li>
+                            <li>Dynamic breeding goal adaptation</li>
+                            <li>Uncertainty quantification in predictions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="legacy-box">
+                    <strong>Enduring Legacy:</strong> The Meuwissen, Hayes, and Goddard 2001 paper remains the foundational reference for genomic selection. Its core principles - using dense markers, Bayesian variable selection, and population-wide linkage disequilibrium - continue to underpin modern genomic prediction methods. The paper's vision of transforming breeding through genomics has been fully realized and continues to drive innovation in the life sciences.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
