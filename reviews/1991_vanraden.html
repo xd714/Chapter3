@@ -1,341 +1,4 @@
-            </div>
-
-            <div class="section" id="section-impact">
-                <div class="section-title">Industry Implementation & Long-term Impact</div>
-                
-                <div class="innovation-box">
-                    <div class="innovation-title">🏆 Industry Transformation</div>
-                    <p>This framework became the standard for explaining genetic evaluations worldwide. The terminology and concepts introduced—PTA, REL, daughter equivalents, yield deviations—remain central to modern breeding programs and have been adapted for genomic evaluations.</p>
-                </div>
-                
-                <div class="theme-container">
-                    <div class="theme-box methodological">
-                        <div class="theme-title">Methodological Innovations</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Daughter Equivalents:</strong> Intuitive information units enabling cross-sex accuracy comparison</li>
-                                <li><strong>PTA Decomposition:</strong> Clear separation of parent, own, and progeny information sources</li>
-                                <li><strong>Reliability Framework:</strong> Standardized accuracy measure independent of selection effects</li>
-                                <li><strong>Yield Deviations:</strong> Management-adjusted performance measures for consistent comparison</li>
-                                <li><strong>Information Accounting:</strong> Systematic approach to avoiding double-counting of genetic information</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="theme-box genetic">
-                        <div class="theme-title">Practical Applications</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>National Evaluations:</strong> USDA-DHIA system implemented framework for ~14 million animals</li>
-                                <li><strong>International Adoption:</strong> Concepts adapted by breeding organizations globally</li>
-                                <li><strong>Industry Understanding:</strong> Provided breeders with intuitive interpretation of genetic evaluations</li>
-                                <li><strong>Research Foundation:</strong> Enabled studies on evaluation accuracy and breeding program optimization</li>
-                                <li><strong>Commercial Implementation:</strong> Breeding companies adopted terminology for marketing genetic products</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-title">Technical Achievements & Contributions</div>
-                
-                <div class="analysis-grid">
-                    <div class="analysis-card theory-card">
-                        <div class="analysis-title">Mathematical Contributions</div>
-                        <div class="step-details">
-                            <strong>Theoretical Advances:</strong>
-                            <ul>
-                                <li>Rigorous derivation of PTA components from mixed model equations</li>
-                                <li>Precise reliability calculation accounting for information source correlations</li>
-                                <li>Daughter equivalent standardization enabling objective accuracy assessment</li>
-                                <li>Systematic handling of unknown parent groups and genetic base issues</li>
-                            </ul>
-                            
-                            <strong>Computational Innovations:</strong>
-                            <ul>
-                                <li>Efficient algorithms for large-scale national evaluations</li>
-                                <li>Iterative strategies avoiding matrix storage limitations</li>
-                                <li>Sequential processing optimizing information flow</li>
-                                <li>Approximation methods maintaining computational feasibility</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card detection-card">
-                        <div class="analysis-title">Industry Standardization</div>
-                        <div class="step-details">
-                            <strong>Terminology Establishment:</strong>
-                            <ul>
-                                <li>PTA (Predicted Transmitting Ability) became universal term</li>
-                                <li>REL (Reliability) standardized accuracy reporting</li>
-                                <li>YD (Yield Deviation) enabled performance comparison</li>
-                                <li>DE (Daughter Equivalents) provided intuitive information measure</li>
-                            </ul>
-                            
-                            <strong>International Harmonization:</strong>
-                            <ul>
-                                <li>Facilitated genetic evaluation comparisons across countries</li>
-                                <li>Enabled international genetic exchange with understood accuracy measures</li>
-                                <li>Supported development of Interbull international evaluations</li>
-                                <li>Standardized research methodology for breeding program studies</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card evolution-card">
-                        <div class="analysis-title">Modern Relevance</div>
-                        <div class="step-details">
-                            <strong>Genomic Era Applications:</strong>
-                            <ul>
-                                <li>Reliability concepts extended to genomic predictions</li>
-                                <li>Daughter equivalent principles adapted for genomic accuracy</li>
-                                <li>PTA decomposition maintained in single-step evaluations</li>
-                                <li>Information accounting critical for genomic-conventional blending</li>
-                            </ul>
-                            
-                            <strong>Continued Evolution:</strong>
-                            <ul>
-                                <li>Multi-trait extensions of reliability calculations</li>
-                                <li>Incorporation of functional genomics information</li>
-                                <li>Real-time evaluation systems using established frameworks</li>
-                                <li>Cross-population evaluations building on reliability concepts</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="section-equations">
-                <div class="section-title">Complete Mathematical Framework</div>
-                
-                <div class="equation-grid">
-                    <div class="formula-box">
-                        <div class="formula-title">Core Animal Model</div>
-                        <div class="formula-main">y = Mm + Za + ZA_gg + Pp + Cc + e</div>
-                        <div class="formula-note">Mixed model incorporating all genetic relationships and environmental effects</div>
-                    </div>
-                    
-                    <div class="formula-box">
-                        <div class="formula-title">Variance Structure</div>
-                        <div class="formula-main">Var(a) = Aσ²_a, Var(p) = Iσ²_p, Var(c) = Iσ²_c, Var(e) = Rσ²_e</div>
-                        <div class="formula-note">A = additive relationship matrix, R = diagonal weights matrix</div>
-                    </div>
-                </div>
-                
-                <div class="matrix-container">
-                    <div class="matrix-definition">
-                        <strong>Mixed Model Equations (Complete Form):</strong>
-                    </div>
-                    <div class="matrix-equation">
-                        <div class="matrix-flexible">
-                            <div class="matrix-row">
-                                <div class="matrix-cell">M'R⁻¹M</div>
-                                <div class="matrix-cell">Z'R⁻¹M</div>
-                                <div class="matrix-cell">0</div>
-                                <div class="matrix-cell">P'R⁻¹M</div>
-                                <div class="matrix-cell">C'R⁻¹M</div>
-                            </div>
-                            <div class="matrix-row">
-                                <div class="matrix-cell">symmetric</div>
-                                <div class="matrix-cell">Z'R⁻¹Z + A⁻¹k_a</div>
-                                <div class="matrix-cell">-A'_gA⁻¹k_a</div>
-                                <div class="matrix-cell">P'R⁻¹Z</div>
-                                <div class="matrix-cell">C'R⁻¹Z</div>
-                            </div>
-                            <div class="matrix-row">
-                                <div class="matrix-cell"></div>
-                                <div class="matrix-cell">symmetric</div>
-                                <div class="matrix-cell">A'_gA⁻¹A_gk_a</div>
-                                <div class="matrix-cell">0</div>
-                                <div class="matrix-cell">0</div>
-                            </div>
-                            <div class="matrix-row">
-                                <div class="matrix-cell"></div>
-                                <div class="matrix-cell"></div>
-                                <div class="matrix-cell">symmetric</div>
-                                <div class="matrix-cell">P'R⁻¹P + Ik_p</div>
-                                <div class="matrix-cell">C'R⁻¹P</div>
-                            </div>
-                            <div class="matrix-row">
-                                <div class="matrix-cell"></div>
-                                <div class="matrix-cell"></div>
-                                <div class="matrix-cell"></div>
-                                <div class="matrix-cell">symmetric</div>
-                                <div class="matrix-cell">C'R⁻¹C + Ik_c</div>
-                            </div>
-                        </div>
-                        <span class="equals">=</span>
-                        <div class="vector-flexible">
-                            <div class="vector-row">
-                                <div class="vector-cell">M'R⁻¹y</div>
-                            </div>
-                            <div class="vector-row">
-                                <div class="vector-cell">Z'R⁻¹y</div>
-                            </div>
-                            <div class="vector-row">
-                                <div class="vector-cell">0</div>
-                            </div>
-                            <div class="vector-row">
-                                <div class="vector-cell">P'R⁻¹y</div>
-                            </div>
-                            <div class="vector-row">
-                                <div class="vector-cell">C'R⁻¹y</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="matrix-definition">
-                        Where k_a = σ²_e/σ²_a, k_p = σ²_e/σ²_p, k_c = σ²_e/σ²_c
-                    </div>
-                </div>
-                
-                <div class="model-comparison">
-                    <div class="model-box">
-                        <div class="model-title">Reliability Relationships</div>
-                        <div class="step-details">
-                            <strong>Basic REL Formula:</strong>
-                            <div class="formula">REL = DE/(DE + k_a)</div>
-                            
-                            <strong>Inverse Relationship:</strong>
-                            <div class="formula">DE = k_a × REL/(1 - REL)</div>
-                            
-                            <strong>Parent Information:</strong>
-                            <div class="formula">REL*_PA = (REL*_sire + REL*_dam)/4</div>
-                            <div class="formula">DE_PA = k_a × REL*_PA/(1 - REL*_PA)</div>
-                            
-                            <strong>Progeny Information:</strong>
-                            <div class="formula">REL*_anim = REL*_prog/(4 - REL*_progREL*_mate)</div>
-                            <div class="formula">DE_prog-mate = k_a × REL*_anim/(1 - REL*_anim)</div>
-                        </div>
-                    </div>
-                    
-                    <div class="model-box">
-                        <div class="model-title">Advanced Corrections</div>
-                        <div class="step-details">
-                            <strong>Herd-Sire Interaction:</strong>
-                            <div class="formula">DE_prog-mate = 1/(0.16 + 0.84/d)</div>
-                            <div class="formula">d = Σ(σ²_a + 0.5σ²_p + σ²_e)/[σ²_a + (0.75 - 0.25REL*_mate)σ²_a + σ²_e/Σw_len]</div>
-                            
-                            <strong>Management Group Effects:</strong>
-                            <div class="formula">REL_yield = n_rec h²/[1 + (n_rec - 1)r_yield]</div>
-                            <div class="formula">Adjusted for: number of mates, sire REL of mates, lactation weights</div>
-                            
-                            <strong>Unknown Parent Groups:</strong>
-                            <div class="formula">q_par = 1 (both known), 2/3 (one known), 1/2 (neither known)</div>
-                            <div class="formula">Genetic group solutions replace unknown parent PTA</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="section-legacy">
-                <div class="section-title">Scientific Legacy & Contemporary Relevance</div>
-                
-                <div class="innovation-box">
-                    <div class="innovation-title">📈 Enduring Impact</div>
-                    <p><strong>33+ years later:</strong> This paper's framework remains fundamental to genetic evaluation systems worldwide. Modern genomic evaluations, single-step procedures, and international genetic exchanges all build upon the mathematical and conceptual foundations established in this work.</p>
-                </div>
-                
-                <div class="theme-container">
-                    <div class="theme-box historical">
-                        <div class="theme-title">Key Innovations Established</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Intuitive Decomposition:</strong> Breaking complex matrix equations into understandable components</li>
-                                <li><strong>Information Quantification:</strong> Standardized measures of evaluation accuracy across breeding programs</li>
-                                <li><strong>Computational Framework:</strong> Efficient algorithms enabling national-scale genetic evaluations</li>
-                                <li><strong>Industry Communication:</strong> Bridge between statistical theory and practical breeding applications</li>
-                                <li><strong>International Standards:</strong> Common terminology facilitating global genetic improvement</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="theme-box comparative">
-                        <div class="theme-title">Modern Applications</div>
-                        <div class="step-details">
-                            <ul>
-                                <li><strong>Genomic Evaluations:</strong> Reliability concepts extended to SNP-based predictions</li>
-                                <li><strong>Single-Step Methods:</strong> Unified genomic-conventional evaluations using established frameworks</li>
-                                <li><strong>Multi-Trait Models:</strong> Daughter equivalent principles applied to correlated trait evaluations</li>
-                                <li><strong>Real-Time Systems:</strong> Continuous evaluation updates using incremental reliability calculations</li>
-                                <li><strong>International Evaluations:</strong> Cross-country genetic evaluations building on accuracy harmonization</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-title">Contemporary Challenges & Future Directions</div>
-                
-                <div class="gap-analysis">
-                    <div class="gap-title">🎯 Modern Extensions</div>
-                    <div class="gap-content">
-                        <strong>Genomic Integration Challenges:</strong>
-                        <ul>
-                            <li>Reliability calculation with genomic preselection effects</li>
-                            <li>Information content of different SNP densities and imputation strategies</li>
-                            <li>Cross-population genomic evaluation accuracy assessment</li>
-                            <li>Functional genomics information incorporation in reliability measures</li>
-                        </ul>
-                        
-                        <strong>Computational Scalability:</strong>
-                        <ul>
-                            <li>Real-time evaluation updates with millions of genotyped animals</li>
-                            <li>Distributed computing implementations of reliability calculations</li>
-                            <li>Efficient storage and retrieval of relationship information</li>
-                            <li>Cloud-based genetic evaluation systems requiring accuracy measures</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="significance-box">
-                    <div class="significance-title">🔬 Ongoing Research Applications</div>
-                    <div class="significance-content">
-                        <strong>Active Research Areas:</strong>
-                        <ul>
-                            <li>Machine learning integration with traditional reliability frameworks</li>
-                            <li>Multi-environment genomic evaluations with environment-specific reliabilities</li>
-                            <li>Uncertainty quantification in genomic predictions using DE-based approaches</li>
-                            <li>Optimization of breeding program designs using reliability-cost models</li>
-                            <li>Development of reliability measures for novel traits and phenotypes</li>
-                        </ul>
-                        
-                        <strong>Emerging Applications:</strong>
-                        <ul>
-                            <li>Precision agriculture integration requiring accuracy-based decision making</li>
-                            <li>Conservation genetics programs adapting commercial evaluation frameworks</li>
-                            <li>Human genetics polygenic risk scores using reliability concepts</li>
-                            <li>Plant breeding genomic selection with adapted daughter equivalent principles</li>
-                            <li>Aquaculture breeding programs implementing reliability-based selection indices</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="best-practices">
-                    <strong>Enduring Principles:</strong>
-                    <ul>
-                        <li><strong>Information Transparency:</strong> Complex statistical methods require intuitive explanations for user adoption</li>
-                        <li><strong>Accuracy Quantification:</strong> Standardized reliability measures essential for breeding program optimization</li>
-                        <li><strong>Computational Efficiency:</strong> Balance between statistical rigor and practical implementation constraints</li>
-                        <li><strong>Industry Communication:</strong> Bridge theoretical advances with practical breeding applications</li>
-                        <li><strong>International Harmonization:</strong> Common frameworks facilitate global genetic improvement efforts</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section" id="section-conclusion">
-                <div class="section-title">Conclusions & Scientific Significance</div>
-                
-                <div class="legacy-box">
-                    <strong>Transformative Contribution:</strong> VanRaden and Wiggans (1991) provided the mathematical and conceptual framework that made animal model genetic evaluations accessible to the breeding industry. Their decomposition of complex mixed model solutions into intuitive components—parent average, yield deviation, and progeny contribution—enabled widespread adoption of sophisticated genetic evaluation methods. The daughter equivalent concept revolutionized accuracy reporting and breeding program optimization. This work remains the foundation for modern genetic evaluation systems and continues to influence genomic selection implementations worldwide.
-                </div>
-                
-                <div class="innovation-box">
-                    <div class="innovation-title">🌟 Lasting Scientific Impact</div>
-                    <p>The mathematical relationships and computational strategies presented in this paper became the standard for genetic evaluation systems globally. Every major breeding organization has adopted variants of these methods, and the terminology introduced continues to define how genetic merit and evaluation accuracy are communicated in animal breeding. The work's influence extends beyond dairy cattle to all livestock species and has been adapted for plant breeding and even human genetics applications.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -420,10 +83,10 @@
         
         <div class="content">
             <div class="section" id="section-overview">
-                <div class="section-title">Revolutionary Framework & Problem Statement</div>
+                <div class="section-title">Introduction & Problem Statement</div>
                 
                 <div class="innovation-box">
-                    <div class="innovation-title">🎯 Paradigm Shift in Genetic Evaluation</div>
+                    <div class="innovation-title">🎯 Revolutionary Framework</div>
                     <p>First comprehensive framework for explaining and implementing animal model genetic evaluations for national dairy cattle breeding programs. Introduced standardized terminology and mathematical foundations that became the industry standard for genetic evaluation systems worldwide.</p>
                 </div>
                 
@@ -444,21 +107,78 @@
                 </div>
             </div>
 
-            <div class="section" id="section-methodology">
-                <div class="section-title">Mathematical Framework & Core Concepts</div>
+            <div class="section" id="section-model">
+                <div class="section-title">Animal Model Foundation</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Core Mixed Model Structure</div>
+                    <div class="formula-main">y = Mm + Za + ZA<sub>g</sub>g + Pp + Cc + e</div>
+                    <div class="formula-note">Where y = standardized yields, a = additive genetic effects, g = unknown-parent groups, p = permanent environment, c = herd-sire interaction</div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Model Components</div>
+                        <div class="step-details">
+                            <strong>Effects Structure:</strong>
+                            <ul>
+                                <li><strong>m:</strong> Management group effects (fixed)</li>
+                                <li><strong>a:</strong> Random additive genetic merit</li>
+                                <li><strong>g:</strong> Unknown-parent group effects</li>
+                                <li><strong>p:</strong> Permanent environmental effects</li>
+                                <li><strong>c:</strong> Herd-sire interaction effects</li>
+                                <li><strong>e:</strong> Residual error</li>
+                            </ul>
+                            
+                            <strong>Variance Structure:</strong>
+                            <ul>
+                                <li>Var(a) = Aσ²<sub>a</sub> (relationship matrix)</li>
+                                <li>Var(p) = Iσ²<sub>p</sub> (permanent environment)</li>
+                                <li>Var(c) = Iσ²<sub>c</sub> (herd-sire interaction)</li>
+                                <li>Var(e) = Rσ²<sub>e</sub> (weighted residuals)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Mixed Model Equations</div>
+                        <div class="step-details">
+                            <strong>System Structure:</strong>
+                            <div class="formula">[Z'R⁻¹Z + A⁻¹k<sub>a</sub>]û = A'<sub>g</sub>A⁻¹k<sub>a</sub>ĝ + Z'R⁻¹(y - Mm̂ - Pp̂ - Cĉ)</div>
+                            
+                            <strong>Variance Ratios:</strong>
+                            <ul>
+                                <li>k<sub>a</sub> = σ²<sub>e</sub>/σ²<sub>a</sub> = 1.8</li>
+                                <li>k<sub>p</sub> = σ²<sub>e</sub>/σ²<sub>p</sub> = 2.8</li>
+                                <li>k<sub>c</sub> = σ²<sub>e</sub>/σ²<sub>c</sub> = 3.2</li>
+                            </ul>
+                            
+                            <strong>Solution Strategy:</strong>
+                            <ul>
+                                <li>Singular system solved iteratively</li>
+                                <li>Genetic base imposed post-solution</li>
+                                <li>PTA = û/2 (transmitting ability)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-pta">
+                <div class="section-title">Predicted Transmitting Ability (PTA) Decomposition</div>
                 
                 <div class="flow-container">
                     <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Animal Model Foundation</div>
+                            <div class="step-title">PTA Framework</div>
                             <div class="step-details">
-                                Core mixed model structure for genetic evaluation
+                                Core decomposition into three information sources
                                 <div class="step-specs">
-                                    <strong>Model:</strong> y = Mm + Za + ZAgg + Pp + Cc + e<br>
-                                    <strong>Effects:</strong> Management group, genetic, unknown-parent group, permanent environment, herd-sire<br>
-                                    <strong>Variance Components:</strong> σ²ₐ (additive genetic), σ²ₚ (permanent environment), σ²ₑ (error)<br>
-                                    <strong>Relationships:</strong> A matrix captures all known pedigree relationships
+                                    <strong>PTA Formula:</strong> PTA<sub>anim</sub> = w₁PA + w₂(YD/2) + w₃PC<br>
+                                    <strong>Weight Constraint:</strong> w₁ + w₂ + w₃ = 1<br>
+                                    <strong>Information Sources:</strong> Parents, own performance, progeny<br>
+                                    <strong>Derivation:</strong> From mixed model equations by transferring off-diagonals
                                 </div>
                             </div>
                         </div>
@@ -467,14 +187,14 @@
                     <div class="flow-step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">PTA Decomposition</div>
+                            <div class="step-title">Parent Average (PA)</div>
                             <div class="step-details">
-                                Predicted Transmitting Ability as weighted average of three information sources
+                                Expected genetic merit from pedigree information
                                 <div class="step-specs">
-                                    <strong>PTA Formula:</strong> PTAₐₙᵢₘ = w₁PA + w₂(YD/2) + w₃PC<br>
-                                    <strong>PA:</strong> Parent Average (average of parents' PTA)<br>
-                                    <strong>YD:</strong> Yield Deviation (own performance adjusted for management)<br>
-                                    <strong>PC:</strong> Progeny Contribution (2PTAₚᵣₒ_g - PTAₘₐₜₑ)
+                                    <strong>Definition:</strong> PA = (PTA<sub>sire</sub> + PTA<sub>dam</sub>)/2<br>
+                                    <strong>Weight Numerator:</strong> 2k<sub>a</sub>q<sub>par</sub><br>
+                                    <strong>q<sub>par</sub> Values:</strong> 1 (both known), 2/3 (one known), 1/2 (neither)<br>
+                                    <strong>Unknown Parents:</strong> Genetic group solutions substituted
                                 </div>
                             </div>
                         </div>
@@ -483,14 +203,14 @@
                     <div class="flow-step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Reliability Calculation</div>
+                            <div class="step-title">Yield Deviation (YD)</div>
                             <div class="step-details">
-                                Accuracy measure based on daughter equivalents concept
+                                Management-adjusted performance measure
                                 <div class="step-specs">
-                                    <strong>REL Formula:</strong> REL = DE/(DE + k)<br>
-                                    <strong>Daughter Equivalents:</strong> DE = DEₚₐ + DEᵧᵢₑₗ_d + ∑DEₚᵣₒ_g-ₘₐₜₑ<br>
-                                    <strong>Standard Daughter:</strong> One record, infinite management group mates, perfect mate REL<br>
-                                    <strong>k Value:</strong> 14 for USDA evaluations (variance ratio parameter)
+                                    <strong>Definition:</strong> YD = weighted average of (y<sub>i</sub> - m̂<sub>i</sub> - p̂<sub>i</sub> - ĉ<sub>i</sub>)<br>
+                                    <strong>Weight Numerator:</strong> Σw<sub>len</sub> (lactation length weights)<br>
+                                    <strong>Adjustments:</strong> Management group, permanent environment, herd-sire<br>
+                                    <strong>Bulls:</strong> No YD but use DYD from daughters
                                 </div>
                             </div>
                         </div>
@@ -499,431 +219,743 @@
                     <div class="flow-step">
                         <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Information Measures</div>
+                            <div class="step-title">Progeny Contribution (PC)</div>
                             <div class="step-details">
-                                Quantifying contributions from different relationship pathways
+                                Weighted progeny performance adjusted for mates
                                 <div class="step-specs">
-                                    <strong>Yield Deviation:</strong> YD = yᵢ - (mᵢ + pᵢ + cᵢ)<br>
-                                    <strong>Daughter Yield Deviation:</strong> DYD = ∑qₚᵣₒ_gw₂ₚᵣₒ_g(YDₚᵣₒ_g - PTAₘₐₜₑ)<br>
-                                    <strong>Management Group Deviation:</strong> MD = YD + PPA - 2PTAₐₙᵢₘ<br>
-                                    <strong>Information Sources:</strong> Parents, own records, progeny adjusted for mates
+                                    <strong>Definition:</strong> PC = Σq<sub>prog</sub>(2PTA<sub>prog</sub> - PTA<sub>mate</sub>)/Σq<sub>prog</sub><br>
+                                    <strong>Weight Numerator:</strong> 0.5k<sub>a</sub>Σq<sub>prog</sub><br>
+                                    <strong>q<sub>prog</sub> Values:</strong> 1 (mate known), 2/3 (mate unknown)<br>
+                                    <strong>Mate Adjustment:</strong> Isolates focal animal's genetic contribution
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="analysis-card detection-card">
-                        <div class="analysis-title">Step-by-Step Calculations</div>
-                        <div class="step-details">
-                            <strong>DYD Calculation:</strong>
-                            <div class="formula">DYD = [0.2174(-300 + 2×0) + 0.2941(2/3)(400 - 1×0)] / [0.2174 + 0.2941(2/3)] = 90 kg</div>
-                            
-                            <strong>PTA Calculation:</strong>
-                            <div class="formula">PTA = 0.516(-500) + 0.431(1000/2) + 0.053(90) = -38 kg</div>
-                            
-                            <strong>Progeny Contribution (PC):</strong>
-                            <div class="formula">PC = {[2(-126) + 200] + (2/3)[2(81) - 1(0)]} / [1 + (2/3)] = -6 kg</div>
-                            
-                            <strong>Final Reliability:</strong>
-                            <div class="formula">REL = 18.03/(18.03 + 14) = 0.56 (56%)</div>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-card evolution-card">
-                        <div class="analysis-title">Interpretation & Validation</div>
-                        <div class="step-details">
-                            <strong>Weight Distribution:</strong>
-                            <ul>
-                                <li>Parents contribute 40% of total information</li>
-                                <li>Own performance contributes 43% of total information</li>
-                                <li>Progeny contribute 11% of total information</li>
-                            </ul>
-                            
-                            <strong>Information Balance:</strong>
-                            <ul>
-                                <li>High parent information (8.3 DE) provides strong baseline</li>
-                                <li>Good own performance (7.8 DE) from multiple lactations</li>
-                                <li>Limited progeny information early in animal's career</li>
-                                <li>Total 18.03 DE yields moderate reliability (56%)</li>
-                            </ul>
-                            
-                            <strong>Alternative Calculation Verification:</strong>
-                            <ul>
-                                <li>PTA from PA, YD/2, DYD matches primary calculation</li>
-                                <li>Weight relationships satisfy w₁ + w₂ + w₃ = 1</li>
-                                <li>DE components sum to total reliability calculation</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 
-                <div class="section-title">Core Mathematical Relationships</div>
+                <div class="section-title">Alternative PTA Formulation</div>
                 
                 <div class="formula-box">
-                    <div class="formula-title">Mixed Model Equations</div>
-                    <div class="formula-main">[Z'R⁻¹Z + A⁻¹kₐ]û = A'ₐA⁻¹kₐĝ + Z'R⁻¹(y - Mm̂ - Pp̂ - Cĉ)</div>
-                    <div class="formula-note">Where kₐ = σ²ₑ/σ²ₐ, and û represents genetic effects</div>
+                    <div class="formula-title">PTA with Daughter Yield Deviation (DYD)</div>
+                    <div class="formula-main">PTA<sub>anim</sub> = x₁PA + x₂(YD/2) + x₃DYD</div>
+                    <div class="formula-note">Where DYD = Σq<sub>prog</sub>w₂<sub>prog</sub>(YD<sub>prog</sub> - PTA<sub>mate</sub>)/Σq<sub>prog</sub>w₂<sub>prog</sub></div>
                 </div>
                 
                 <div class="model-comparison">
                     <div class="model-box model-1">
-                        <div class="model-title">Yield Deviation (YD)</div>
+                        <div class="model-title">Weight Calculations</div>
                         <div class="step-details">
-                            <strong>Definition:</strong> Weighted average of cow's yields adjusted for all non-genetic effects
-                            <div class="formula">YD = weighted average of (yᵢ - m̂ᵢ - p̂ᵢ - ĉᵢ)</div>
-                            <strong>Key Properties:</strong><br>
-                            • Independent measure of individual performance<br>
-                            • Adjusted for management group, permanent environment, herd-sire effects<br>
-                            • Contributes directly to animal's PTA<br>
-                            • Bulls have no YD but DYD provides similar information<br><br>
-                            <strong>Interpretation:</strong><br>
-                            • Positive YD: Above average performance given management conditions<br>
-                            • Incorporates lactation length weights and contemporary group adjustments
+                            <strong>PTA Weights (w):</strong>
+                            <div class="formula">Denominator = Σw<sub>len</sub> + 2k<sub>a</sub>q<sub>par</sub> + 0.5k<sub>a</sub>Σq<sub>prog</sub></div>
+                            
+                            <strong>DYD Weights (x):</strong>
+                            <div class="formula">x₃ numerator = 0.5k<sub>a</sub>Σq<sub>prog</sub>w₂<sub>prog</sub></div>
+                            
+                            <strong>Key Relationships:</strong>
+                            <ul>
+                                <li>x₃ < w₃ (DYD receives less weight than PC)</li>
+                                <li>DYD is unregressed progeny performance</li>
+                                <li>PC includes regression toward parent average</li>
+                                <li>w₂<sub>prog</sub> calculated without granddaughter info for consistency</li>
+                            </ul>
                         </div>
                     </div>
                     
                     <div class="model-box model-2">
-                        <div class="model-title">Parent Average (PA)</div>
+                        <div class="model-title">Management Group Deviation (MD)</div>
                         <div class="step-details">
-                            <strong>Definition:</strong> Average of parents' Predicted Transmitting Abilities
-                            <div class="formula">PA = (PTAsire + PTAdam)/2</div>
-                            <strong>Information Content:</strong><br>
-                            • Represents expected genetic merit from pedigree<br>
-                            • Baseline before considering own performance or progeny<br>
-                            • Weight depends on parent reliability levels<br>
-                            • Unknown parents handled through genetic groups<br><br>
-                            <strong>Contribution to Reliability:</strong><br>
-                            • DEₚₐ calculated from parent REL after excluding animal's contribution<br>
-                            • Prevents double-counting of information
-                        </div>
-                    </div>
-                    
-                    <div class="model-box model-3">
-                        <div class="model-title">Progeny Contribution (PC)</div>
-                        <div class="step-details">
-                            <strong>Definition:</strong> Weighted average of progeny information adjusted for mate merit
-                            <div class="formula">PC = ∑qₚᵣₒg(2PTAₚᵣₒg - PTAmate)/∑qₚᵣₒg</div>
-                            <strong>Adjustment for Mates:</strong><br>
-                            • Removes genetic contribution from mates<br>
-                            • Isolates information about focal animal<br>
-                            • Weights account for progeny reliability and mate REL<br>
-                            • Progeny without own progeny receive less weight<br><br>
-                            <strong>Relationship to DYD:</strong><br>
-                            • DYD provides unregressed measure of progeny performance<br>
-                            • PC includes regression toward parent average
+                            <strong>Relationship to YD:</strong>
+                            <div class="formula">MD = YD + PPA - 2PTA<sub>anim</sub></div>
+                            
+                            <strong>Where PPA is:</strong>
+                            <div class="formula">PPA = û<sub>i</sub> + p̂<sub>i</sub> + ĉ<sub>i</sub> (Predicted Producing Ability)</div>
+                            
+                            <strong>Interpretation:</strong>
+                            <ul>
+                                <li>MD adjusts only for management group effects</li>
+                                <li>YD additionally adjusts for permanent environment and herd-sire</li>
+                                <li>MD more similar to previous MCC system deviations</li>
+                                <li>Both YD and MD equal 2×PTA for isolated animals</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="section" id="section-reliability">
-                <div class="section-title">Reliability Framework & Daughter Equivalents</div>
+                <div class="section-title">Reliability & Daughter Equivalents</div>
                 
                 <div class="analysis-grid">
                     <div class="analysis-card why-card">
-                        <div class="analysis-title">WHY - Daughter Equivalents Concept</div>
+                        <div class="analysis-title">Reliability Definition</div>
                         <div class="step-details">
-                            <strong>Intuitive Information Measure:</strong> Daughter equivalents provide easily interpreted units for measuring evaluation accuracy.
+                            <strong>Statistical Definition:</strong> REL = squared correlation between predicted and true transmitting abilities.
                             
+                            <strong>Equivalent Definition:</strong> REL = Var(PTA)/Var(TA)
+                            
+                            <strong>Key Properties:</strong>
                             <ul>
-                                <li><span class="highlight">Standard Daughter:</span> One record, infinite management group mates, perfect mate REL</li>
-                                <li><span class="highlight">Additive Information:</span> DE from parents, self, and progeny sum to total DE</li>
-                                <li><span class="highlight">Traditional Connection:</span> Relates to historical sire evaluation accuracy measures</li>
-                                <li><span class="highlight">Cross-Sex Comparison:</span> Enables comparison of bull and cow evaluations</li>
-                                <li><span class="highlight">Simple Interpretation:</span> More DE always means higher reliability</li>
+                                <li>Ranges from 0 to 1 (0% to 100%)</li>
+                                <li>Independent of selection effects</li>
+                                <li>Computed from unselected population parameters</li>
+                                <li>Measures accuracy, not bias</li>
+                                <li>Enables breeding program optimization</li>
                             </ul>
                             
-                            <strong>Advantage over Record Equivalents:</strong> Only one sex has records; DE apply to both sexes.
+                            <strong>Practical Formula:</strong>
+                            <div class="formula">REL = DE/(DE + k<sub>a</sub>)</div>
                         </div>
                     </div>
                     
                     <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Reliability Calculation</div>
+                        <div class="analysis-title">Daughter Equivalents (DE)</div>
                         <div class="step-details">
-                            <strong>Step-by-Step Process:</strong> Systematic approach to calculating evaluation accuracy from information sources.
+                            <strong>Concept:</strong> Amount of information contributed by a "standard daughter" to parent evaluation.
                             
+                            <strong>Standard Daughter Definition:</strong>
                             <ul>
-                                <li><strong>DEₚₐ Calculation:</strong> Function of parent REL excluding animal's contribution</li>
-                                <li><strong>DEᵧᵢₑₗ_d Calculation:</strong> Based on number of records and management group structure</li>
-                                <li><strong>DEₚᵣₒg-mate Calculation:</strong> Progeny contribution adjusted for mate REL and herd-sire interaction</li>
-                                <li><strong>Total DE:</strong> Sum of all daughter equivalent sources</li>
-                                <li><strong>Final REL:</strong> REL = DE/(DE + 14) for USDA system</li>
+                                <li>One lactation record</li>
+                                <li>Infinite number of management group mates</li>
+                                <li>Other parent with perfect reliability (100%)</li>
+                                <li>Provides intuitive information unit</li>
                             </ul>
                             
-                            <strong>Iterative Strategy:</strong> Process animals by age to ensure parent REL available before calculating progeny contributions.
+                            <strong>Total DE Calculation:</strong>
+                            <div class="formula">DE<sub>anim</sub> = DE<sub>PA</sub> + DE<sub>yield</sub> + ΣDE<sub>prog-mate</sub></div>
+                            
+                            <strong>Inverse Relationship:</strong>
+                            <div class="formula">DE = k<sub>a</sub> × REL/(1 - REL)</div>
                         </div>
                     </div>
                     
                     <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Information Sources Quantified</div>
+                        <div class="analysis-title">Information Sources</div>
                         <div class="step-details">
-                            <strong>Typical DE Contributions:</strong> Examples showing relative importance of different information pathways.
+                            <strong>DE from Parents (DE<sub>PA</sub>):</strong>
+                            <div class="formula">DE<sub>PA</sub> = k<sub>a</sub>(REL*<sub>PA</sub>)/(1 - REL*<sub>PA</sub>)</div>
                             
+                            <strong>DE from Own Records (DE<sub>yield</sub>):</strong>
+                            <div class="formula">DE<sub>yield</sub> = k<sub>a</sub>(REL<sub>yield</sub>)/(1 - REL<sub>yield</sub>)</div>
+                            
+                            <strong>DE from Each Progeny (DE<sub>prog-mate</sub>):</strong>
+                            <div class="formula">DE<sub>prog-mate</sub> = k<sub>a</sub>(REL*<sub>anim</sub>)/(1 - REL*<sub>anim</sub>)</div>
+                            
+                            <strong>Critical Adjustments:</strong>
                             <ul>
-                                <li><span class="highlight">High REL Parents:</span> ~14 DE (both parents 99% REL)</li>
-                                <li><span class="highlight">Multiple Lactations:</span> ~9 DE (5 lactation records)</li>
-                                <li><span class="highlight">Many Daughters:</span> ~5.4 DE (100 daughters in different herds)</li>
-                                <li><span class="highlight">Same Herd Limitation:</span> Reduced DE when daughters in same herd</li>
-                                <li><span class="highlight">Son Information:</strong> Substantial DE from sons with many daughters</li>
+                                <li>REL* excludes focal animal's contribution (prevents double-counting)</li>
+                                <li>Mate REL adjustment isolates focal animal information</li>
+                                <li>Herd-sire interaction reduces daughter information</li>
                             </ul>
-                            
-                            <strong>Practical Impact:</strong> Quantifies value of different breeding program strategies.
                         </div>
                     </div>
                 </div>
                 
-                <div class="section-title">Detailed Reliability Components</div>
+                <div class="section-title">Reliability Component Details</div>
                 
                 <div class="results-grid">
                     <div class="results-box">
-                        <div class="results-title">Parent Information (DEₚₐ)</div>
+                        <div class="results-title">Parent Information (DE<sub>PA</sub>)</div>
                         <div class="step-details">
-                            <strong>Calculation Formula:</strong>
-                            <div class="formula">DEₚₐ = kₐ(REL*ₚₐ)/(1 - REL*ₚₐ)</div>
-                            
-                            <strong>Where REL*ₚₐ is:</strong>
-                            <div class="formula">REL*ₚₐ = (REL*sire + REL*dam)/4</div>
-                            
-                            <strong>Key Considerations:</strong>
-                            <ul>
-                                <li>REL*sire and REL*dam exclude contribution from this animal</li>
-                                <li>Prevents double-counting of information</li>
-                                <li>Unknown parents handled through genetic groups</li>
-                                <li>Higher parent REL dramatically increases DEₚₐ</li>
-                            </ul>
+                            <strong>Calculation Steps:</strong>
+                            <ol>
+                                <li>Calculate animal's contribution to each parent</li>
+                                <li>Subtract from parent's total DE to get REL*</li>
+                                <li>Combine parent REL: REL*<sub>PA</sub> = (REL*<sub>sire</sub> + REL*<sub>dam</sub>)/4</li>
+                                <li>Convert to DE<sub>PA</sub> using standard formula</li>
+                            </ol>
                             
                             <strong>Example Values:</strong>
                             <ul>
-                                <li>70% sire, 30% dam REL: 4.7 DE</li>
-                                <li>99% sire, 50% dam REL: 8.3 DE</li>
-                                <li>99% sire, 99% dam REL: 14.0 DE</li>
+                                <li>Sire 70% REL, Dam 30% REL: 4.7 DE</li>
+                                <li>Sire 99% REL, Dam 50% REL: 8.3 DE</li>
+                                <li>Sire 99% REL, Dam 99% REL: 14.0 DE</li>
+                            </ul>
+                            
+                            <strong>Unknown Parents:</strong>
+                            <ul>
+                                <li>Genetic group solutions replace unknown PTA</li>
+                                <li>Reduced q<sub>par</sub> values account for uncertainty</li>
+                                <li>Lower DE compared to known high-REL parents</li>
                             </ul>
                         </div>
                     </div>
                     
                     <div class="results-box">
-                        <div class="results-title">Own Performance (DEᵧᵢₑₗ_d)</div>
+                        <div class="results-title">Own Performance (DE<sub>yield</sub>)</div>
                         <div class="step-details">
-                            <strong>Calculation Method:</strong>
-                            <div class="formula">DEᵧᵢₑₗ_d = kₐ(RELᵧᵢₑₗ_d)/(1 - RELᵧᵢₑₗ_d)</div>
+                            <strong>Basic Formula (Infinite Mates):</strong>
+                            <div class="formula">REL<sub>yield</sub> = n<sub>rec</sub>h²/[1 + (n<sub>rec</sub> - 1)r<sub>yield</sub>]</div>
                             
-                            <strong>RELᵧᵢₑₗ_d Factors:</strong>
+                            <strong>Practical Adjustments:</strong>
                             <ul>
-                                <li>Number of lactation records</li>
-                                <li>Lactation length weights</li>
-                                <li>Management group mate structure</li>
-                                <li>Heritability and repeatability parameters</li>
+                                <li>Lactation length weights (w<sub>len</sub>)</li>
+                                <li>Number of management group mates</li>
+                                <li>Average REL of management group sires</li>
+                                <li>Herd-sire interaction effects</li>
                             </ul>
                             
-                            <strong>Management Group Impact:</strong>
-                            <ul>
-                                <li>Infinite mates: RELᵧᵢₑₗ_d = nrₑcₕ²/[1 + (nrₑc - 1)rᵧᵢₑₗ_d]</li>
-                                <li>Finite mates: Reduced information due to genetic ties</li>
-                                <li>Contemporary sire effects further reduce information</li>
-                            </ul>
-                            
-                            <strong>Typical Values:</strong>
+                            <strong>Example Values:</strong>
                             <ul>
                                 <li>1 lactation record: 4.7 DE</li>
                                 <li>3 lactation records: 7.8 DE</li>
                                 <li>5 lactation records: 9.0 DE</li>
+                            </ul>
+                            
+                            <strong>Diminishing Returns:</strong>
+                            <ul>
+                                <li>Permanent environmental effects limit gains</li>
+                                <li>Additional records provide smaller increments</li>
+                                <li>Management group structure affects information content</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="section" id="section-technical">
-                <div class="section-title">Technical Implementation & Computational Framework</div>
+            <div class="section" id="section-progeny">
+                <div class="section-title">Progeny Information & Herd-Sire Interaction</div>
                 
                 <div class="comparison-grid">
                     <div class="comparison-box census-box">
-                        <div class="comparison-title">Progeny Information Processing</div>
+                        <div class="comparison-title">Progeny Contribution Calculation</div>
                         <div class="step-details">
-                            <strong>Daughter Contribution Calculation:</strong>
-                            <div class="formula">DEₚᵣₒg-mate = kₐ(REL*ₐₙᵢₘ)/(1 - REL*ₐₙᵢₘ)</div>
+                            <strong>Individual Progeny DE:</strong>
+                            <div class="formula">REL*<sub>anim</sub> = REL*<sub>prog</sub>/(4 - REL*<sub>prog</sub>REL*<sub>mate</sub>)</div>
                             
-                            <strong>Where REL*ₐₙᵢₘ accounts for:</strong>
+                            <strong>Where:</strong>
                             <ul>
-                                <li>Progeny's own performance information</li>
-                                <li>Adjustment for mate's genetic contribution</li>
-                                <li>Progeny's progeny (granddaughter information)</li>
-                                <li>Herd-sire interaction limitations</li>
+                                <li>REL*<sub>prog</sub> = progeny REL excluding parent information</li>
+                                <li>REL*<sub>mate</sub> = mate REL excluding this progeny's contribution</li>
+                                <li>Factor of 4 represents genetic relationship</li>
+                                <li>Mate adjustment isolates focal parent's information</li>
                             </ul>
                             
-                            <strong>Herd-Sire Interaction Effects:</strong>
-                            <ul>
-                                <li>Daughters in same herd provide less information</li>
-                                <li>Formula: DEₚᵣₒg-mate = 1/(.16 + .84/d)</li>
-                                <li>d = effective number of standard daughters in herd</li>
-                                <li>Maximum ~6 DE regardless of daughter number per herd</li>
-                            </ul>
+                            <strong>Alternative Formula:</strong>
+                            <div class="formula">REL*<sub>anim</sub> = 1/[(4/REL*<sub>prog</sub>) - REL*<sub>mate</sub>]</div>
                             
-                            <strong>Son vs. Daughter Information:</strong>
-                            <ul>
-                                <li>Sons contribute through their daughters</li>
-                                <li>No herd-sire interaction limitation for sons</li>
-                                <li>Substantial DE possible from highly proven sons</li>
-                            </ul>
+                            <strong>Simplified for Standard Progeny:</strong>
+                            <div class="formula">DE<sub>prog-mate</sub> = 1/[(4/REL<sub>prog</sub>) - REL<sub>mate</sub>]</div>
                         </div>
                     </div>
                     
                     <div class="comparison-box dna-box">
-                        <div class="comparison-title">Computational Sequence</div>
+                        <div class="comparison-title">Herd-Sire Interaction Effects</div>
                         <div class="step-details">
-                            <strong>Processing Order Strategy:</strong>
-                            <ul>
-                                <li><strong>Step 1:</strong> Collect DEᵧᵢₑₗ_d for all cows (herd order processing)</li>
-                                <li><strong>Step 2:</strong> Calculate daughter→sire contributions (account for herd-sire interaction)</li>
-                                <li><strong>Step 3:</strong> Process animals youngest→oldest for other progeny contributions</li>
-                                <li><strong>Step 4:</strong> Calculate REL starting with oldest animals</li>
-                            </ul>
+                            <strong>Information Limitation:</strong> Daughters in same herd provide less information due to herd-sire interaction effects.
                             
-                            <strong>Avoiding Information Double-Counting:</strong>
-                            <ul>
-                                <li>Parent REL excludes contribution from focal animal</li>
-                                <li>Mate REL excludes information from shared progeny</li>
-                                <li>Progeny processing ensures all descendants counted before parents</li>
-                                <li>Age ordering ensures parent REL available for progeny calculations</li>
-                            </ul>
+                            <strong>Simplified Formula:</strong>
+                            <div class="formula">DE<sub>prog-mate</sub> = 1/(0.16 + 0.84/d)</div>
                             
-                            <strong>Matrix Equation Solutions:</strong>
+                            <strong>Where d equals:</strong>
+                            <div class="formula">d = Σ(σ²<sub>a</sub> + 0.5σ²<sub>p</sub> + σ²<sub>e</sub>)/[σ²<sub>a</sub> + (0.75 - 0.25REL*<sub>mate</sub>)σ²<sub>a</sub> + σ²<sub>e</sub>/Σw<sub>len</sub>]</div>
+                            
+                            <strong>Practical Implications:</strong>
                             <ul>
-                                <li>Singular system solved with genetic base imposed post-solution</li>
-                                <li>Iteration on data techniques for large coefficient matrices</li>
-                                <li>Convergence monitoring for iterative algorithms</li>
+                                <li>Maximum ~6 DE per herd regardless of daughter number</li>
+                                <li>Diminishing returns with many daughters per herd</li>
+                                <li>Spreading daughters across herds maximizes information</li>
+                                <li>Sons not limited by herd-sire interaction</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 
-                <div class="section-title">Mathematical Derivations & Theoretical Framework</div>
+                <div class="section-title">Daughter Information Examples</div>
                 
-                <div class="formula-box">
-                    <div class="formula-title">PTA Derivation from Mixed Model Equations</div>
-                    <div class="formula-main">[diag(Z'R⁻¹Z + A⁻¹kₐ)]PTAₐₙᵢₘ = kₐqₚₐᵣ(PTAsire + PTAdam)/2 + [diag(Z'R⁻¹Z)]YD/2 + .5kₐΣqₚᵣₒg(2PTAₚᵣₒg - PTAmate)</div>
-                    <div class="formula-note">Derived by transferring off-diagonal terms of A⁻¹ to right side and dividing by 2</div>
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Daughters in Herd</th>
+                                <th>Total DE Contributed</th>
+                                <th>DE per Daughter</th>
+                                <th>Efficiency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>1</td>
+                                <td>1.0</td>
+                                <td>1.00</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>2</td>
+                                <td>1.7</td>
+                                <td>0.86</td>
+                                <td>86%</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>5</td>
+                                <td>3.0</td>
+                                <td>0.61</td>
+                                <td>61%</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>10</td>
+                                <td>4.1</td>
+                                <td>0.41</td>
+                                <td>41%</td>
+                            </tr>
+                            <tr class="high-pev-group">
+                                <td>50</td>
+                                <td>5.2</td>
+                                <td>0.21</td>
+                                <td>21%</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 
-                <div class="model-comparison">
-                    <div class="model-box">
-                        <div class="model-title">Weight Calculations</div>
-                        <div class="step-details">
-                            <strong>PTA Weights:</strong>
-                            <div class="formula">w₁ = 2kₐqₚₐᵣ/(Σwₗₑₙ + 2kₐqₚₐᵣ + .5kₐΣqₚᵣₒg)</div>
-                            <div class="formula">w₂ = Σwₗₑₙ/(Σwₗₑₙ + 2kₐqₚₐᵣ + .5kₐΣqₚᵣₒg)</div>
-                            <div class="formula">w₃ = .5kₐΣqₚᵣₒg/(Σwₗₑₙ + 2kₐqₚₐᵣ + .5kₐΣqₚᵣₒg)</div>
-                            
-                            <strong>Where:</strong>
-                            <ul>
-                                <li>qₚₐᵣ = 1 if both parents known, 2/3 if one known, 1/2 if neither known</li>
-                                <li>qₚᵣₒg = 1 if progeny's other parent known, 2/3 if unknown</li>
-                                <li>wₗₑₙ = lactation length weights</li>
-                                <li>kₐ = σ²ₑ/σ²ₐ = 1.8 for USDA evaluations</li>
-                            </ul>
+                <div class="coverage-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Maximum DE per Herd</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">0.16</div>
+                        <div class="stat-label">Minimum Inverse DE</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">84%</div>
+                        <div class="stat-label">Herd-Sire Interaction Factor</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Efficiency for 1 Daughter</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-computation">
+                <div class="section-title">Computational Implementation</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Processing Sequence</div>
+                            <div class="step-details">
+                                Strategic order to avoid iteration and ensure information availability
+                                <div class="step-specs">
+                                    <strong>Step 1:</strong> Collect DE<sub>yield</sub> for all cows (herd order)<br>
+                                    <strong>Step 2:</strong> Calculate daughter→sire contributions (herd-sire interaction)<br>
+                                    <strong>Step 3:</strong> Process animals youngest→oldest (other progeny pathways)<br>
+                                    <strong>Step 4:</strong> Calculate REL starting with oldest animals
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="model-box">
-                        <div class="model-title">Daughter Yield Deviation (DYD)</div>
-                        <div class="step-details">
-                            <strong>Unregressed Progeny Performance:</strong>
-                            <div class="formula">DYD = Σqₚᵣₒgw₂ₚᵣₒg(YDₚᵣₒg - PTAmate)/Σqₚᵣₒgw₂ₚᵣₒg</div>
-                            
-                            <strong>Alternative PTA Formula:</strong>
-                            <div class="formula">PTAₐₙᵢₘ = x₁PA + x₂(YD/2) + x₃DYD</div>
-                            
-                            <strong>DYD vs. PC Relationship:</strong>
-                            <ul>
-                                <li>DYD excludes regression toward parent average</li>
-                                <li>More independent measure of progeny performance</li>
-                                <li>x₃ always less than w₃ (reduced weight for unregressed measure)</li>
-                                <li>Particularly useful for bulls without granddaughters</li>
-                            </ul>
-                            
-                            <strong>Computational Note:</strong>
-                            <ul>
-                                <li>w₂ₚᵣₒg calculated assuming no granddaughter information</li>
-                                <li>Provides consistent measure across bull career stages</li>
-                                <li>Currently reported for bulls with ≥10 daughters</li>
-                            </ul>
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Information Accounting</div>
+                            <div class="step-details">
+                                Systematic approach to prevent double-counting
+                                <div class="step-specs">
+                                    <strong>Parent Contributions:</strong> Subtract animal's DE before calculating parent REL*<br>
+                                    <strong>Mate Adjustments:</strong> Exclude shared progeny information from mate REL<br>
+                                    <strong>Age Processing:</strong> Ensures all progeny counted before parent calculations<br>
+                                    <strong>Iteration Avoidance:</strong> Single-pass algorithm using previous evaluation REL
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Matrix Considerations</div>
+                            <div class="step-details">
+                                Handling large-scale computational challenges
+                                <div class="step-specs">
+                                    <strong>Memory Management:</strong> Information matrix (X'X) too large for RAM<br>
+                                    <strong>Iteration on Data:</strong> Solve equations without storing full coefficient matrix<br>
+                                    <strong>Convergence:</strong> Monitor solution stability across iterations<br>
+                                    <strong>Genetic Base:</strong> Impose constraints post-solution to avoid slow convergence
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Scale & Performance</div>
+                            <div class="step-details">
+                                National implementation scope and computational requirements
+                                <div class="step-specs">
+                                    <strong>Animals Processed:</strong> ~14 million cows, ~100,000 bulls<br>
+                                    <strong>Evaluation Frequency:</strong> Semiannual updates (July 1989 onward)<br>
+                                    <strong>Industry Acceptance:</strong> Well-received terminology and explanations<br>
+                                    <strong>User Feedback:</strong> Some preference for MD over YD reporting
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="section" id="section-examples">
-                <div class="section-title">Practical Examples & Implementation Results</div>
-                
-                <div class="table-container">
-                    <table class="example-table">
-                        <thead>
-                            <tr>
-                                <th>Information Source</th>
-                                <th>Description</th>
-                                <th>Daughter Equivalents</th>
-                                <th>Reliability Impact</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="published-group">
-                                <td><strong>High REL Parents</strong></td>
-                                <td>Sire 99% REL, Dam 99% REL</td>
-                                <td>14.0</td>
-                                <td>50% reliability baseline</td>
-                            </tr>
-                            <tr class="alternative-group">
-                                <td><strong>5 Lactation Records</strong></td>
-                                <td>Infinite management group mates</td>
-                                <td>9.0</td>
-                                <td>39% reliability from own performance</td>
-                            </tr>
-                            <tr class="new-group">
-                                <td><strong>100 Daughters</strong></td>
-                                <td>Each in different herd, 1 record</td>
-                                <td>5.4</td>
-                                <td>28% reliability from progeny</td>
-                            </tr>
-                            <tr class="low-pev-group">
-                                <td><strong>10 Daughters (Same Herd)</strong></td>
-                                <td>All daughters in one herd</td>
-                                <td>4.1</td>
-                                <td>Reduced by herd-sire interaction</td>
-                            </tr>
-                            <tr class="high-pev-group">
-                                <td><strong>Highly Proven Son</strong></td>
-                                <td>Son with 99% REL evaluation</td>
-                                <td>7.0</td>
-                                <td>33% reliability from one son</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="section-title">Worked Example: Cow Evaluation</div>
+                <div class="section-title">Worked Example: Complete Evaluation</div>
                 
                 <div class="analysis-grid">
                     <div class="analysis-card theory-card">
-                        <div class="analysis-title">Example Cow Data</div>
+                        <div class="analysis-title">Example Cow Setup</div>
                         <div class="step-details">
                             <strong>Given Information:</strong>
                             <ul>
-                                <li><strong>Own Performance:</strong> YD = +1000 kg (3 records)</li>
+                                <li><strong>Own Performance:</strong> YD = +1000 kg (based on 3 records)</li>
                                 <li><strong>Parents:</strong> PA = -500 kg</li>
                                 <li><strong>Daughter 1:</strong> YD = -300 kg, sire PTA = -200 kg</li>
                                 <li><strong>Daughter 2:</strong> YD = +400 kg, unknown sire (group = +100 kg)</li>
                             </ul>
                             
-                            <strong>Weight Calculations:</strong>
+                            <strong>Reliability Assumptions:</strong>
                             <ul>
-                                <li>w₁ = 0.445 (parent information weight)</li>
-                                <li>w₂ = 0.370 (own performance weight)</li>
-                                <li>w₃ = 0.185 (progeny information weight)</li>
+                                <li>Dam has 50% REL after removing cow's contribution</li>
+                                <li>Sire and daughter 1's sire both have 99% REL</li>
+                                <li>w₂ values: 0.2174 (daughter 1), 0.2941 (daughter 2)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Step-by-Step Calculations</div>
+                        <div class="step-details">
+                            <strong>1. DYD Calculation:</strong>
+                            <div class="formula">DYD = [0.2174(-300 + 2×0) + 0.2941(2/3)(400 - 1×0)] / [0.2174 + 0.2941(2/3)]</div>
+                            <div class="formula">DYD = [-65.22 + 78.43] / [0.4135] = 90 kg</div>
+                            
+                            <strong>2. PTA from x weights:</strong>
+                            <div class="formula">PTA = 0.516(-500) + 0.431(1000/2) + 0.053(90) = -38 kg</div>
+                            
+                            <strong>3. Progeny Contribution (PC):</strong>
+                            <ul>
+                                <li>Daughter 1 PTA = -126 kg, Daughter 2 PTA = 81 kg</li>
+                                <li>PC = {[2(-126) + 200] + (2/3)[2(81) - 0]} / [1 + (2/3)] = -6 kg</li>
                             </ul>
                             
+                            <strong>4. PTA from w weights:</strong>
+                            <div class="formula">PTA = 0.445(-500) + 0.370(1000/2) + 0.185(-6) = -38 kg ✓</div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Reliability Calculation</div>
+                        <div class="step-details">
                             <strong>Daughter Equivalents:</strong>
                             <ul>
-                                <li>DEₚₐ = 8.3 (from parent REL)</li>
-                                <li>DEᵧᵢₑₗ_d = 7.8 (from 3 lactations)</li>
-                                <li>DEₚᵣₒ_g-mate = 1.93 (from 2 daughters)</li>
+                                <li>DE<sub>PA</sub> = 8.3 (from parent REL)</li>
+                                <li>DE<sub>yield</sub> = 7.8 (from 3 lactations)</li>
+                                <li>DE<sub>prog-mate</sub> = 1.93 (from 2 daughters)</li>
+                                <li><strong>Total DE = 18.03</strong></li>
                             </ul>
+                            
+                            <strong>Final Reliability:</strong>
+                            <div class="formula">REL = 18.03/(18.03 + 14) = 0.56 (56%)</div>
+                            
+                            <strong>Information Distribution:</strong>
+                            <ul>
+                                <li>Parents: 40% of total information (8.3/18.03)</li>
+                                <li>Own records: 43% of total information (7.8/18.03)</li>
+                                <li>Progeny: 11% of total information (1.93/18.03)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Weight and Information Summary</div>
+                
+                <div class="table-container">
+                    <table class="formulation-table">
+                        <thead>
+                            <tr>
+                                <th>Information Source</th>
+                                <th>w weights</th>
+                                <th>x weights</th>
+                                <th>DE Fraction</th>
+                                <th>Contribution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Parents (PA)</strong></td>
+                                <td>0.445</td>
+                                <td>0.516</td>
+                                <td>0.400</td>
+                                <td>-222.5 kg</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Own Performance (YD/2)</strong></td>
+                                <td>0.370</td>
+                                <td>0.431</td>
+                                <td>0.433</td>
+                                <td>+185.0 kg</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Progeny (PC or DYD)</strong></td>
+                                <td>0.185 (PC)</td>
+                                <td>0.053 (DYD)</td>
+                                <td>0.107</td>
+                                <td>-1.1 or +4.8 kg</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">Industry Impact & Legacy</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏆 Transformative Industry Impact</div>
+                    <p>This framework became the standard for explaining genetic evaluations worldwide. The terminology and concepts introduced—PTA, REL, daughter equivalents, yield deviations—remain central to modern breeding programs and have been adapted for genomic evaluations across all livestock species.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Key Innovations</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Intuitive Decomposition:</strong> Complex matrix algebra translated to understandable components</li>
+                                <li><strong>Daughter Equivalents:</strong> Universal information measure enabling cross-sex comparisons</li>
+                                <li><strong>Reliability Standardization:</strong> Consistent accuracy reporting independent of selection</li>
+                                <li><strong>Information Accounting:</strong> Systematic prevention of double-counting genetic information</li>
+                                <li><strong>Computational Efficiency:</strong> Practical algorithms for national-scale implementations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Industry Applications</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>National Programs:</strong> USDA-DHIA implementation for millions of animals</li>
+                                <li><strong>International Adoption:</strong> Framework adapted globally by breeding organizations</li>
+                                <li><strong>Commercial Breeding:</strong> Companies adopted terminology for genetic product marketing</li>
+                                <li><strong>Research Foundation:</strong> Enabled evaluation accuracy studies and program optimization</li>
+                                <li><strong>User Education:</strong> Provided breeders intuitive understanding of genetic evaluations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Modern Relevance & Extensions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Genomic Era Applications</div>
+                        <div class="step-details">
+                            <strong>Conceptual Extensions:</strong>
+                            <ul>
+                                <li>Reliability concepts adapted for genomic predictions</li>
+                                <li>Daughter equivalent principles applied to genomic accuracy</li>
+                                <li>PTA decomposition maintained in single-step evaluations</li>
+                                <li>Information accounting critical for genomic-conventional blending</li>
+                            </ul>
+                            
+                            <strong>Technical Challenges:</strong>
+                            <ul>
+                                <li>Genomic preselection effects on reliability calculation</li>
+                                <li>Cross-population genomic evaluation accuracy assessment</li>
+                                <li>Functional genomics information integration</li>
+                                <li>Multi-trait genomic evaluation reliability</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computational Evolution</div>
+                        <div class="step-details">
+                            <strong>Scale Increases:</strong>
+                            <ul>
+                                <li>Millions of genotyped animals in national evaluations</li>
+                                <li>Real-time evaluation updates with incremental algorithms</li>
+                                <li>Cloud-based systems requiring distributed reliability calculations</li>
+                                <li>International evaluations harmonizing accuracy measures</li>
+                            </ul>
+                            
+                            <strong>Methodological Advances:</strong>
+                            <ul>
+                                <li>Machine learning integration with traditional frameworks</li>
+                                <li>Multi-environment evaluations with environment-specific reliabilities</li>
+                                <li>Uncertainty quantification using DE-based approaches</li>
+                                <li>Novel trait evaluation reliability for health and efficiency traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Cross-Species Applications</div>
+                        <div class="step-details">
+                            <strong>Livestock Extensions:</strong>
+                            <ul>
+                                <li>Beef cattle, swine, poultry genomic evaluations</li>
+                                <li>Aquaculture breeding programs using reliability concepts</li>
+                                <li>Small ruminant and companion animal applications</li>
+                                <li>Conservation genetics with adapted frameworks</li>
+                            </ul>
+                            
+                            <strong>Plant Breeding Adaptations:</strong>
+                            <ul>
+                                <li>Crop genomic selection using daughter equivalent principles</li>
+                                <li>Forest tree breeding with extended generation intervals</li>
+                                <li>Horticultural applications with clonal propagation</li>
+                                <li>Breeding program optimization using reliability-cost models</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-equations">
+                <div class="section-title">Complete Mathematical Framework</div>
+                
+                <div class="matrix-container">
+                    <div class="matrix-definition">
+                        <strong>Complete Mixed Model Equations:</strong>
+                    </div>
+                    <div class="matrix-equation">
+                        <div class="matrix-flexible">
+                            <div class="matrix-row">
+                                <div class="matrix-cell">M'R⁻¹M</div>
+                                <div class="matrix-cell">Z'R⁻¹M</div>
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">P'R⁻¹M</div>
+                                <div class="matrix-cell">C'R⁻¹M</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-cell">symmetric</div>
+                                <div class="matrix-cell">Z'R⁻¹Z + A⁻¹k<sub>a</sub></div>
+                                <div class="matrix-cell">-A'<sub>g</sub>A⁻¹k<sub>a</sub></div>
+                                <div class="matrix-cell">P'R⁻¹Z</div>
+                                <div class="matrix-cell">C'R⁻¹Z</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-cell"></div>
+                                <div class="matrix-cell">symmetric</div>
+                                <div class="matrix-cell">A'<sub>g</sub>A⁻¹A<sub>g</sub>k<sub>a</sub></div>
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">0</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-cell"></div>
+                                <div class="matrix-cell"></div>
+                                <div class="matrix-cell">symmetric</div>
+                                <div class="matrix-cell">P'R⁻¹P + Ik<sub>p</sub></div>
+                                <div class="matrix-cell">C'R⁻¹P</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-cell"></div>
+                                <div class="matrix-cell"></div>
+                                <div class="matrix-cell"></div>
+                                <div class="matrix-cell">symmetric</div>
+                                <div class="matrix-cell">C'R⁻¹C + Ik<sub>c</sub></div>
+                            </div>
+                        </div>
+                        <span class="equals">=</span>
+                        <div class="vector-flexible">
+                            <div class="vector-row">
+                                <div class="vector-cell">M'R⁻¹y</div>
+                            </div>
+                            <div class="vector-row">
+                                <div class="vector-cell">Z'R⁻¹y</div>
+                            </div>
+                            <div class="vector-row">
+                                <div class="vector-cell">0</div>
+                            </div>
+                            <div class="vector-row">
+                                <div class="vector-cell">P'R⁻¹y</div>
+                            </div>
+                            <div class="vector-row">
+                                <div class="vector-cell">C'R⁻¹y</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">Variance Parameters (USDA Values)</div>
+                        <div class="formula-main">k<sub>a</sub> = 1.8, k<sub>p</sub> = 2.8, k<sub>c</sub> = 3.2</div>
+                        <div class="formula-note">Ratios of error variance to effect variances</div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">Reliability Formula</div>
+                        <div class="formula-main">REL = DE/(DE + k<sub>a</sub>) where k<sub>a</sub> = 14</div>
+                        <div class="formula-note">Standard formula used across all USDA evaluations</div>
+                    </div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box">
+                        <div class="model-title">PTA Weight Derivation</div>
+                        <div class="step-details">
+                            <strong>From Mixed Model Equations:</strong>
+                            <div class="formula">[diag(Z'R⁻¹Z + A⁻¹k<sub>a</sub>)]PTA<sub>anim</sub> = k<sub>a</sub>q<sub>par</sub>(PTA<sub>sire</sub> + PTA<sub>dam</sub>)/2 + [diag(Z'R⁻¹Z)]YD/2 + 0.5k<sub>a</sub>Σq<sub>prog</sub>(2PTA<sub>prog</sub> - PTA<sub>mate</sub>)</div>
+                            
+                            <strong>Weight Denominators:</strong>
+                            <div class="formula">Denominator = Σw<sub>len</sub> + 2k<sub>a</sub>q<sub>par</sub> + 0.5k<sub>a</sub>Σq<sub>prog</sub></div>
+                            
+                            <strong>Individual Weights:</strong>
+                            <ul>
+                                <li>w₁ = 2k<sub>a</sub>q<sub>par</sub> / Denominator</li>
+                                <li>w₂ = Σw<sub>len</sub> / Denominator</li>
+                                <li>w₃ = 0.5k<sub>a</sub>Σq<sub>prog</sub> / Denominator</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box">
+                        <div class="model-title">DE Conversion Formulas</div>
+                        <div class="step-details">
+                            <strong>REL to DE:</strong>
+                            <div class="formula">DE = k<sub>a</sub> × REL/(1 - REL)</div>
+                            
+                            <strong>DE to REL:</strong>
+                            <div class="formula">REL = DE/(DE + k<sub>a</sub>)</div>
+                            
+                            <strong>Information Components:</strong>
+                            <div class="formula">DE<sub>total</sub> = DE<sub>PA</sub> + DE<sub>yield</sub> + ΣDE<sub>prog-mate</sub></div>
+                            
+                            <strong>Herd-Sire Correction:</strong>
+                            <div class="formula">DE<sub>daughters/herd</sub> = 1/(0.16 + 0.84/d<sub>effective</sub>)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">Conclusions & Scientific Significance</div>
+                
+                <div class="legacy-box">
+                    <strong>Foundational Contribution:</strong> VanRaden and Wiggans (1991) provided the mathematical and conceptual bridge between complex mixed model genetic evaluation theory and practical breeding applications. Their systematic decomposition of animal model solutions into intuitive components—parent information, own performance, and progeny contributions—enabled widespread industry adoption of sophisticated statistical methods. The daughter equivalent concept revolutionized how evaluation accuracy is measured and communicated, while the reliability framework established standards still used globally.
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Enduring Scientific Legacy</div>
+                    <p><strong>33+ years of influence:</strong> This work established the mathematical and terminological foundation for genetic evaluation systems worldwide. The concepts introduced continue to underpin modern genomic selection, international genetic evaluations, and breeding program optimization. The framework's adaptability has enabled its successful extension to genomic evaluations, multi-trait models, and cross-species applications, demonstrating the fundamental importance of clear mathematical communication in applied genetics.</p>
+                </div>
+                
+                <div class="best-practices">
+                    <strong>Key Principles Established:</strong>
+                    <ul>
+                        <li><strong>Mathematical Clarity:</strong> Complex statistical methods require intuitive explanations for industry adoption</li>
+                        <li><strong>Information Transparency:</strong> Users benefit from understanding evaluation component contributions</li>
+                        <li><strong>Standardized Accuracy:</strong> Consistent reliability measures enable objective breeding program comparison</li>
+                        <li><strong>Computational Efficiency:</strong> Practical algorithms must balance statistical rigor with implementation constraints</li>
+                        <li><strong>Industry Communication:</strong> Successful technology transfer requires bridging academic theory and practical application</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                
