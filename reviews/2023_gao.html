@@ -531,6 +531,324 @@
                 </div>
             </div>
 
+            <div class="section" id="section-detailed-results">
+                <div class="section-title">Detailed Statistical Results</div>
+                
+                <div class="table-container">
+                    <table class="formulation-table">
+                        <thead>
+                            <tr>
+                                <th>Dataset</th>
+                                <th>Trait</th>
+                                <th>Sample Size</th>
+                                <th>SNPs Analyzed</th>
+                                <th>Significant SNPs</th>
+                                <th>Most Significant P-value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Discovery (79K)</strong></td>
+                                <td>Heifer Livability</td>
+                                <td>510,318</td>
+                                <td>73,554</td>
+                                <td>0</td>
+                                <td>3.53×10⁻¹⁰</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Discovery (79K)</strong></td>
+                                <td>Early First Calving</td>
+                                <td>768,645</td>
+                                <td>73,554</td>
+                                <td>1</td>
+                                <td>1.28×10⁻⁷</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Fine-mapping (Sequence)</strong></td>
+                                <td>Heifer Livability</td>
+                                <td>11,562</td>
+                                <td>3,148,506</td>
+                                <td>16</td>
+                                <td>4.90×10⁻¹⁴</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Fine-mapping (Sequence)</strong></td>
+                                <td>Early First Calving</td>
+                                <td>10,700</td>
+                                <td>3,148,506</td>
+                                <td>2</td>
+                                <td>3.26×10⁻⁸</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Quality Control Metrics</div>
+                        <div class="step-details">
+                            <strong>Discovery Dataset QC:</strong>
+                            <ul>
+                                <li>SNP call rate: >95%</li>
+                                <li>Minor allele frequency: >1%</li>
+                                <li>Hardy-Weinberg equilibrium: P>10⁻⁶</li>
+                                <li>Animal missing genotypes: <5%</li>
+                                <li>Final retention: 73,554/79,060 SNPs (93.0%)</li>
+                                <li>Animal retention: 3,520,002/3,649,734 (96.4%)</li>
+                            </ul>
+                            
+                            <strong>Imputation Accuracy:</strong>
+                            <ul>
+                                <li>Sequence imputation: 96.7% consistent genotypes</li>
+                                <li>Reference panel: 444 Holstein bulls (1000 Bull Genomes)</li>
+                                <li>Stringent filtering removed intergenic SNPs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Phenotype Processing</div>
+                        <div class="step-details">
+                            <strong>CDCB Evaluation System:</strong>
+                            <ul>
+                                <li>December 2021 genomic evaluations</li>
+                                <li>Predicted Transmitting Ability (PTA) values</li>
+                                <li>Management effects pre-corrected by CDCB</li>
+                                <li>Deregressed PTA used as GWAS phenotype</li>
+                            </ul>
+                            
+                            <strong>Reliability Filtering:</strong>
+                            <ul>
+                                <li>Low reliability animals excluded</li>
+                                <li>Error weight = 1/r²-1 for SLEMM analysis</li>
+                                <li>Majority of filtered: young cows without records</li>
+                                <li>Bulls had higher reliability for accurate phenotypes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-comparative">
+                <div class="section-title">Comparative Analysis & Literature Context</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Previous MHC Associations</div>
+                        <div class="step-details">
+                            <strong>Historical MHC Findings:</strong>
+                            <ul>
+                                <li><strong>Cow livability:</strong> Previously associated with MHC region</li>
+                                <li><strong>Immune diseases:</strong> Multiple studies in cattle</li>
+                                <li><strong>Other species:</strong> MHC-fertility links in humans, mice</li>
+                                <li><strong>Evolutionary conservation:</strong> Fundamental immune functions</li>
+                            </ul>
+                            
+                            <strong>Novel Aspects:</strong>
+                            <ul>
+                                <li>First MHC association with <em>heifer</em> fertility specifically</li>
+                                <li>Age-specific reproductive performance</li>
+                                <li>Young animal immune system development</li>
+                                <li>Tissue-specific gene expression validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Trait Complexity Comparison</div>
+                        <div class="step-details">
+                            <strong>Heritability Context:</strong>
+                            <ul>
+                                <li><strong>Heifer livability (2.23%):</strong> Lower than adult cow traits</li>
+                                <li><strong>Early first calving (3.28%):</strong> Typical for fertility traits</li>
+                                <li><strong>Comparison traits:</strong> Milk yield (25-30%), growth (40-60%)</li>
+                                <li><strong>Environmental influence:</strong> High for health/fertility</li>
+                            </ul>
+                            
+                            <strong>Detection Challenges:</strong>
+                            <ul>
+                                <li>Large sample sizes required for low heritability</li>
+                                <li>Polygenic architecture with small effects</li>
+                                <li>Environmental masking of genetic signals</li>
+                                <li>Age-specific trait expression complexity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Technological Advances</div>
+                        <div class="step-details">
+                            <strong>Methodological Innovations:</strong>
+                            <ul>
+                                <li><strong>SLEMM:</strong> Million-scale genomic predictions</li>
+                                <li><strong>Reliability weighting:</strong> Accounts for PTA accuracy</li>
+                                <li><strong>CattleGTEx integration:</strong> Tissue-specific expression</li>
+                                <li><strong>Multi-level analysis:</strong> Discovery + fine-mapping</li>
+                            </ul>
+                            
+                            <strong>Data Integration:</strong>
+                            <ul>
+                                <li>Largest dairy genomic database utilized</li>
+                                <li>Multiple SNP chip platforms integrated</li>
+                                <li>Sequence-level imputation validation</li>
+                                <li>Functional genomics layer addition</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mechanisms">
+                <div class="section-title">Biological Mechanisms & Pathways</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box historical">
+                        <div class="theme-title">Immune System in Reproduction</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Ovarian Function:</strong> Immune cells regulate follicle development</li>
+                                <li><strong>Conception:</strong> Balanced immune response for sperm survival</li>
+                                <li><strong>Implantation:</strong> Maternal tolerance of semi-allogeneic embryo</li>
+                                <li><strong>Pregnancy Maintenance:</strong> Prevention of fetal rejection</li>
+                                <li><strong>Parturition:</strong> Inflammatory cascade initiation</li>
+                                <li><strong>Disease Resistance:</strong> Protection during vulnerable periods</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box methodological">
+                        <div class="theme-title">MHC Gene Functions</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>BOLA (Bovine Leukocyte Antigen):</strong> Antigen presentation</li>
+                                <li><strong>BTN1A1:</strong> T-cell regulation and activation</li>
+                                <li><strong>LTA/LTB:</strong> Lymphotoxin signaling pathways</li>
+                                <li><strong>AGER:</strong> Inflammatory response mediation</li>
+                                <li><strong>ABCF1:</strong> Antigen processing machinery</li>
+                                <li><strong>OR12D2:</strong> Olfactory receptor with MHC links</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">GWAS Statistical Model</div>
+                    <div class="formula-main">y = Xβ + Zu + e</div>
+                    <div class="formula-note">Where y = deregressed PTA, X = fixed effects design matrix, β = fixed effects, Z = random effects design matrix, u = additive genetic effects, e = residual errors with weights 1/(r²-1)</div>
+                </div>
+            </div>
+
+            <div class="section" id="section-validation">
+                <div class="section-title">Cross-Validation & Confirmation</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Multiple Evidence Layers</div>
+                        <div class="step-details">
+                            <strong>GWAS Confirmation:</strong>
+                            <ol>
+                                <li><strong>Discovery Phase:</strong> 79K SNP panel identification</li>
+                                <li><strong>Fine-mapping:</strong> Sequence-level validation</li>
+                                <li><strong>Gene Expression:</strong> TWAS tissue-specific confirmation</li>
+                                <li><strong>Functional Annotation:</strong> Chromatin state enrichment</li>
+                            </ol>
+                            
+                            <strong>Biological Validation:</strong>
+                            <ul>
+                                <li>GO term enrichment in immune pathways</li>
+                                <li>Literature support for immune-fertility links</li>
+                                <li>Tissue-specific expression patterns</li>
+                                <li>Evolutionary conservation of MHC functions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Tissue Expression Patterns</div>
+                        <div class="step-details">
+                            <strong>Early First Calving TWAS Tissues:</strong>
+                            <ul>
+                                <li><strong>Lymph node (3 genes):</strong> Primary immune tissue</li>
+                                <li><strong>Hypothalamus (3 genes):</strong> Reproductive hormone control</li>
+                                <li><strong>Blood (2 genes):</strong> Systemic immune function</li>
+                                <li><strong>Adipose (1 gene):</strong> Metabolic-immune interface</li>
+                                <li><strong>Uterus (2 genes):</strong> Direct reproductive tissue</li>
+                                <li><strong>Leukocyte (2 genes):</strong> Circulating immune cells</li>
+                            </ul>
+                            
+                            <strong>Expression Significance:</strong>
+                            <ul>
+                                <li>Multiple immune-related tissues confirm MHC role</li>
+                                <li>Hypothalamus links immune-endocrine axis</li>
+                                <li>Reproductive tissues show direct effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-future">
+                <div class="section-title">Future Research Opportunities</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Immediate Research Needs</div>
+                        <div class="step-details">
+                            <strong>Validation Studies:</strong>
+                            <ul>
+                                <li>Replication in other Holstein populations</li>
+                                <li>Cross-breed validation (Jersey, Brown Swiss)</li>
+                                <li>International dataset integration</li>
+                                <li>Different management system validation</li>
+                            </ul>
+                            
+                            <strong>Mechanistic Studies:</strong>
+                            <ul>
+                                <li>Functional characterization of causal variants</li>
+                                <li>Immune profile analysis in early/late calving heifers</li>
+                                <li>Hormone-immune interaction studies</li>
+                                <li>Longitudinal expression profiling</li>
+                            </ul>
+                            
+                            <strong>Applied Development:</strong>
+                            <ul>
+                                <li>Genomic prediction model enhancement</li>
+                                <li>Multi-trait index optimization</li>
+                                <li>Economic evaluation of selection strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Advanced Methodologies</div>
+                        <div class="step-details">
+                            <strong>Genomic Approaches:</strong>
+                            <ul>
+                                <li>Single-cell RNA sequencing of reproductive tissues</li>
+                                <li>Epigenomic profiling (ATAC-seq, ChIP-seq)</li>
+                                <li>Structural variant analysis in MHC region</li>
+                                <li>Haplotype-based association studies</li>
+                            </ul>
+                            
+                            <strong>Systems Biology:</strong>
+                            <ul>
+                                <li>Multi-omics integration (genomics + transcriptomics + metabolomics)</li>
+                                <li>Network analysis of immune-reproductive pathways</li>
+                                <li>Machine learning for trait prediction</li>
+                                <li>Simulation studies of selection responses</li>
+                            </ul>
+                            
+                            <strong>Translational Applications:</strong>
+                            <ul>
+                                <li>Biomarker development for early fertility prediction</li>
+                                <li>Precision breeding algorithm development</li>
+                                <li>Health monitoring system integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="section" id="section-conclusion">
                 <div class="section-title">Conclusions & Scientific Significance</div>
                 
@@ -543,22 +861,42 @@
                     <p><strong>Paradigm Shift:</strong> This research establishes a new paradigm for understanding heifer fertility through immune system function, opening avenues for innovative breeding strategies that consider the immune-reproduction axis. The large-scale dataset and functional validation approaches set new standards for livestock genomics research.</p>
                 </div>
                 
+                <div class="best-practices">
+                    <strong>Methodological Advances:</strong>
+                    <ul>
+                        <li><strong>Scale Achievement:</strong> Largest heifer trait GWAS study conducted</li>
+                        <li><strong>Multi-level Validation:</strong> Discovery, fine-mapping, and functional confirmation</li>
+                        <li><strong>Statistical Innovation:</strong> Reliability-weighted analysis for PTA data</li>
+                        <li><strong>Biological Integration:</strong> Tissue-specific expression validation via TWAS</li>
+                        <li><strong>Practical Relevance:</strong> Direct applications to breeding programs</li>
+                    </ul>
+                </div>
+                
                 <div class="significance-box">
-                    <div class="significance-title">Future Research Framework</div>
+                    <div class="significance-title">Lasting Impact on Livestock Genomics</div>
                     <div class="significance-content">
-                        <strong>Immediate Applications:</strong>
+                        <strong>Scientific Contributions:</strong>
                         <ul>
-                            <li>Integration of MHC region markers in genomic selection indices</li>
-                            <li>Development of immune-fertility prediction models</li>
-                            <li>Validation studies in other cattle populations</li>
+                            <li>Established immune-reproduction genetic connections in cattle</li>
+                            <li>Demonstrated power of large-scale genomic databases</li>
+                            <li>Validated functional genomics integration approaches</li>
+                            <li>Provided framework for low-heritability trait analysis</li>
                         </ul>
                         
-                        <strong>Long-term Implications:</strong>
+                        <strong>Industry Applications:</strong>
                         <ul>
-                            <li>Systems biology approach to animal health and fertility</li>
-                            <li>Cross-species comparative genomics of immune-reproduction links</li>
-                            <li>Precision livestock farming implementations</li>
-                            <li>Sustainable breeding program development</li>
+                            <li>Enhanced genomic selection for heifer traits</li>
+                            <li>Improved breeding program sustainability</li>
+                            <li>Reduced economic losses from mortality and fertility issues</li>
+                            <li>Foundation for precision livestock farming</li>
+                        </ul>
+                        
+                        <strong>Research Legacy:</strong>
+                        <ul>
+                            <li>Template for multi-species immune-fertility studies</li>
+                            <li>Methodological framework for complex trait analysis</li>
+                            <li>Database resource for future research</li>
+                            <li>Inspiration for systems biology approaches in animal breeding</li>
                         </ul>
                     </div>
                 </div>
