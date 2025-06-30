@@ -79,12 +79,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "bayesian_methods_equations.md",
+                "file": "3.1 reasons considering MSE and how to calculate its PEV.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "bayesian_methods_equations"
+              "title": "3.1 reasons considering MSE and how to calculate its PEV"
             }
           }
         ],
@@ -237,20 +237,21 @@
   },
   "active": "8341a309ea454b89",
   "lastOpenFiles": [
+    "4. Why use BV as phenotype not residual.md",
+    "3.2.3 garrick_2009_dBV.md",
+    "3.2.2 garrick_mendelian_math.md",
+    "bayesian_methods_equations.md",
     "bayesian_equations_summary_table.md",
     "Bayesian shrinkage and Bayesian ridge.md",
-    "bayesian_methods_equations.md",
     "1.1 du6_methodology.md",
     "chat-ai-2025-06-30-132228.json",
     "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
     "3.1 reasons considering MSE and how to calculate its PEV.md",
     "3.2 methods of calculating PEV of MSE-.md",
     "3.2 Relatedness of PEV of MSE with DRP Garrick 2009.md",
-    "3.2.2 garrick_mendelian_math.md",
     "5.1 Litter size.md",
     "5.1 mendelian_error_report.md",
     "5. Results.md",
-    "4. Why use BV as phenotype not residual.md",
     "1.1.2 du6_detailed_technical_guide.md",
     "1.2 methodology_literatures.md",
     "2. literatures dBV as phnotype in GWAs.md",
@@ -266,7 +267,6 @@
     "3.3 1992 Monto-Carlo mthod.md",
     "New Text Document.txt",
     "1. research genetic variance steps.md",
-    "1.2 I have a md notes, please verify if the steps work.md",
     "未命名",
     "mendelian_sampling_flowchart.html"
   ]
