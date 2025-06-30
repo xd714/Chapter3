@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genome-wide association analysis of heifer livability and early first calving in Holstein cattle</title>
+    <link rel="stylesheet" href="../style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Genome-wide association analysis of heifer livability and early first calving in Holstein cattle</h1>
+            <p>Large-scale GWAS reveals MHC region QTL for early first calving in dairy heifers</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Yahui Gao, Alexis Marceau, Victoria Iqbal, Jose Antonio Torres-Vázquez, Mahesh Neupane, Jicai Jiang, George E. Liu, Li Ma</p>
+                <p class="text-small text-top"><strong>Journal:</strong> BMC Genomics, Vol. 24, Article 628, 2023</p>
+                <p class="text-small text-top"><strong>Institution:</strong> University of Maryland, USDA-ARS, North Carolina State University</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1186/s12864-023-09736-0"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Study Overview & Significance</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🧬 Major Discovery</div>
+                    <p>First large-scale GWAS analysis of heifer livability and early first calving in Holstein cattle, leveraging the extensive US dairy genomic database with over 3.6 million genotyped animals. Identified a major QTL in the bovine MHC region specifically associated with early first calving, revealing potential connections between immune system function and reproductive performance.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Research Challenge:</strong> Heifer health and fertility are critical for dairy farm profitability but represent complex traits with low heritability. Despite their economic importance, the genetic basis of heifer livability and early first calving remained largely unstudied due to limited data availability and the challenging nature of these traits in young, developing animals.
+                </div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Gao, Y., Marceau, A., Iqbal, V., Torres-Vázquez, J.A., Neupane, M., Jiang, J., Liu, G.E., & Ma, L. (2023). Genome-wide association analysis of heifer livability and early first calving in Holstein cattle. BMC Genomics, 24, 628.</p>
+                    
+                    <p><strong>Study Context:</strong></p>
+                    <ul class="list-top">
+                        <li>Largest GWAS study of heifer traits to date using 3.6M genotyped Holstein cattle</li>
+                        <li>First to identify MHC region association with early first calving</li>
+                        <li>Integrated functional genomics and transcriptome-wide association study (TWAS)</li>
+                        <li>Utilized recently developed CDCB evaluations for heifer traits</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-traits">
+                <div class="section-title">Trait Definitions & Heritability</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Heifer Livability</div>
+                        <div class="step-details">
+                            <strong>Definition:</strong> Expected survival percentage of an animal's female offspring from 2 days after birth up to 18 months of age under average management conditions.
+                            
+                            <strong>Key Characteristics:</strong>
+                            <ul>
+                                <li>Measures overall resistance to mortality causes</li>
+                                <li>Primarily related to digestive and respiratory disease resistance</li>
+                                <li>Larger, positive values are more favorable</li>
+                                <li>Heritability: 0.0223 (very low)</li>
+                            </ul>
+                            
+                            <strong>Economic Impact:</strong>
+                            <ul>
+                                <li>Directly affects farm profitability through reduced losses</li>
+                                <li>Influences replacement heifer availability</li>
+                                <li>Reduces veterinary treatment costs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">Early First Calving (EFC)</div>
+                        <div class="step-details">
+                            <strong>Definition:</strong> Age at first calving, representing heifer fertility and reproductive readiness.
+                            
+                            <strong>Key Characteristics:</strong>
+                            <ul>
+                                <li>Critical for optimal dairy farm productivity</li>
+                                <li>Reduces unproductive periods</li>
+                                <li>Enables faster generation turnover</li>
+                                <li>Heritability: 0.0328 (very low)</li>
+                            </ul>
+                            
+                            <strong>Farm Benefits:</strong>
+                            <ul>
+                                <li>Increased lifetime milk production</li>
+                                <li>Improved reproductive efficiency</li>
+                                <li>Enhanced selection progress</li>
+                                <li>Environmental sustainability through reduced feed costs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-methods">
+                <div class="section-title">Experimental Design & Methods</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Discovery Dataset</div>
+                            <div class="step-details">
+                                Large-scale GWAS using comprehensive US dairy database
+                                <div class="step-specs">
+                                    <strong>Sample Size:</strong> 3,649,734 genotyped Holstein cattle<br>
+                                    <strong>Composition:</strong> 336,386 bulls + 3,313,348 cows<br>
+                                    <strong>Genotyping:</strong> Various SNP chips (3-50K) imputed to 79,060 SNPs<br>
+                                    <strong>Final Analysis:</strong> 510,318 (livability) and 768,645 (EFC) animals after QC
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Fine-mapping Dataset</div>
+                            <div class="step-details">
+                                High-resolution analysis using sequence-level variants
+                                <div class="step-specs">
+                                    <strong>Sample Size:</strong> 27,235 bulls with highly accurate phenotypes<br>
+                                    <strong>Genotyping:</strong> 50K SNP chips imputed to 3,148,506 sequence variants<br>
+                                    <strong>Imputation Reference:</strong> 444 Holstein bulls from 1000 Bull Genomes Project<br>
+                                    <strong>Final Analysis:</strong> 11,562 (livability) and 10,700 (EFC) bulls
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Analysis</div>
+                            <div class="step-details">
+                                Advanced mixed model approach with reliability weighting
+                                <div class="step-specs">
+                                    <strong>Software:</strong> SLEMM for large-scale mixed models<br>
+                                    <strong>Phenotype:</strong> Deregressed PTA values from CDCB evaluations<br>
+                                    <strong>Weighting:</strong> Error weight = 1/r²-1 (r² = reliability)<br>
+                                    <strong>Significance:</strong> Bonferroni-corrected genome-wide threshold
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Functional Analysis</div>
+                            <div class="step-details">
+                                Multi-layered post-GWAS analysis for biological interpretation
+                                <div class="step-specs">
+                                    <strong>GO Analysis:</strong> KOBAS for pathway enrichment<br>
+                                    <strong>Functional Enrichment:</strong> 14 chromatin states across functional regions<br>
+                                    <strong>TWAS:</strong> S-PrediXcan with CattleGTEx v.1 eQTL models<br>
+                                    <strong>Tissues:</strong> 24 cattle tissues for gene expression analysis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">Key Findings & QTL Discovery</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Heifer Livability Results</div>
+                        <div class="step-details">
+                            <strong>GWAS Outcome:</strong>
+                            <ul>
+                                <li>No major QTL detected at genome-wide significance</li>
+                                <li>16 SNPs significant in sequence-level analysis</li>
+                                <li>118 candidate genes identified near suggestive SNPs</li>
+                                <li>Most significant SNP: BovineHD1400007185 (P=3.53×10⁻¹⁰)</li>
+                            </ul>
+                            
+                            <strong>Candidate Genes:</strong>
+                            <ul>
+                                <li><strong>CHCHD7:</strong> Related to growth and development</li>
+                                <li><strong>PLAG1:</strong> Associated with stature and development</li>
+                                <li><strong>LYN:</strong> Regulation of immune responses</li>
+                            </ul>
+                            
+                            <strong>Functional Enrichment:</strong>
+                            <ul>
+                                <li>139 significant GO terms (P<0.05)</li>
+                                <li>Enriched in promoter and enhancer regions</li>
+                                <li>Key pathways: mineral absorption, homeostasis, development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Early First Calving - Major Discovery</div>
+                        <div class="step-details">
+                            <strong>Significant QTL:</strong>
+                            <ul>
+                                <li>Major QTL in bovine MHC region (BTA 23)</li>
+                                <li>Most significant: ARS-BFGL-NGS-105563 (P=1.28×10⁻⁷)</li>
+                                <li>596 candidate genes identified</li>
+                                <li>Confirmed in sequence-level analysis</li>
+                            </ul>
+                            
+                            <strong>MHC Region Genes:</strong>
+                            <ul>
+                                <li><strong>ABCF1, ABHD16A:</strong> Immune function</li>
+                                <li><strong>AGER:</strong> Advanced glycation end-product receptor</li>
+                                <li><strong>BOLA-NC1:</strong> Bovine leukocyte antigen</li>
+                                <li><strong>BTN1A1, LTA, LTB:</strong> Immune system regulation</li>
+                            </ul>
+                            
+                            <strong>Functional Evidence:</strong>
+                            <ul>
+                                <li>91 significant GO terms with immune focus</li>
+                                <li>Enriched in active TSS, active elements, insulators</li>
+                                <li>CDS and conserved variants significantly enriched</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">TWAS Results - Gene Expression Links</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Heifer Livability TWAS</div>
+                        <div class="step-details">
+                            <strong>Significant Associations:</strong>
+                            <ul>
+                                <li><strong>4 gene-trait pairs</strong> identified (P<0.005)</li>
+                                <li><strong>TP53BP2:</strong> Intramuscular fat tissue (P=5.27×10⁻⁴)</li>
+                                <li><strong>C1QTNF9:</strong> Liver tissue (P=3.07×10⁻³)</li>
+                                <li><strong>MIC1:</strong> Uterus tissue (P=3.34×10⁻³)</li>
+                                <li><strong>PDCD10:</strong> Uterus tissue (P=4.99×10⁻³)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Early First Calving TWAS</div>
+                        <div class="step-details">
+                            <strong>Significant Associations:</strong>
+                            <ul>
+                                <li><strong>23 gene-trait pairs</strong> identified</li>
+                                <li><strong>6 genes in MHC region</strong> confirmed</li>
+                                <li>Tissues: lymph node (2), blood (1), adipose (1), hypothalamus (1), leukocyte (1)</li>
+                                <li><strong>OR12D2:</strong> Adipose tissue (P=8.78×10⁻⁴)</li>
+                            </ul>
+                            
+                            <strong>MHC Region Confirmation:</strong>
+                            <ul>
+                                <li>Multiple tissues showing expression associations</li>
+                                <li>Strong evidence for immune-reproduction connection</li>
+                                <li>Validates GWAS findings with functional data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-functional">
+                <div class="section-title">Functional Genomics Analysis</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Chromatin State Enrichment</div>
+                        <div class="step-details">
+                            <strong>Heifer Livability Enrichment:</strong>
+                            <ul>
+                                <li>Active_Promoter regions</li>
+                                <li>CTCF/Enhancer elements</li>
+                                <li>Primed_Enhancer regions</li>
+                                <li>Active_Element sequences</li>
+                            </ul>
+                            
+                            <strong>Early First Calving Enrichment:</strong>
+                            <ul>
+                                <li>Active_TSS (transcription start sites)</li>
+                                <li>Active_Element regions</li>
+                                <li>Insulator elements</li>
+                            </ul>
+                            
+                            <strong>Interpretation:</strong>
+                            <ul>
+                                <li>Gene regulation plays key role in both traits</li>
+                                <li>Different regulatory mechanisms involved</li>
+                                <li>Supports polygenic architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Variant Annotation Enrichment</div>
+                        <div class="step-details">
+                            <strong>Both Traits Show:</strong>
+                            <ul>
+                                <li><strong>CDS variants:</strong> Protein-coding sequence changes</li>
+                                <li><strong>Conserved variants:</strong> Evolutionarily important regions</li>
+                            </ul>
+                            
+                            <strong>Trait-Specific Patterns:</strong>
+                            <ul>
+                                <li><strong>Livability:</strong> Intron variant enrichment</li>
+                                <li><strong>Early Calving:</strong> UTR region enrichment</li>
+                            </ul>
+                            
+                            <strong>Biological Significance:</strong>
+                            <ul>
+                                <li>Coding variants suggest direct protein effects</li>
+                                <li>Conserved regions indicate functional importance</li>
+                                <li>UTR enrichment implies post-transcriptional regulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mhc">
+                <div class="section-title">MHC Region - Immune-Reproduction Connection</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Biological Insight</div>
+                    <p>The identification of a major QTL in the bovine MHC region for early first calving provides compelling evidence for a connection between immune system function and reproductive performance. This finding aligns with the known role of the immune system in female reproduction, from egg development to pregnancy maintenance.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">MHC Region Characteristics</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Location:</strong> Bovine Taurus Autosome (BTA) 23</li>
+                                <li><strong>Function:</strong> Encodes molecules regulating immune response</li>
+                                <li><strong>Previous Associations:</strong> Cow livability and immune diseases</li>
+                                <li><strong>Evolutionary Importance:</strong> Highly conserved across species</li>
+                                <li><strong>Polygenic Nature:</strong> Multiple genes with immune functions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Immune-Reproduction Biology</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Reproductive Process:</strong> Immune system involved throughout</li>
+                                <li><strong>Fetal Tolerance:</strong> Balance between protection and acceptance</li>
+                                <li><strong>Infection Control:</strong> Critical during pregnancy</li>
+                                <li><strong>Overactive Response:</strong> Can cause infertility or miscarriage</li>
+                                <li><strong>Underactive Response:</strong> Increases infection susceptibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-implications">
+                <div class="section-title">Practical Implications & Future Directions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Breeding Applications</div>
+                        <div class="step-details">
+                            <strong>Selection Strategies:</strong>
+                            <ul>
+                                <li>Incorporate MHC region markers in genomic selection</li>
+                                <li>Balance immune function with reproductive performance</li>
+                                <li>Consider trait-specific regulatory regions</li>
+                            </ul>
+                            
+                            <strong>Genomic Evaluation:</strong>
+                            <ul>
+                                <li>Enhance accuracy for low-heritability traits</li>
+                                <li>Utilize functional genomics data</li>
+                                <li>Improve early prediction capabilities</li>
+                            </ul>
+                            
+                            <strong>Management Decisions:</strong>
+                            <ul>
+                                <li>Targeted health interventions</li>
+                                <li>Breeding program optimization</li>
+                                <li>Risk assessment for heifer development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Research Directions</div>
+                        <div class="step-details">
+                            <strong>Functional Validation:</strong>
+                            <ul>
+                                <li>Experimental validation of MHC region effects</li>
+                                <li>Mechanistic studies of immune-reproduction links</li>
+                                <li>Tissue-specific expression profiling</li>
+                            </ul>
+                            
+                            <strong>Multi-Trait Analysis:</strong>
+                            <ul>
+                                <li>Joint analysis with health and production traits</li>
+                                <li>Genetic correlation studies</li>
+                                <li>Pleiotropy investigation</li>
+                            </ul>
+                            
+                            <strong>Technological Integration:</strong>
+                            <ul>
+                                <li>Single-cell genomics applications</li>
+                                <li>Epigenomic profiling</li>
+                                <li>Multi-omics integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Industry Impact</div>
+                        <div class="step-details">
+                            <strong>Economic Benefits:</strong>
+                            <ul>
+                                <li>Reduced heifer mortality costs</li>
+                                <li>Improved reproductive efficiency</li>
+                                <li>Enhanced genetic progress</li>
+                            </ul>
+                            
+                            <strong>Sustainability Gains:</strong>
+                            <ul>
+                                <li>Reduced feed waste from non-productive animals</li>
+                                <li>Lower environmental footprint per unit production</li>
+                                <li>Improved animal welfare through better health</li>
+                            </ul>
+                            
+                            <strong>Data Integration:</strong>
+                            <ul>
+                                <li>Enhanced genomic evaluation systems</li>
+                                <li>Real-time health monitoring applications</li>
+                                <li>Precision breeding implementations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">Study Limitations & Considerations</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">Technical Limitations</div>
+                    <div class="gap-content">
+                        <strong>Low Heritability Challenges:</strong> Both traits have very low heritability (2.23% and 3.28%), limiting detection power for individual QTL despite large sample sizes. This reflects the complex, multifactorial nature of health and fertility traits.
+                        
+                        <strong>Phenotype Complexity:</strong> Deregressed PTA values, while standardized, may not capture all biological variation in livability and fertility. Environmental effects and management practices significantly influence trait expression.
+                        
+                        <strong>Population Specificity:</strong> Results are specific to Holstein cattle in US management systems. Generalizability to other breeds, populations, or production systems requires validation.
+                    </div>
+                </div>
+                
+                <div class="best-practices">
+                    <strong>Methodological Strengths:</strong>
+                    <ul>
+                        <li><strong>Large Sample Size:</strong> Unprecedented scale with 3.6M genotyped animals</li>
+                        <li><strong>Multiple Analysis Levels:</strong> Discovery and fine-mapping datasets</li>
+                        <li><strong>Functional Integration:</strong> TWAS and chromatin state enrichment</li>
+                        <li><strong>Quality Control:</strong> Rigorous filtering and reliability weighting</li>
+                        <li><strong>Statistical Rigor:</strong> Appropriate multiple testing correction</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">Conclusions & Scientific Significance</div>
+                
+                <div class="legacy-box">
+                    <strong>Key Contributions:</strong> This study represents the most comprehensive genetic analysis of heifer health and fertility traits to date. The identification of the MHC region QTL for early first calving provides novel insights into the genetic basis of reproductive performance and establishes a foundation for immune-system-focused breeding strategies. The integration of functional genomics data demonstrates the value of multi-layered approaches for complex trait analysis.
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Scientific Impact</div>
+                    <p><strong>Paradigm Shift:</strong> This research establishes a new paradigm for understanding heifer fertility through immune system function, opening avenues for innovative breeding strategies that consider the immune-reproduction axis. The large-scale dataset and functional validation approaches set new standards for livestock genomics research.</p>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Future Research Framework</div>
+                    <div class="significance-content">
+                        <strong>Immediate Applications:</strong>
+                        <ul>
+                            <li>Integration of MHC region markers in genomic selection indices</li>
+                            <li>Development of immune-fertility prediction models</li>
+                            <li>Validation studies in other cattle populations</li>
+                        </ul>
+                        
+                        <strong>Long-term Implications:</strong>
+                        <ul>
+                            <li>Systems biology approach to animal health and fertility</li>
+                            <li>Cross-species comparative genomics of immune-reproduction links</li>
+                            <li>Precision livestock farming implementations</li>
+                            <li>Sustainable breeding program development</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
