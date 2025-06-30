@@ -150,6 +150,64 @@
                 <div class="section-title">Alternative Information Sources</div>
                 
                 <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Why Weights ≠ Reliability</div>
+                        <div class="step-details">
+                            <strong>The Literature Confusion:</strong>
+                            <ul>
+                                <li>Many early studies used reliability (r²) as weights</li>
+                                <li>Others used prediction error variance (PEV)</li>
+                                <li>Both approaches were mathematically incorrect</li>
+                                <li>Led to biased genomic predictions</li>
+                            </ul>
+                            
+                            <strong>Why r² is Wrong:</strong>
+                            <ul>
+                                <li>Doesn't account for deregression variance inflation</li>
+                                <li>Ignores marker panel limitations (parameter c)</li>
+                                <li>Treats genomic model as if it's perfect</li>
+                                <li>Creates improper weighting of information sources</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Correct Weight Calculation</div>
+                        <div class="step-details">
+                            <strong>For Bull A (r² = 0.95):</strong>
+                            <div class="formula">w = (1 - 0.25) / [(0.2 + (1-0.95)/0.95) × 0.25]</div>
+                            <div class="formula">w = 0.75 / [(0.2 + 0.053) × 0.25] = 0.75 / 0.063 = 11.9</div>
+                            
+                            <strong>For Cow C (r² = 0.30):</strong>
+                            <div class="formula">w = (1 - 0.25) / [(0.2 + (1-0.30)/0.30) × 0.25]</div>
+                            <div class="formula">w = 0.75 / [(0.2 + 2.33) × 0.25] = 0.75 / 0.633 = 1.18</div>
+                            
+                            <strong>Key Observation:</strong>
+                            High-reliability animals get MUCH higher weights than their reliability would suggest!
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Impact of Parameter 'c'</div>
+                        <div class="step-details">
+                            <strong>If c = 0 (perfect markers):</strong>
+                            <ul>
+                                <li>Weights become very large for high-reliability animals</li>
+                                <li>Low-reliability animals get minimal weight</li>
+                                <li>Makes sense: if markers are perfect, use best information</li>
+                            </ul>
+                            
+                            <strong>If c = 0.5 (poor markers):</strong>
+                            <ul>
+                                <li>Weights become more similar across reliability levels</li>
+                                <li>Less emphasis on high-reliability animals</li>
+                                <li>Makes sense: if markers are poor, reliability differences matter less</li>
+                            </ul>
+                            
+                            <strong>This is the key innovation</strong> - weighting depends on marker quality!
+                        </div>
+                    </div>
+                </div>
                     <div class="analysis-card why-card">
                         <div class="analysis-title">Individual Phenotypic Records</div>
                         <div class="step-details">
@@ -838,7 +896,8 @@
                                 <th>Original EBV</th>
                                 <th>Reliability (r²)</th>
                                 <th>Deregressed EBV</th>
-                                <th>Weight</th>
+                                <th>Correct Weight*</th>
+                                <th>Wrong: Using r² as Weight</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -847,35 +906,50 @@
                                 <td>+500 kg</td>
                                 <td>0.95</td>
                                 <td>+526 kg</td>
-                                <td>0.95</td>
+                                <td>4.8</td>
+                                <td>0.95 ❌</td>
                             </tr>
                             <tr class="alternative-group">
                                 <td><strong>Bull B</strong></td>
                                 <td>+300 kg</td>
                                 <td>0.70</td>
                                 <td>+429 kg</td>
-                                <td>0.70</td>
+                                <td>2.3</td>
+                                <td>0.70 ❌</td>
                             </tr>
                             <tr class="new-group">
                                 <td><strong>Cow C</strong></td>
                                 <td>+100 kg</td>
                                 <td>0.30</td>
                                 <td>+333 kg</td>
-                                <td>0.30</td>
+                                <td>0.7</td>
+                                <td>0.30 ❌</td>
                             </tr>
                             <tr class="low-pev-group">
                                 <td><strong>Young Bull D</strong></td>
                                 <td>+50 kg</td>
                                 <td>0.10</td>
                                 <td>+500 kg</td>
-                                <td>0.10</td>
+                                <td>0.2</td>
+                                <td>0.10 ❌</td>
                             </tr>
                         </tbody>
                     </table>
+                    <p class="text-small"><em>*Assuming h² = 0.25, c = 0.2 for weight calculations</em></p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Critical Error Many Researchers Made:</strong> Using reliability (r²) as weights was a common mistake before this paper! This gives completely wrong results because it doesn't account for the variance inflation from deregression or the parameter 'c'.
                 </div>
                 
                 <div class="citation-box">
-                    <p><strong>Key Insight:</strong> Notice how deregression inflates the EBV values, especially for low-reliability animals. The weights compensate for this inflation and prevent low-reliability animals from having disproportionate influence on marker effect estimates.</p>
+                    <p><strong>Key Insight:</strong> Notice how:</p>
+                    <ul>
+                        <li>Deregression inflates EBV values, especially for low-reliability animals</li>
+                        <li>Correct weights are much larger than reliability values</li>
+                        <li>High-reliability animals get much higher weights (Bull A: 4.8 vs Bull B: 2.3)</li>
+                        <li>The paper's weights prevent low-reliability animals from having disproportionate influence</li>
+                    </ul>
                 </div>
             </div>
 
@@ -1128,5 +1202,3 @@
                     </div>
                 </div>
             </div>
-
-            
