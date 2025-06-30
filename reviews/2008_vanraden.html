@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Efficient Methods to Compute Genomic Predictions</title>
-        <link rel="stylesheet" href="style.css">
-
-
-
+    <link rel="stylesheet" href="style.css">
 
 <script>
 (function() {
@@ -61,365 +58,996 @@
 </head>
 <body>
     <div class="container">
-                <!-- TOP LEFT NAVIGATION -->
+        <!-- TOP LEFT NAVIGATION -->
         <div class="top-left-nav">
-            <a href="../index.html">  Back to Index</a>
+            <a href="../index.html">Back to Index</a>
         </div>
         
         <div class="header">
             <h1>Efficient Methods to Compute Genomic Predictions</h1>
-            <p>Foundational Computational Framework for Genomic Selection</p>
+            <p>Computational Breakthrough Enabling Practical Genomic Selection</p>
             
             <div class="header-info">
                 <p class="text-small"><strong>Author:</strong> P. M. VanRaden</p>
-                <p class="text-small text-top"><strong>Institution:</strong> Animal Improvement Programs Laboratory, Agricultural Research Service, USDA, Beltsville, MD</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Dairy Science, Vol. 91, pp. 4414-4423, 2008</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Animal Improvement Programs Laboratory, Agricultural Research Service, USDA</p>
                 <p class="text-top-large">
-                    <a href="https://doi.org/10.3168/jds.2007-0980" 
+                    <a href="https://www.journalofdairyscience.org/article/S0022-0302(08)70972-1/fulltext"
                        target="_blank" 
                        class="paper-link">
-                         Access Original Paper
+                         View Original Paper
                     </a>
                 </p>
             </div>
         </div>
         
         <div class="content">
-            <div class="section" id="section-5">
-                <div class="section-title">Paper Information & Historical Context</div>
+            <div class="section" id="section-overview">
+                <div class="section-title">Introduction & Revolutionary Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🚀 Genomic Selection Revolution</div>
+                    <p>First practical computational framework for genome-wide marker-assisted selection in livestock. Transformed breeding by enabling predictions from DNA alone, achieving 63% reliability for young bulls versus 32% from pedigree—equivalent to ~20 daughters' worth of information from a simple blood test.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Computational Challenge:</strong> Processing genomic data for thousands of animals with tens of thousands of markers simultaneously required new algorithms. Traditional methods were either computationally infeasible or statistically suboptimal. Need for practical implementation of Meuwissen et al. (2001) theoretical framework for real-world breeding programs.
+                </div>
                 
                 <div class="citation-box">
-                    <p><strong>Citation:</strong> VanRaden, P.M. (2008). Efficient Methods to Compute Genomic Predictions. Journal of Dairy Science, 91:4414–4423.</p>
+                    <p><strong>Citation:</strong> VanRaden, P. M. (2008). Efficient methods to compute genomic predictions. Journal of Dairy Science, 91(11), 4414-4423.</p>
                     
-                    <p><strong>Historical Significance:</strong> This foundational paper provided the computational infrastructure that enabled the practical implementation of genomic selection in dairy cattle breeding programs worldwide.</p>
-                    
-                    <p><strong>Key Foundation References:</strong></p>
+                    <p><strong>Historical Context:</strong></p>
                     <ul class="list-top">
-                        <li>Meuwissen, T.H.E., Hayes, B.J., and Goddard, M.E. (2001). Genetics, 157:1819–1829</li>
-                        <li>Henderson, C.R. (1963). Selection index and expected genetic advance</li>
-                        <li>Schaeffer, L.R. (2006). Journal of Animal Breeding and Genetics, 123:218–223</li>
-                        <li>Legarra, A., and Misztal, I. (2008). Journal of Dairy Science, 91:360–366</li>
+                        <li>Published as SNP chip technology became affordable for livestock</li>
+                        <li>Enabled transition from progeny testing to genomic selection</li>
+                        <li>Foundation for current genomic evaluation systems worldwide</li>
+                        <li>Reduced generation intervals and accelerated genetic progress</li>
+                        <li>First large-scale implementation deployed in US dairy industry (2008)</li>
                     </ul>
                 </div>
+            </div>
 
-                <div class="innovation-box">
-            <div class="innovation-title">🚀 Revolutionary Breakthrough</div>
-                    <p>VanRaden (2008) transformed genomic selection from theoretical concept to practical reality by developing <strong>three equivalent computational methods</strong> for genomic predictions, establishing the <strong>genomic relationship matrix (G-matrix)</strong>, and creating efficient algorithms that made large-scale genomic evaluation feasible.</p>
-                </div>
-                
-                <div class="section-title">Computational Methods Framework</div>
-                
-                <div class="flow-container">
-            <div class="flow-step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-            <div class="step-title">Simulation Study Design</div>
-                            <div class="step-details">
-                                Comprehensive simulation to test computational methods before real data application
-                                <div class="step-specs">
-                                    <strong>Scale:</strong> 2,967 Holstein bulls + 766 Jersey bulls<br>
-                                    <strong>Markers:</strong> 50,000 biallelic SNPs across 30 chromosomes<br>
-                                    <strong>QTL:</strong> 100 biallelic quantitative trait loci<br>
-                                    <strong>Validation:</strong> Compare genomic vs. traditional parent averages
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flow-step">
-            <div class="step-number">2</div>
-                        <div class="step-content">
-            <div class="step-title">Genomic Relationship Matrix Construction</div>
-                            <div class="step-details">
-                                Development of the fundamental G-matrix for genomic relationships
-                                <div class="matrix-visual">
-                                    <div class="formula medium">G = ZZ' / [2∑p<sub>i</sub>(1-p<sub>i</sub>)]</div>
-                                </div>
-                                <div class="step-specs">
-                                    <strong>Z matrix:</strong> Standardized genotype matrix (M - P)<br>
-                                    <strong>Scaling:</strong> Division by expected variance makes G analogous to A<br>
-                                    <strong>Innovation:</strong> Accounts for allele frequencies in base population<br>
-                                    <strong>Properties:</strong> Captures realized vs. expected relationships
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flow-step">
-            <div class="step-number">3</div>
-                        <div class="step-content">
-            <div class="step-title">Three Equivalent Linear Methods</div>
-                            <div class="step-details">
-                                Alternative computational approaches for different scenarios
-                                <div class="step-specs">
-                                    <strong>Method 1:</strong> Marker effects iteration → sum to breeding values<br>
-                                    <strong>Method 2:</strong> Selection index with genomic relationship matrix<br>
-                                    <strong>Method 3:</strong> Mixed model equations with G⁻¹<br>
-                                    <strong>Equivalence:</strong> All methods produce identical predictions
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flow-step">
-            <div class="step-number">4</div>
-                        <div class="step-content">
-            <div class="step-title">Iterative Algorithm Development</div>
-                            <div class="step-details">
-                                Efficient computational strategies for large-scale implementation
-                                <div class="step-specs">
-                                    <strong>Jacobi iteration:</strong> Blend of first- and second-order methods<br>
-                                    <strong>Memory efficiency:</strong> Read genotypes once per iteration<br>
-                                    <strong>Scalability:</strong> Linear time increase with number of genotypes<br>
-                                    <strong>Convergence:</strong> Optimized relaxation factors for stability
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-                <div class="section-title">Three Computational Approaches</div>
+            <div class="section" id="section-simulation">
+                <div class="section-title">Simulation Design & Validation</div>
                 
                 <div class="model-comparison">
-            <div class="model-box method-1">
-                        <div class="model-title">Method 1: Marker Effects First</div>
+                    <div class="model-box model-1">
+                        <div class="model-title">Simulation Parameters</div>
                         <div class="step-details">
-                            <strong>Approach:</strong> Estimate individual marker effects, then sum
-                            <div class="formula short"><div class="formula medium">â = Z<sub>2</sub>û where û solved from mixed model equations</div></div>
-                            <strong>Steps:</strong><br>
-                            • Solve for marker effects u using iteration<br>
-                            • Sum marker effects across loci: â = Zu<br>
-                            • Predict young animals: â₂ = Z₂û<br><br>
-                            <strong>Best for:</strong> When marker effects are of primary interest<br>
-                            <strong>Memory:</strong> Requires storing large marker effect vector
+                            <strong>Genome Structure:</strong>
+                            <ul>
+                                <li><strong>Markers:</strong> 50,000 biallelic SNPs</li>
+                                <li><strong>QTL:</strong> 100 biallelic quantitative trait loci</li>
+                                <li><strong>Chromosomes:</strong> 30 equal-length chromosomes</li>
+                                <li><strong>Distribution:</strong> Random positioning across genome</li>
+                                <li><strong>Effects:</strong> Normal distribution, largest QTL ~10% genetic variance</li>
+                            </ul>
+                            
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li><strong>Holstein:</strong> 2,967 bulls (1,885 training, 792 validation)</li>
+                                <li><strong>Jersey:</strong> 766 bulls (563 training, 203 validation)</li>
+                                <li><strong>Pedigree:</strong> 23,105 Holstein + 7,737 Jersey ancestors</li>
+                                <li><strong>Base Population:</strong> Hardy-Weinberg equilibrium (1950+)</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="model-box method-2">
-            <div class="model-title">Method 2: Selection Index</div>
+                    <div class="model-box model-2">
+                        <div class="model-title">Validation Strategy</div>
                         <div class="step-details">
-                            <strong>Approach:</strong> Direct prediction using genomic relationships
-                            <div class="formula short"><div class="formula long">â = G[G + R(σ<sub>e</sub>²/σ<sub>a</sub>²)]⁻¹(y - Xb̂)</div></div>
-                            <strong>Components:</strong><br>
-                            • G = genomic relationship matrix<br>
-                            • R = reliability matrix from daughters<br>
-                            • Direct breeding value prediction<br><br>
-                            <strong>Best for:</strong> When genomic relationships are primary focus<br>
-                            <strong>Advantage:</strong> Most intuitive genomic extension of BLUP
-                        </div>
-                    </div>
-                    
-                    <div class="model-box method-3">
-            <div class="model-title">Method 3: Mixed Model with G⁻¹</div>
-                        <div class="step-details">
-                            <strong>Approach:</strong> Traditional mixed model with genomic inverse
-                            <div class="formula short"><div class="formula long">â = [R⁻¹ + G⁻¹(σ<sub>e</sub>²/σ<sub>a</sub>²)]⁻¹R⁻¹(y - Xb̂)</div></div>
-                            <strong>Features:</strong><br>
-                            • Invert G once, process multiple traits<br>
-                            • Most computationally efficient for many traits<br>
-                            • Standard mixed model format<br><br>
-                            <strong>Best for:</strong> Multiple trait evaluations<br>
-                            <strong>Limitation:</strong> Requires non-singular G matrix
+                            <strong>Data Generation:</strong>
+                            <ul>
+                                <li>Chromosome inheritance with ~1.7 crossovers (Poisson)</li>
+                                <li>Allele frequencies uniformly distributed (0-1)</li>
+                                <li>No selection pressure in simulation</li>
+                                <li>Missing genotypes: 1%, incorrect genotypes: 1%</li>
+                            </ul>
+                            
+                            <strong>Evaluation Protocol:</strong>
+                            <ul>
+                                <li>DYD-like variables simulated with realistic error structure</li>
+                                <li>Reliability calculated from USDA field data patterns</li>
+                                <li>7 replicates (Holstein), 10 replicates (Jersey)</li>
+                                <li>Correlation with true breeding values as accuracy measure</li>
+                            </ul>
+                            
+                            <strong>Computational Metrics:</strong>
+                            <ul>
+                                <li>Memory optimization: 8GB → <1GB per chromosome</li>
+                                <li>Processing time tracked for scalability assessment</li>
+                                <li>Convergence monitoring for iterative methods</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="section" id="section-methods">
+                <div class="section-title">Three Equivalent Computational Methods</div>
                 
-                <div class="flow-step">
-            <div class="step-number">5</div>
-                    <div class="step-content">
-            <div class="step-title">Nonlinear Prediction Extensions</div>
-                        <div class="step-details">
-                            Advanced methods for non-normal marker effect distributions
-                            <div class="step-specs">
-                                <strong>Assumption:</strong> Not all markers have equal effects<br>
-                                <strong>Approach A:</strong> Heavy-tailed distribution with variable λᵢ<br>
-                                <strong>Approach B:</strong> Mixture model with QTL vs. non-QTL markers<br>
-                                <strong>Benefit:</strong> ~3% additional reliability gain for young bulls
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Method 1: Marker Effects Model</div>
+                            <div class="step-details">
+                                Individual SNP effect estimation followed by summation
+                                <div class="step-specs">
+                                    <strong>Model:</strong> y = Xb + Zu + e<br>
+                                    <strong>Solution:</strong> û = (Z'R⁻¹Z + Iλ)⁻¹Z'R⁻¹(y - Xb̂)<br>
+                                    <strong>EBV:</strong> â = Zû (sum across all marker effects)<br>
+                                    <strong>Advantage:</strong> Direct interpretation of individual marker contributions<br>
+                                    <strong>Challenge:</strong> Large coefficient matrix (50,000 × 50,000) requires iteration
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="flow-step">
-            <div class="step-number">6</div>
-                    <div class="step-content">
-            <div class="step-title">Allele Frequency Estimation</div>
-                        <div class="step-details">
-                            Critical component for accurate genomic inbreeding coefficients
-                            <div class="step-specs">
-                                <strong>Challenge:</strong> Estimate base population frequencies from current data<br>
-                                <strong>Method:</strong> Linear model using pedigree relationships<br>
-                                <strong>Time required:</strong> 2 processor days for frequency estimation<br>
-                                <strong>Impact:</strong> Essential for unbiased genomic inbreeding calculation
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Method 2: Genomic Relationship Matrix</div>
+                            <div class="step-details">
+                                Selection index using genomic relationships
+                                <div class="step-specs">
+                                    <strong>Matrix:</strong> G = ZZ'/(2Σpᵢ(1-pᵢ))<br>
+                                    <strong>Solution:</strong> â = G[G + (σₑ²/σₐ²)R⁻¹]⁻¹(y - Xb̂)<br>
+                                    <strong>Relationship:</strong> Replaces pedigree-based A matrix<br>
+                                    <strong>Advantage:</strong> Smaller matrix to invert (animals × animals)<br>
+                                    <strong>Innovation:</strong> Genomic inbreeding = Gⱼⱼ - 1
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Method 3: Mixed Model Equations</div>
+                            <div class="step-details">
+                                Direct inversion of genomic relationship matrix
+                                <div class="step-specs">
+                                    <strong>Equations:</strong> â = [R⁻¹ + G⁻¹(σₑ²/σₐ²)]⁻¹R⁻¹(y - Xb̂)<br>
+                                    <strong>Efficiency:</strong> One G⁻¹ calculation for multiple traits<br>
+                                    <strong>Reliability:</strong> Computed from prediction error variance<br>
+                                    <strong>Scalability:</strong> Best for multiple trait evaluations<br>
+                                    <strong>Limitation:</strong> Requires G to be non-singular
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="section" id="section-4">
-            <div class="section-title">Why, How, What Analysis</div>
+
+            <div class="section" id="section-genomic-matrix">
+                <div class="section-title">Genomic Relationship Matrix Construction</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Core G Matrix Formula</div>
+                    <div class="formula-main">G = ZZ'/(2Σpᵢ(1-pᵢ))</div>
+                    <div class="formula-note">Where Z = M - P, with M as marker matrix and P as frequency adjustments</div>
+                </div>
                 
                 <div class="analysis-grid">
-            <div class="analysis-card why-card">
-                        <div class="analysis-title">WHY - The Computational Challenge</div>
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Matrix M Construction</div>
                         <div class="step-details">
-                            <strong>Core Problem:</strong> Genomic selection theory existed but lacked practical computational methods.
-                            
+                            <strong>Genotype Coding:</strong>
                             <ul>
-                                <li>Meuwissen et al. (2001) provided the theory</li>
-                                <li>High-density SNP chips were becoming available</li>
-                                <li>Needed <span class="highlight">efficient algorithms</span> for large-scale implementation</li>
-                                <li>Required methods to handle thousands of markers simultaneously</li>
+                                <li><strong>Homozygote 1:</strong> -1</li>
+                                <li><strong>Heterozygote:</strong> 0</li>
+                                <li><strong>Homozygote 2:</strong> +1</li>
+                                <li><strong>Missing:</strong> 5 (special code)</li>
                             </ul>
                             
-                            <strong>Opportunity:</strong> Develop computational infrastructure to enable practical genomic selection in breeding programs.
+                            <strong>Dimensions:</strong>
+                            <ul>
+                                <li>n × m matrix (animals × markers)</li>
+                                <li>Holstein: 2,967 × 50,000</li>
+                                <li>Jersey: 766 × 50,000</li>
+                                <li>Total genotypes: ~150 million stored</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="analysis-card how-card">
-            <div class="analysis-title">HOW - Methodological Innovation</div>
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Allele Frequency Estimation</div>
                         <div class="step-details">
-                            <strong>Key Breakthrough:</strong> Three equivalent methods providing computational flexibility.
-                            
+                            <strong>Base Population Method:</strong>
                             <ul>
-                                <li><strong>G-matrix:</strong> Genomic relationship matrix analogous to pedigree A-matrix</li>
-                                <li><strong>Iterative algorithms:</strong> Jacobi iteration for large-scale problems</li>
-                                <li><strong>Memory optimization:</strong> Read genotypes once per iteration</li>
-                                <li><strong>Comprehensive testing:</strong> Simulation with 50,000 markers</li>
+                                <li>Linear model solving for unknown ancestors</li>
+                                <li>Uses pedigree relationships (A⁻¹)</li>
+                                <li>Accounts for population structure</li>
+                                <li>More accurate for inbreeding calculations</li>
                             </ul>
                             
-                            <strong>Validation:</strong> Extensive simulation comparing genomic vs. traditional predictions.
+                            <strong>Simple Method:</strong>
+                            <ul>
+                                <li>Direct counting from observed genotypes</li>
+                                <li>Faster computation (<1 minute)</li>
+                                <li>Adequate for genomic predictions</li>
+                                <li>Biased by population structure</li>
+                            </ul>
+                            
+                            <strong>Impact on Results:</strong>
+                            <ul>
+                                <li>Base vs true frequencies: r = 0.98</li>
+                                <li>Simple vs true frequencies: r = 0.94</li>
+                                <li>Genomic inbreeding highly sensitive</li>
+                                <li>Breeding value predictions less sensitive</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="analysis-card what-card">
-            <div class="analysis-title">WHAT - Transformative Results</div>
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Alternative G Formulations</div>
                         <div class="step-details">
-                            <strong>Results:</strong> Genomic predictions dramatically outperformed traditional methods.
+                            <strong>Method 1 (Used):</strong>
+                            <div class="formula">G = ZZ'/(2Σpᵢ(1-pᵢ))</div>
                             
+                            <strong>Method 2:</strong>
+                            <div class="formula">G = ZDZ', where Dᵢᵢ = 1/[2pᵢ(1-pᵢ)]</div>
+                            
+                            <strong>Method 3 (Regression):</strong>
+                            <div class="formula">G = (MM' - g₀11')/g₁</div>
                             <ul>
-                                <li><span class="highlight">63% vs 32% reliability</span> for young Holstein bulls</li>
-                                <li><span class="highlight">Equivalent to ~20 daughters</span> worth of information</li>
-                                <li><span class="highlight">Linear time complexity</span> with number of genotypes</li>
-                                <li>Nonlinear methods: additional 3% reliability gain</li>
+                                <li>No allele frequencies needed</li>
+                                <li>Regresses MM' on pedigree matrix A</li>
+                                <li>Best correlation with pedigree inbreeding</li>
+                                <li>Highest accuracy for relationship estimation</li>
                             </ul>
                             
-                            <strong>Impact:</strong> Enabled worldwide implementation of genomic selection in dairy cattle breeding.
+                            <strong>Weighted Matrix:</strong>
+                            <div class="formula">Gw = wG + (1-w)A</div>
+                            <ul>
+                                <li>Optimal w = 0.05²/(0.05² + 0.125/m)</li>
+                                <li>Nearly w = 1 when m > 5,000 markers</li>
+                                <li>Prevents singularity issues</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="section" id="section-3">
-            <div class="section-title">Computational Performance & Results</div>
+
+            <div class="section" id="section-computational">
+                <div class="section-title">Computational Implementation</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Iteration on Data Strategy</div>
+                        <div class="step-details">
+                            <strong>Jacobi Iteration Enhancement:</strong>
+                            <ul>
+                                <li>Blend of 1st and 2nd order methods</li>
+                                <li>Two relaxation factors: relax₁, relax₂</li>
+                                <li>u₀ = u₁ + relax₁(uᶜ - u₁) + relax₂(u₁ - u₂)</li>
+                                <li>Optimal factors found by trial and error</li>
+                            </ul>
+                            
+                            <strong>Memory Optimization:</strong>
+                            <ul>
+                                <li>Read genotypes once per iteration</li>
+                                <li>Avoid storing full coefficient matrix</li>
+                                <li>Process chromosomes separately</li>
+                                <li>Reduced from 8GB to <1GB memory</li>
+                            </ul>
+                            
+                            <strong>Computational Shortcut:</strong>
+                            <div class="formula">Z'R⁻¹Zû = Z'R⁻¹Z(diag)û + off-diagonal terms</div>
+                            <ul>
+                                <li>Pre-compute sum once per iteration</li>
+                                <li>Subtract diagonal to get off-diagonal</li>
+                                <li>Reduces cost from O(m²) to O(m)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Missing Data Handling</div>
+                        <div class="step-details">
+                            <strong>Genotype Imputation Strategy:</strong>
+                            <ul>
+                                <li>Missing genotypes coded as 5</li>
+                                <li>Coefficients set to 0 (population mean)</li>
+                                <li>Standardization matrix W adjusts for missing proportion</li>
+                                <li>Expected value of WGW' equals A matrix</li>
+                            </ul>
+                            
+                            <strong>Standardization Formula:</strong>
+                            <div class="formula">Wⱼⱼ = Σpᵢ(1-pᵢ) over all loci / Σpᵢ(1-pᵢ) over non-missing loci</div>
+                            
+                            <strong>Alternative Approaches:</strong>
+                            <ul>
+                                <li>Gene content estimation from pedigree</li>
+                                <li>Fractional genotype values</li>
+                                <li>Population mean substitution (chosen for simplicity)</li>
+                                <li>1% missing rate assumed acceptable for mean substitution</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Performance Results</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Time</th>
+                                <th>Memory</th>
+                                <th>Scalability</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Allele Frequency Estimation</strong></td>
+                                <td>2 processor days</td>
+                                <td>Variable</td>
+                                <td>O(pedigree × markers)</td>
+                                <td>One-time setup</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>G Matrix Construction</strong></td>
+                                <td>9h (Holstein), 1.5h (Jersey)</td>
+                                <td>High</td>
+                                <td>O(markers × animals²)</td>
+                                <td>Multi-trait analysis</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>G Matrix Inversion</strong></td>
+                                <td>12 min (Holstein), 20s (Jersey)</td>
+                                <td>Medium</td>
+                                <td>O(animals³)</td>
+                                <td>Once per evaluation</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Iteration on Data</strong></td>
+                                <td>16h (1000 rounds, 1 trait)</td>
+                                <td>Low</td>
+                                <td>O(iterations × markers × animals × traits)</td>
+                                <td>Single trait focus</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-nonlinear">
+                <div class="section-title">Nonlinear Prediction Methods</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Bayesian Variable Selection Framework</div>
+                    <div class="formula-main">λᵢ = λ[q/m + (1-q/m)(fₑᵣᵣ/f_QTL+err)]</div>
+                    <div class="formula-note">Where q = number of QTL, m = number of markers, allowing marker-specific shrinkage</div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Nonlinear Method A</div>
+                        <div class="step-details">
+                            <strong>Heavy-Tailed Distribution:</strong>
+                            <ul>
+                                <li>Assumes all markers have effects</li>
+                                <li>Prior generated from normal/1.25^|s-2|</li>
+                                <li>Individual λᵢ for each marker</li>
+                                <li>Less shrinkage for large effects</li>
+                            </ul>
+                            
+                            <strong>Implementation:</strong>
+                            <ul>
+                                <li>Variable λᵢ = λ/1.25^|s-2|</li>
+                                <li>s = standardized deviation from mean</li>
+                                <li>Analogous to Bayesian A method</li>
+                                <li>Computationally simpler than full Bayesian</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Nonlinear Method B</div>
+                        <div class="step-details">
+                            <strong>Mixture Model:</strong>
+                            <ul>
+                                <li>Fraction q/m markers have QTL effects</li>
+                                <li>Fraction (1-q/m) have only error</li>
+                                <li>Optimal q ≈ 700 (vs 100 simulated QTL)</li>
+                                <li>Multiple markers per QTL concept</li>
+                            </ul>
+                            
+                            <strong>Density Functions:</strong>
+                            <ul>
+                                <li>fₑᵣᵣ: standard normal (mean=0, var=1)</li>
+                                <li>f_QTL+err: normal (mean=0, var=m/q)</li>
+                                <li>Posterior probabilities updated each iteration</li>
+                                <li>Analogous to Bayesian B method</li>
+                            </ul>
+                            
+                            <strong>Computational Safeguards:</strong>
+                            <ul>
+                                <li>Error density set to 0 for |deviation| > 15σ</li>
+                                <li>Prevents numerical underflow</li>
+                                <li>Standardized marker solutions for stability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">Reliability Results & Performance</div>
+                
+                <div class="coverage-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">63%</div>
+                        <div class="stat-label">Linear Genomic (Holstein Young Bulls)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">66%</div>
+                        <div class="stat-label">Nonlinear Genomic (Holstein Young Bulls)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">32%</div>
+                        <div class="stat-label">Parent Average (Traditional)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">Daughter Equivalents from Genotyping</div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="formulation-table">
+                        <thead>
+                            <tr>
+                                <th>Breed</th>
+                                <th>Birth Year</th>
+                                <th>Animal Model</th>
+                                <th>Linear Genomic</th>
+                                <th>Nonlinear Genomic</th>
+                                <th>Gain</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Holstein</strong></td>
+                                <td><2000</td>
+                                <td>0.896</td>
+                                <td>0.915</td>
+                                <td>0.913</td>
+                                <td>+0.017</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Holstein</strong></td>
+                                <td>2001-2002</td>
+                                <td>0.319</td>
+                                <td>0.628</td>
+                                <td>0.663</td>
+                                <td>+0.309</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Jersey</strong></td>
+                                <td><2000</td>
+                                <td>0.797</td>
+                                <td>0.817</td>
+                                <td>0.816</td>
+                                <td>+0.019</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Jersey</strong></td>
+                                <td>2001-2002</td>
+                                <td>0.163</td>
+                                <td>0.354</td>
+                                <td>0.368</td>
+                                <td>+0.191</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
                 <div class="results-box">
-            <div class="results-title">🎯 Key Performance Metrics</div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <strong>Reliability Gains (Young Bulls):</strong>
+                    <div class="results-title">Key Performance Insights</div>
+                    <div class="step-details">
+                        <strong>Young Animal Benefits:</strong>
+                        <ul>
+                            <li>Holstein young bulls: +31 percentage points reliability</li>
+                            <li>Jersey young bulls: +19 percentage points reliability</li>
+                            <li>Accuracy improvement: 56% → 79% (Holstein), 40% → 59% (Jersey)</li>
+                            <li>Information equivalent to ~20 daughters from DNA alone</li>
+                        </ul>
+                        
+                        <strong>Older Animal Benefits:</strong>
+                        <ul>
+                            <li>Modest gains (~1-2 percentage points) due to high existing reliability</li>
+                            <li>Still valuable for completeness and consistency</li>
+                            <li>Enhanced relationship estimation accuracy</li>
+                        </ul>
+                        
+                        <strong>Method Comparisons:</strong>
+                        <ul>
+                            <li>Nonlinear vs Linear: +3-4 percentage points for young animals</li>
+                            <li>All three linear methods gave equivalent results (r = 0.997)</li>
+                            <li>Base frequency vs simple frequency: minimal difference</li>
+                            <li>Method 3 (regression G) best for inbreeding coefficients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-genomic-inbreeding">
+                <div class="section-title">Genomic Inbreeding Coefficients</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Inbreeding Calculation Methods</div>
+                        <div class="step-details">
+                            <strong>Genomic Inbreeding:</strong>
+                            <div class="formula">Fᵢ = Gᵢᵢ - 1</div>
+                            
+                            <strong>Interpretation:</strong>
                             <ul>
-                                <li>Holstein: 63% vs 32% (parent average)</li>
-                                <li>Jersey: 35% vs 16% (parent average)</li>
-                                <li>Accuracy: 0.79 vs 0.56 (linear genomic vs PA)</li>
+                                <li>Measures actual homozygosity vs expected</li>
+                                <li>Accounts for rare vs common allele homozygosity</li>
+                                <li>More precise than pedigree-based estimates</li>
+                                <li>Sensitive to allele frequency estimation method</li>
+                            </ul>
+                            
+                            <strong>Alternative Formulations:</strong>
+                            <ul>
+                                <li>Method 1: Weighted by sum of variances</li>
+                                <li>Method 2: Weighted by individual variances</li>
+                                <li>Method 3: Regression approach (no frequencies needed)</li>
                             </ul>
                         </div>
-                        <div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Accuracy Assessment</div>
+                        <div class="step-details">
+                            <strong>Correlation with Pedigree Inbreeding:</strong>
+                            <table style="width: 100%; font-size: 0.9em;">
+                                <tr><th>Method</th><th>Holstein Old</th><th>Holstein Young</th></tr>
+                                <tr><td>True frequencies</td><td>0.74</td><td>0.66</td></tr>
+                                <tr><td>Base frequencies</td><td>0.68</td><td>0.63</td></tr>
+                                <tr><td>Simple frequencies</td><td>0.12</td><td>0.40</td></tr>
+                            </table>
+                            
+                            <strong>Mean Inbreeding Levels:</strong>
+                            <ul>
+                                <li>Pedigree: 4.6% (old), 5.3% (young) Holstein</li>
+                                <li>Genomic (true freq): 6.7% (old), 7.6% (young)</li>
+                                <li>Genomic (base freq): -4.4% (old), -3.6% (young)</li>
+                                <li>Genomic (simple freq): -2.1% (old), -1.9% (young)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Method Performance Comparison</div>
+                        <div class="step-details">
+                            <strong>Best Method Rankings:</strong>
+                            <ol>
+                                <li><strong>Method 3 (Regression):</strong> Highest correlation, no frequency estimation needed</li>
+                                <li><strong>Method 1 (Sum of variances):</strong> Good balance, most commonly used</li>
+                                <li><strong>Method 2 (Individual variances):</strong> Theoretical appeal but lower accuracy</li>
+                            </ol>
+                            
+                            <strong>Frequency Estimation Impact:</strong>
+                            <ul>
+                                <li>Critical for accurate inbreeding coefficients</li>
+                                <li>Base population estimation superior to simple counting</li>
+                                <li>Bias in frequency estimates directly affects inbreeding</li>
+                                <li>Less impact on breeding value predictions</li>
+                            </ul>
+                            
+                            <strong>Error Variance Considerations:</strong>
+                            <ul>
+                                <li>Full-sibs: 50 ± 50/√(2(L+c)) DNA sharing</li>
+                                <li>L = 30 Morgans, c = 30 chromosome pairs</li>
+                                <li>Elements of A: error variance = (0.05)²</li>
+                                <li>Elements of G: error variance = 0.125/m</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-algorithms">
+                <div class="section-title">Algorithm Details & Optimization</div>
+                
+                <div class="matrix-container">
+                    <div class="matrix-definition">
+                        <strong>Marker Effects Equation System:</strong>
+                    </div>
+                    <div class="matrix-equation">
+                        <div class="matrix-flexible">
+                            <div class="matrix-row">
+                                <div class="matrix-cell">Z'R⁻¹Z + Iλ</div>
+                            </div>
+                        </div>
+                        <span class="equals">×</span>
+                        <div class="vector-flexible">
+                            <div class="vector-row">
+                                <div class="vector-cell">û</div>
+                            </div>
+                        </div>
+                        <span class="equals">=</span>
+                        <div class="vector-flexible">
+                            <div class="vector-row">
+                                <div class="vector-cell">Z'R⁻¹(y - Xb̂)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Iterative Solution Strategy</div>
+                        <div class="step-details">
+                            <strong>Jacobi Iteration Parameters:</strong>
+                            <ul>
+                                <li><strong>Allele Frequencies:</strong> relax₁ = 0.60, relax₂ = 0.88</li>
+                                <li><strong>Marker Effects:</strong> relax₁ = 0.0002, relax₂ = 0.90</li>
+                                <li><strong>Convergence:</strong> 1,000 rounds typical</li>
+                                <li><strong>Accuracy:</strong> 5 decimal places for frequencies</li>
+                            </ul>
+                            
                             <strong>Computational Efficiency:</strong>
+                            <div class="formula">Off-diagonal sum = Z'R⁻¹Zu - diag(Z'R⁻¹Z)u</div>
                             <ul>
-                                <li>G-matrix construction: 9h (Holsteins)</li>
-                                <li>Matrix inversion: 12 min (Holsteins)</li>
-                                <li>Genomic predictions: <1 day per trait</li>
+                                <li>Compute Z'R⁻¹Zu once per iteration</li>
+                                <li>Subtract diagonal to get off-diagonal effects</li>
+                                <li>Avoids O(m²) matrix operations</li>
+                                <li>Reduces computation from quadratic to linear</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Memory Management</div>
+                        <div class="step-details">
+                            <strong>Data Storage Strategy:</strong>
+                            <ul>
+                                <li>Read genotypes from disk each iteration</li>
+                                <li>Process one chromosome at a time</li>
+                                <li>Reuse memory buffers efficiently</li>
+                                <li>Trade 10% speed for 90% memory reduction</li>
+                            </ul>
+                            
+                            <strong>Matrix Handling:</strong>
+                            <ul>
+                                <li>Never store full Z'Z matrix (too large)</li>
+                                <li>G matrix manageable for reasonable animal numbers</li>
+                                <li>Sparse matrix techniques where applicable</li>
+                                <li>Parallel processing across chromosomes</li>
+                            </ul>
+                            
+                            <strong>Scalability Considerations:</strong>
+                            <ul>
+                                <li>Linear scaling with marker number (Method 1)</li>
+                                <li>Quadratic scaling with animal number (Methods 2&3)</li>
+                                <li>Choose method based on n vs m relationship</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="model-comparison" style="grid-template-columns: 1fr 1fr;">
-                    <div class="model-box" style="border-color: #9b59b6;">
-                        <div class="model-title" style="color: #9b59b6;">Algorithm Optimization</div>
+            <div class="section" id="section-validation">
+                <div class="section-title">Validation & Practical Implementation</div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Statistical Validation</div>
                         <div class="step-details">
-                            <strong>Jacobi Iteration Performance:</strong><br>
-                            • Optimal relaxation factors: 0.0002 (first) + 0.90 (second)<br>
-                            • 1000 rounds for convergence<br>
-                            • Linear scaling with genome size<br><br>
-                            <strong>Memory Management:</strong><br>
-                            • Read genotypes once per iteration<br>
-                            • 90% memory reduction vs. storing in RAM<br>
-                            • Parallel processing by chromosome
+                            <strong>Regression Analysis:</strong>
+                            <ul>
+                                <li>True BV on linear predictions: 0.99 ± 0.05</li>
+                                <li>True BV on nonlinear predictions: 0.95 ± 0.05</li>
+                                <li>DYD on genomic predictions: similar slopes</li>
+                                <li>Close to ideal value of 1.0</li>
+                            </ul>
+                            
+                            <strong>Method Agreement:</strong>
+                            <ul>
+                                <li>Three linear methods: r = 0.997</li>
+                                <li>Linear vs nonlinear: r = 0.97</li>
+                                <li>Nonlinear had 1.07× larger standard deviation</li>
+                                <li>Consistent with reliability differences</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="model-box" style="border-color: #e67e22;">
-                        <div class="model-title" style="color: #e67e22;">Genomic Inbreeding Insights</div>
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Industry Implementation</div>
                         <div class="step-details">
-                            <strong>G-matrix Method Comparisons:</strong><br>
-                            • Method 1: Best correlation with pedigree (0.74)<br>
-                            • Method 2: Lower precision (-0.06 correlation)<br>
-                            • Method 3: Highest precision (+0.06 correlation)<br><br>
-                            <strong>Base Frequency Importance:</strong><br>
-                            • True frequencies: r = 0.74 with pedigree<br>
-                            • Simple frequencies: r = 0.12 with pedigree
+                            <strong>USDA Deployment (April 2008):</strong>
+                            <ul>
+                                <li>First large-scale genomic evaluation system</li>
+                                <li>Programs tested on simulated data first</li>
+                                <li>Applied to actual Holstein bull genotypes</li>
+                                <li>Provided to North American breeders</li>
+                            </ul>
+                            
+                            <strong>Practical Considerations:</strong>
+                            <ul>
+                                <li>Weekly processing feasible for 3,000 bulls</li>
+                                <li>Multiple traits processed in parallel</li>
+                                <li>Previous solutions as starting values</li>
+                                <li>Need for user education on new technology</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="results-box">
+                    <div class="results-title">Implementation Timeline & Impact</div>
+                    <div class="step-details">
+                        <strong>Development to Deployment:</strong>
+                        <ul>
+                            <li><strong>2007:</strong> Algorithm development and simulation testing</li>
+                            <li><strong>Early 2008:</strong> Real data testing and validation</li>
+                            <li><strong>April 2008:</strong> First official genomic evaluations released</li>
+                            <li><strong>Post-2008:</strong> Rapid adoption across dairy industry</li>
+                        </ul>
+                        
+                        <strong>Transformation Achieved:</strong>
+                        <ul>
+                            <li>Reduced generation intervals from ~6 years to ~2 years</li>
+                            <li>Eliminated need for progeny testing of all males</li>
+                            <li>Enabled genetic progress acceleration of 50-100%</li>
+                            <li>Provided framework adopted globally</li>
+                        </ul>
+                        
+                        <strong>Technical Legacy:</strong>
+                        <ul>
+                            <li>Foundation for all modern genomic evaluation systems</li>
+                            <li>Computational strategies still used today</li>
+                            <li>Extended to other livestock species</li>
+                            <li>Basis for single-step genomic evaluations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">Limitations & Future Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Simulation Limitations</div>
+                        <div class="step-details">
+                            <strong>Simplifying Assumptions:</strong>
+                            <ul>
+                                <li>Hardy-Weinberg equilibrium in base population</li>
+                                <li>No selection practiced in simulation</li>
+                                <li>QTL effects from normal distribution</li>
+                                <li>No linkage disequilibrium structure</li>
+                                <li>Higher crossover rate than reality (1.7 vs 1.0)</li>
+                            </ul>
+                            
+                            <strong>Real-World Complications:</strong>
+                            <ul>
+                                <li>Population structure and stratification</li>
+                                <li>Historical selection effects</li>
+                                <li>Non-normal QTL effect distributions</li>
+                                <li>Genotype × environment interactions</li>
+                                <li>Marker panel evolution over time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computational Challenges</div>
+                        <div class="step-details">
+                            <strong>Scalability Issues:</strong>
+                            <ul>
+                                <li>Matrix inversion scales as O(n³) with animals</li>
+                                <li>Memory requirements for G matrix substantial</li>
+                                <li>Iteration convergence slower with larger datasets</li>
+                                <li>Need for numerical stability improvements</li>
+                            </ul>
+                            
+                            <strong>Approximation Limitations:</strong>
+                            <ul>
+                                <li>Missing genotype handling simplistic</li>
+                                <li>Allele frequency estimation iterative</li>
+                                <li>Jacobi relaxation factors trial-and-error</li>
+                                <li>Alternative iterative methods may be superior</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Developments</div>
+                        <div class="step-details">
+                            <strong>Immediate Extensions:</strong>
+                            <ul>
+                                <li>Multi-trait genomic evaluations</li>
+                                <li>Incorporation of dominance effects</li>
+                                <li>Improved handling of population structure</li>
+                                <li>Better methods for explaining predictions</li>
+                            </ul>
+                            
+                            <strong>Long-term Evolution:</strong>
+                            <ul>
+                                <li>Single-step genomic-conventional blending</li>
+                                <li>Sequence-based evaluations</li>
+                                <li>Machine learning integration</li>
+                                <li>Real-time continuous evaluations</li>
+                                <li>Cross-population genomic predictions</li>
+                            </ul>
+                            
+                            <strong>Computational Advances Needed:</strong>
+                            <ul>
+                                <li>Better iterative solvers (CG, GMRES)</li>
+                                <li>Distributed computing strategies</li>
+                                <li>GPU acceleration opportunities</li>
+                                <li>Approximate matrix methods</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="section" id="section-2">
-            <div class="section-title">Historical Impact & Legacy</div>
-                
-                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin-bottom: 20px;">
-                    <h4 style="margin-top: 0; color: #27ae60;">Immediate Industry Impact (2008-2010)</h4>
-                    <ul>
-                        <li><strong>USDA Implementation:</strong> First large-scale genomic evaluations in April 2008</li>
-                        <li><strong>Global Adoption:</strong> Methods implemented worldwide in dairy breeding</li>
-                        <li><strong>Industry Transformation:</strong> Reduced generation intervals and increased genetic gain</li>
-                        <li><strong>Economic Revolution:</strong> Dramatically reduced progeny testing costs</li>
-                    </ul>
-                </div>
 
-                <div style="background: #fff8e8; padding: 20px; border-radius: 8px; border-left: 4px solid #f39c12;">
-                    <h4 style="margin-top: 0; color: #f39c12;">Long-term Scientific Legacy</h4>
-                    <ul>
-                        <li><strong>Methodological Foundation:</strong> G-matrix became standard in quantitative genetics</li>
-                        <li><strong>Computational Template:</strong> Algorithms adapted across species and traits</li>
-                        <li><strong>Research Catalyst:</strong> Enabled thousands of genomic selection studies</li>
-                        <li><strong>Extension Opportunities:</strong> Framework for multi-trait, multi-breed evaluations</li>
-                        <li><strong>Software Development:</strong> Core methods implemented in major breeding software</li>
-                    </ul>
-                </div>
-
-                <div class="innovation-box" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                    <div class="innovation-title">📈 Citation Impact</div>
-                    <p>This paper has been cited over <strong>3,000 times</strong> (as of 2024), making it one of the most influential papers in animal breeding and quantitative genetics. It fundamentally changed how genetic evaluations are computed across livestock species worldwide.</p>
-                </div>
-            </div>
-        <div class="section" id="section-1">
-            <div class="section-title">Technical Specifications Summary</div>
+            <div class="section" id="section-impact">
+                <div class="section-title">Scientific Impact & Legacy</div>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
-                        <h4 style="margin-top: 0; color: #3498db;">Simulation Parameters</h4>
-                        <ul style="margin-bottom: 0;">
-                            <li>Animals: 30,842 total (Holstein + Jersey)</li>
-                            <li>Markers: 50,000 SNPs across 30 chromosomes</li>
-                            <li>QTL: 100 with normal effect distribution</li>
-                            <li>Missing data: 1% genotypes, 1% incorrect</li>
-                            <li>Replicates: 7 (Holstein), 10 (Jersey)</li>
-                        </ul>
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Revolutionary Scientific Impact</div>
+                    <p><strong>Genomic Selection Era:</strong> This paper enabled the practical implementation of genomic selection, transforming animal breeding from a 6-year progeny testing cycle to immediate DNA-based predictions. The computational methods developed became the foundation for genomic evaluation systems worldwide, accelerating genetic progress by 50-100% across livestock species.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Methodological Innovations</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Three Equivalent Formulations:</strong> Provided computational flexibility for different scenarios</li>
+                                <li><strong>Genomic Relationship Matrix:</strong> Replaced pedigree with actual DNA sharing</li>
+                                <li><strong>Efficient Iteration:</strong> Made large-scale implementation feasible</li>
+                                <li><strong>Missing Data Handling:</strong> Practical solutions for real-world genotype data</li>
+                                <li><strong>Nonlinear Extensions:</strong> Improved accuracy through Bayesian-inspired methods</li>
+                            </ul>
+                        </div>
                     </div>
                     
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
-                        <h4 style="margin-top: 0; color: #27ae60;">Computing Requirements (2008)</h4>
-                        <ul style="margin-bottom: 0;">
-                            <li>Memory: 8 GB initial, <1 GB optimized</li>
-                            <li>Frequency estimation: 2 processor days</li>
-                            <li>G-matrix: 9 hours (Holstein)</li>
-                            <li>Predictions: <1 day per trait</li>
-                            <li>Convergence: 400-1000 iterations</li>
-                        </ul>
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Industry Transformation</div>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Breeding Paradigm Shift:</strong> From progeny testing to genomic selection</li>
+                                <li><strong>Global Adoption:</strong> Methods implemented in >30 countries</li>
+                                <li><strong>Economic Impact:</strong> Billions in increased efficiency and productivity</li>
+                                <li><strong>Species Extension:</strong> Applied to cattle, pigs, poultry, sheep, fish</li>
+                                <li><strong>Commercial Revolution:</strong> Enabled genomics service industry</li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
+                
+                <div class="section-title">Citation Impact & Recognition</div>
+                
+                <div class="coverage-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">2000+</div>
+                        <div class="stat-label">Citations (Google Scholar)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Countries Using Methods</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Dairy Breeding Companies Adopted</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">17</div>
+                        <div class="stat-label">Years Since Publication</div>
+                    </div>
+                </div>
+                
+                <div class="legacy-box">
+                    <strong>Enduring Legacy:</strong> VanRaden (2008) stands as one of the most influential papers in quantitative genetics, providing the computational foundation that made genomic selection practical. The methods described are still the basis for genomic evaluations worldwide, demonstrating remarkable staying power in a rapidly evolving field. The paper's impact extends far beyond dairy cattle, enabling genetic improvement across all livestock species and contributing to global food security.
+                </div>
+            </div>
+
+            <div class="section" id="section-equations">
+                <div class="section-title">Complete Mathematical Framework</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">Genomic Relationship Matrix</div>
+                        <div class="formula-main">G = ZZ'/(2Σpᵢ(1-pᵢ))</div>
+                        <div class="formula-note">Where Z = M - P, standardizing for allele frequencies</div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">Genomic Inbreeding</div>
+                        <div class="formula-main">Fᵢ = Gᵢᵢ - 1</div>
+                        <div class="formula-note">Direct measure of actual vs expected homozygosity</div>
+                    </div>
+                </equation-grid>
+                
+                <div class="model-comparison">
+                    <div class="model-box">
+                        <div class="model-title">Method Equivalence Proof</div>
+                        <div class="step-details">
+                            <strong>Method 1 (Marker Effects):</strong>
+                            <div class="formula">â = Z(Z'R⁻¹Z + Iλ)⁻¹Z'R⁻¹(y - Xb̂)</div>
+                            
+                            <strong>Method 2 (Selection Index):</strong>
+                            <div class="formula">â = G[G + (σₑ²/σₐ²)R⁻¹]⁻¹(y - Xb̂)</div>
+                            
+                            <strong>Method 3 (Mixed Model):</strong>
+                            <div class="formula">â = [R⁻¹ + G⁻¹(σₑ²/σₐ²)]⁻¹R⁻¹(y - Xb̂)</div>
+                            
+                            <strong>Key Relationships:</strong>
+                            <ul>
+                                <li>G = ZZ'/(2Σpᵢ(1-pᵢ))</li>
+                                <li>λ = σₑ²/σᵤ² = (σₑ²/σₐ²) × 2Σpᵢ(1-pᵢ)</li>
+                                <li>All methods yield identical solutions when converged</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box">
+                        <div class="model-title">Reliability Calculations</div>
+                        <div class="step-details">
+                            <strong>From Method 2:</strong>
+                            <div class="formula">REL = diag[G[G + (σₑ²/σₐ²)R⁻¹]⁻¹G]</div>
+                            
+                            <strong>From Method 3:</strong>
+                            <div class="formula">REL = diag[G⁻¹ + (σₑ²/σₐ²)R⁻¹]⁻¹(σₑ²/σₐ²)</div>
+                            
+                            <strong>Expected vs Realized:</strong>
+                            <ul>
+                                <li>Expected from matrix inversion: 58% average</li>
+                                <li>Realized from correlation²: 63% average</li>
+                                <li>Difference due to sampling and model assumptions</li>
+                                <li>Both methods provide useful accuracy estimates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">Conclusions & Future Directions</div>
+                
+                <div class="best-practices">
+                    <strong>Key Computational Insights:</strong>
+                    <ul>
+                        <li><strong>Method Selection:</strong> Choose based on n vs m and number of traits</li>
+                        <li><strong>Iteration Strategy:</strong> Blend first and second-order Jacobi for convergence</li>
+                        <li><strong>Memory Management:</strong> Trade speed for memory when necessary</li>
+                        <li><strong>Frequency Estimation:</strong> Critical for inbreeding, less so for breeding values</li>
+                        <li><strong>Nonlinear Benefits:</strong> Modest but consistent improvements over linear methods</li>
+                    </ul>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Transformative Significance</div>
+                    <div class="significance-content">
+                        This paper represents a watershed moment in quantitative genetics, providing the first practical computational framework for genome-wide marker-assisted selection. By solving the computational challenges that had limited genomic selection to theoretical discussions, VanRaden enabled the transformation of animal breeding from a decades-long process to one delivering results in months. The reliability improvements demonstrated—from 32% to 63% for young animals—represented a fundamental shift in breeding paradigms that has accelerated genetic progress globally and contributed significantly to agricultural sustainability and food security.
+                    </div>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Scientific Excellence</div>
+                    <p><strong>Methodological Rigor:</strong> Combined theoretical soundness with practical implementation, extensive simulation validation, and clear exposition of complex algorithms. The three equivalent formulations provided flexibility while maintaining mathematical consistency, and the nonlinear extensions showed the path toward more sophisticated Bayesian methods.</p>
                 </div>
             </div>
         </div>
-
     </div>
-</body></html>
+</body>
+</html>
