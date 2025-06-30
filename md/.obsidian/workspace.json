@@ -66,15 +66,43 @@
               "type": "markdown",
               "state": {
                 "file": "5. Results.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "5. Results"
             }
+          },
+          {
+            "id": "8341a309ea454b89",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "1.1 du6_methodology.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "1.1 du6_methodology"
+            }
+          },
+          {
+            "id": "cd038ead5c090117",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Bayesian shrinkage and Bayesian ridge.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Bayesian shrinkage and Bayesian ridge"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -221,27 +249,31 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1318db8180249357",
+  "active": "cd038ead5c090117",
   "lastOpenFiles": [
-    "3.2 Relateness of PEV of MSE with DRP Garrick 2009",
-    "5.1 mendelian_error_report.md",
-    "5. Results.md",
+    "1.1 du6_methodology.md",
+    "Bayesian shrinkage and Bayesian ridge.md",
+    "chat-ai-2025-06-30-132228.json",
     "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
-    "mendelian_error_report.md",
     "3.1 reasons considering MSE and how to calculate its PEV.md",
     "3.2 methods of calculating PEV of MSE-.md",
+    "3.2 Relatedness of PEV of MSE with DRP Garrick 2009.md",
     "3.2.2 garrick_mendelian_math.md",
+    "5.1 Litter size.md",
+    "5.1 mendelian_error_report.md",
+    "5. Results.md",
+    "4. Why use BV as phenotype not residual.md",
+    "1.1.2 du6_detailed_technical_guide.md",
+    "1.2 methodology_literatures.md",
+    "2. literatures dBV as phnotype in GWAs.md",
+    "3.2 Relateness of PEV of MSE with DRP Garrick 2009",
+    "mendelian_error_report.md",
     "ocs_mendelian_simulation.r",
     "3.2.2 1992 garcias Monto-Carlo method.md",
-    "2. literatures dBV as phnotype in GWAs.md",
-    "1.1 du6_methodology.md",
-    "1.1.2 du6_detailed_technical_guide.md",
     "1.12 du6_detailed_technical_guide.md",
     "du6_detailed_technical_guide.md",
     "1.1 du6_research_methodology.md",
-    "1.2 methodology_literatures.md",
     "garrick_mendelian_math.md",
-    "4. Why use BV as phenotype not residual.md",
     "3.4.1 PEV of MSE of classical way by Mr. Reinsch.md",
     "3.3 1992 Monto-Carlo mthod.md",
     "New Text Document.txt",
@@ -249,8 +281,6 @@
     "1.2 I have a md notes, please verify if the steps work.md",
     "1. du6_research_methodology.md",
     "I have a md notes, please verify if the steps work.md",
-    "3. methods of calculating PEV of MSE.md",
-    "regenerate and explain more, with supporting liter.md",
     "未命名",
     "mendelian_sampling_flowchart.html"
   ]
