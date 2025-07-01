@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Coding Variation in J:ARC and J:DO Outbred Laboratory Mouse Stocks</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'cornes_2023_jarc_jdo';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Protein Coding Variation in J:ARC and J:DO Outbred Laboratory Mouse Stocks</h1>
+            <p>Molecular Basis for Distinct Research Applications in Outbred Laboratory Mice</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Belinda K. Cornes, Carolyn Paisie, Emily Swanzey, Peter D. Fields, Andrew Schile, Kelly Brackett, Laura G. Reinholdt, Anuj Srivastava</p>
+                <p class="text-small text-top"><strong>Journal:</strong> G3: Genes|Genomes|Genetics, Vol. 13, No. 4, 2023</p>
+                <p class="text-small text-top"><strong>Institution:</strong> The Jackson Laboratory, Bar Harbor, ME</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1093/g3journal/jkad015"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Study Overview and Objectives</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Research Question</div>
+                    <p>This study aims to characterize and compare protein-coding variation between two distinct outbred laboratory mouse stocks - J:ARC (Swiss-derived) and J:DO (multiparent) - to provide molecular basis for their intended research applications and guide experimental design decisions.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Challenge:</strong> Different outbred mouse stocks have varying genetic architectures, but researchers often lack molecular data to guide stock selection for specific study designs. Understanding these differences is crucial for reproducible research and optimal experimental outcomes.
+                </div>
+
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Study Populations</div>
+                            <div class="step-details">
+                                <strong>J:ARC (Swiss-derived):</strong>
+                                <ul>
+                                    <li>64 mice (32 male, 32 female) from generation G3</li>
+                                    <li>Imported from Australian Animal Resource Center in 2020</li>
+                                    <li>Traces origin to Swiss mice from Rockefeller Institute (1926)</li>
+                                    <li>Maintained using Poiley rotational breeding scheme</li>
+                                </ul>
+                                
+                                <strong>J:DO (Diversity Outbred):</strong>
+                                <ul>
+                                    <li>20 mice (10 male, 10 female) from generation G43</li>
+                                    <li>Derived from 8 founder inbred strains</li>
+                                    <li>Represents three major mouse subspecies</li>
+                                    <li>Captures 90% of genetic variation in laboratory mice</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Experimental Approach</div>
+                            <div class="step-details">
+                                <strong>Exome Sequencing Protocol:</strong>
+                                <ul>
+                                    <li>SureSelect XT Mouse All Exon v2 Target Enrichment</li>
+                                    <li>150 bp paired-end sequencing on Illumina NovaSeq 6000</li>
+                                    <li>Mean coverage: 162× (J:ARC) and 155× (J:DO)</li>
+                                    <li>90% of target regions covered at ≥30× depth</li>
+                                </ul>
+                                
+                                <strong>Analysis Pipeline:</strong>
+                                <ul>
+                                    <li>BWA-mem alignment to mm10 reference genome</li>
+                                    <li>GATK variant calling and joint genotyping</li>
+                                    <li>SnpEff annotation for functional impact</li>
+                                    <li>Comparison to multiple variant databases</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">📊 Key Results and Findings</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Variant Discovery</div>
+                        <div class="step-details">
+                            <strong>Total Variants Identified:</strong>
+                            <ul>
+                                <li><strong>J:DO:</strong> 478,011 variants</li>
+                                <li><strong>J:ARC:</strong> 135,825 variants</li>
+                                <li><strong>Ratio:</strong> J:DO has ~3.6× more variants than J:ARC</li>
+                            </ul>
+                            
+                            <strong>Novel Variants (not in databases):</strong>
+                            <ul>
+                                <li><strong>J:ARC:</strong> 5,105 novel variants (3.8%)</li>
+                                <li><strong>J:DO:</strong> 4,308 novel variants (0.9%)</li>
+                                <li>Higher percentage in J:ARC due to limited Swiss stock data</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Heterozygosity Patterns</div>
+                        <div class="step-details">
+                            <strong>Individual Heterozygosity:</strong>
+                            <ul>
+                                <li><strong>J:ARC:</strong> 24% average heterozygosity</li>
+                                <li><strong>J:DO:</strong> 40% average heterozygosity</li>
+                                <li>J:DO shows higher interindividual variability</li>
+                            </ul>
+                            
+                            <strong>Inbreeding Coefficients:</strong>
+                            <ul>
+                                <li><strong>J:ARC:</strong> F = -0.033 (-3.3%)</li>
+                                <li><strong>J:DO:</strong> F = -0.007 (-0.7%)</li>
+                                <li>Both populations are maximally outbred</li>
+                                <li>Negative values indicate excess heterozygosity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Allele Frequency Differences</div>
+                        <div class="step-details">
+                            <strong>Minor Allele Frequency (MAF):</strong>
+                            <ul>
+                                <li><strong>J:ARC:</strong> Mean 0.18, Median 0.13</li>
+                                <li><strong>J:DO:</strong> Mean 0.28, Median 0.28</li>
+                                <li>J:DO has more balanced allele frequencies</li>
+                            </ul>
+                            
+                            <strong>Linkage Disequilibrium Decay:</strong>
+                            <ul>
+                                <li><strong>J:DO:</strong> LD₁/₂ ≈ 0.1 Mb (faster decay)</li>
+                                <li><strong>J:ARC:</strong> LD₁/₂ ≈ 0.3 Mb (slower decay)</li>
+                                <li>J:DO provides higher mapping resolution</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Characteristic</th>
+                                <th>J:ARC (Swiss-derived)</th>
+                                <th>J:DO (Multiparent)</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Total Variants</strong></td>
+                                <td>135,825</td>
+                                <td>478,011</td>
+                                <td>3.6× more diversity in J:DO</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Heterozygosity</strong></td>
+                                <td>24%</td>
+                                <td>40%</td>
+                                <td>Higher individual diversity in J:DO</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Novel Variants</strong></td>
+                                <td>5,105 (3.8%)</td>
+                                <td>4,308 (0.9%)</td>
+                                <td>More undocumented variation in J:ARC</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>High-Impact Novel</strong></td>
+                                <td>408</td>
+                                <td>797</td>
+                                <td>More protein-damaging variants in J:DO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">🔬 Detailed Methodology</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Sample Collection Strategy</div>
+                            <div class="step-details">
+                                <strong>J:ARC Sampling Design:</strong>
+                                <div class="step-specs">
+                                    • 32 breeding funnels established using Poiley method<br>
+                                    • One male and one female sibling per funnel<br>
+                                    • Generation G3 to minimize founder effects<br>
+                                    • Spleen tissue collected for DNA extraction<br>
+                                    <strong>Rationale:</strong> Captures founder allele diversity while maintaining genetic structure
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Exome Library Preparation</div>
+                            <div class="step-details">
+                                <strong>Technical Protocol:</strong>
+                                <div class="step-specs">
+                                    • KAPA HyperPrep Kit for library construction<br>
+                                    • E220 Focused-ultrasonicator for DNA shearing<br>
+                                    • Target fragment size: 400 bp<br>
+                                    • SureSelect XT Mouse All Exon v2 enrichment<br>
+                                    <strong>Quality Control:</strong> High Sensitivity D1000 ScreenTape and KAPA quantification
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Bioinformatics Pipeline</div>
+                            <div class="step-details">
+                                <strong>Analysis Workflow:</strong>
+                                <div class="step-specs">
+                                    • Quality control: Base quality ≥30 over 70% read length<br>
+                                    • Alignment: BWA-mem to mm10 reference genome<br>
+                                    • Preprocessing: Picard duplicate removal and GATK base recalibration<br>
+                                    • Variant calling: GATK-HaplotypeCaller with joint genotyping<br>
+                                    <strong>Filtering:</strong> DP < 25, QD < 1.5, FS > 60 for quality control
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Comparative Analysis</div>
+                            <div class="step-details">
+                                <strong>Novel Variant Identification:</strong>
+                                <div class="step-specs">
+                                    • Comparison against dbSNP v150, EVA, Sanger MGP<br>
+                                    • Mouse Collaborative Cross genome variants<br>
+                                    • In-house Diversity Outbred low-pass sequencing data<br>
+                                    • Functional annotation using SnpEff v4.3<br>
+                                    <strong>Impact Assessment:</strong> High-impact variants include frameshifts, stop gains/losses, splice sites
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-analysis">
+                <div class="section-title">📈 Statistical Analysis Approach</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Heterozygosity Calculations</div>
+                        <div class="step-details">
+                            <strong>Individual Heterozygosity:</strong>
+                            <div class="formula">Het_rate = (N(NM) - O(Hom)) / N(NM)</div>
+                            
+                            <strong>Where:</strong>
+                            <ul>
+                                <li><strong>N(NM):</strong> Number of non-missing genotypes</li>
+                                <li><strong>O(Hom):</strong> Observed homozygous genotypes</li>
+                                <li>Calculated using Plink --het option</li>
+                            </ul>
+                            
+                            <strong>Per-Variant Heterozygosity:</strong>
+                            <ul>
+                                <li>Number of heterozygous samples / total genotyped samples</li>
+                                <li>Used for variant-level diversity comparison</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Population Structure Analysis</div>
+                        <div class="step-details">
+                            <strong>Principal Component Analysis:</strong>
+                            <ul>
+                                <li>Joint variant calling on both populations</li>
+                                <li>120,862 shared variants used for comparison</li>
+                                <li>PC1 captures interstrain variation</li>
+                                <li>PC2 reveals interindividual differences</li>
+                            </ul>
+                            
+                            <strong>Linkage Disequilibrium:</strong>
+                            <ul>
+                                <li>Pairwise r² calculation for autosomal SNPs</li>
+                                <li>95th percentile values for SNPs up to 1Mb apart</li>
+                                <li>Monomorphic and high-missing variants removed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Sex Difference Testing</div>
+                        <div class="step-details">
+                            <strong>XtX Statistic Calculation:</strong>
+                            <ul>
+                                <li>Locus-specific F_ST corrected for covariance</li>
+                                <li>Estimated using BayPass software</li>
+                                <li>Tests for male vs. female allele frequency differences</li>
+                                <li>Benjamini-Hochberg correction applied (FDR = 0.05)</li>
+                            </ul>
+                            
+                            <strong>MCMC Parameters:</strong>
+                            <ul>
+                                <li>20 pilot runs of 500 iterations</li>
+                                <li>Burn-in: 5,000 iterations</li>
+                                <li>Sample: 1,000 iterations (thinning = 20)</li>
+                                <li>Three independent runs for convergence</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-implications">
+                <div class="section-title">🎯 Research Applications and Implications</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">J:ARC Applications</div>
+                        <div class="step-details">
+                            <strong>Optimal Use Cases:</strong>
+                            <ul>
+                                <li><strong>Toxicology Studies:</strong> Lower genetic diversity reduces variability</li>
+                                <li><strong>Pharmacology:</strong> Consistent responses for dose-finding</li>
+                                <li><strong>General Research:</strong> Robust fecundity and reproducibility</li>
+                                <li><strong>Safety Testing:</strong> Standardized outbred population</li>
+                            </ul>
+                            
+                            <strong>Key Advantages:</strong>
+                            <ul>
+                                <li>High fecundity (mean litter size = 15.4)</li>
+                                <li>Lower interindividual variability</li>
+                                <li>Cost-effective for large studies</li>
+                                <li>Well-established breeding protocols</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">J:DO Applications</div>
+                        <div class="step-details">
+                            <strong>Optimal Use Cases:</strong>
+                            <ul>
+                                <li><strong>Genetic Mapping:</strong> High LD decay for fine mapping</li>
+                                <li><strong>Complex Trait Studies:</strong> Maximum genetic diversity</li>
+                                <li><strong>Population Genetics:</strong> Captures broad genetic variation</li>
+                                <li><strong>Translational Research:</strong> Models human population diversity</li>
+                            </ul>
+                            
+                            <strong>Key Advantages:</strong>
+                            <ul>
+                                <li>3.6× more genetic variation</li>
+                                <li>Higher mapping resolution (LD₁/₂ = 0.1 Mb)</li>
+                                <li>Maximum allelic diversity</li>
+                                <li>Models human genetic heterogeneity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Novel Variant Insights</div>
+                    <p>The study revealed that J:DO mice carry nearly twice as many high-impact protein-damaging variants compared to J:ARC, yet maintain normal fecundity. This highlights the buffering effects of high allelic diversity and heterozygosity, where deleterious effects can be masked by functional alleles at the same or compensatory loci.</p>
+                </div>
+
+                <div class="significance-box">
+                    <div class="significance-title">Sample Size Recommendations</div>
+                    <div class="significance-content">
+                        <strong>For Genetic Mapping Studies:</strong> J:DO populations require fewer animals to capture equivalent genetic diversity compared to J:ARC. However, the higher interindividual variation in J:DO may require larger sample sizes to detect specific effect sizes, depending on the trait architecture and study objectives.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-technical">
+                <div class="section-title">⚙️ Technical Considerations and Quality Control</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Sequencing Quality Metrics</div>
+                        <div class="step-details">
+                            <strong>Coverage Statistics:</strong>
+                            <ul>
+                                <li><strong>J:ARC:</strong> 162× mean coverage, 91% targets at 30×</li>
+                                <li><strong>J:DO:</strong> 155× mean coverage, 90% targets at 30×</li>
+                                <li>~203M high-quality reads per sample</li>
+                                <li>Consistent performance across both populations</li>
+                            </ul>
+                            
+                            <strong>Target Enrichment Efficiency:</strong>
+                            <ul>
+                                <li>Mouse All Exon v2 capture design</li>
+                                <li>High on-target rate for both populations</li>
+                                <li>Uniform coverage across exonic regions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Regions of Homozygosity (ROH)</div>
+                        <div class="step-details">
+                            <strong>ROH Detection Parameters:</strong>
+                            <ul>
+                                <li>Minimum 100 SNPs per segment</li>
+                                <li>Minimum length ≥1000 kb</li>
+                                <li>Higher ROH frequency in J:ARC vs J:DO</li>
+                                <li>Some overlap with problematic reference regions</li>
+                            </ul>
+                            
+                            <strong>Potential Confounders:</strong>
+                            <ul>
+                                <li>Reference bias in poorly assembled regions</li>
+                                <li>Hemizygous deletions vs. true homozygosity</li>
+                                <li>Coverage analysis confirms most ROH are genuine</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Validation and Reproducibility</div>
+                        <div class="step-details">
+                            <strong>Cross-Database Validation:</strong>
+                            <ul>
+                                <li>95.2% of DO variants present in 20-sample subset</li>
+                                <li>92.6% of CC variants captured</li>
+                                <li>High concordance with published datasets</li>
+                            </ul>
+                            
+                            <strong>Genetic Quality Control:</strong>
+                            <ul>
+                                <li>Pedigree reconstruction confirms sibling relationships</li>
+                                <li>Dendrogram clustering validates known structure</li>
+                                <li>Population parameters match expectations</li>
+                                <li>Provides baseline for ongoing monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusions">
+                <div class="section-title">💡 Key Conclusions and Future Directions</div>
+                
+                <div class="best-practices">
+                    <strong>Main Findings Summary:</strong>
+                    <ul>
+                        <li><strong>Genetic Architecture:</strong> J:DO has 3.6× more variants and higher heterozygosity than J:ARC</li>
+                        <li><strong>Mapping Power:</strong> J:DO provides superior resolution for genetic mapping (LD₁/₂ = 0.1 vs 0.3 Mb)</li>
+                        <li><strong>Novel Variation:</strong> Both stocks harbor substantial novel protein-coding variants</li>
+                        <li><strong>Functional Impact:</strong> J:DO tolerates more protein-damaging variants due to allelic buffering</li>
+                        <li><strong>Applications:</strong> Distinct genetic architectures suit different research objectives</li>
+                    </ul>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Study Limitations</div>
+                        <div class="step-details">
+                            <strong>Scope Limitations:</strong>
+                            <ul>
+                                <li>Exome-only data (no structural variants)</li>
+                                <li>Limited non-coding variation coverage</li>
+                                <li>Small sample sizes for rare variant detection</li>
+                                <li>Single generation timepoint analysis</li>
+                            </ul>
+                            
+                            <strong>Technical Constraints:</strong>
+                            <ul>
+                                <li>Short-read sequencing limitations</li>
+                                <li>Reference genome bias potential</li>
+                                <li>Limited power for complex SV detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Future Research Directions</div>
+                        <div class="step-details">
+                            <strong>Methodological Advances:</strong>
+                            <ul>
+                                <li>Long-read sequencing for comprehensive SV analysis</li>
+                                <li>Whole genome sequencing for complete variant catalog</li>
+                                <li>Multi-generation longitudinal studies</li>
+                                <li>Larger sample sizes for rare variant discovery</li>
+                            </ul>
+                            
+                            <strong>Functional Studies:</strong>
+                            <ul>
+                                <li>Phenotypic correlation with genetic variants</li>
+                                <li>Expression QTL mapping in tissues</li>
+                                <li>Comparative phenomics between stocks</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Broader Impact</div>
+                        <div class="step-details">
+                            <strong>Research Community Benefits:</strong>
+                            <ul>
+                                <li>Evidence-based stock selection guidelines</li>
+                                <li>Molecular quality control standards</li>
+                                <li>Reproducibility enhancement tools</li>
+                                <li>Sample size optimization frameworks</li>
+                            </ul>
+                            
+                            <strong>Translational Applications:</strong>
+                            <ul>
+                                <li>Human disease modeling optimization</li>
+                                <li>Drug development platform selection</li>
+                                <li>Toxicology testing standardization</li>
+                                <li>Precision medicine model systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important Note:</strong> The genetic architectures described in this study should be regularly monitored as these outbred populations continue to evolve. Periodic genetic quality control assessments are essential to maintain the intended characteristics and ensure reproducible research outcomes.
+                </div>
+            </div>
+
+            <div class="section" id="section-methods-replication">
+                <div class="section-title">🔄 Replication Protocol Summary</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Key Experimental Parameters</div>
+                    <div class="formula-main">Sample Design: 32 breeding funnels × 2 animals (J:ARC) vs. 20 non-siblings (J:DO)</div>
+                    <div class="formula-note">Target Coverage: 150× depth, 90% targets at ≥30× coverage for robust variant calling</div>
+                </div>
+
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Experimental Design Principles</div>
+                            <div class="step-details">
+                                For replicating this study design in other outbred populations
+                                <div class="step-specs">
+                                    <strong>Sample Selection:</strong><br>
+                                    • Representative sampling across breeding funnels<br>
+                                    • Balance male/female ratios<br>
+                                    • Consider generation effects<br>
+                                    • Document breeding history<br>
+                                    <strong>Controls:</strong> Include known reference samples for comparison
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Laboratory Protocol</div>
+                            <div class="step-details">
+                                Standardized procedures for consistent results
+                                <div class="step-specs">
+                                    <strong>DNA Extraction:</strong><br>
+                                    • NucleoMag Tissue Kit (Machery-Nagel)<br>
+                                    • Quality assessment: Nanodrop, Qubit, ScreenTape<br>
+                                    • Minimum concentration and integrity requirements<br>
+                                    <strong>Library Prep:</strong><br>
+                                    • KAPA HyperPrep Kit with consistent protocols<br>
+                                    • Fragment size targeting (400 bp)<br>
+                                    • Indexed primers for multiplexing
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Bioinformatics Standards</div>
+                            <div class="step-details">
+                                Computational pipeline for reproducible analysis
+                                <div class="step-specs">
+                                    <strong>Analysis Pipeline:</strong><br>
+                                    • Use validated pipelines (cs-nf-pipelines)<br>
+                                    • Consistent reference genome version<br>
+                                    • Standardized quality filters<br>
+                                    • Joint genotyping for population comparison<br>
+                                    <strong>Validation:</strong> Cross-reference with existing databases
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Analysis Framework</div>
+                            <div class="step-details">
+                                Statistical approaches for population comparison
+                                <div class="step-specs">
+                                    <strong>Population Metrics:</strong><br>
+                                    • Heterozygosity calculations (individual and variant-level)<br>
+                                    • Allele frequency distributions<br>
+                                    • Linkage disequilibrium patterns<br>
+                                    • Principal component analysis for structure<br>
+                                    <strong>Quality Control:</strong> ROH analysis and coverage assessment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-resources">
+                <div class="section-title">📚 Resources and Tools</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Software and Pipelines</div>
+                        <div class="step-details">
+                            <strong>Primary Analysis Tools:</strong>
+                            <ul>
+                                <li><strong>BWA-mem:</strong> Read alignment (v0.7.9a)</li>
+                                <li><strong>GATK v4:</strong> Variant calling and processing</li>
+                                <li><strong>Picard v2.8.1:</strong> BAM file processing</li>
+                                <li><strong>SnpEff v4.3:</strong> Functional annotation</li>
+                            </ul>
+                            
+                            <strong>Population Analysis:</strong>
+                            <ul>
+                                <li><strong>Plink:</strong> Population genetics statistics</li>
+                                <li><strong>VCFtools:</strong> Variant file manipulation</li>
+                                <li><strong>BayPass:</strong> Population structure analysis</li>
+                                <li><strong>R packages:</strong> Statistical analysis and visualization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Reference Databases</div>
+                        <div class="step-details">
+                            <strong>Variant Databases:</strong>
+                            <ul>
+                                <li><strong>dbSNP v150:</strong> NCBI variant database</li>
+                                <li><strong>European Variation Archive (EVA):</strong> European variant collection</li>
+                                <li><strong>Sanger MGP:</strong> Mouse Genomes Project</li>
+                                <li><strong>Mouse CC Genome:</strong> Collaborative Cross variants</li>
+                            </ul>
+                            
+                            <strong>Functional Annotations:</strong>
+                            <ul>
+                                <li><strong>DAVID Bioinformatics:</strong> Functional enrichment</li>
+                                <li><strong>Mouse GRCm38.75:</strong> Reference genome annotation</li>
+                                <li><strong>KEGG, GO, REACTOME:</strong> Pathway databases</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Data Availability</div>
+                        <div class="step-details">
+                            <strong>Public Data Access:</strong>
+                            <ul>
+                                <li><strong>NCBI SRA:</strong> Bioproject PRJNA835415</li>
+                                <li><strong>Study ID:</strong> SUB11284953</li>
+                                <li><strong>Raw Sequencing Data:</strong> Available for download</li>
+                                <li><strong>Supplementary Files:</strong> G3 journal online</li>
+                            </ul>
+                            
+                            <strong>Analysis Pipeline:</strong>
+                            <ul>
+                                <li><strong>GitHub Repository:</strong> cs-nf-pipelines</li>
+                                <li><strong>Workflow:</strong> wes (whole exome sequencing)</li>
+                                <li><strong>Organism:</strong> mouse (mm10 reference)</li>
+                                <li><strong>Documentation:</strong> Complete parameter settings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-breeding">
+                <div class="section-title">🐭 Breeding System Details</div>
+                
+                <div class="model-comparison">
+                    <div class="model-box hard-sweep">
+                        <div class="model-title">Poiley Rotational Breeding System</div>
+                        <div class="step-details">
+                            <strong>J:ARC Maintenance Protocol:</strong>
+                            <ul>
+                                <li>32 distinct breeding funnels maintained</li>
+                                <li>Systematic rotation to minimize inbreeding</li>
+                                <li>Target: <1% inbreeding coefficient per generation</li>
+                                <li>Selection for fecundity and viability</li>
+                            </ul>
+                            
+                            <strong>Generation Management:</strong>
+                            <ul>
+                                <li><strong>G0:</strong> Imported founders from ARC Australia</li>
+                                <li><strong>G1-G2:</strong> IVF rederivation and funnel establishment</li>
+                                <li><strong>G3+:</strong> Rotational breeding maintenance</li>
+                                <li>Regular genetic monitoring for quality control</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box soft-sweep">
+                        <div class="model-title">J:DO MateSel System</div>
+                        <div class="step-details">
+                            <strong>Diversity Optimization:</strong>
+                            <ul>
+                                <li>175 breeding funnels for maximum diversity</li>
+                                <li>MateSel software for optimal breeding decisions</li>
+                                <li>Minimizes inadvertent phenotypic selection</li>
+                                <li>Prevents population structure formation</li>
+                            </ul>
+                            
+                            <strong>Quality Control Measures:</strong>
+                            <ul>
+                                <li>Pedigreed population history tracking</li>
+                                <li>Random breeder assignment (blinded)</li>
+                                <li>Ongoing genetic monitoring</li>
+                                <li>Periodic removal of deleterious alleles (e.g., R2D2)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="citation-box">
+                    <p><strong>Breeding System Impact on Genetic Architecture:</strong></p>
+                    <ul>
+                        <li>J:ARC's smaller funnel system creates more structured population with siblings</li>
+                        <li>J:DO's large funnel system with MateSel maintains random mating</li>
+                        <li>Different selective pressures: fecundity (J:ARC) vs. diversity (J:DO)</li>
+                        <li>Results in distinct patterns of allele frequency and heterozygosity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-discussion">
+                <div class="section-title">💭 Discussion and Interpretation</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔍 Key Biological Insights</div>
+                    <p>The study reveals fundamental differences between single-origin and multi-parent outbred populations. The tolerance of J:DO mice to high loads of protein-damaging variants demonstrates the protective effects of genetic diversity, while J:ARC's optimized characteristics reflect decades of selection for laboratory traits.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Evolutionary Perspectives</div>
+                        <div class="step-details">
+                            <strong>Selection Pressures:</strong>
+                            <ul>
+                                <li><strong>J:ARC:</strong> Artificial selection for fecundity and laboratory traits</li>
+                                <li><strong>J:DO:</strong> Maintained diversity with minimal artificial selection</li>
+                                <li>Different trajectories of deleterious allele removal</li>
+                                <li>Contrasting genetic load tolerance mechanisms</li>
+                            </ul>
+                            
+                            <strong>Population Genetics Principles:</strong>
+                            <ul>
+                                <li>Genetic drift effects in smaller effective populations</li>
+                                <li>Balancing selection maintaining diversity in J:DO</li>
+                                <li>Founder effects from Swiss origin bottleneck</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Functional Genomics Implications</div>
+                        <div class="step-details">
+                            <strong>Gene Function Categories:</strong>
+                            <ul>
+                                <li><strong>J:DO novel variants:</strong> Enriched in post-translational modifications</li>
+                                <li>DNA repair pathway genes affected</li>
+                                <li>Translational regulation and RNA binding</li>
+                                <li>Higher functional impact tolerance</li>
+                            </ul>
+                            
+                            <strong>Compensatory Mechanisms:</strong>
+                            <ul>
+                                <li>Allelic buffering in heterozygous state</li>
+                                <li>Functional redundancy across gene families</li>
+                                <li>Regulatory compensation for dosage effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Translational Relevance</div>
+                        <div class="step-details">
+                            <strong>Human Disease Modeling:</strong>
+                            <ul>
+                                <li>J:DO better represents human genetic diversity</li>
+                                <li>J:ARC provides standardized disease models</li>
+                                <li>Different utility for rare vs. common diseases</li>
+                                <li>Pharmacogenomics applications vary by stock</li>
+                            </ul>
+                            
+                            <strong>Clinical Translation:</strong>
+                            <ul>
+                                <li>Drug response variability modeling</li>
+                                <li>Precision medicine platform selection</li>
+                                <li>Safety assessment considerations</li>
+                                <li>Biomarker discovery power differences</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-final">
+                <div class="section-title">🎯 Study Impact and Future Applications</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Scientific Contribution</div>
+                    <div class="significance-content">
+                        This study provides the first comprehensive molecular comparison of J:ARC and J:DO outbred mouse stocks, establishing evidence-based guidelines for stock selection in biomedical research. The findings demonstrate how different breeding strategies and genetic origins create distinct research tools optimized for different applications.
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Evidence-Based Recommendations:</strong>
+                    <ul>
+                        <li><strong>Choose J:ARC for:</strong> Toxicology, pharmacology, general research requiring reproducibility</li>
+                        <li><strong>Choose J:DO for:</strong> Genetic mapping, complex trait studies, translational research</li>
+                        <li><strong>Sample Size Planning:</strong> Fewer J:ARC needed for trait coverage, more J:DO for population diversity</li>
+                        <li><strong>Power Calculations:</strong> Consider genetic architecture differences in study design</li>
+                        <li><strong>Quality Control:</strong> Regular genetic monitoring essential for both stocks</li>
+                    </ul>
+                </div>
+
+                <div class="gap-analysis">
+                    <div class="gap-title">Research Gaps and Future Priorities</div>
+                    <div class="gap-content">
+                        <strong>Immediate Needs:</strong> Whole genome sequencing for complete variant catalogs, long-read sequencing for structural variants, multi-tissue expression profiling, and longitudinal genetic stability studies.
+                        <br><br>
+                        <strong>Long-term Goals:</strong> Development of additional outbred populations with intermediate characteristics, integration with phenotypic databases, and establishment of genetic quality control standards for the research community.
+                    </div>
+                </div>
+
+                <div class="legacy-box">
+                    <strong>Lasting Impact:</strong> This work establishes a framework for molecular characterization of outbred laboratory animal populations, providing tools for evidence-based stock selection and quality control that will enhance reproducibility and optimize research outcomes across biomedical research applications.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                
