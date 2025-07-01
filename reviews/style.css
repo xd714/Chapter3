@@ -268,7 +268,7 @@ pre, code {
 }
 
 /* ============================================
-   3. LAYOUT & CONTAINERS
+   3. LAYOUT & CONTAINERS - UNIFIED WIDTH
    ============================================ */
 
 .container {
@@ -284,7 +284,7 @@ pre, code {
 }
 
 .content {
-    padding: 40px 60px;
+    padding: 40px 30px; /* Reduced horizontal padding for wider content */
     max-width: 100%;
     overflow-x: hidden;
     width: 100%;
@@ -292,8 +292,9 @@ pre, code {
 
 .section {
     margin: 45px auto;
-    max-width: 95%;
+    max-width: 100%; /* Unified to 100% */
     padding: 0;
+    width: 100%;
 }
 
 /* ============================================
@@ -569,14 +570,15 @@ sup { top: -0.5em; }
 }
 
 /* ============================================
-   7. CONTENT STRUCTURE
+   7. CONTENT STRUCTURE - UNIFIED WIDTH
    ============================================ */
 
 /* Flow diagrams */
 .flow-container {
     margin: 30px auto;
-    max-width: 95%;
+    max-width: 100%; /* Unified to 100% */
     padding: 0;
+    width: 100%;
 }
 
 .flow-step {
@@ -585,12 +587,14 @@ sup { top: -0.5em; }
     gap: 30px;
     margin-bottom: 30px;
     padding: 0;
+    width: 100%;
 }
 
 .guideline-steps {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
 }
 
 .step-num {
@@ -635,6 +639,7 @@ sup { top: -0.5em; }
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
 }
 
 .step-content:hover {
@@ -664,7 +669,7 @@ sup { top: -0.5em; }
 }
 
 /* ============================================
-   8. CARDS & BOXES
+   8. CARDS & BOXES - UNIFIED WIDTH
    ============================================ */
 
 /* Base card styles */
@@ -851,7 +856,7 @@ sup { top: -0.5em; }
 .control { border-color: #9e9e9e; }
 .control::before { background: #9e9e9e; }
 
-/* Citation and information boxes */
+/* Citation and information boxes - ALL UNIFIED TO 100% WIDTH */
 .citation,
 .citation-box {
     background: var(--primary-light);
@@ -862,7 +867,8 @@ sup { top: -0.5em; }
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     font-size: 0.95em;
     line-height: 1.7;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
 }
 
 .citation-box p:first-child {
@@ -877,7 +883,8 @@ sup { top: -0.5em; }
     padding: 25px;
     border-radius: 12px;
     margin: 25px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     position: relative;
     overflow: hidden;
@@ -915,18 +922,20 @@ sup { top: -0.5em; }
     border-radius: 10px;
     border-left: 5px solid var(--success-color);
     margin: 25px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* Special boxes */
+/* Special boxes - ALL UNIFIED TO 100% WIDTH */
 .results-box {
     background: var(--color-3-light);
     border: 2px solid var(--success-color);
     border-radius: 10px;
     padding: 25px;
     margin: 25px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
@@ -942,14 +951,16 @@ sup { top: -0.5em; }
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     border-left: 4px solid var(--success-color);
 }
 
 .problem-box,
 .solution-box {
     margin: 25px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     padding: 25px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -973,7 +984,8 @@ sup { top: -0.5em; }
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
 }
 
@@ -983,7 +995,8 @@ sup { top: -0.5em; }
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
@@ -993,7 +1006,8 @@ sup { top: -0.5em; }
     border-radius: 10px;
     border-left: 6px solid var(--warning-color);
     margin: 30px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
 }
 
@@ -1015,7 +1029,8 @@ sup { top: -0.5em; }
     border-radius: 10px;
     border-left: 6px solid var(--info-color);
     margin: 30px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 3px 10px rgba(23, 162, 184, 0.1);
 }
 
@@ -1036,7 +1051,8 @@ sup { top: -0.5em; }
     background: var(--primary-light);
     padding: 20px;
     margin: 20px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     border-radius: 8px;
     border-left: 5px solid var(--primary-color);
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -1064,7 +1080,7 @@ sup { top: -0.5em; }
 }
 
 /* ============================================
-   9. GRIDS & LAYOUTS
+   9. GRIDS & LAYOUTS - UNIFIED WIDTH
    ============================================ */
 
 .model-comparison,
@@ -1075,17 +1091,19 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 25px;
     margin: 30px auto;
-    max-width: 95%;
-    padding: 0 ;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
+    padding: 0;
 }
 
 .analysis-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
     margin: 30px auto;
-    padding: 0 ;
-    max-width: 95%;
+    padding: 0;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
 }
 
 .theme-container {
@@ -1093,8 +1111,9 @@ sup { top: -0.5em; }
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin: 30px auto;
-    max-width: 95%;
-    padding: 0 ;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
+    padding: 0;
 }
 
 .concept-grid,
@@ -1106,8 +1125,9 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     margin: 25px auto;
-    max-width: 95%;
-    padding: 0 ;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
+    padding: 0;
 }
 
 .equation-grid {
@@ -1115,8 +1135,9 @@ sup { top: -0.5em; }
     grid-template-columns: 1fr 1fr;
     gap: 25px;
     margin: 25px auto;
-    max-width: 95%;
-    padding: 0 ;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
+    padding: 0;
 }
 
 .coverage-stats {
@@ -1124,8 +1145,9 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 25px;
     margin: 25px auto;
-    max-width: 95%;
-    padding: 0 ;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
+    padding: 0;
 }
 
 .mouse-lines {
@@ -1133,8 +1155,9 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin: 25px auto;
-    max-width: 95%;
-    padding: 0 ;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
+    padding: 0;
 }
 
 .sample-grid {
@@ -1142,6 +1165,7 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 20px;
     margin: 20px 0;
+    width: 100%;
 }
 
 .sample-level.recommended {
@@ -1233,7 +1257,8 @@ table tr:last-child td {
 /* Specialized table styles */
 .formulation-table {
     margin: 25px auto;
-    max-width: 98%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
 }
 
 .formulation-table th {
@@ -1279,7 +1304,7 @@ table tr:last-child td {
 }
 
 /* ============================================
-   11. FORMS & FORMULAS
+   11. FORMS & FORMULAS - UNIFIED WIDTH
    ============================================ */
 
 .formula {
@@ -1349,7 +1374,8 @@ table tr:last-child td {
     border-radius: 12px;
     padding: 20px;
     margin: 20px auto;
-    max-width: 90%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -1384,7 +1410,8 @@ table tr:last-child td {
     border-radius: 12px;
     padding: 25px;
     margin: 25px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -1395,10 +1422,11 @@ table tr:last-child td {
     border-radius: 8px;
     padding: 25px 10px;
     margin: 20px auto;
-    max-width: 95%;
+    max-width: 100%; /* UNIFIED */
+    width: 100%;
     font-family: 'Courier New', monospace;
     overflow-x: auto;
-    width: 100%;
+    box-sizing: border-box;
 }
 
 .matrix-equation {
@@ -1410,7 +1438,6 @@ table tr:last-child td {
     gap: 15px;
     min-width: fit-content;
 }
-
 
 /* Flexible matrix styling using table display */
 .matrix-flexible {
@@ -1461,7 +1488,6 @@ table tr:last-child td {
     white-space: nowrap;
 }
 
-
 .matrix {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1502,7 +1528,6 @@ table tr:last-child td {
     border-radius: 4px;
 }
 
-
 /* Specific class for 2x2 matrices */
 .matrix-2x2 {
     display: grid;
@@ -1540,22 +1565,6 @@ table tr:last-child td {
     text-align: center;
     font-size: 0.9em;
     line-height: 1.2;
-    white-space: nowrap;
-}
-
-
-
-
-.matrix-row {
-    display: table-row;
-}
-
-.matrix-cell {
-    display: table-cell;
-    padding: 8px 15px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 0.9em;
     white-space: nowrap;
 }
 
@@ -1728,7 +1737,7 @@ table tr:last-child td {
 /* Tablet breakpoint */
 @media (max-width: 1024px) and (min-width: 769px) {
     .content {
-        padding: 35px 40px;
+        padding: 35px 25px; /* Reduced padding for more width */
     }
     
     .analysis-grid {
@@ -1766,7 +1775,7 @@ table tr:last-child td {
     }
     
     .header {
-        padding: 30px 15px;
+        padding: 30px 20px; /* Increased padding for mobile */
     }
     
     .header h1 {
@@ -1774,7 +1783,7 @@ table tr:last-child td {
     }
     
     .content {
-        padding: 25px 15px;
+        padding: 25px 15px; /* Minimal padding for maximum width */
         width: 100%;
         overflow-x: hidden;
     }
@@ -1799,6 +1808,7 @@ table tr:last-child td {
         grid-template-columns: repeat(2, 1fr);
     }
     
+    /* ALL GRIDS AND CONTAINERS MOBILE - FULL WIDTH */
     .model-comparison,
     .method-comparison,
     .comparison-grid,
@@ -1809,7 +1819,9 @@ table tr:last-child td {
     .software-grid,
     .qc-grid,
     .species-grid,
-    .equation-grid {
+    .equation-grid,
+    .coverage-stats,
+    .mouse-lines {
         grid-template-columns: 1fr;
         gap: 20px;
         margin: 25px 0;
@@ -1888,7 +1900,7 @@ table tr:last-child td {
         margin-top: 10px;
     }
     
-    /* Ensure all cards and boxes fit */
+    /* ENSURE ALL CARDS AND BOXES FIT FULL WIDTH ON MOBILE */
     .step-content,
     .model-box,
     .analysis-card,
@@ -1896,7 +1908,17 @@ table tr:last-child td {
     .citation-box,
     .innovation-box,
     .problem-box,
-    .solution-box {
+    .solution-box,
+    .gap-analysis,
+    .significance-box,
+    .best-practices,
+    .warning-box,
+    .legacy-box,
+    .results-box,
+    .experiment-details,
+    .ref-box,
+    .formula-box,
+    .model-equation {
         margin-left: 0;
         margin-right: 0;
         width: 100%;
@@ -1918,11 +1940,11 @@ table tr:last-child td {
     }
     
     .content {
-        padding: 20px 10px;
+        padding: 20px 10px; /* Minimal padding for maximum content width */
     }
     
     .header {
-        padding: 20px 10px;
+        padding: 20px 15px;
     }
     
     .header h1 {
@@ -2120,4 +2142,3 @@ table tr:last-child td {
         box-shadow: none;
     }
 }
-.
