@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genetic Analysis of Litter Size in Mice</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'suto_2015_litter_size_qtl';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Genetic Analysis of Litter Size in Mice</h1>
+            <p>QTL Mapping Analysis for Reproductive Performance in Laboratory Mice</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Author:</strong> Jun-ichi Suto</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Veterinary Medical Science, Vol. 77(3), pp. 353-358, 2015</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Agrogenomics Research Center, National Institute of Agrobiological Sciences, Tsukuba, Japan</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1292/jvms.14-0350"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Study Overview and Significance</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 The Research Question</div>
+                    <p>This study investigates the genetic basis of litter size variation in mice through quantitative trait locus (QTL) mapping. Using a backcross population derived from C57BL/6J and RR/Sgn inbred strains, researchers identified specific chromosomal regions controlling reproductive performance, providing insights into the genetic architecture of fertility traits in mammals.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Challenge:</strong> Litter size is a complex reproductive trait with generally low heritability, making it difficult to identify specific genes responsible for variation. Understanding the genetic basis of reproductive performance is crucial for livestock improvement and reproductive biology research.
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Key Findings</div>
+                    <div class="step-details">
+                        <strong>QTL Discoveries:</strong>
+                        <ul>
+                            <li><strong>One significant QTL</strong> on chromosome 7 (Lsq1 - Litter size QTL 1)</li>
+                            <li><strong>Four suggestive QTLs</strong> on chromosomes 3, 5, 10, and 13 for litter size</li>
+                            <li><strong>Two additional QTLs</strong> on chromosomes 1 and 4 for stillbirth rate</li>
+                            <li><strong>RR alleles consistently associated</strong> with reduced litter size and increased stillbirth</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-experimental-design">
+                <div class="section-title">🧪 Experimental Design and Methods</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Mouse Strains and Crossing Strategy</div>
+                            <div class="step-details">
+                                Established a backcross population to maximize genetic variation for QTL detection
+                                <div class="step-specs">
+                                    <strong>Parental Strains:</strong><br>
+                                    • <strong>C57BL/6J (B6):</strong> Standard inbred laboratory strain<br>
+                                    • <strong>RR/Sgn (RR):</strong> Specialized strain from Riken BioResource Center<br>
+                                    <strong>Crossing Design:</strong><br>
+                                    • B6 females × RR males → F1 generation<br>
+                                    • F1 females × RR males → 255 backcross (BC) offspring<br>
+                                    <strong>Rationale:</strong> Backcross design provides 50% allele frequency, optimal for QTL detection power
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Phenotype Measurement</div>
+                            <div class="step-details">
+                                Systematic recording of reproductive performance traits
+                                <div class="step-specs">
+                                    <strong>Primary Traits:</strong><br>
+                                    • <strong>TNB:</strong> Total Number of pups Born per litter<br>
+                                    • <strong>NBA:</strong> Number of pups Born Alive per litter<br>
+                                    • <strong>NSB:</strong> Number of StillBirth per litter<br>
+                                    <strong>Measurement Protocol:</strong><br>
+                                    • Daily monitoring between 7:00-14:00 hours<br>
+                                    • Only primiparous (first-time mothers) females used<br>
+                                    • Breeding age: 8-10 weeks<br>
+                                    • Individual housing during pregnancy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Genotyping Strategy</div>
+                            <div class="step-details">
+                                Comprehensive microsatellite marker analysis across the mouse genome
+                                <div class="step-specs">
+                                    <strong>Initial Screen:</strong><br>
+                                    • 165 BC mice with extreme phenotypes<br>
+                                    • 92 microsatellite markers genome-wide<br>
+                                    • Average spacing: ~15-20 cM between markers<br>
+                                    <strong>Fine Mapping:</strong><br>
+                                    • Additional 90 BC mice genotyped for significant regions<br>
+                                    • 8 additional markers on chromosome 7 for fine mapping<br>
+                                    • Total sample: 255 BC mice analyzed
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Analysis</div>
+                            <div class="step-details">
+                                Robust QTL mapping using R/qtl software package
+                                <div class="step-specs">
+                                    <strong>Methods:</strong><br>
+                                    • Non-parametric QTL mapping (data not normally distributed)<br>
+                                    • 1,000 permutations for threshold determination<br>
+                                    • Suggestive threshold: P&lt;0.63, Significant: P&lt;0.05<br>
+                                    • 95% confidence intervals defined by 1.5 LOD drop<br>
+                                    <strong>Software:</strong> R/qtl version 1.33-7<br>
+                                    <strong>Additional Analyses:</strong> Pairwise interaction testing between loci
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">📊 Results and QTL Identification</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Phenotypic Distribution</div>
+                        <div class="step-details">
+                            <strong>Litter Size Variation:</strong>
+                            <ul>
+                                <li><strong>Range:</strong> 1 to 16 pups per litter</li>
+                                <li><strong>Average:</strong> 8.5 pups per litter</li>
+                                <li><strong>Distribution:</strong> Bell-shaped but not normal</li>
+                                <li><strong>Parental Performance:</strong>
+                                    <ul>
+                                        <li>B6 strain: 6.7 pups average</li>
+                                        <li>RR strain: 6.7 pups average</li>
+                                        <li>F1 hybrid: 8.5 pups (hybrid vigor)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <strong>Key Observation:</strong>
+                            Large variation in backcross suggested strong genetic component despite low heritability typical of reproductive traits.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Major QTL: Lsq1 on Chromosome 7</div>
+                        <div class="step-details">
+                            <strong>Statistical Significance:</strong>
+                            <ul>
+                                <li><strong>LOD Score:</strong> 2.67 (highly significant)</li>
+                                <li><strong>Peak Location:</strong> 27 cM on chromosome 7</li>
+                                <li><strong>95% Confidence Interval:</strong> 3-36 cM</li>
+                                <li><strong>Nearest Marker:</strong> D7Mit228</li>
+                            </ul>
+                            
+                            <strong>Effect Size:</strong>
+                            <ul>
+                                <li><strong>B6/B6 genotype:</strong> ~9 pups average</li>
+                                <li><strong>B6/RR genotype:</strong> ~8 pups average</li>
+                                <li><strong>Allelic Effect:</strong> RR allele reduces litter size by ~1 pup</li>
+                            </ul>
+                            
+                            <strong>Validation:</strong>
+                            Confirmed in independent KK × RR F2 population, suggesting robust QTL effect.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Additional Suggestive QTLs</div>
+                        <div class="step-details">
+                            <strong>Chromosomes with Suggestive Evidence:</strong>
+                            <ul>
+                                <li><strong>Chromosome 3:</strong> LOD 1.40-1.63 (TNB/NBA)</li>
+                                <li><strong>Chromosome 5:</strong> LOD 1.61 (TNB only)</li>
+                                <li><strong>Chromosome 10:</strong> LOD 1.49-1.58 (TNB/NBA)</li>
+                                <li><strong>Chromosome 13:</strong> LOD 1.98-1.91 (TNB/NBA)</li>
+                            </ul>
+                            
+                            <strong>Stillbirth QTLs:</strong>
+                            <ul>
+                                <li><strong>Chromosome 1:</strong> LOD 2.24 (significant for NSB)</li>
+                                <li><strong>Chromosome 4:</strong> LOD 1.83 (suggestive for NSB)</li>
+                            </ul>
+                            
+                            <strong>Pattern:</strong>
+                            All QTLs showed RR allele associated with poorer reproductive performance (smaller litters, more stillbirths).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Trait</th>
+                                <th>Chromosome</th>
+                                <th>Position (cM)</th>
+                                <th>95% CI</th>
+                                <th>Max LOD</th>
+                                <th>Nearest Marker</th>
+                                <th>Favorable Allele</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>TNB</strong></td>
+                                <td>7</td>
+                                <td>27</td>
+                                <td>3-36</td>
+                                <td>2.67*</td>
+                                <td>D7Mit228</td>
+                                <td>B6</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>TNB</strong></td>
+                                <td>13</td>
+                                <td>51</td>
+                                <td>33-67</td>
+                                <td>1.98</td>
+                                <td>D13Mit110</td>
+                                <td>B6</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>NBA</strong></td>
+                                <td>7</td>
+                                <td>27</td>
+                                <td>3-36</td>
+                                <td>2.13</td>
+                                <td>D7Mit228</td>
+                                <td>B6</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>NSB</strong></td>
+                                <td>1</td>
+                                <td>42</td>
+                                <td>16-67</td>
+                                <td>2.24</td>
+                                <td>D1Mit49</td>
+                                <td>B6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-small"><em>*Significant QTL (P&lt;0.05), others are suggestive (P&lt;0.63)</em></p>
+                </div>
+            </div>
+
+            <div class="section" id="section-candidate-genes">
+                <div class="section-title">🧬 Candidate Gene Analysis</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔍 Positional Candidate Approach</div>
+                    <p>Within the 95% confidence interval for Lsq1 on chromosome 7, researchers identified 13 candidate genes with known roles in reproductive biology. Through systematic evaluation of knockout phenotypes and functional roles, they narrowed the list to the most promising candidates for litter size control.</p>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Candidate Gene Filtering</div>
+                        <div class="step-details">
+                            <strong>Initial Candidates (13 genes):</strong>
+                            All genes within 95% CI with "abnormal litter size" phenotypes in MGI database
+                            
+                            <strong>Exclusion Criteria:</strong>
+                            <ul>
+                                <li><strong>Male fertility effects:</strong> 6 genes excluded (Aurkc, Trim28, Chst8, Oca2p-25H, Ube3a, Chrna7)</li>
+                                <li><strong>Severe developmental defects:</strong> Dll3pu-J excluded (skeletal malformations)</li>
+                                <li><strong>Postnatal viability issues:</strong> Cebpa, Magel2 excluded</li>
+                                <li><strong>Requires co-factors:</strong> Myod1 excluded (needs Fgf6 interaction)</li>
+                            </ul>
+                            
+                            <strong>Rationale:</strong>
+                            B6 and RR males are fully fertile, so genes affecting male reproduction unlikely to be causal.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Top Candidate Genes</div>
+                        <div class="step-details">
+                            <strong>Ppp5c (Protein Phosphatase 5):</strong>
+                            <ul>
+                                <li><strong>Location:</strong> 9.15 cM, 17.00 Mbp</li>
+                                <li><strong>Function:</strong> Serine/threonine protein phosphatase</li>
+                                <li><strong>Role:</strong> Cell cycle regulation, DNA damage response</li>
+                                <li><strong>Reproductive relevance:</strong> Controls cell proliferation pathways</li>
+                            </ul>
+                            
+                            <strong>Ceacam10 (Cell Adhesion Molecule):</strong>
+                            <ul>
+                                <li><strong>Location:</strong> 12.78 cM, 24.78 Mbp</li>
+                                <li><strong>Function:</strong> Carcinoembryonic antigen-related adhesion</li>
+                                <li><strong>Role:</strong> Early pregnancy decidual expression</li>
+                                <li><strong>Reproductive relevance:</strong> Embryo implantation processes</li>
+                            </ul>
+                            
+                            <strong>Egln2 (Hypoxia-Inducible Factor):</strong>
+                            <ul>
+                                <li><strong>Location:</strong> 15.83 cM, 27.16 Mbp</li>
+                                <li><strong>Function:</strong> Prolyl hydroxylase domain protein</li>
+                                <li><strong>Role:</strong> Oxygen sensing, angiogenesis</li>
+                                <li><strong>Reproductive relevance:</strong> Embryonic survival and development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Functional Hypothesis</div>
+                        <div class="step-details">
+                            <strong>Proposed Mechanism:</strong>
+                            <ul>
+                                <li>Lsq1 likely affects <strong>embryonic survival/lethality</strong></li>
+                                <li>RR alleles may reduce embryonic viability</li>
+                                <li>Smaller litters result from embryonic loss, not ovulation rate</li>
+                                <li>Timing likely during early-to-mid gestation</li>
+                            </ul>
+                            
+                            <strong>Supporting Evidence:</strong>
+                            <ul>
+                                <li>All three top candidates involved in embryonic viability</li>
+                                <li>Ppp5c: cell cycle control critical for development</li>
+                                <li>Ceacam10: implantation and early pregnancy</li>
+                                <li>Egln2: oxygen sensing for proper development</li>
+                            </ul>
+                            
+                            <strong>Future Directions:</strong>
+                            <ul>
+                                <li>Sequence analysis of candidate genes in B6 vs RR strains</li>
+                                <li>Expression studies during pregnancy</li>
+                                <li>Functional validation through targeted mutagenesis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Gene Symbol</th>
+                                <th>Gene Name</th>
+                                <th>Location (cM)</th>
+                                <th>Location (Mbp)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Ppp5c</strong></td>
+                                <td>Protein phosphatase 5, catalytic subunit</td>
+                                <td>9.15</td>
+                                <td>17.00</td>
+                                <td>Top Candidate</td>
+                            </tr>
+                            <tr class="published-group">
+                                <td><strong>Ceacam10</strong></td>
+                                <td>Carcinoembryonic antigen-related cell adhesion molecule 10</td>
+                                <td>12.78</td>
+                                <td>24.78</td>
+                                <td>Top Candidate</td>
+                            </tr>
+                            <tr class="published-group">
+                                <td><strong>Egln2</strong></td>
+                                <td>egl-9 family hypoxia-inducible factor 2</td>
+                                <td>15.83</td>
+                                <td>27.16</td>
+                                <td>Top Candidate</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Aurkc</strong></td>
+                                <td>Aurora kinase C</td>
+                                <td>4.06</td>
+                                <td>7.00</td>
+                                <td>Excluded (male effects)</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Dll3pu-J</strong></td>
+                                <td>Delta-like 3 (Drosophila); pudgy Jackson</td>
+                                <td>16.67</td>
+                                <td>28.30</td>
+                                <td>Excluded (skeletal defects)</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Myod1</strong></td>
+                                <td>Myogenic differentiation 1</td>
+                                <td>30.03</td>
+                                <td>46.38</td>
+                                <td>Excluded (requires Fgf6)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-small"><em>Selection of candidate genes within Lsq1 confidence interval</em></p>
+                </div>
+            </div>
+
+            <div class="section" id="section-validation">
+                <div class="section-title">✅ Cross-Population Validation</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Independent Population Testing</div>
+                            <div class="step-details">
+                                Validation of Lsq1 effect in different genetic background
+                                <div class="step-specs">
+                                    <strong>Test Population:</strong><br>
+                                    • KK × RR F2 mice (previously analyzed for nurturing ability)<br>
+                                    • Different genetic background from B6 × RR cross<br>
+                                    • Provides independent test of QTL effect<br>
+                                    <strong>Analysis Method:</strong><br>
+                                    • Point-wise threshold analysis at D7Mit232<br>
+                                    • Located at 33.06 cM (near Lsq1 peak region)<br>
+                                    • Examined NBA (number born alive) as trait
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Validation Results</div>
+                            <div class="step-details">
+                                Significant confirmation of QTL effect in independent population
+                                <div class="step-specs">
+                                    <strong>Statistical Significance:</strong><br>
+                                    • P &lt; 0.03 for association with NBA<br>
+                                    • RR allele again associated with reduced litter size<br>
+                                    <strong>Genotype Effects:</strong><br>
+                                    • KK/KK: 9.88 ± 0.46 pups<br>
+                                    • KK/RR: 8.70 ± 0.29 pups<br>
+                                    • RR/RR: 8.13 ± 0.46 pups<br>
+                                    <strong>Pattern:</strong> Consistent allelic effect across populations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Literature Support</div>
+                            <div class="step-details">
+                                Additional evidence from chromosome substitution studies
+                                <div class="step-specs">
+                                    <strong>Reed et al. Study:</strong><br>
+                                    • Identified litter size QTL on chromosome 7<br>
+                                    • Used chromosome substitution mouse strain<br>
+                                    • Independent confirmation of chromosome 7 involvement<br>
+                                    <strong>Convergent Evidence:</strong><br>
+                                    • Multiple mapping populations<br>
+                                    • Different genetic backgrounds<br>
+                                    • Consistent chromosomal location<br>
+                                    • Robust QTL effect confirmed
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="citation-box">
+                    <p><strong>Cross-Population Validation Success:</strong></p>
+                    <ul>
+                        <li>Lsq1 effect confirmed in KK × RR F2 population with P &lt; 0.03</li>
+                        <li>Consistent allelic effects: RR allele reduces litter size across genetic backgrounds</li>
+                        <li>Effect size: ~1.75 pup difference between homozygous genotypes</li>
+                        <li>Literature support from independent chromosome substitution studies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-stillbirth-analysis">
+                <div class="section-title">💀 Stillbirth Analysis: Distinct Genetic Control</div>
+                
+                <div class="problem-box">
+                    <strong>Unexpected Finding:</strong> Stillbirth rate showed genetic control independent of live litter size, suggesting different biological pathways control embryonic survival versus late fetal/neonatal mortality.
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Stillbirth Phenotype</div>
+                        <div class="step-details">
+                            <strong>Distribution and Measurement:</strong>
+                            <ul>
+                                <li><strong>Sample size:</strong> 39 litters analyzed</li>
+                                <li><strong>Range:</strong> 0-6 stillbirths per litter</li>
+                                <li><strong>Frequency:</strong> Most litters (>200) had 0 stillbirths</li>
+                                <li><strong>Analysis methods:</strong> Both non-parametric and binary trait approaches</li>
+                            </ul>
+                            
+                            <strong>Methodological Considerations:</strong>
+                            <ul>
+                                <li>Potential confounding: post-birth mortality vs true stillbirth</li>
+                                <li>Maternal behavior: pup consumption possible</li>
+                                <li>Despite challenges, genetic control was detectable</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Stillbirth QTLs</div>
+                        <div class="step-details">
+                            <strong>Chromosome 1 QTL:</strong>
+                            <ul>
+                                <li><strong>LOD Score:</strong> 2.24 (significant)</li>
+                                <li><strong>Peak Position:</strong> 42 cM</li>
+                                <li><strong>95% CI:</strong> 16-67 cM</li>
+                                <li><strong>Nearest Marker:</strong> D1Mit49</li>
+                            </ul>
+                            
+                            <strong>Chromosome 4 QTL:</strong>
+                            <ul>
+                                <li><strong>LOD Score:</strong> 1.83 (suggestive)</li>
+                                <li><strong>Peak Position:</strong> 4 cM</li>
+                                <li><strong>95% CI:</strong> 4-78 cM</li>
+                                <li><strong>Nearest Marker:</strong> D4Mit235</li>
+                            </ul>
+                            
+                            <strong>Consistent Pattern:</strong>
+                            RR alleles associated with increased stillbirth rate at both loci.
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Biological Implications</div>
+                        <div class="step-details">
+                            <strong>Distinct Genetic Architecture:</strong>
+                            <ul>
+                                <li>Litter size QTLs ≠ Stillbirth QTLs</li>
+                                <li>Different chromosomal locations</li>
+                                <li>Suggests separate biological pathways</li>
+                                <li>Consistent with livestock studies (pigs)</li>
+                            </ul>
+                            
+                            <strong>Comparative Evidence:</strong>
+                            <ul>
+                                <li><strong>Pig studies:</strong> Most stillbirth QTLs distinct from litter size QTLs</li>
+                                <li><strong>Biological rationale:</strong> Different developmental stages affected</li>
+                                <li><strong>Litter size:</strong> Early embryonic survival</li>
+                                <li><strong>Stillbirth:</strong> Late fetal development, parturition</li>
+                            </ul>
+                            
+                            <strong>Breeding Implications:</strong>
+                            <ul>
+                                <li>Selection for larger litters may not affect stillbirth rate</li>
+                                <li>Independent genetic improvement possible</li>
+                                <li>RR strain shows poor performance for both traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important Caveat:</strong> Stillbirth measurement in laboratory mice can be challenging due to potential post-birth mortality and maternal behavior. However, the detection of significant QTLs and consistency with livestock studies suggests genuine genetic control of this trait.
+                </div>
+            </div>
+
+            <div class="section" id="section-comparative-analysis">
+                <div class="section-title">🔬 Comparative Genomics and Broader Context</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌐 Cross-Species Relevance</div>
+                    <p>This study contributes to understanding mammalian reproductive genetics beyond laboratory mice. The identification of chromosome 7 QTL effects, validated across multiple mouse populations, provides insights applicable to livestock breeding and potentially human reproductive genetics research.</p>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Mouse Model Advantages</div>
+                        <div class="step-details">
+                            <strong>Experimental Benefits:</strong>
+                            <ul>
+                                <li><strong>Controlled genetics:</strong> Inbred strains eliminate confounding</li>
+                                <li><strong>Large family sizes:</strong> Multiple offspring per female</li>
+                                <li><strong>Short generation time:</strong> Rapid breeding for QTL mapping</li>
+                                <li><strong>Standardized environment:</strong> Minimizes non-genetic variation</li>
+                            </ul>
+                            
+                            <strong>Limitations:</strong>
+                            <ul>
+                                <li><strong>Species differences:</strong> Mouse vs human reproductive biology</li>
+                                <li><strong>Strain specificity:</strong> QTL effects may be population-dependent</li>
+                                <li><strong>Laboratory environment:</strong> May not reflect natural selection pressures</li>
+                                <li><strong>Sample size:</strong> 255 mice moderate for complex trait mapping</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Livestock Applications</div>
+                        <div class="step-details">
+                            <strong>Translational Potential:</strong>
+                            <ul>
+                                <li><strong>Pig breeding:</strong> Similar QTL mapping approaches for litter size</li>
+                                <li><strong>Cattle reproduction:</strong> Twinning rate and fertility traits</li>
+                                <li><strong>Sheep prolificacy:</strong> Multiple birth genetics</li>
+                                <li><strong>Comparative mapping:</strong> Syntenic regions across species</li>
+                            </ul>
+                            
+                            <strong>Candidate Gene Conservation:</strong>
+                            <ul>
+                                <li><strong>Ppp5c:</strong> Conserved cell cycle regulation across mammals</li>
+                                <li><strong>Ceacam10:</strong> Implantation processes similar in most mammals</li>
+                                <li><strong>Egln2:</strong> Oxygen sensing critical for all mammalian development</li>
+                                <li><strong>Functional validation:</strong> Needed in target species</li>
+                            </ul>
+                            
+                            <strong>Breeding Strategy Implications:</strong>
+                            <ul>
+                                <li>Marker-assisted selection for reproductive traits</li>
+                                <li>Understanding of trait correlations and trade-offs</li>
+                                <li>Multiple QTL effects suggest polygenic architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Methodological Contributions</div>
+                        <div class="step-details">
+                            <strong>QTL Mapping Advances:</strong>
+                            <ul>
+                                <li><strong>Non-parametric methods:</strong> Appropriate for non-normal distributions</li>
+                                <li><strong>Permutation testing:</strong> Robust threshold determination</li>
+                                <li><strong>Cross-population validation:</strong> Essential for QTL confirmation</li>
+                                <li><strong>Fine mapping strategy:</strong> Progressive marker addition</li>
+                            </ul>
+                            
+                            <strong>Experimental Design Lessons:</strong>
+                            <ul>
+                                <li><strong>Extreme phenotype selection:</strong> Efficient for initial screening</li>
+                                <li><strong>Backcross vs F2:</strong> Trade-offs in mapping resolution vs power</li>
+                                <li><strong>Sample size considerations:</strong> Balance cost vs statistical power</li>
+                                <li><strong>Trait definition importance:</strong> Clear phenotype measurement protocols</li>
+                            </ul>
+                            
+                            <strong>Future Directions:</strong>
+                            <ul>
+                                <li>Higher density SNP mapping for fine localization</li>
+                                <li>RNA-seq during pregnancy for expression QTL</li>
+                                <li>Integration with genomic selection approaches</li>
+                                <li>Multi-trait analysis for correlated reproductive traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-statistical-methods">
+                <div class="section-title">📈 Statistical Methods and Power Analysis</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Power Considerations</div>
+                            <div class="step-details">
+                                Understanding detection limits and effect sizes in QTL mapping
+                                <div class="step-specs">
+                                    <strong>Sample Size Analysis:</strong><br>
+                                    • 255 BC mice provides ~80% power to detect QTL explaining >8% variance<br>
+                                    • Moderate power for smaller effect QTLs (5-8% variance)<br>
+                                    • Low power for QTLs explaining <5% variance<br>
+                                    <strong>Effect Sizes Detected:</strong><br>
+                                    • Lsq1: ~12% of phenotypic variance explained<br>
+                                    • Suggestive QTLs: ~6-8% variance each<br>
+                                    • Total genetic variance captured: ~35-40%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Threshold Determination</div>
+                            <div class="step-details">
+                                Rigorous statistical framework for significance testing
+                                <div class="step-specs">
+                                    <strong>Permutation Strategy:</strong><br>
+                                    • 1,000 permutations for each trait<br>
+                                    • Genome-wide significance: P < 0.05<br>
+                                    • Suggestive linkage: P < 0.63 (1 expected false positive per genome scan)<br>
+                                    <strong>LOD Score Thresholds:</strong><br>
+                                    • TNB: Significant = 2.51, Suggestive = 1.31<br>
+                                    • NBA: Significant = 2.62, Suggestive = 1.33<br>
+                                    • NSB: Significant = 2.52, Suggestive = 1.34
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Confidence Interval Estimation</div>
+                            <div class="step-details">
+                                Precise localization of QTL positions and uncertainty quantification
+                                <div class="step-specs">
+                                    <strong>1.5 LOD Drop Method:</strong><br>
+                                    • 95% confidence intervals defined by 1.5 LOD decline from peak<br>
+                                    • Lsq1: 3-36 cM (33 cM span) on chromosome 7<br>
+                                    • Relatively broad CI indicates moderate mapping resolution<br>
+                                    <strong>Fine Mapping Impact:</strong><br>
+                                    • Additional 8 markers on chromosome 7 improved resolution<br>
+                                    • Peak location refined to 27 cM<br>
+                                    • CI narrowed but still spans ~15-20 Mbp physical distance
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">QTL Effect Size Calculation</div>
+                    <div class="formula-main">Variance Explained = (LOD × 4.6) / (n × h²)</div>
+                    <div class="formula-note">Where n = sample size, h² = heritability, and 4.6 converts LOD to variance units</div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Statistical Best Practices Demonstrated:</strong>
+                    <ul>
+                        <li><strong>Non-parametric methods:</strong> Appropriate for non-normal trait distributions</li>
+                        <li><strong>Permutation testing:</strong> Avoids assumptions about test statistic distributions</li>
+                        <li><strong>Multiple testing correction:</strong> Genome-wide significance thresholds</li>
+                        <li><strong>Confidence intervals:</strong> Quantifies mapping uncertainty</li>
+                        <li><strong>Cross-validation:</strong> Independent population confirmation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-future-directions">
+                <div class="section-title">🚀 Future Research Directions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Immediate Next Steps</div>
+                        <div class="step-details">
+                            <strong>Molecular Characterization:</strong>
+                            <ul>
+                                <li><strong>Sequencing analysis:</strong> Compare B6 vs RR alleles in candidate genes</li>
+                                <li><strong>Expression profiling:</strong> RNA-seq during early pregnancy</li>
+                                <li><strong>Protein analysis:</strong> Functional differences in gene products</li>
+                                <li><strong>Chromatin analysis:</strong> Regulatory element differences</li>
+                            </ul>
+                            
+                            <strong>Functional Validation:</strong>
+                            <ul>
+                                <li><strong>Gene knockout studies:</strong> Targeted disruption of top candidates</li>
+                                <li><strong>Complementation testing:</strong> Rescue experiments with different alleles</li>
+                                <li><strong>Cell culture models:</strong> In vitro functional assays</li>
+                                <li><strong>Tissue-specific expression:</strong> When and where genes act</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Advanced Mapping Strategies</div>
+                        <div class="step-details">
+                            <strong>Higher Resolution Mapping:</strong>
+                            <ul>
+                                <li><strong>SNP arrays:</strong> Dense marker coverage for fine mapping</li>
+                                <li><strong>Whole genome sequencing:</strong> Complete variant catalog</li>
+                                <li><strong>Larger populations:</strong> >1000 animals for precise localization</li>
+                                <li><strong>Multi-parent populations:</strong> Collaborative Cross or Diversity Outbred</li>
+                            </ul>
+                            
+                            <strong>Multi-trait Analysis:</strong>
+                            <ul>
+                                <li><strong>Correlated traits:</strong> Ovulation rate, implantation success, gestation length</li>
+                                <li><strong>Longitudinal phenotyping:</strong> Multiple parities per female</li>
+                                <li><strong>Maternal vs direct effects:</strong> Cross-fostering experiments</li>
+                                <li><strong>Environmental interactions:</strong> Diet, stress, seasonal effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Translational Applications</div>
+                        <div class="step-details">
+                            <strong>Livestock Breeding:</strong>
+                            <ul>
+                                <li><strong>Marker development:</strong> Species-specific SNP assays</li>
+                                <li><strong>Genomic selection:</strong> Incorporate QTL into breeding values</li>
+                                <li><strong>Multi-breed validation:</strong> Test effects across populations</li>
+                                <li><strong>Economic analysis:</strong> Cost-benefit of marker-assisted selection</li>
+                            </ul>
+                            
+                            <strong>Human Applications:</strong>
+                            <ul>
+                                <li><strong>Fertility research:</strong> Comparative candidate gene studies</li>
+                                <li><strong>IVF optimization:</strong> Embryo viability prediction</li>
+                                <li><strong>Pregnancy outcomes:</strong> Early loss prevention strategies</li>
+                                <li><strong>Population studies:</strong> Natural fertility variation</li>
+                            </ul>
+                            
+                            <strong>Conservation Biology:</strong>
+                            <ul>
+                                <li><strong>Captive breeding:</strong> Optimize reproductive success in endangered species</li>
+                                <li><strong>Population management:</strong> Understand fertility bottlenecks</li>
+                                <li><strong>Reintroduction programs:</strong> Select for reproductive fitness</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Study Limitations and Considerations</div>
+                
+                <div class="warning-box">
+                    <strong>Important Limitations:</strong> While this study provides valuable insights into the genetics of litter size, several factors limit the generalizability and precision of findings. Understanding these limitations is crucial for proper interpretation and future study design.
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Experimental Limitations</div>
+                        <div class="step-details">
+                            <strong>Sample Size Constraints:</strong>
+                            <ul>
+                                <li><strong>Power limitations:</strong> 255 mice insufficient for small-effect QTLs</li>
+                                <li><strong>Missing heritability:</strong> Many QTLs likely undetected</li>
+                                <li><strong>Interaction effects:</strong> Limited power for epistasis detection</li>
+                                <li><strong>Rare variants:</strong> Low frequency alleles not detectable</li>
+                            </ul>
+                            
+                            <strong>Population-Specific Effects:</strong>
+                            <ul>
+                                <li><strong>Two-strain cross:</strong> Limited allelic diversity</li>
+                                <li><strong>Strain background:</strong> Effects may be B6×RR specific</li>
+                                <li><strong>Laboratory adaptation:</strong> Artificial selection in lab environment</li>
+                                <li><strong>Founder effects:</strong> Inbred strain history impacts results</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Phenotypic Challenges</div>
+                        <div class="step-details">
+                            <strong>Measurement Issues:</strong>
+                            <ul>
+                                <li><strong>Single parity:</strong> Only first litter measured</li>
+                                <li><strong>Environmental variation:</strong> Maternal care, cage effects</li>
+                                <li><strong>Stillbirth accuracy:</strong> Distinction from early neonatal death</li>
+                                <li><strong>Observation timing:</strong> Once daily may miss events</li>
+                            </ul>
+                            
+                            <strong>Trait Complexity:</strong>
+                            <ul>
+                                <li><strong>Component traits:</strong> Ovulation rate vs embryonic survival unclear</li>
+                                <li><strong>Maternal effects:</strong> Genetic vs environmental maternal influences</li>
+                                <li><strong>Developmental timing:</strong> When during pregnancy effects occur</li>
+                                <li><strong>Sex effects:</strong> Male vs female offspring differences not analyzed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Methodological Considerations</div>
+                        <div class="step-details">
+                            <strong>Mapping Resolution:</strong>
+                            <ul>
+                                <li><strong>Marker density:</strong> ~15-20 cM spacing limits fine mapping</li>
+                                <li><strong>Recombination rate:</strong> Physical distance uncertain in some regions</li>
+                                <li><strong>Confidence intervals:</strong> Relatively broad (30+ cM)</li>
+                                <li><strong>Multiple genes:</strong> Each QTL may contain several causal variants</li>
+                            </ul>
+                            
+                            <strong>Statistical Considerations:</strong>
+                            <ul>
+                                <li><strong>Multiple testing:</strong> Conservative correction may miss real QTLs</li>
+                                <li><strong>Non-normal distribution:</strong> Non-parametric methods less powerful</li>
+                                <li><strong>Fixed effects:</strong> Limited control for environmental factors</li>
+                                <li><strong>Population structure:</strong> Backcross design assumptions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Conclusions and Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Key Scientific Contributions</div>
+                    <p>This study successfully identified the first significant QTL for litter size in mice on chromosome 7 (Lsq1), validated across multiple populations. The findings advance our understanding of mammalian reproductive genetics and provide a foundation for both basic research and practical applications in breeding programs.</p>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Major Findings Summary</div>
+                    <div class="significance-content">
+                        <strong>Primary Discoveries:</strong> One significant and four suggestive QTLs for litter size, plus two QTLs for stillbirth rate, demonstrating genetic control of reproductive performance. The chromosome 7 QTL (Lsq1) showed robust effects across populations, with RR alleles consistently reducing reproductive success. Candidate gene analysis identified three promising targets involved in embryonic viability: Ppp5c, Ceacam10, and Egln2.
+                    </div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Scientific Impact</div>
+                        <div class="step-details">
+                            <strong>Methodological Contributions:</strong>
+                            <ul>
+                                <li>Demonstrated effectiveness of QTL mapping for reproductive traits</li>
+                                <li>Established protocols for litter size phenotyping in mice</li>
+                                <li>Validated cross-population confirmation strategies</li>
+                                <li>Integrated candidate gene analysis with mapping results</li>
+                            </ul>
+                            
+                            <strong>Biological Insights:</strong>
+                            <ul>
+                                <li>Confirmed genetic basis of litter size variation in mammals</li>
+                                <li>Identified distinct genetic control of embryonic vs fetal mortality</li>
+                                <li>Provided evidence for polygenic architecture of reproductive traits</li>
+                                <li>Highlighted importance of embryonic survival in litter size determination</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Practical Applications</div>
+                        <div class="step-details">
+                            <strong>Laboratory Animal Science:</strong>
+                            <ul>
+                                <li>Strain selection for breeding efficiency</li>
+                                <li>Understanding reproductive performance variation</li>
+                                <li>Genetic standardization of laboratory colonies</li>
+                                <li>Research model optimization</li>
+                            </ul>
+                            
+                            <strong>Livestock Breeding:</strong>
+                            <ul>
+                                <li>Marker-assisted selection for prolificacy</li>
+                                <li>Understanding trait correlations in breeding programs</li>
+                                <li>Candidate gene targets for sequence analysis</li>
+                                <li>Multi-trait selection index development</li>
+                            </ul>
+                            
+                            <strong>Biomedical Research:</strong>
+                            <ul>
+                                <li>Mouse models for human fertility research</li>
+                                <li>Comparative genetics of reproductive success</li>
+                                <li>Developmental biology insights</li>
+                                <li>Pregnancy loss prevention strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Framework</div>
+                        <div class="step-details">
+                            <strong>Immediate Priorities:</strong>
+                            <ul>
+                                <li>Fine mapping of Lsq1 to identify causal variants</li>
+                                <li>Functional validation of candidate genes</li>
+                                <li>Expression analysis during early pregnancy</li>
+                                <li>Replication in additional mouse populations</li>
+                            </ul>
+                            
+                            <strong>Long-term Goals:</strong>
+                            <ul>
+                                <li>Complete genetic architecture characterization</li>
+                                <li>Mechanistic understanding of QTL effects</li>
+                                <li>Translation to agricultural species</li>
+                                <li>Integration with genomic selection programs</li>
+                            </ul>
+                            
+                            <strong>Technology Integration:</strong>
+                            <ul>
+                                <li>High-density SNP arrays for fine mapping</li>
+                                <li>RNA-seq for expression QTL analysis</li>
+                                <li>CRISPR/Cas9 for functional validation</li>
+                                <li>Advanced statistical methods for complex traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Study Design Lessons for Future QTL Mapping:</strong>
+                    <ul>
+                        <li><strong>Population Choice:</strong> Backcross vs F2 depends on mapping goals and resources</li>
+                        <li><strong>Sample Size:</strong> Minimum 500 animals recommended for complex reproductive traits</li>
+                        <li><strong>Validation Strategy:</strong> Always confirm QTLs in independent populations</li>
+                        <li><strong>Phenotype Precision:</strong> Detailed trait measurement protocols essential</li>
+                        <li><strong>Candidate Gene Analysis:</strong> Integrate mapping with biological knowledge</li>
+                    </ul>
+                </div>
+
+                <div class="legacy-box">
+                    This study established a foundation for understanding the genetic control of reproductive performance in mammals. The identification of Lsq1 and associated candidate genes provides targets for future research and practical applications. The methodological approaches demonstrated here continue to inform modern genomic studies of complex traits, bridging fundamental genetics with applied breeding programs across species.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
