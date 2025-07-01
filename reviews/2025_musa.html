@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Haplotype Diversity Preservation in Genomic Selection</title>
-   <link rel="stylesheet" href="style.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Similarity Matrix for Preserving Haplotype Diversity Amongst Parents in Genomic Selection</title>
+    <link rel="stylesheet" href="style.css">
 
 <script>
 (function() {
     'use strict';
 
     function initTheme() {
-        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        const filename = 'musa_reinsch_2025_haplotype_similarity';
         
         let seed = 0;
         
@@ -63,59 +62,140 @@
         <div class="top-left-nav">
             <a href="../index.html">Back to Index</a>
         </div>
+        
         <div class="header">
             <h1>A Similarity Matrix for Preserving Haplotype Diversity Amongst Parents in Genomic Selection</h1>
-            <p>Advanced Computational Framework for Sustainable Breeding</p>
+            <p>Revolutionary Framework for Balancing Genetic Gain with Genetic Diversity</p>
             
             <div class="header-info">
                 <p class="text-small"><strong>Authors:</strong> Abdulraheem A. Musa, Norbert Reinsch</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, 2025</p>
                 <p class="text-small text-top"><strong>Institution:</strong> Research Institute for Farm Animal Biology (FBN), Dummerstorf, Germany</p>
                 <p class="text-top-large">
-                    <a href="https://doi.org/10.1111/jbg.12930" 
+                    <a href="https://doi.org/10.1111/jbg.12930"
                        target="_blank" 
                        class="paper-link">
-                         Access Original Paper
+                         View Original Paper
                     </a>
                 </p>
             </div>
         </div>
         
         <div class="content">
-            <div class="section" id="section-4">
-                <div class="section-title">Paper Information & Context</div>
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 The Core Problem: Haplotype Diversity Loss in Genomic Selection</div>
                 
-                <div class="citation-box">
-                    <p><strong>Citation:</strong> Musa, A.A., & Reinsch, N. (2025). A Similarity Matrix for Preserving Haplotype Diversity Amongst Parents in Genomic Selection. Journal of Animal Breeding and Genetics, 0:1–17.</p>
-                    
-                    <p><strong>Key Foundation References:</strong></p>
-                    <ul class="list-top">
-                        <li>Meuwissen, T.H.E., Hayes, B.J., and Goddard, M.E. (2001). Genetics, 157:1819–1829</li>
-                        <li>Bonk, S., et al. (2016). Genetics, Selection, Evolution, 48:1–11</li>
-                        <li>Kemper, K.E., et al. (2012). Journal of Dairy Science, 95:4646–4656</li>
-                        <li>Santos, D.J.A., et al. (2019). Journal of Dairy Science, 102:5279–5294</li>
-                    </ul>
+                <div class="innovation-box">
+                    <div class="innovation-title">🧬 The Genomic Selection Dilemma</div>
+                    <p>Genomic selection revolutionized breeding by dramatically increasing accuracy and reducing generation intervals. However, traditional truncation selection based on genomic estimated breeding values (GEBVs) creates a critical problem: rapid loss of genetic diversity and valuable haplotypes. This paper introduces a novel similarity matrix that quantifies haplotype relationships between parents, enabling selection strategies that preserve genetic diversity while maintaining genetic gain.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Challenge:</strong> Current genomic selection methods focus on maximizing short-term genetic gain but risk losing valuable genetic diversity. Traditional approaches like optimal contribution selection (OCS) use genomic relationship matrices that don't account for trait-specific haplotype patterns. This leads to inadvertent loss of favorable haplotypes, especially those with small effects, limiting long-term genetic improvement potential.
                 </div>
 
-                <div class="innovation-box">
-                    <div class="innovation-title">🚀 Key Innovation</div>
-                    <p>This paper introduces a novel <strong>similarity matrix</strong> that quantifies haplotype relationships between parents based on Mendelian sampling variance (MSV), enabling optimal parent selection that balances genetic gain with diversity preservation in genomic breeding programs.</p>
+                <div class="solution-box">
+                    <strong>The Innovation:</strong> The authors developed a trait-specific similarity matrix based on Mendelian sampling variance (MSV) that captures the covariance of additive genetic effects between potential parental gametes. This matrix enables Mendelian sampling-based optimal contribution selection (MOCS) that balances genetic gain with haplotype diversity preservation.
                 </div>
+            </div>
+
+            <div class="section" id="section-mathematical">
+                <div class="section-title">📐 Mathematical Framework: From MSV to Similarity Matrix</div>
                 
-                <div class="section-title">Computational Framework Development</div>
+                <div class="formula-box">
+                    <div class="formula-title">Foundation: Breeding Value Calculation</div>
+                    <div class="formula-main">b<sub>i</sub> = c'<sub>i</sub>m</div>
+                    <div class="formula-note">Where b<sub>i</sub> = breeding value of parent i, c'<sub>i</sub> = genotype indicators, m = marker effects vector</div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Original MSV Formula (Bonk et al. 2016)</div>
+                        <div class="step-details">
+                            <strong>Mendelian Sampling Variance:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = m'R<sub>i</sub>m</div>
+                            
+                            <strong>Where R<sub>i</sub> is parent-specific covariance matrix:</strong>
+                            <div class="formula">ρ<sub>kl</sub> = ± exp(-2d<sub>kl</sub>)/4</div>
+                            
+                            <strong>Components:</strong>
+                            <ul>
+                                <li><strong>d<sub>kl</sub>:</strong> Genetic distance between markers k and l (Morgans)</li>
+                                <li><strong>±:</strong> Sign depends on linkage phase between markers</li>
+                                <li><strong>R<sub>i</sub>:</strong> Block-diagonal matrix (each chromosome = block)</li>
+                                <li><strong>Limitation:</strong> Computationally intensive for large datasets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computational Improvement: New MSV Formula</div>
+                        <div class="step-details">
+                            <strong>Enhanced Representation:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = m'<sub>i</sub>Rm<sub>i</sub></div>
+                            
+                            <strong>Key Innovation - Parent-Specific Marker Effects:</strong>
+                            <div class="formula">m<sub>ik</sub> = δ<sub>ik</sub>m<sub>k</sub></div>
+                            
+                            <strong>Phase Indicator Variable δ<sub>ik</sub>:</strong>
+                            <ul>
+                                <li><strong>δ<sub>ik</sub> = +1:</strong> Reference allele on first haplotype</li>
+                                <li><strong>δ<sub>ik</sub> = -1:</strong> Reference allele on second haplotype</li>
+                                <li><strong>δ<sub>ik</sub> = 0:</strong> Homozygous genotype</li>
+                            </ul>
+                            
+                            <strong>Universal Matrix R:</strong>
+                            <ul>
+                                <li>Same matrix R used for all parents</li>
+                                <li>Only positive elements (no phase-dependent signs)</li>
+                                <li>73-fold computational speed improvement</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Extension to Multiple Traits and Chromosomes</div>
+                        <div class="step-details">
+                            <strong>Multi-trait MSV:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = M<sub>i</sub>RM'<sub>i</sub> = V<sub>i</sub></div>
+                            
+                            <strong>Multiple Chromosomes:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = Σ<sub>c</sub> M<sup>c</sup><sub>i</sub>R<sup>c</sup>(M<sup>c</sup><sub>i</sub>)'</div>
+                            
+                            <strong>Aggregate Genotype (Index):</strong>
+                            <div class="formula">var(a'b<sub>i</sub>) = a' · V<sub>i</sub> · a</div>
+                            
+                            <strong>Zygote MSV (Mating i × j):</strong>
+                            <div class="formula">var(b<sub>ij</sub>) = m'<sub>i</sub>Rm<sub>i</sub> + m'<sub>j</sub>Rm<sub>j</sub></div>
+                            
+                            <strong>Where:</strong>
+                            <ul>
+                                <li><strong>M<sub>i</sub>:</strong> Matrix where each row = marker effects for trait t</li>
+                                <li><strong>a:</strong> Index weight vector for multiple traits</li>
+                                <li><strong>R<sup>c</sup>:</strong> Covariance matrix for chromosome c</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-similarity">
+                <div class="section-title">🔗 Haplotype Similarity: Conceptual Framework</div>
                 
                 <div class="flow-container">
                     <div class="flow-step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Enhanced MSV Computation</div>
+                            <div class="step-title">Segregation Patterns and Gamete Formation</div>
                             <div class="step-details">
-                                Develop computationally efficient representation of Mendelian Sampling Variance prediction
+                                Understanding how parents with different haplotypes produce gametes with varying genetic values
                                 <div class="step-specs">
-                                    <strong>Innovation:</strong> Parent-specific marker effects vector m<sub>i</sub><br>
-                                    <strong>Speed improvement:</strong> 73-fold faster than previous methods<br>
-                                    <strong>Formula:</strong>
-                                    <div class="formula">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div>
-                                    <strong>Key advantage:</strong> Single universal matrix R for all parents
+                                    <strong>Example Setup:</strong><br>
+                                    • Parent 1: Haplotypes 1-1-1 / 2-2-2<br>
+                                    • Parent 2: Haplotypes 1-2-1 / 2-1-2<br>
+                                    • Recombination rates: θ₁,₂ = 0.1, θ₂,₃ = 0.2<br>
+                                    • Marker effects: m = [1, 0.2, 0.02]<br>
+                                    <strong>Key Insight:</strong> Each segregation pattern (e.g., A-B-A) has specific probability and genetic value
                                 </div>
                             </div>
                         </div>
@@ -124,15 +204,17 @@
                     <div class="flow-step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">Haplotype Similarity Measure</div>
+                            <div class="step-title">Computing MSV from Segregation Patterns</div>
                             <div class="step-details">
-                                Define similarity between parents based on shared segregation patterns
+                                Calculate Mendelian sampling variance using probability-weighted genetic values
                                 <div class="step-specs">
-                                    <strong>Core concept:</strong> Quantify shared heterozygous markers with large effects<br>
-                                    <strong>Similarity formula:</strong>
-                                    <div class="formula">s<sub>i,j</sub> = |m<sub>i</sub>'Rm<sub>j</sub>|</div>
-                                    <strong>Interpretation:</strong> High similarity = many shared chromosome segments<br>
-                                    <strong>Self-similarity:</strong> Equals individual's MSV
+                                    <strong>MSV Formula:</strong><br>
+                                    E(b₁²) = Σ pᵤbᵤ¹ (probability × genetic value²)<br>
+                                    var(b₁) = E(b₁²) - (E[b₁])²<br>
+                                    <strong>Example Results:</strong><br>
+                                    • Parent 1 MSV = 0.3461<br>
+                                    • Parent 2 MSV = 0.1837<br>
+                                    • Covariance(b₁,b₂) = 0.2449
                                 </div>
                             </div>
                         </div>
@@ -141,18 +223,583 @@
                     <div class="flow-step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Matrix Construction</div>
+                            <div class="step-title">Matrix Representation of Similarity</div>
                             <div class="step-details">
-                                Build comprehensive similarity matrix for breeding decisions
-                                <div class="matrix-visual">
-                                    S = [s<sub>i,j</sub>] where s<sub>i,i</sub> = MSV<sub>i</sub> and s<sub>i,j</sub> = similarity
-                                </div>
+                                Transform complex segregation analysis into efficient matrix operations
                                 <div class="step-specs">
-                                    <strong>Diagonal elements:</strong> Individual MSVs<br>
-                                    <strong>Off-diagonal elements:</strong> Pairwise similarities<br>
-                                    <strong>Standardization:</strong>
-                                    <div class="formula">K = D<sup>-1</sup>SD<sup>-1</sup> where D = √diag(S)</div>
-                                    <strong>Properties:</strong> All elements in [0,1] range
+                                    <strong>For Unlinked Markers (R = I/4):</strong><br>
+                                    MSV = m̃'ᵢm̃ᵢ/4 (dot product of heterozygous markers)<br>
+                                    Similarity = m̃'ᵢm̃ⱼ (cosine similarity concept)<br>
+                                    <strong>For Linked Markers (Cholesky decomposition):</strong><br>
+                                    MSV = (L·mᵢ)'·(L·mᵢ) where R = LL'<br>
+                                    Similarity = (L·mᵢ)'·(L·mⱼ)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Segregation Pattern</th>
+                                <th>Probability</th>
+                                <th>Parent 1 BV</th>
+                                <th>Parent 2 BV</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>A-A-A</strong></td>
+                                <td>½(1-θ₁,₂)(1-θ₂,₃) = 0.36</td>
+                                <td>+0.61</td>
+                                <td>+0.41</td>
+                                <td>All from first haplotype</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>A-B-A</strong></td>
+                                <td>½θ₁,₂θ₂,₃ = 0.01</td>
+                                <td>+0.41</td>
+                                <td>+0.61</td>
+                                <td>Recombination between markers</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>B-B-B</strong></td>
+                                <td>½(1-θ₁,₂)(1-θ₂,₃) = 0.36</td>
+                                <td>-0.61</td>
+                                <td>-0.41</td>
+                                <td>All from second haplotype</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>B-A-B</strong></td>
+                                <td>½θ₁,₂θ₂,₃ = 0.01</td>
+                                <td>-0.41</td>
+                                <td>-0.61</td>
+                                <td>Double recombination</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-similarity-formula">
+                <div class="section-title">⚖️ The Similarity Matrix Formula</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Core Similarity Measure</div>
+                    <div class="formula-main">s<sub>i,j</sub> = |m'<sub>i</sub>Rm<sub>j</sub>|</div>
+                    <div class="formula-note">Absolute value ensures consistency regardless of haplotype order</div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Single Chromosome Similarity</div>
+                        <div class="step-details">
+                            <strong>Bilinear Form:</strong>
+                            <div class="formula">s<sub>i,j</sub> = |m'<sub>i</sub>Rm<sub>j</sub>|</div>
+                            
+                            <strong>Key Properties:</strong>
+                            <ul>
+                                <li><strong>Self-similarity:</strong> s<sub>i,i</sub> = MSV of parent i</li>
+                                <li><strong>Symmetry:</strong> s<sub>i,j</sub> = s<sub>j,i</sub></li>
+                                <li><strong>Absolute value:</strong> Ensures positive similarity</li>
+                                <li><strong>Interpretation:</strong> Measures shared heterozygous segments with large effects</li>
+                            </ul>
+                            
+                            <strong>Biological Meaning:</strong>
+                            High similarity indicates parents share many heterozygous markers with large additive effects in similar linkage phases
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Multiple Chromosomes</div>
+                        <div class="step-details">
+                            <strong>Genome-wide Similarity:</strong>
+                            <div class="formula">s<sub>i,j</sub> = Σ<sub>c</sub> |(m<sup>c</sup><sub>i</sub>)'R<sup>c</sup>m<sup>c</sup><sub>j</sub>|</div>
+                            
+                            <strong>Multi-trait Similarity:</strong>
+                            <div class="formula">s<sub>i,j</sub> = Σ<sub>c</sub> |a' · (M<sup>c</sup><sub>i</sub>R<sup>c</sup>(M<sup>c</sup><sub>j</sub>)') · a|</div>
+                            
+                            <strong>Components:</strong>
+                            <ul>
+                                <li><strong>R<sup>c</sup>:</strong> Covariance matrix for chromosome c</li>
+                                <li><strong>m<sup>c</sup><sub>i</sub>:</strong> Parent-specific marker effects on chromosome c</li>
+                                <li><strong>a:</strong> Index weights for multiple traits</li>
+                                <li><strong>Sum over chromosomes:</strong> Accounts for genome-wide patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Standardized Similarity Matrix</div>
+                        <div class="step-details">
+                            <strong>Standardization Formula:</strong>
+                            <div class="formula">K = D<sup>-1</sup> · S · D<sup>-1</sup></div>
+                            
+                            <strong>Where D = √diag(S) (Mendelian standard deviations)</strong>
+                            
+                            <strong>Properties of K:</strong>
+                            <ul>
+                                <li><strong>Diagonal elements:</strong> All equal to 1</li>
+                                <li><strong>Off-diagonal range:</strong> 0 ≤ k<sub>ij</sub> ≤ 1</li>
+                                <li><strong>Interpretation:</strong> Proportion of shared MSV</li>
+                                <li><strong>Advantage:</strong> Scale-independent comparison</li>
+                            </ul>
+                            
+                            <strong>Use Cases:</strong>
+                            <ul>
+                                <li>K matrix: Emphasis on relative haplotype diversity</li>
+                                <li>S matrix: Considers absolute MSV magnitudes</li>
+                                <li>Choice depends on breeding objectives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-zygote-similarity">
+                <div class="section-title">👫 Zygote Similarity: Parent Pair Analysis</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Zygote Similarity Between Parent Pairs</div>
+                    <div class="formula-main">s<sub>ij,uv</sub> = |m'<sub>i</sub>Rm<sub>u</sub>| + |m'<sub>j</sub>Rm<sub>v</sub>|</div>
+                    <div class="formula-note">Similarity between offspring from parents (i,j) and parents (u,v)</div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Single Chromosome Zygote Similarity</div>
+                        <div class="step-details">
+                            <strong>Formula Breakdown:</strong>
+                            <div class="formula">s<sub>ij,uv</sub> = |m'<sub>i</sub>Rm<sub>u</sub>| + |m'<sub>j</sub>Rm<sub>v</sub>|</div>
+                            
+                            <strong>Components:</strong>
+                            <ul>
+                                <li><strong>First term:</strong> Similarity between parent i and parent u</li>
+                                <li><strong>Second term:</strong> Similarity between parent j and parent v</li>
+                                <li><strong>Addition:</strong> Independent gametic contributions</li>
+                            </ul>
+                            
+                            <strong>Biological Interpretation:</strong>
+                            Measures how similar the genetic makeup of offspring would be from two different parent pairs
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Multiple Chromosomes Extension</div>
+                        <div class="step-details">
+                            <strong>Genome-wide Zygote Similarity:</strong>
+                            <div class="formula">s<sub>ij,uv</sub> = Σ<sub>c</sub> (|(m<sup>c</sup><sub>i</sub>)'R<sup>c</sup>m<sup>c</sup><sub>u</sub>| + |(m<sup>c</sup><sub>j</sub>)'R<sup>c</sup>m<sup>c</sup><sub>v</sub>|)</div>
+                            
+                            <strong>Multi-trait Aggregate:</strong>
+                            <div class="formula">s<sub>ij,uv</sub> = Σ<sub>c</sub> [|a' · (M<sup>c</sup><sub>i</sub>R<sup>c</sup>(M<sup>c</sup><sub>u</sub>)') · a| + |a' · M<sup>c</sup><sub>j</sub>R<sup>c</sup>(M<sup>c</sup><sub>v</sub>)' · a|]</div>
+                            
+                            <strong>Practical Applications:</strong>
+                            <ul>
+                                <li><strong>Multiple ovulation embryo transfer:</strong> Optimize parent pairs</li>
+                                <li><strong>Breeding program design:</strong> Balance genetic diversity across families</li>
+                                <li><strong>Long-term planning:</strong> Maintain favorable haplotype combinations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Zygote Similarity Matrix Properties</div>
+                        <div class="step-details">
+                            <strong>Matrix Structure:</strong>
+                            <ul>
+                                <li><strong>Diagonal elements:</strong> s<sub>ij,ij</sub> = MSV of family ij</li>
+                                <li><strong>Off-diagonal:</strong> s<sub>ij,uv</sub> = similarity between families</li>
+                                <li><strong>Dimensionality:</strong> n×n where n = number of parent pairs</li>
+                            </ul>
+                            
+                            <strong>Special Cases:</strong>
+                            <ul>
+                                <li><strong>Monoecious species:</strong> Parents can swap male/female roles</li>
+                                <li><strong>Order independence:</strong> s<sub>ij,uv</sub> = ½(s<sub>ij,uv</sub> + s<sub>ij,vu</sub>)</li>
+                                <li><strong>Sex-specific maps:</strong> R<sub>m</sub> and R<sub>f</sub> for males/females</li>
+                            </ul>
+                            
+                            <strong>Optimization Target:</strong>
+                            Use in mate allocation problems to optimize both parent selection and mate assignment
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mocs">
+                <div class="section-title">🎯 MOCS: Mendelian Sampling-Based Optimal Contribution Selection</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">MOCS Optimization Problem</div>
+                    <div class="formula-main">maximize r<sub>t+1</sub> = n'<sub>t</sub>r<sub>t</sub> with respect to n<sub>t</sub></div>
+                    <div class="formula-note">Subject to: Q<sub>t+1</sub> ≤ n'<sub>t</sub>Q<sub>t</sub>n<sub>t</sub>/2, n'<sub>t</sub>v<sub>f</sub> = 1/2, n'<sub>t</sub>v<sub>m</sub> = 1/2, n<sub>ti</sub> ≥ 0</div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">MOCS Components</div>
+                        <div class="step-details">
+                            <strong>Decision Variables:</strong>
+                            <ul>
+                                <li><strong>n<sub>t</sub>:</strong> Vector of parent contributions in generation t</li>
+                                <li><strong>r<sub>t</sub>:</strong> Selection criterion (BV or index including MSV)</li>
+                                <li><strong>Q<sub>t</sub>:</strong> Similarity matrix (S or K) for generation t</li>
+                            </ul>
+                            
+                            <strong>Constraints:</strong>
+                            <ul>
+                                <li><strong>Similarity constraint:</strong> Q<sub>t+1</sub> ≤ average haplotype similarity</li>
+                                <li><strong>Sex ratio:</strong> Equal contributions from males and females</li>
+                                <li><strong>Non-negativity:</strong> All contributions ≥ 0</li>
+                            </ul>
+                            
+                            <strong>Selection Criteria Options:</strong>
+                            <div class="formula">I<sub>i</sub> = b<sub>i</sub> + √2 · x<sub>p</sub> · σ<sub>gi</sub></div>
+                            Where I<sub>i</sub> = index combining BV and MSV
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Implementation Steps</div>
+                        <div class="step-details">
+                            <strong>Step 1: Data Preparation</strong>
+                            <ul>
+                                <li>Phase genotypes using appropriate software</li>
+                                <li>Estimate marker effects for traits of interest</li>
+                                <li>Calculate genetic map positions (cM)</li>
+                                <li>Construct parent-specific marker effect vectors m<sub>i</sub></li>
+                            </ul>
+                            
+                            <strong>Step 2: Matrix Construction</strong>
+                            <ul>
+                                <li>Build covariance matrix R using recombination rates</li>
+                                <li>Calculate similarity matrix S using bilinear forms</li>
+                                <li>Optionally standardize to obtain K matrix</li>
+                                <li>Handle matrix indefiniteness if necessary</li>
+                            </ul>
+                            
+                            <strong>Step 3: Optimization</strong>
+                            <ul>
+                                <li>Set constraint levels based on diversity objectives</li>
+                                <li>Solve quadratic programming problem</li>
+                                <li>Implement optimal contributions in breeding program</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">MOCS vs OCS Comparison</div>
+                        <div class="step-details">
+                            <strong>Optimal Contribution Selection (OCS):</strong>
+                            <ul>
+                                <li><strong>Matrix:</strong> Genomic relationship matrix (GRM)</li>
+                                <li><strong>Focus:</strong> Control inbreeding rate</li>
+                                <li><strong>Constraint:</strong> Average kinship coefficient</li>
+                                <li><strong>Trait dependence:</strong> None (genome-wide)</li>
+                            </ul>
+                            
+                            <strong>MOCS Advantages:</strong>
+                            <ul>
+                                <li><strong>Trait-specific:</strong> Targets relevant genetic segments</li>
+                                <li><strong>MSV-based:</strong> Preserves favorable haplotype combinations</li>
+                                <li><strong>Fewer parents:</strong> More efficient than OCS</li>
+                                <li><strong>Better long-term gain:</strong> Maintains genetic potential</li>
+                            </ul>
+                            
+                            <strong>Trade-offs:</strong>
+                            <ul>
+                                <li>MOCS requires accurate marker effect estimates</li>
+                                <li>Constraint setting more complex than OCS</li>
+                                <li>May sacrifice some short-term variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-empirical">
+                <div class="section-title">📊 Empirical Analysis: Holstein-Friesian Dataset</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🐄 Real-World Validation</div>
+                    <p>The authors validated their similarity matrix using a comprehensive Holstein-Friesian dataset from Hampel et al. (2018): 265 individuals from 5 paternal half-sib families, 10,304 phased markers, analyzing milk fat, protein, and pH traits. Results showed distinct haplotype similarity patterns that differ markedly from traditional genomic relationship matrices.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Dataset Characteristics</div>
+                        <div class="step-details">
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li><strong>Total animals:</strong> 265 Holstein-Friesian cows</li>
+                                <li><strong>Family structure:</strong> 5 paternal half-sib families (32-106 individuals each)</li>
+                                <li><strong>Original markers:</strong> 39,780 SNPs on autosomes</li>
+                                <li><strong>After phasing:</strong> 10,304 markers with resolved phases</li>
+                            </ul>
+                            
+                            <strong>Traits Analyzed:</strong>
+                            <ul>
+                                <li><strong>Milk fat:</strong> Complex genetic architecture</li>
+                                <li><strong>Milk protein:</strong> Moderate heritability</li>
+                                <li><strong>Milk pH:</strong> Low heritability trait</li>
+                                <li><strong>Marker effects:</strong> Previously estimated by Melzer et al. (2013)</li>
+                            </ul>
+                            
+                            <strong>Technical Processing:</strong>
+                            <ul>
+                                <li>Phasing: hsphase version 2.0.2</li>
+                                <li>Physical to genetic map conversion (Mbp → cM)</li>
+                                <li>Exclusion of unresolved phases for accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Similarity Matrix vs GRM Patterns</div>
+                        <div class="step-details">
+                            <strong>Genomic Relationship Matrix (GRM):</strong>
+                            <ul>
+                                <li><strong>Pattern:</strong> Clear family structure blocks</li>
+                                <li><strong>Basis:</strong> Genome-wide marker similarities</li>
+                                <li><strong>Values:</strong> Higher within-family relationships</li>
+                                <li><strong>Interpretation:</strong> Traditional genetic relationships</li>
+                            </ul>
+                            
+                            <strong>Haplotype Similarity Matrix:</strong>
+                            <ul>
+                                <li><strong>Pattern:</strong> No clear family structure</li>
+                                <li><strong>Basis:</strong> Trait-specific segregation patterns</li>
+                                <li><strong>Range:</strong> Milk fat (0-0.023), protein (0-0.012), pH (0-0.01)</li>
+                                <li><strong>Key insight:</strong> Similar MSV regardless of family origin</li>
+                            </ul>
+                            
+                            <strong>Standardized Similarities:</strong>
+                            <ul>
+                                <li><strong>Enhanced ranges:</strong> 0.007-0.9997 (fat), 0.017-0.998 (protein)</li>
+                                <li><strong>Better resolution:</strong> Highlights smaller similarities</li>
+                                <li><strong>Cross-family patterns:</strong> Individuals with comparable MSV cluster together</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Chromosome-Specific Analysis</div>
+                        <div class="step-details">
+                            <strong>Genetic Architecture Impact:</strong>
+                            <ul>
+                                <li><strong>Chromosome 14 (milk fat):</strong> High similarities (0-0.023)</li>
+                                <li><strong>Chromosome 4 (milk fat):</strong> Near-zero similarities</li>
+                                <li><strong>Interpretation:</strong> QTL distribution drives similarity patterns</li>
+                            </ul>
+                            
+                            <strong>Family-Specific Variability:</strong>
+                            <ul>
+                                <li><strong>Family 4:</strong> Greater milk fat variability than Family 3</li>
+                                <li><strong>Family 3:</strong> Higher milk protein variability than Family 4</li>
+                                <li><strong>Trait dependence:</strong> Different families contribute to different traits</li>
+                            </ul>
+                            
+                            <strong>Linear Regression Analysis:</strong>
+                            <ul>
+                                <li><strong>Dependent markers:</strong> R² = 0.09-1.0 across chromosomes</li>
+                                <li><strong>Independent markers:</strong> Higher prediction accuracy</li>
+                                <li><strong>Key factors:</strong> Common heterozygosity + marker effect sizes</li>
+                                <li><strong>Correlation:</strong> Similarity ∝ shared heterozygous segments with large effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-simulation">
+                <div class="section-title">🧬 Simulation Study: MOCS Performance Evaluation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Simulation Design</div>
+                        <div class="step-details">
+                            <strong>Population Parameters:</strong>
+                            <ul>
+                                <li><strong>Base population:</strong> 1000 cattle (500 males, 500 females)</li>
+                                <li><strong>Genome:</strong> 10 chromosomes, 1M average length</li>
+                                <li><strong>Markers:</strong> 10,000 SNPs (1000 per chromosome)</li>
+                                <li><strong>QTLs:</strong> 2000 total (200 per chromosome)</li>
+                                <li><strong>Heritability:</strong> 0.25</li>
+                            </ul>
+                            
+                            <strong>Selection Schemes Tested:</strong>
+                            <ul>
+                                <li><strong>Truncation Selection (TS):</strong> Top 1% males, 50% females</li>
+                                <li><strong>MOCS with S matrix:</strong> Various similarity constraints</li>
+                                <li><strong>MOCS with K matrix:</strong> Standardized similarities</li>
+                                <li><strong>Selection criteria:</strong> BV vs Index (BV + MSV)</li>
+                            </ul>
+                            
+                            <strong>Constraint Levels:</strong>
+                            Based on base population percentiles: 60%, 40%, 30%, 20%
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Key Performance Metrics</div>
+                        <div class="step-details">
+                            <strong>Genetic Gain Metrics:</strong>
+                            <ul>
+                                <li><strong>Cumulative gain:</strong> Total improvement over 50 generations</li>
+                                <li><strong>Short-term gain:</strong> First 10 generations</li>
+                                <li><strong>Long-term gain:</strong> Generations 40-50</li>
+                                <li><strong>Units:</strong> Genetic standard deviations</li>
+                            </ul>
+                            
+                            <strong>Diversity Metrics:</strong>
+                            <ul>
+                                <li><strong>Genetic variance:</strong> Standard deviation of breeding values</li>
+                                <li><strong>QTL alleles lost:</strong> Number of favorable alleles lost</li>
+                                <li><strong>SNP alleles lost:</strong> Neutral allele loss</li>
+                                <li><strong>Inbreeding rate:</strong> F<sub>t</sub> = 1 - H<sub>ot</sub></li>
+                                <li><strong>Number of sires:</strong> Effective population size indicator</li>
+                            </ul>
+                            
+                            <strong>Trade-off Analysis:</strong>
+                            Balance between immediate genetic gain and long-term genetic potential
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Simulation Results Summary</div>
+                        <div class="step-details">
+                            <strong>MOCS with S Matrix:</strong>
+                            <ul>
+                                <li><strong>Weak constraints (S0.6):</strong> +0.04 SD genetic gain vs TS</li>
+                                <li><strong>Strong constraints (S0.2):</strong> -12.6 SD genetic gain vs TS</li>
+                                <li><strong>Genetic variance:</strong> +0.02 to +0.45 SD preserved vs TS</li>
+                                <li><strong>Trade-off:</strong> Lower short-term gain for long-term diversity</li>
+                            </ul>
+                            
+                            <strong>MOCS with K Matrix (Superior Performance):</strong>
+                            <ul>
+                                <li><strong>Best scenarios:</strong> +1 to +2 SD genetic gain vs TS</li>
+                                <li><strong>Genetic variance:</strong> +0.1 to +4.5 SD preserved</li>
+                                <li><strong>QTL alleles:</strong> 5-44% more favorable alleles retained</li>
+                                <li><strong>SNP diversity:</strong> 2-48% more alleles preserved</li>
+                            </ul>
+                            
+                            <strong>Key Insights:</strong>
+                            <ul>
+                                <li>Index selection outperforms BV selection</li>
+                                <li>Standardized matrix (K) superior to raw matrix (S)</li>
+                                <li>MOCS selects fewer sires but maintains diversity</li>
+                                <li>Optimal constraint levels exist for each scenario</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Selection Scheme</th>
+                                <th>Genetic Gain (Gen 50)</th>
+                                <th>Genetic Variance Preserved</th>
+                                <th>QTL Alleles Retained</th>
+                                <th>Number of Sires</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>TS on BV</strong></td>
+                                <td>25.2 SD</td>
+                                <td>1.0 SD (baseline)</td>
+                                <td>1840 alleles</td>
+                                <td>5 sires</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>TS on Index</strong></td>
+                                <td>27.8 SD</td>
+                                <td>1.2 SD</td>
+                                <td>1905 alleles</td>
+                                <td>5 sires</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>MOCS Index_K0.4</strong></td>
+                                <td>29.1 SD</td>
+                                <td>3.8 SD</td>
+                                <td>1980 alleles</td>
+                                <td>15 sires</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>MOCS Index_K0.2</strong></td>
+                                <td>23.5 SD</td>
+                                <td>5.2 SD</td>
+                                <td>2050 alleles</td>
+                                <td>25 sires</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-implementation">
+                <div class="section-title">💻 Step-by-Step Implementation Guide</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Preparation</div>
+                            <div class="step-details">
+                                Prepare genotype, pedigree, and phenotype data for similarity matrix construction
+                                <div class="step-specs">
+                                    <strong>Required Data:</strong><br>
+                                    • Phased genotype data (essential for accurate phases)<br>
+                                    • Genetic map positions (cM) or physical positions<br>
+                                    • Marker effect estimates for traits of interest<br>
+                                    • Population allele frequencies<br>
+                                    <strong>Software Tools:</strong><br>
+                                    • hsphase (pedigree phasing), BEAGLE (population phasing)<br>
+                                    • GBLUP, BayesR, or other methods for marker effects<br>
+                                    • R packages: AlphaSimR, BGLR, sommer
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Construct Parent-Specific Marker Effects</div>
+                            <div class="step-details">
+                                Create m<sub>i</sub> vectors that incorporate linkage phase information
+                                <div class="step-specs">
+                                    <strong>Algorithm:</strong><br>
+                                    For each parent i and marker k:<br>
+                                    • If homozygous: m<sub>ik</sub> = 0<br>
+                                    • If heterozygous with reference allele on haplotype 1: m<sub>ik</sub> = +m<sub>k</sub><br>
+                                    • If heterozygous with reference allele on haplotype 2: m<sub>ik</sub> = -m<sub>k</sub><br>
+                                    <strong>Key Point:</strong> Phase information is critical for correct sign assignment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Build Covariance Matrix R</div>
+                            <div class="step-details">
+                                Construct the expected within-family linkage disequilibrium matrix
+                                <div class="step-specs">
+                                    <strong>Matrix Structure:</strong><br>
+                                    • Block diagonal: each chromosome = one block<br>
+                                    • Within chromosome: ρ<sub>kl</sub> = exp(-2d<sub>kl</sub>)/4<br>
+                                    • Between chromosomes: ρ<sub>kl</sub> = 0<br>
+                                    • Diagonal elements: ρ<sub>kk</sub> = 0.25<br>
+                                    <strong>Computational Note:</strong><br>
+                                    Matrix R is built once and used for all parents (major efficiency gain)
                                 </div>
                             </div>
                         </div>
@@ -161,186 +808,737 @@
                     <div class="flow-step">
                         <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Multi-trait and Multi-chromosome Extension</div>
+                            <div class="step-title">Calculate Similarity Matrix</div>
                             <div class="step-details">
-                                Extend framework to complex breeding scenarios
+                                Compute pairwise haplotype similarities using bilinear forms
                                 <div class="step-specs">
-                                    <strong>Multiple traits:</strong> Use index weights a for aggregate genotype<br>
-                                    <strong>Multiple chromosomes:</strong> Sum contributions from each chromosome<br>
-                                    <strong>Zygote similarity:</strong>
-                                    <div class="formula">s<sub>ij,uv</sub> = |m<sub>i</sub>'Rm<sub>u</sub>| + |m<sub>j</sub>'Rm<sub>v</sub>|</div>
-                                    <strong>Flexibility:</strong> Adaptable to any breeding system
+                                    <strong>Implementation:</strong><br>
+                                    S[i,j] = |m'<sub>i</sub> %*% R %*% m<sub>j</sub>| (R syntax)<br>
+                                    For multiple chromosomes: sum over chromosomes<br>
+                                    For multiple traits: use index weights<br>
+                                    <strong>Validation Checks:</strong><br>
+                                    • Diagonal elements = MSV (always positive)<br>
+                                    • Matrix should be symmetric<br>
+                                    • Check for positive semi-definiteness
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Standardization (Optional)</div>
+                            <div class="step-details">
+                                Create standardized similarity matrix K for scale-independent analysis
+                                <div class="step-specs">
+                                    <strong>Standardization:</strong><br>
+                                    D = sqrt(diag(S))  # Mendelian standard deviations<br>
+                                    K = diag(1/D) %*% S %*% diag(1/D)<br>
+                                    <strong>Properties Check:</strong><br>
+                                    • All diagonal elements should equal 1<br>
+                                    • Off-diagonal elements in range [0,1]<br>
+                                    • Use K for relative comparisons, S for absolute MSV
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">MOCS Optimization</div>
+                            <div class="step-details">
+                                Solve the quadratic programming problem for optimal contributions
+                                <div class="step-specs">
+                                    <strong>Optimization Setup:</strong><br>
+                                    • Objective: maximize n'r (genetic merit)<br>
+                                    • Constraint: n'Qn/2 ≤ threshold<br>
+                                    • Sex ratio: equal male/female contributions<br>
+                                    <strong>Software:</strong> gurobi, quadprog, or similar QP solvers<br>
+                                    <strong>Constraint Setting:</strong> Based on base population percentiles or breeding objectives
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="section" id="section-code-example">
+                <div class="section-title">👨‍💻 R Code Implementation Example</div>
                 
-                <div class="section-title">MOCS: Mendelian Sampling-based Optimal Contribution Selection</div>
-                
-                <div class="model-comparison">
-                    <div class="model-box model-1">
-                        <div class="model-title">Traditional Approaches</div>
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Basic Similarity Matrix Calculation</div>
                         <div class="step-details">
-                            <strong>Truncation Selection (TS):</strong> Select top individuals by GEBV
-                            <div class="formula">Selection based on: GEBV ranking only</div>
-                            <strong>Optimal Contribution Selection (OCS):</strong> Control inbreeding
-                            <div class="formula">Constraint: Genomic relationship matrix (GRM)</div>
-                            <strong>Limitations:</strong><br>
-                            • TS: Increases inbreeding, loses diversity<br>
-                            • OCS: Trait-neutral, may not maximize genetic gain<br>
-                            • Both lack haplotype-specific diversity control
+                            <strong>R Implementation:</strong>
+                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+# Function to create parent-specific marker effects
+create_parent_markers <- function(genotypes, marker_effects, phases) {
+  n_parents <- nrow(genotypes)
+  n_markers <- ncol(genotypes)
+  parent_effects <- matrix(0, n_parents, n_markers)
+  
+  for(i in 1:n_parents) {
+    for(j in 1:n_markers) {
+      if(genotypes[i,j] == 1) {  # Heterozygous
+        # Check phase: +1 if reference on hap1, -1 if on hap2
+        parent_effects[i,j] <- ifelse(phases[i,j] == 1, 
+                                    marker_effects[j], 
+                                    -marker_effects[j])
+      }
+      # Homozygous markers remain 0
+    }
+  }
+  return(parent_effects)
+}
+
+# Function to build covariance matrix R
+build_R_matrix <- function(genetic_distances) {
+  n_markers <- length(genetic_distances)
+  R <- matrix(0, n_markers, n_markers)
+  
+  # Fill in covariances
+  for(i in 1:n_markers) {
+    for(j in 1:n_markers) {
+      if(i == j) {
+        R[i,j] <- 0.25  # Diagonal elements
+      } else {
+        d_ij <- abs(genetic_distances[i] - genetic_distances[j])
+        R[i,j] <- exp(-2 * d_ij) / 4  # Haldane mapping function
+      }
+    }
+  }
+  return(R)
+}
+
+# Calculate similarity matrix
+calculate_similarity <- function(parent_effects, R_matrix) {
+  n_parents <- nrow(parent_effects)
+  S <- matrix(0, n_parents, n_parents)
+  
+  for(i in 1:n_parents) {
+    for(j in 1:n_parents) {
+      # Bilinear form with absolute value
+      S[i,j] <- abs(t(parent_effects[i,]) %*% R_matrix %*% parent_effects[j,])
+    }
+  }
+  return(S)
+}</pre>
                         </div>
                     </div>
                     
-                    <div class="model-box model-2">
-                        <div class="model-title">MOCS Innovation</div>
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">MOCS Optimization Example</div>
                         <div class="step-details">
-                            <strong>Objective:</strong> Maximize genetic return while preserving haplotype diversity<br><br>
-                            <strong>Optimization problem:</strong>
-                            <div class="formula">maximize: r<sub>t+1</sub> = n<sub>t</sub>'r<sub>t</sub></div>
-                            <div class="formula">subject to: Q<sub>t+1</sub> ≤ n<sub>t</sub>'Q<sub>t</sub>n<sub>t</sub>/2</div>
-                            <strong>Key Components:</strong><br>
-                            • r<sub>t</sub> = selection criterion (BV or index)<br>
-                            • Q<sub>t</sub> = similarity matrix (S or K)<br>
-                            • n<sub>t</sub> = optimal parent contributions<br><br>
-                            <strong>Advantages:</strong><br>
-                            • Trait-specific diversity preservation<br>
-                            • Balances gain with sustainability<br>
-                            • Computationally efficient
+                            <strong>Quadratic Programming Setup:</strong>
+                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+library(quadprog)
+
+# MOCS optimization function
+solve_MOCS <- function(breeding_values, similarity_matrix, 
+                      constraint_level, sex_indicators) {
+  
+  n_parents <- length(breeding_values)
+  
+  # Objective function: maximize genetic merit
+  # Convert to minimization: minimize -n'r
+  dvec <- -breeding_values
+  
+  # Quadratic term: similarity constraint
+  # n'Qn/2 <= threshold becomes n'Qn <= 2*threshold
+  Dmat <- similarity_matrix
+  
+  # Constraint matrix
+  # 1. Sex ratio constraints (equality)
+  # 2. Similarity constraint (inequality) 
+  # 3. Non-negativity (handled by meq parameter)
+  
+  males <- which(sex_indicators == 1)
+  females <- which(sex_indicators == 0)
+  
+  Amat <- matrix(0, n_parents, 3)
+  Amat[males, 1] <- 1     # Sum of male contributions = 0.5
+  Amat[females, 2] <- 1   # Sum of female contributions = 0.5
+  Amat[, 3] <- 1          # For similarity constraint
+  
+  bvec <- c(0.5, 0.5, constraint_level)
+  meq <- 2  # First two constraints are equality
+  
+  # Solve quadratic program
+  solution <- solve.QP(Dmat = Dmat, dvec = dvec, 
+                      Amat = Amat, bvec = bvec, meq = meq)
+  
+  return(solution$solution)
+}
+
+# Example usage
+set.seed(123)
+n_parents <- 100
+breeding_values <- rnorm(n_parents, 0, 1)
+sex_indicators <- rep(c(1,0), each = n_parents/2)
+
+# Assuming you have similarity_matrix calculated
+optimal_contributions <- solve_MOCS(breeding_values, 
+                                   similarity_matrix,
+                                   constraint_level = 0.3,
+                                   sex_indicators)</pre>
                         </div>
                     </div>
-                </div>
-                
-                <div class="flow-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <div class="step-title">Validation Studies</div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Multi-Chromosome Extension</div>
                         <div class="step-details">
-                            Comprehensive evaluation using empirical and simulated data
-                            <div class="step-specs">
-                                <strong>Empirical data:</strong> 265 Holstein-Friesian cows, 10,304 markers<br>
-                                <strong>Simulation:</strong> 50 generations, 1000 cattle, 10 chromosomes<br>
-                                <strong>Metrics:</strong> Genetic gain, variance, inbreeding, allele diversity<br>
-                                <strong>Comparisons:</strong> MOCS vs TS vs OCS across multiple scenarios
-                            </div>
+                            <strong>Genome-wide Similarity:</strong>
+                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+# Multi-chromosome similarity calculation
+calculate_genome_similarity <- function(genotypes_list, 
+                                      marker_effects_list,
+                                      genetic_maps_list,
+                                      phases_list) {
+  
+  n_chromosomes <- length(genotypes_list)
+  n_parents <- nrow(genotypes_list[[1]])
+  
+  # Initialize total similarity matrix
+  S_total <- matrix(0, n_parents, n_parents)
+  
+  # Process each chromosome
+  for(chr in 1:n_chromosomes) {
+    
+    # Create parent-specific effects for this chromosome
+    parent_effects_chr <- create_parent_markers(
+      genotypes_list[[chr]], 
+      marker_effects_list[[chr]], 
+      phases_list[[chr]]
+    )
+    
+    # Build R matrix for this chromosome
+    R_chr <- build_R_matrix(genetic_maps_list[[chr]])
+    
+    # Calculate chromosome-specific similarity
+    S_chr <- calculate_similarity(parent_effects_chr, R_chr)
+    
+    # Add to total (taking absolute values chromosome-wise)
+    S_total <- S_total + S_chr
+  }
+  
+  return(S_total)
+}
+
+# Standardization function
+standardize_similarity <- function(S) {
+  # Extract Mendelian standard deviations (diagonal elements)
+  msd <- sqrt(diag(S))
+  
+  # Create standardized matrix K
+  K <- S / (msd %*% t(msd))
+  
+  return(K)
+}</pre>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="section" id="section-3">
-                <div class="section-title">Why, How, What Analysis</div>
+
+            <div class="section" id="section-validation">
+                <div class="section-title">✅ Validation and Quality Control</div>
                 
                 <div class="analysis-grid">
                     <div class="analysis-card why-card">
-                        <div class="analysis-title">WHY - Critical Challenge</div>
+                        <div class="analysis-title">Mathematical Validation</div>
                         <div class="step-details">
-                            <strong>Core Problem:</strong> Genomic selection accelerates genetic gain but rapidly depletes genetic diversity.
-                            
+                            <strong>Equivalence Check (Equations 2 vs 5):</strong>
                             <ul>
-                                <li>Traditional methods focus on short-term gains</li>
-                                <li>Existing approaches lack <span class="highlight">trait-specific diversity control</span></li>
-                                <li>OCS controls inbreeding but not haplotype diversity</li>
-                                <li>Risk of losing valuable genetic variants for future adaptation</li>
+                                <li><strong>Original Bonk formula:</strong> var(b<sub>i</sub>) = m'R<sub>i</sub>m</li>
+                                <li><strong>New representation:</strong> var(b<sub>i</sub>) = m'<sub>i</sub>Rm<sub>i</sub></li>
+                                <li><strong>Verification:</strong> Results should be identical</li>
+                                <li><strong>Speed test:</strong> New method should be ~73× faster</li>
                             </ul>
                             
-                            <strong>Opportunity:</strong> Develop similarity matrix that captures haplotype relationships for sustainable breeding decisions.
+                            <strong>Matrix Properties:</strong>
+                            <ul>
+                                <li><strong>Symmetry:</strong> S[i,j] = S[j,i]</li>
+                                <li><strong>Positive diagonal:</strong> All MSV values > 0</li>
+                                <li><strong>Semi-definiteness:</strong> Handle rank deficiency if needed</li>
+                                <li><strong>Scale invariance:</strong> Results independent of haplotype order</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="analysis-card how-card">
-                        <div class="analysis-title">HOW - Methodological Innovation</div>
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Biological Validation</div>
                         <div class="step-details">
-                            <strong>Key Breakthrough:</strong> Similarity matrix based on Mendelian sampling patterns.
-                            
+                            <strong>Expected Patterns:</strong>
                             <ul>
-                                <li><strong>Step 1:</strong> Efficient MSV computation using parent-specific marker vectors</li>
-                                <li><strong>Step 2:</strong> Quantify pairwise haplotype similarities via bilinear forms</li>
-                                <li><strong>Step 3:</strong> Construct similarity matrix S with MSVs on diagonal</li>
-                                <li><strong>Step 4:</strong> Apply MOCS optimization with haplotype diversity constraints</li>
+                                <li><strong>Family structure:</strong> Similarity matrix should NOT show clear family blocks</li>
+                                <li><strong>Trait dependence:</strong> Different patterns for different traits</li>
+                                <li><strong>Heterozygosity impact:</strong> Higher similarity for shared heterozygous segments</li>
+                                <li><strong>Effect size correlation:</strong> Large effects → higher similarity</li>
                             </ul>
                             
-                            <strong>Validation:</strong> Test on Holstein data and 50-generation simulations across multiple breeding scenarios.
+                            <strong>Cross-Validation Studies:</strong>
+                            <ul>
+                                <li><strong>Split populations:</strong> Training vs validation sets</li>
+                                <li><strong>Prediction accuracy:</strong> MOCS vs TS comparison</li>
+                                <li><strong>Diversity metrics:</strong> QTL allele retention, inbreeding rates</li>
+                                <li><strong>Long-term performance:</strong> Multi-generational analysis</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="analysis-card what-card">
-                        <div class="analysis-title">WHAT - Key Achievements</div>
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Implementation Diagnostics</div>
                         <div class="step-details">
-                            <strong>Results:</strong> MOCS with similarity matrix outperforms traditional methods.
-                            
+                            <strong>Common Issues and Solutions:</strong>
                             <ul>
-                                <li><span class="highlight">73-fold speed improvement</span> in MSV computation</li>
-                                <li><span class="highlight">Up to 4.5 standard deviations</span> more long-term genetic variability</li>
-                                <li><span class="highlight">5-44% more favorable QTL alleles</span> retained</li>
-                                <li>Reduced inbreeding while maintaining genetic gain</li>
+                                <li><strong>Indefinite matrix:</strong> Use nearPD() function for approximation</li>
+                                <li><strong>Phasing errors:</strong> Validate with known relationships</li>
+                                <li><strong>Constraint setting:</strong> Start with base population percentiles</li>
+                                <li><strong>Convergence problems:</strong> Check data quality and scaling</li>
                             </ul>
                             
-                            <strong>Impact:</strong> Enables sustainable genomic selection with preserved haplotype diversity for long-term breeding success.
+                            <strong>Performance Monitoring:</strong>
+                            <ul>
+                                <li><strong>Computation time:</strong> Linear in number of markers</li>
+                                <li><strong>Memory usage:</strong> Quadratic in number of parents</li>
+                                <li><strong>Numerical stability:</strong> Monitor condition numbers</li>
+                                <li><strong>Biological realism:</strong> Compare with known genetic relationships</li>
+                            </ul>
+                            
+                            <strong>Recommended Workflow:</strong>
+                            <ul>
+                                <li>Start with small datasets for validation</li>
+                                <li>Compare results with published benchmarks</li>
+                                <li>Gradually increase complexity (traits, chromosomes)</li>
+                                <li>Document parameter choices and rationale</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="section" id="section-2">
-                <div class="section-title">Technical Implementation Details</div>
+
+            <div class="section" id="section-applications">
+                <div class="section-title">🌍 Practical Applications and Extensions</div>
                 
-                <div class="model-comparison">
-                    <div class="model-box" style="border-color: #9b59b6;">
-                        <div class="model-title" style="color: #9b59b6;">Computational Efficiency</div>
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Livestock Breeding Applications</div>
                         <div class="step-details">
-                            <strong>Previous Method (Bonk et al. 2016):</strong>
-                            <div class="formula">var(b<sub>i</sub>) = m'R<sub>i</sub>m</div>
-                            <strong>New Method:</strong>
-                            <div class="formula">var(b<sub>i</sub>) = m<sub>i</sub>'Rm<sub>i</sub></div>
-                            <strong>Key Improvements:</strong><br>
-                            • Single matrix R for all parents<br>
-                            • Parent-specific marker vectors m<sub>i</sub><br>
-                            • No repetitive matrix adjustments<br>
-                            • Scales efficiently with population size
+                            <strong>Dairy Cattle:</strong>
+                            <ul>
+                                <li><strong>Multi-trait selection:</strong> Milk yield, composition, health traits</li>
+                                <li><strong>Genomic young bull programs:</strong> Early selection with diversity preservation</li>
+                                <li><strong>International evaluations:</strong> Harmonized similarity constraints</li>
+                                <li><strong>Crossbreeding programs:</strong> Heterosis exploitation with diversity</li>
+                            </ul>
+                            
+                            <strong>Beef Cattle:</strong>
+                            <ul>
+                                <li><strong>Growth traits:</strong> Birth weight, weaning weight, feed efficiency</li>
+                                <li><strong>Carcass quality:</strong> Marbling, tenderness, lean yield</li>
+                                <li><strong>Adaptive traits:</strong> Heat tolerance, disease resistance</li>
+                                <li><strong>Maternal ability:</strong> Calving ease, milk production</li>
+                            </ul>
+                            
+                            <strong>Swine and Poultry:</strong>
+                            <ul>
+                                <li><strong>Production efficiency:</strong> Feed conversion, growth rate</li>
+                                <li><strong>Meat quality:</strong> Intramuscular fat, pH, color</li>
+                                <li><strong>Reproductive performance:</strong> Litter size, fertility</li>
+                                <li><strong>Disease resistance:</strong> PRRS, Newcastle disease</li>
+                            </ul>
                         </div>
                     </div>
                     
-                    <div class="model-box" style="border-color: #f39c12;">
-                        <div class="model-title" style="color: #f39c12;">Similarity Interpretation</div>
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Plant Breeding Extensions</div>
                         <div class="step-details">
-                            <strong>High Similarity Parents:</strong>
-                            <div class="formula">Many shared heterozygous markers with large effects</div>
-                            <strong>Low Similarity Parents:</strong>
-                            <div class="formula">Different heterozygous markers or linkage phases</div>
-                            <strong>Biological Meaning:</strong><br>
-                            • Reflects potential for diverse offspring<br>
-                            • Captures trait-specific relationships<br>
-                            • Independent of family structure<br>
-                            • Enables diversity-conscious mating decisions
+                            <strong>Crop Species Applications:</strong>
+                            <ul>
+                                <li><strong>Maize:</strong> Yield, drought tolerance, disease resistance</li>
+                                <li><strong>Wheat:</strong> Quality traits, rust resistance, adaptation</li>
+                                <li><strong>Rice:</strong> Grain quality, submergence tolerance, nutrition</li>
+                                <li><strong>Soybean:</strong> Oil content, protein quality, maturity</li>
+                            </ul>
+                            
+                            <strong>Doubled Haploid Systems:</strong>
+                            <ul>
+                                <li><strong>Direct application:</strong> Gametic similarity becomes zygotic similarity</li>
+                                <li><strong>Recombination optimization:</strong> Maximize favorable combinations</li>
+                                <li><strong>Parent selection:</strong> Choose complementary haplotypes</li>
+                                <li><strong>Population development:</strong> Structured crossing programs</li>
+                            </ul>
+                            
+                            <strong>Hybrid Breeding:</strong>
+                            <ul>
+                                <li><strong>Heterotic groups:</strong> Maintain distinct gene pools</li>
+                                <li><strong>Combining ability:</strong> Predict hybrid performance</li>
+                                <li><strong>Inbred line development:</strong> Preserve diversity within groups</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Directions</div>
+                        <div class="step-details">
+                            <strong>Methodological Advances:</strong>
+                            <ul>
+                                <li><strong>Machine learning integration:</strong> Deep learning for pattern recognition</li>
+                                <li><strong>Multi-omics approaches:</strong> Transcriptome, metabolome integration</li>
+                                <li><strong>Epigenetic considerations:</strong> DNA methylation, histone modifications</li>
+                                <li><strong>Structural variants:</strong> CNVs, inversions, translocations</li>
+                            </ul>
+                            
+                            <strong>Computational Developments:</strong>
+                            <ul>
+                                <li><strong>Cloud computing:</strong> Scalable similarity matrix calculations</li>
+                                <li><strong>GPU acceleration:</strong> Parallel matrix operations</li>
+                                <li><strong>Blockchain applications:</strong> Secure sharing of genetic information</li>
+                                <li><strong>Real-time optimization:</strong> Dynamic constraint adjustment</li>
+                            </ul>
+                            
+                            <strong>Biological Extensions:</strong>
+                            <ul>
+                                <li><strong>Microbiome interactions:</strong> Host-microbe genetic relationships</li>
+                                <li><strong>Environmental adaptation:</strong> Climate change resilience</li>
+                                <li><strong>Functional genomics:</strong> Gene network similarity measures</li>
+                                <li><strong>Conservation genetics:</strong> Wild population management</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="section" id="section-1">
-                <div class="section-title">Practical Applications & Future Directions</div>
+
+            <div class="section" id="section-comparison">
+                <div class="section-title">⚔️ MOCS vs Traditional Methods: Comprehensive Comparison</div>
                 
-                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin-bottom: 20px;">
-                    <h4 style="margin-top: 0; color: #27ae60;">Immediate Applications</h4>
-                    <ul>
-                        <li><strong>Livestock Breeding:</strong> Balance genetic gain with diversity in dairy cattle, beef, swine</li>
-                        <li><strong>Plant Breeding:</strong> Optimize parent selection for crop improvement programs</li>
-                        <li><strong>Conservation:</strong> Manage endangered breed populations while improving performance</li>
-                        <li><strong>Breeding Program Design:</strong> Set sustainable long-term breeding strategies</li>
-                    </ul>
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Basis</th>
+                                <th>Genetic Gain</th>
+                                <th>Diversity Preservation</th>
+                                <th>Computational Cost</th>
+                                <th>Trait Specificity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Truncation Selection</strong></td>
+                                <td>GEBV only</td>
+                                <td>High short-term</td>
+                                <td>Poor</td>
+                                <td>Low</td>
+                                <td>Trait-specific</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Optimal Contribution Selection</strong></td>
+                                <td>GRM-based</td>
+                                <td>Moderate</td>
+                                <td>Good (genome-wide)</td>
+                                <td>Medium</td>
+                                <td>Trait-independent</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>MOCS (S matrix)</strong></td>
+                                <td>MSV-based</td>
+                                <td>Slightly higher</td>
+                                <td>Good (trait-specific)</td>
+                                <td>Medium</td>
+                                <td>Highly trait-specific</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>MOCS (K matrix)</strong></td>
+                                <td>Standardized MSV</td>
+                                <td>Highest long-term</td>
+                                <td>Excellent</td>
+                                <td>Medium</td>
+                                <td>Optimally trait-specific</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div style="background: #fff8e8; padding: 20px; border-radius: 8px; border-left: 4px solid #f39c12;">
-                    <h4 style="margin-top: 0; color: #f39c12;">Future Research Directions</h4>
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Advantages of MOCS</div>
+                        <div class="step-details">
+                            <strong>Over Truncation Selection:</strong>
+                            <ul>
+                                <li><strong>Long-term superiority:</strong> Maintains genetic potential</li>
+                                <li><strong>Diversity preservation:</strong> Retains valuable haplotypes</li>
+                                <li><strong>Reduced inbreeding:</strong> More diverse parent selection</li>
+                                <li><strong>Sustainable improvement:</strong> Avoids genetic bottlenecks</li>
+                            </ul>
+                            
+                            <strong>Over Traditional OCS:</strong>
+                            <ul>
+                                <li><strong>Trait-focused:</strong> Preserves relevant genetic segments</li>
+                                <li><strong>Efficient selection:</strong> Fewer parents for same diversity</li>
+                                <li><strong>Better long-term gain:</strong> Maintains favorable combinations</li>
+                                <li><strong>Flexible constraints:</strong> Adjustable to breeding goals</li>
+                            </ul>
+                            
+                            <strong>Computational Advantages:</strong>
+                            <ul>
+                                <li><strong>73× speed improvement:</strong> Over original MSV calculation</li>
+                                <li><strong>Matrix reuse:</strong> R matrix calculated once</li>
+                                <li><strong>Scalable implementation:</strong> Linear in markers, quadratic in parents</li>
+                                <li><strong>Standard algorithms:</strong> Uses existing QP solvers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Limitations and Challenges</div>
+                        <div class="step-details">
+                            <strong>Data Requirements:</strong>
+                            <ul>
+                                <li><strong>Phased genotypes:</strong> Critical for accurate phase assignment</li>
+                                <li><strong>Accurate marker effects:</strong> Requires large training populations</li>
+                                <li><strong>Genetic maps:</strong> Precise recombination rate estimates</li>
+                                <li><strong>Quality control:</strong> Error propagation through calculations</li>
+                            </ul>
+                            
+                            <strong>Methodological Limitations:</strong>
+                            <ul>
+                                <li><strong>Constraint setting:</strong> No established guidelines unlike OCS</li>
+                                <li><strong>Matrix indefiniteness:</strong> Rank deficiency issues</li>
+                                <li><strong>Parameter estimation:</strong> Trait and population specific</li>
+                                <li><strong>Multi-trait complexity:</strong> Index weight determination</li>
+                            </ul>
+                            
+                            <strong>Practical Challenges:</strong>
+                            <ul>
+                                <li><strong>Implementation complexity:</strong> More sophisticated than TS</li>
+                                <li><strong>Validation requirements:</strong> Extensive testing needed</li>
+                                <li><strong>Software availability:</strong> Limited ready-to-use tools</li>
+                                <li><strong>Industry adoption:</strong> Change management challenges</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Implementation Recommendations</div>
+                        <div class="step-details">
+                            <strong>Getting Started:</strong>
+                            <ul>
+                                <li><strong>Pilot studies:</strong> Test with well-characterized populations</li>
+                                <li><strong>Single traits first:</strong> Validate before multi-trait extension</li>
+                                <li><strong>Compare with existing:</strong> Use OCS as benchmark</li>
+                                <li><strong>Monitor long-term:</strong> Multi-generational evaluation</li>
+                            </ul>
+                            
+                            <strong>Best Practices:</strong>
+                            <ul>
+                                <li><strong>Quality data:</strong> Invest in high-quality phasing</li>
+                                <li><strong>Robust estimates:</strong> Large reference populations for marker effects</li>
+                                <li><strong>Conservative constraints:</strong> Start with moderate diversity requirements</li>
+                                <li><strong>Regular updates:</strong> Recalculate matrices as populations evolve</li>
+                            </ul>
+                            
+                            <strong>Success Factors:</strong>
+                            <ul>
+                                <li><strong>Clear objectives:</strong> Define diversity vs gain trade-offs</li>
+                                <li><strong>Stakeholder buy-in:</strong> Educate on long-term benefits</li>
+                                <li><strong>Monitoring systems:</strong> Track diversity and performance metrics</li>
+                                <li><strong>Adaptive management:</strong> Adjust based on outcomes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-equations-summary">
+                <div class="section-title">📋 Complete Equation Reference</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Fundamental Equations</div>
+                        <div class="step-details">
+                            <strong>1. Breeding Value:</strong>
+                            <div class="formula">b<sub>i</sub> = c'<sub>i</sub>m</div>
+                            
+                            <strong>2. Original MSV (Bonk et al. 2016):</strong>
+                            <div class="formula">var(b<sub>i</sub>) = m'R<sub>i</sub>m</div>
+                            
+                            <strong>3. Improved MSV Representation:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = m'<sub>i</sub>Rm<sub>i</sub></div>
+                            
+                            <strong>4. Recombination Covariance:</strong>
+                            <div class="formula">ρ<sub>kl</sub> = ± exp(-2d<sub>kl</sub>)/4</div>
+                            
+                            <strong>5. Parent-Specific Effects:</strong>
+                            <div class="formula">m<sub>ik</sub> = δ<sub>ik</sub>m<sub>k</sub></div>
+                            
+                            <strong>6. Zygote MSV:</strong>
+                            <div class="formula">var(b<sub>ij</sub>) = m'<sub>i</sub>Rm<sub>i</sub> + m'<sub>j</sub>Rm<sub>j</sub></div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Multi-Trait Extensions</div>
+                        <div class="step-details">
+                            <strong>7. Multi-Trait MSV:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = M<sub>i</sub>RM'<sub>i</sub> = V<sub>i</sub></div>
+                            
+                            <strong>8. Multiple Chromosomes:</strong>
+                            <div class="formula">var(b<sub>i</sub>) = Σ<sub>c</sub> M<sup>c</sup><sub>i</sub>R<sup>c</sup>(M<sup>c</sup><sub>i</sub>)'</div>
+                            
+                            <strong>9. Aggregate Genotype:</strong>
+                            <div class="formula">var(a'b<sub>i</sub>) = a' · V<sub>i</sub> · a</div>
+                            
+                            <strong>10. Multi-Trait Zygote:</strong>
+                            <div class="formula">var(b<sub>ij</sub>) = M<sub>i</sub>RM'<sub>i</sub> + M<sub>j</sub>RM'<sub>j</sub></div>
+                            
+                            <strong>11. Multi-Chromosome Zygote:</strong>
+                            <div class="formula">var(b<sub>ij</sub>) = Σ<sub>c</sub> [M<sup>c</sup><sub>i</sub>R<sup>c</sup>(M<sup>c</sup><sub>i</sub>)' + M<sup>c</sup><sub>j</sub>R<sup>c</sup>(M<sup>c</sup><sub>j</sub>)']</div>
+                            
+                            <strong>12. Aggregate Zygote:</strong>
+                            <div class="formula">var(a'b<sub>ij</sub>) = a' · V<sub>ij</sub> · a</div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Similarity Measures</div>
+                        <div class="step-details">
+                            <strong>13. Gametic Similarity (Single Chromosome):</strong>
+                            <div class="formula">s<sub>i,j</sub> = |m'<sub>i</sub>Rm<sub>j</sub>|</div>
+                            
+                            <strong>14. Multi-Chromosome Similarity:</strong>
+                            <div class="formula">s<sub>i,j</sub> = Σ<sub>c</sub> |(m<sup>c</sup><sub>i</sub>)'R<sup>c</sup>m<sup>c</sup><sub>j</sub>|</div>
+                            
+                            <strong>15. Multi-Trait Similarity:</strong>
+                            <div class="formula">s<sub>i,j</sub> = Σ<sub>c</sub> |a' · (M<sup>c</sup><sub>i</sub>R<sup>c</sup>(M<sup>c</sup><sub>j</sub>)') · a|</div>
+                            
+                            <strong>16. Zygote Similarity (Single Chromosome):</strong>
+                            <div class="formula">s<sub>ij,uv</sub> = |m'<sub>i</sub>Rm<sub>u</sub>| + |m'<sub>j</sub>Rm<sub>v</sub>|</div>
+                            
+                            <strong>17. Multi-Chromosome Zygote Similarity:</strong>
+                            <div class="formula">s<sub>ij,uv</sub> = Σ<sub>c</sub> (|(m<sup>c</sup><sub>i</sub>)'R<sup>c</sup>m<sup>c</sup><sub>u</sub>| + |(m<sup>c</sup><sub>j</sub>)'R<sup>c</sup>m<sup>c</sup><sub>v</sub>|)</div>
+                            
+                            <strong>18. Standardized Similarity:</strong>
+                            <div class="formula">K = D<sup>-1</sup> · S · D<sup>-1</sup></div>
+                            <div class="formula-note">where D = √diag(S)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Optimization Framework</div>
+                        <div class="step-details">
+                            <strong>19. MOCS Objective:</strong>
+                            <div class="formula">maximize r<sub>t+1</sub> = n'<sub>t</sub>r<sub>t</sub></div>
+                            
+                            <strong>20. Similarity Constraint:</strong>
+                            <div class="formula">Q<sub>t+1</sub> ≤ n'<sub>t</sub>Q<sub>t</sub>n<sub>t</sub>/2</div>
+                            
+                            <strong>21. Sex Ratio Constraints:</strong>
+                            <div class="formula">n'<sub>t</sub>v<sub>f</sub> = 1/2, n'<sub>t</sub>v<sub>m</sub> = 1/2</div>
+                            
+                            <strong>22. Selection Index:</strong>
+                            <div class="formula">I<sub>i</sub> = b<sub>i</sub> + √2 · x<sub>p</sub> · σ<sub>gi</sub></div>
+                            
+                            <strong>23. Inbreeding Rate:</strong>
+                            <div class="formula">F<sub>t</sub> = 1 - H<sub>ot</sub></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusions">
+                <div class="section-title">🎯 Key Takeaways and Future Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Revolutionary Contribution to Genomic Selection</div>
+                    <p>Musa and Reinsch (2025) have provided the breeding community with a powerful new tool that addresses one of genomic selection's most critical challenges: balancing short-term genetic gain with long-term genetic diversity. Their haplotype similarity matrix offers a mathematically elegant, computationally efficient, and biologically meaningful approach to sustainable genetic improvement.</p>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Essential Principles for Implementation:</strong>
                     <ul>
-                        <li><strong>Multi-objective Optimization:</strong> Integrate with economic weights and environmental adaptation</li>
-                        <li><strong>Non-additive Effects:</strong> Extend to dominance and epistatic interactions</li>
-                        <li><strong>Dynamic Constraints:</strong> Adaptive similarity thresholds based on population structure</li>
-                        <li><strong>Validation Studies:</strong> Test across diverse species and breeding systems</li>
-                        <li><strong>Software Development:</strong> Create user-friendly tools for breeding program implementation</li>
+                        <li><strong>Quality Data First:</strong> Success depends on high-quality phased genotypes and accurate marker effect estimates</li>
+                        <li><strong>Start Simple:</strong> Begin with single traits and well-characterized populations before expanding</li>
+                        <li><strong>Validate Thoroughly:</strong> Compare MOCS results with established methods over multiple generations</li>
+                        <li><strong>Monitor Long-term:</strong> Track both genetic gain and diversity metrics consistently</li>
+                        <li><strong>Adaptive Management:</strong> Adjust constraint levels based on population evolution and breeding objectives</li>
                     </ul>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Scientific Impact</div>
+                        <div class="step-details">
+                            <strong>Theoretical Advances:</strong>
+                            <ul>
+                                <li><strong>MSV computation:</strong> 73-fold speed improvement enables practical application</li>
+                                <li><strong>Trait-specific diversity:</strong> Focus on relevant genetic segments</li>
+                                <li><strong>Matrix framework:</strong> Unifies gametic and zygotic similarity measures</li>
+                                <li><strong>Optimization integration:</strong> Seamless incorporation into breeding programs</li>
+                            </ul>
+                            
+                            <strong>Methodological Innovation:</strong>
+                            <ul>
+                                <li>Bridges gap between population genetics and practical breeding</li>
+                                <li>Extends beyond traditional relationship-based approaches</li>
+                                <li>Provides principled framework for constraint setting</li>
+                                <li>Enables species-agnostic application</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Practical Benefits</div>
+                        <div class="step-details">
+                            <strong>For Breeding Programs:</strong>
+                            <ul>
+                                <li><strong>Improved long-term gain:</strong> Up to 4.5 SD more genetic variance preserved</li>
+                                <li><strong>Efficient parent use:</strong> Fewer parents needed vs OCS for same diversity</li>
+                                <li><strong>Trait flexibility:</strong> Adapt to changing breeding objectives</li>
+                                <li><strong>Risk management:</strong> Reduced vulnerability to genetic bottlenecks</li>
+                            </ul>
+                            
+                            <strong>For Industry:</strong>
+                            <ul>
+                                <li><strong>Sustainable improvement:</strong> Long-term competitiveness</li>
+                                <li><strong>Reduced costs:</strong> More efficient use of genomic information</li>
+                                <li><strong>Quality assurance:</strong> Better preservation of favorable traits</li>
+                                <li><strong>Market adaptation:</strong> Maintain genetic potential for future demands</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Directions</div>
+                        <div class="step-details">
+                            <strong>Immediate Opportunities:</strong>
+                            <ul>
+                                <li><strong>Constraint optimization:</strong> Develop guidelines for different species/traits</li>
+                                <li><strong>Software development:</strong> User-friendly implementation tools</li>
+                                <li><strong>Empirical validation:</strong> Large-scale breeding program trials</li>
+                                <li><strong>Multi-population studies:</strong> Cross-population similarity measures</li>
+                            </ul>
+                            
+                            <strong>Long-term Potential:</strong>
+                            <ul>
+                                <li><strong>Machine learning integration:</strong> AI-assisted constraint setting</li>
+                                <li><strong>Real-time optimization:</strong> Dynamic breeding program management</li>
+                                <li><strong>Global networks:</strong> International genetic diversity coordination</li>
+                                <li><strong>Conservation applications:</strong> Wildlife population management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="significance-box">
+                    <div class="significance-title">Enduring Significance</div>
+                    <div class="significance-content">
+                        The haplotype similarity matrix represents a paradigm shift in genomic selection methodology. By explicitly accounting for the biological reality of recombination and the economic importance of trait-specific genetic segments, Musa and Reinsch have provided the tools necessary for truly sustainable genetic improvement. This work will likely become a cornerstone reference for breeding program design in the genomic era, enabling the agriculture industry to meet future food security challenges while preserving the genetic heritage that makes continued improvement possible.
+                    </div>
                 </div>
             </div>
         </div>
