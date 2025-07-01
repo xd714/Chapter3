@@ -197,7 +197,7 @@
 /* Universal box-sizing and constraints */
 *, *::before, *::after {
     box-sizing: border-box;
-    max-width: 100%;
+    max-width: 95%;
 }
 
 html {
@@ -216,7 +216,7 @@ body {
     line-height: 1.6;
     color: var(--text-primary);
     overflow-x: hidden;
-    width: 100%;
+    width: 95%;
     max-width: 100vw;
     box-sizing: border-box;
 }
@@ -257,13 +257,13 @@ body {
 
 /* Media elements */
 img, video, iframe, object, embed {
-    max-width: 100%;
+    max-width: 95%;
     height: auto;
 }
 
 pre, code {
     overflow-x: auto;
-    max-width: 100%;
+    max-width: 95%;
     box-sizing: border-box;
 }
 
@@ -285,16 +285,16 @@ pre, code {
 
 .content {
     padding: 40px 30px; /* Reduced horizontal padding for wider content */
-    max-width: 100%;
+    max-width: 95%;
     overflow-x: hidden;
-    width: 100%;
+    width: 95%;
 }
 
 .section {
     margin: 45px auto;
-    max-width: 100%; /* Unified to 100% */
+    max-width: 95%; /* Unified to 100% */
     padding: 0;
-    width: 100%;
+    width: 95%;
 }
 
 /* ============================================
@@ -576,9 +576,9 @@ sup { top: -0.5em; }
 /* Flow diagrams */
 .flow-container {
     margin: 30px auto;
-    max-width: 100%; /* Unified to 100% */
+    max-width: 95%; /* Unified to 100% */
     padding: 0;
-    width: 100%;
+    width: 95%;
 }
 
 .flow-step {
@@ -587,14 +587,14 @@ sup { top: -0.5em; }
     gap: 30px;
     margin-bottom: 30px;
     padding: 0;
-    width: 100%;
+    width: 95%;
 }
 
 .guideline-steps {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 100%;
+    width: 95%;
 }
 
 .step-num {
@@ -639,7 +639,7 @@ sup { top: -0.5em; }
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 100%;
+    width: 95%;
 }
 
 .step-content:hover {
@@ -867,8 +867,8 @@ sup { top: -0.5em; }
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     font-size: 0.95em;
     line-height: 1.7;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
 }
 
 .citation-box p:first-child {
@@ -883,8 +883,8 @@ sup { top: -0.5em; }
     padding: 25px;
     border-radius: 12px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     position: relative;
     overflow: hidden;
@@ -922,8 +922,8 @@ sup { top: -0.5em; }
     border-radius: 10px;
     border-left: 5px solid var(--success-color);
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
@@ -934,8 +934,8 @@ sup { top: -0.5em; }
     border-radius: 10px;
     padding: 25px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
@@ -951,16 +951,16 @@ sup { top: -0.5em; }
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     border-left: 4px solid var(--success-color);
 }
 
 .problem-box,
 .solution-box {
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 25px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -984,8 +984,8 @@ sup { top: -0.5em; }
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
 }
 
@@ -995,8 +995,8 @@ sup { top: -0.5em; }
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
 }
 
@@ -1006,8 +1006,8 @@ sup { top: -0.5em; }
     border-radius: 10px;
     border-left: 6px solid var(--warning-color);
     margin: 30px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
 }
 
@@ -1029,8 +1029,8 @@ sup { top: -0.5em; }
     border-radius: 10px;
     border-left: 6px solid var(--info-color);
     margin: 30px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 3px 10px rgba(23, 162, 184, 0.1);
 }
 
@@ -1051,8 +1051,8 @@ sup { top: -0.5em; }
     background: var(--primary-light);
     padding: 20px;
     margin: 20px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     border-radius: 8px;
     border-left: 5px solid var(--primary-color);
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -1091,8 +1091,8 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 25px;
     margin: 30px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 0;
 }
 
@@ -1102,8 +1102,8 @@ sup { top: -0.5em; }
     gap: 30px;
     margin: 30px auto;
     padding: 0;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
 }
 
 .theme-container {
@@ -1111,8 +1111,8 @@ sup { top: -0.5em; }
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin: 30px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 0;
 }
 
@@ -1125,8 +1125,8 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 0;
 }
 
@@ -1135,8 +1135,8 @@ sup { top: -0.5em; }
     grid-template-columns: 1fr 1fr;
     gap: 25px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 0;
 }
 
@@ -1145,8 +1145,8 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 25px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 0;
 }
 
@@ -1155,8 +1155,8 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     padding: 0;
 }
 
@@ -1165,7 +1165,7 @@ sup { top: -0.5em; }
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 20px;
     margin: 20px 0;
-    width: 100%;
+    width: 95%;
 }
 
 .sample-level.recommended {
@@ -1189,7 +1189,7 @@ sup { top: -0.5em; }
 .concept-grid > *,
 .method-grid > * {
     min-width: 0;
-    max-width: 100%;
+    max-width: 95%;
     box-sizing: border-box;
 }
 
@@ -1199,18 +1199,18 @@ sup { top: -0.5em; }
 
 .table-container {
     margin: 30px auto;
-    max-width: 100%;
+    max-width: 95%;
     overflow-x: auto;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    width: 100%;
+    width: 95%;
     box-sizing: border-box;
 }
 
 .table-container table,
 .example-table,
 table {
-    width: 100%;
+    width: 95%;
     min-width: 600px;
     border-collapse: collapse;
     margin: 0;
@@ -1257,8 +1257,8 @@ table tr:last-child td {
 /* Specialized table styles */
 .formulation-table {
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
 }
 
 .formulation-table th {
@@ -1321,8 +1321,8 @@ table tr:last-child td {
     font-weight: 600;
     letter-spacing: 0.5px;
     display: block;
-    width: 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 95%;
     min-width: 0;
     line-height: 1.3;
     position: relative;
@@ -1374,8 +1374,8 @@ table tr:last-child td {
     border-radius: 12px;
     padding: 20px;
     margin: 20px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -1410,8 +1410,8 @@ table tr:last-child td {
     border-radius: 12px;
     padding: 25px;
     margin: 25px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -1422,8 +1422,8 @@ table tr:last-child td {
     border-radius: 8px;
     padding: 25px 10px;
     margin: 20px auto;
-    max-width: 100%; /* UNIFIED */
-    width: 100%;
+    max-width: 95%; /* UNIFIED */
+    width: 95%;
     font-family: 'Courier New', monospace;
     overflow-x: auto;
     box-sizing: border-box;
@@ -1784,7 +1784,7 @@ table tr:last-child td {
     
     .content {
         padding: 25px 15px; /* Minimal padding for maximum width */
-        width: 100%;
+        width: 95%;
         overflow-x: hidden;
     }
     
@@ -1825,18 +1825,18 @@ table tr:last-child td {
         grid-template-columns: 1fr;
         gap: 20px;
         margin: 25px 0;
-        max-width: 100%;
+        max-width: 95%;
         padding: 0;
-        width: 100%;
+        width: 95%;
         box-sizing: border-box;
     }
     
     .section,
     .flow-container {
         margin: 25px 0;
-        max-width: 100%;
+        max-width: 95%;
         padding: 0;
-        width: 100%;
+        width: 95%;
         box-sizing: border-box;
     }
     
@@ -1870,7 +1870,7 @@ table tr:last-child td {
     .formula {
         font-size: 0.85em;
         padding: 10px;
-        width: 100%;
+        width: 95%;
         min-width: 0;
         white-space: normal;
         word-wrap: break-word;
@@ -1886,7 +1886,7 @@ table tr:last-child td {
     
     .matrix-container {
         padding: 15px 10px;
-        width: 100%;
+        width: 95%;
         overflow-x: auto;
     }
     
@@ -1921,8 +1921,8 @@ table tr:last-child td {
     .model-equation {
         margin-left: 0;
         margin-right: 0;
-        width: 100%;
-        max-width: 100%;
+        width: 95%;
+        max-width: 95%;
         box-sizing: border-box;
     }
 }
