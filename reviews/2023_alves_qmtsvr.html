@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(Quasi) Multitask Support Vector Regression for Genomic Prediction</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'alves_2023_qmtsvr';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>(Quasi) Multitask Support Vector Regression with Heuristic Hyperparameter Optimization for Whole-Genome Prediction</h1>
+            <p>A Novel Machine Learning Approach for Multi-Trait Genomic Selection</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Anderson Antonio Carvalho Alves, Arthur Francisco Araujo Fernandes, Fernando Brito Lopes, Vivian Breen, Rachel Hawken, Daniel Gianola, Guilherme Jordão de Magalhães Rosa</p>
+                <p class="text-small text-top"><strong>Journal:</strong> G3: Genes, Genomes, Genetics, Vol. 13, No. 8, 2023</p>
+                <p class="text-small text-top"><strong>Institution:</strong> University of Wisconsin-Madison, Cobb-Vantress Inc.</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1093/g3journal/jkad109"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Problem Statement and Innovation</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 The Multi-Trait Genomic Prediction Challenge</div>
+                    <p>Most genomic prediction methods focus on single traits, but many traits are correlated. Multi-trait models can borrow information across traits to improve prediction accuracy, especially for traits that are difficult or expensive to measure (like carcass traits that require slaughtering animals).</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Current Limitations:</strong> Existing multi-trait genomic prediction methods assume only additive genetic effects and are computationally intensive. Support Vector Regression (SVR) can capture non-linear relationships but hasn't been effectively extended to multi-trait scenarios.
+                </div>
+
+                <div class="solution-box">
+                    <strong>Proposed Solution:</strong> Develop a (Quasi) Multitask Support Vector Regression (QMTSVR) that can:
+                    <ul>
+                        <li>Handle multiple correlated traits simultaneously</li>
+                        <li>Capture non-linear genetic effects</li>
+                        <li>Use genetic algorithms for efficient hyperparameter optimization</li>
+                        <li>Avoid estimating complex covariance matrices</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-mathematical">
+                <div class="section-title">📐 Mathematical Framework Deep Dive</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Standard SVR Model Foundation</div>
+                    <div class="formula-main">y = b₀ + φ(M)β + e</div>
+                    <div class="formula-note">Where y = observations, φ(M) = kernel mapping of markers, β = regression weights, e = residuals</div>
+                </div>
+
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">SVR Primal Optimization Problem</div>
+                        <div class="step-details">
+                            <strong>Objective Function:</strong>
+                            <div class="formula">minimize: ½β<sup>T</sup>β + C(ξ + ξ*)<sup>T</sup>1<sub>n</sub></div>
+                            
+                            <strong>Subject to constraints:</strong>
+                            <ul>
+                                <li>y - φ(M)β - b₀ ≤ εn + ξ</li>
+                                <li>φ(M)β + b₀ - y ≤ εn + ξ*</li>
+                                <li>ξᵢ, ξᵢ* ≥ 0, for i = 1, 2, ..., N</li>
+                            </ul>
+                            
+                            <strong>Key Parameters:</strong>
+                            <ul>
+                                <li><strong>C:</strong> Regularization parameter (controls penalty on large residuals)</li>
+                                <li><strong>ε:</strong> Insensitive loss margin (tolerance for prediction errors)</li>
+                                <li><strong>ξ, ξ*:</strong> Slack variables (allow violations of ε-margin)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">SVR Dual Formulation</div>
+                        <div class="step-details">
+                            <strong>Lagrangian Dual Problem:</strong>
+                            <div class="formula">max: -½(α - α*)<sup>T</sup>K(α - α*) - (α + α*)<sup>T</sup>εn + (α - α*)<sup>T</sup>y</div>
+                            
+                            <strong>Constraint System:</strong>
+                            <ul>
+                                <li>0 ≤ αᵢ, αᵢ* ≤ C, i = 1, 2, ..., N</li>
+                                <li>(α - α*)<sup>T</sup>1n = 0</li>
+                            </ul>
+                            
+                            <strong>Kernel Matrix Components:</strong>
+                            <ul>
+                                <li><strong>K:</strong> Kernel matrix K = φ(M)φ(M)<sup>T</sup></li>
+                                <li><strong>α, α*:</strong> Lagrange multipliers (determine support vectors)</li>
+                                <li><strong>RBF Kernel:</strong> kᵢⱼ = exp(-||mᵢ - mⱼ||²/θ)</li>
+                                <li><strong>θ:</strong> Kernel bandwidth parameter (controls locality)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Extension to Multi-Trait Framework</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Data Expansion Scheme</div>
+                        <div class="step-details">
+                            <strong>Core Innovation - Block Matrix Structure:</strong>
+                            <ul>
+                                <li>Expand observations for t traits using block matrix Q</li>
+                                <li>Share global hyperparameters (C, ε) across traits</li>
+                                <li>Use trait-specific and trait-common bandwidth parameters</li>
+                                <li>Maintain computational efficiency with standard SMO algorithm</li>
+                            </ul>
+                            
+                            <strong>Multi-Trait Objective Function:</strong>
+                            <div class="formula">
+                                max: -½[α⁽¹⁾-α*⁽¹⁾; α⁽²⁾-α*⁽²⁾; ...; α⁽ᵗ⁾-α*⁽ᵗ⁾]<sup>T</sup> Q [α⁽¹⁾-α*⁽¹⁾; α⁽²⁾-α*⁽²⁾; ...; α⁽ᵗ⁾-α*⁽ᵗ⁾]
+                            </div>
+                            
+                            <strong>Block Matrix Q Structure (for 2 traits):</strong>
+                            <div class="matrix-container">
+                                <div class="matrix-equation">
+                                    <div class="matrix-definition">Q =</div>
+                                    <div class="matrix-2x2">
+                                        <div>Q₁₁</div>
+                                        <div>Q₁₂</div>
+                                        <div>Q₂₁</div>
+                                        <div>Q₂₂</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <strong>Where each block Qₖₖ':</strong>
+                            <div class="formula">Qₖₖ' = ρₖₖ' × exp(-θₖₖ' × D ⊙ D × p⁻¹)</div>
+                            <ul>
+                                <li><strong>D:</strong> N×N Euclidean distance matrix between individuals</li>
+                                <li><strong>θₖₖ':</strong> Bandwidth parameters (trait-specific and cross-trait)</li>
+                                <li><strong>ρₖₖ':</strong> Association constants (-1 to 1, measure trait correlations)</li>
+                                <li><strong>⊙:</strong> Hadamard (element-wise) product</li>
+                                <li><strong>p:</strong> Number of marker loci</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">QMTSVR Implementation Details</div>
+                        <div class="step-details">
+                            <strong>Prediction Function:</strong>
+                            <div class="formula">f⁽ᵏ⁾(xᵢ) = Σⱼ₌₁ᴺˣᵗ (αⱼ⁽ᵏ⁾ - αⱼ*⁽ᵏ⁾) × {Qᵢⱼ} + b₀</div>
+                            <p>Where k = 1, 2, ..., t represents the trait index</p>
+                            
+                            <strong>Hyperparameter Space (2 + t²):</strong>
+                            <ul>
+                                <li><strong>Global parameters:</strong> C (regularization), ε (margin tolerance)</li>
+                                <li><strong>Bandwidth parameters:</strong> θₖₖ' for all trait combinations</li>
+                                <li><strong>Association parameters:</strong> ρₖₖ' for trait relationships</li>
+                                <li><strong>For 2 traits:</strong> 6 total parameters to optimize</li>
+                                <li><strong>For 3 traits:</strong> 11 total parameters</li>
+                            </ul>
+                            
+                            <strong>Computational Advantages:</strong>
+                            <ul>
+                                <li>Uses standard Sequential Minimal Optimization (SMO) algorithm</li>
+                                <li>No need to estimate genetic/residual covariance matrices</li>
+                                <li>Captures non-linear relationships between and within traits</li>
+                                <li>Produces sparse solutions (only support vectors have non-zero coefficients)</li>
+                            </ul>
+                            
+                            <strong>Model Constraints:</strong>
+                            <ul>
+                                <li>0 ≤ α⁽ᵏ⁾ᵢ, α*⁽ᵏ⁾ᵢ ≤ C, for all i and k</li>
+                                <li>[α⁽ᵏ⁾ - α*⁽ᵏ⁾]<sup>T</sup>1n = 0, for k = 1, 2, ..., t</li>
+                                <li>Standardized response variables: y*⁽¹⁾, y*⁽²⁾, ..., y*⁽ᵗ⁾</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Weighted QMTSVR Extension</div>
+                        <div class="step-details">
+                            <strong>Loci-Specific Distance Weighting:</strong>
+                            <div class="formula">wd⁽ᵏᵏ'⁾ᵢⱼ = √[Σₗ₌₁ᵖ wₗ⁽ᵏᵏ'⁾ × (mᵢₗ - mⱼₗ)²]</div>
+                            
+                            <strong>Weight Calculation Formula:</strong>
+                            <div class="formula">wₗ⁽ᵏᵏ'⁾ = |2(1-qₗ)qₗδₗₖδₗₖ'| / max[|2(1-qₗ)qₗδₗₖδₗₖ'|]</div>
+                            
+                            <strong>Parameter Definitions:</strong>
+                            <ul>
+                                <li><strong>qₗ:</strong> Minor allele frequency at locus l</li>
+                                <li><strong>δₗₖ, δₗₖ':</strong> SNP effect estimates for traits k and k' from GWAS</li>
+                                <li><strong>wₗ⁽ᵏᵏ'⁾:</strong> Normalized weights ranging from 0 to 1</li>
+                                <li><strong>Higher weights:</strong> Assigned to loci with larger (co)variances</li>
+                            </ul>
+                            
+                            <strong>Implementation Strategy:</strong>
+                            <ul>
+                                <li>Estimate δ coefficients via multivariate multiple regression</li>
+                                <li>Include first 30 principal components to control population structure</li>
+                                <li>Compute t(t+1)/2 different weighted distance matrices</li>
+                                <li>Replace constant p⁻¹ with [Σₗ₌₁ᵖ wₗ⁽ᵏᵏ'⁾]⁻¹ in Q matrix</li>
+                            </ul>
+                            
+                            <strong>Biological Rationale:</strong>
+                            <ul>
+                                <li>Weight genomic regions by their estimated importance for each trait</li>
+                                <li>Capture trait-specific and pleiotropic genetic architectures</li>
+                                <li>Improve prediction by focusing on relevant genomic information</li>
+                                <li>Account for differential SNP effects across trait combinations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-optimization">
+                <div class="section-title">🧬 Genetic Algorithm Hyperparameter Optimization</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Population Initialization</div>
+                            <div class="step-details">
+                                Create initial population of candidate hyperparameter combinations
+                                <div class="step-specs">
+                                    <strong>GA Parameters:</strong><br>
+                                    • Population Size (PS) = 25 individuals<br>
+                                    • Number of Generations (NG) = 30<br>
+                                    • Crossover Rate (CR) = 0.9<br>
+                                    • Mutation Rate (MR) = 0.05<br>
+                                    • Tournament Size = 4<br>
+                                    <strong>Hyperparameter Search Ranges:</strong><br>
+                                    • C (regularization): 0.1 to 4.0<br>
+                                    • ε (epsilon margin): 0.0001 to 0.1<br>
+                                    • θ (bandwidth): 0.2 to 7.0<br>
+                                    • ρ (correlation): 0.1 to 0.3<br>
+                                    <strong>Encoding:</strong><br>
+                                    • Binary chromosomes represent real-valued parameters<br>
+                                    • Each parameter mapped to specific bit ranges<br>
+                                    • Total chromosome length varies with number of traits
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Fitness Evaluation</div>
+                            <div class="step-details">
+                                Evaluate each hyperparameter combination using internal cross-validation
+                                <div class="step-specs">
+                                    <strong>Fitness Function:</strong><br>
+                                    Pearson correlation between observed and predicted responses<br>
+                                    <strong>Validation Strategy:</strong><br>
+                                    • Training subset: MG1-MG16 (model fitting)<br>
+                                    • Validation subset: MG17-MG19 (fitness evaluation)<br>
+                                    • Testing set: MG20-MG23 (final evaluation, not used in GA)<br>
+                                    <strong>Objective:</strong><br>
+                                    Maximize prediction accuracy on validation subset<br>
+                                    <strong>Computational Details:</strong><br>
+                                    • Each fitness evaluation requires full QMTSVR training<br>
+                                    • 25 × 30 = 750 total model evaluations per trait/design<br>
+                                    • Parallel processing across population members<br>
+                                    • Average computation time: ~78 minutes total
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Selection and Reproduction</div>
+                            <div class="step-details">
+                                Create new generation using tournament selection and genetic operators
+                                <div class="step-specs">
+                                    <strong>Tournament Selection:</strong><br>
+                                    • Randomly sample 4 individuals from current population<br>
+                                    • Select individual with highest fitness score<br>
+                                    • Repeat to select second parent for crossover<br>
+                                    <strong>Two-Point Crossover (90% rate):</strong><br>
+                                    • Randomly select two crossover points in chromosome<br>
+                                    • Exchange genetic material between crossover points<br>
+                                    • Create two offspring from each parent pair<br>
+                                    <strong>Bit-Flip Mutation (5% rate):</strong><br>
+                                    • Randomly flip individual bits in chromosome<br>
+                                    • Maintains genetic diversity in population<br>
+                                    • Enables exploration of new hyperparameter regions<br>
+                                    <strong>Elitism Strategy:</strong><br>
+                                    • Preserve best individuals across generations<br>
+                                    • Prevent loss of good solutions due to stochastic operators
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Convergence and Final Model Training</div>
+                            <div class="step-details">
+                                Monitor convergence and retrain with optimal hyperparameters
+                                <div class="step-specs">
+                                    <strong>Convergence Monitoring:</strong><br>
+                                    • Track best and average fitness across generations<br>
+                                    • Early rapid improvement (generations 1-10)<br>
+                                    • Gradual refinement phase (generations 10-30)<br>
+                                    • Random fluctuations due to crossover/mutation<br>
+                                    <strong>Final Model Training:</strong><br>
+                                    • Select best hyperparameter combination from GA<br>
+                                    • Retrain QMTSVR on full training set (MG1-MG19)<br>
+                                    • Evaluate final model on testing set (MG20-MG23)<br>
+                                    <strong>Hyperparameter Convergence Patterns:</strong><br>
+                                    • Trait-common bandwidth (θ₁₂): 3.28 - 7.00 (large values)<br>
+                                    • Trait-specific bandwidth (θ₁₁, θ₂₂): 1.09 - 3.61 (smaller values)<br>
+                                    • Association constants (ρ₁₂): 0.1 - 0.3 (reflecting weak correlations)<br>
+                                    <strong>Computational Performance:</strong><br>
+                                    • Total optimization time: ~78 minutes<br>
+                                    • Parallelization across CPU cores<br>
+                                    • Memory usage: ~125 GB for full dataset
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-validation">
+                <div class="section-title">📊 Validation Strategies and Performance Metrics</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Cross-Validation Design Strategies</div>
+                        <div class="step-details">
+                            <strong>CV1 (Complete Prediction Scenario):</strong>
+                            <ul>
+                                <li><strong>Setup:</strong> No phenotypes available for testing animals on any trait</li>
+                                <li><strong>Biological scenario:</strong> Predicting young animals without performance records</li>
+                                <li><strong>Information source:</strong> Only genetic relationships and marker information</li>
+                                <li><strong>Challenge level:</strong> Most difficult but realistic breeding scenario</li>
+                                <li><strong>Multi-trait benefit:</strong> Limited to genetic correlations between traits</li>
+                            </ul>
+                            
+                            <strong>CV2 (Partial Information Scenario):</strong>
+                            <ul>
+                                <li><strong>Setup:</strong> Secondary trait phenotypes available for testing animals</li>
+                                <li><strong>Biological scenario:</strong> Some traits measured early/cheaply before expensive traits</li>
+                                <li><strong>Information source:</strong> Genetic relationships + indicator trait phenotypes</li>
+                                <li><strong>Practical relevance:</strong> Growth measured before slaughter for carcass traits</li>
+                                <li><strong>Advantage:</strong> Higher prediction accuracy but potential environmental bias</li>
+                            </ul>
+                            
+                            <strong>Trait Combination Testing:</strong>
+                            <ul>
+                                <li><strong>CT1 × Growth:</strong> Carcass trait 1 with growth performance</li>
+                                <li><strong>CT2 × Feed Efficiency:</strong> Carcass trait 2 with feed conversion</li>
+                                <li><strong>Genetic correlations:</strong> 0.23 and 0.38 respectively (weak to moderate)</li>
+                                <li><strong>Environmental correlations:</strong> 0.47 and 0.25 respectively</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Comprehensive Evaluation Metrics</div>
+                        <div class="step-details">
+                            <strong>Prediction Accuracy (ACC):</strong>
+                            <div class="formula">ACC = r(y_test, ŷ_test) / √(r²_y)</div>
+                            <ul>
+                                <li>Pearson correlation between observed and predicted values</li>
+                                <li>Adjusted for reliability of phenotypic measurements</li>
+                                <li>Range: 0 to 1 (higher is better)</li>
+                                <li>Standard metric in animal breeding</li>
+                            </ul>
+                            
+                            <strong>Standardized Root Mean Squared Error (RMSE*):</strong>
+                            <div class="formula">RMSE* = RMSE / √(σ²_y_test)</div>
+                            <ul>
+                                <li>Root mean squared error relative to phenotypic standard deviation</li>
+                                <li>Scale-independent measure of prediction error</li>
+                                <li>Range: 0 to ∞ (lower is better)</li>
+                                <li>Complements correlation-based accuracy measures</li>
+                            </ul>
+                            
+                            <strong>Inflation Factor (Bias Assessment):</strong>
+                            <div class="formula">b = slope of regression(y_test ~ ŷ_test)</div>
+                            <ul>
+                                <li><strong>b = 1:</strong> Unbiased predictions (ideal)</li>
+                                <li><strong>b > 1:</strong> Under-dispersed predictions (conservative)</li>
+                                <li><strong>b < 1:</strong> Over-dispersed predictions (anti-conservative)</li>
+                                <li>Critical for breeding value estimation accuracy</li>
+                            </ul>
+                            
+                            <strong>Parametric Accuracy (ACC_par):</strong>
+                            <div class="formula">ACC_par = h_ŷ × r_g(y_test, ŷ_test)</div>
+                            <ul>
+                                <li>Accounts for potential environmental correlations in CV2</li>
+                                <li>Based on selection index theory</li>
+                                <li>Estimated via Bayesian inference on testing set</li>
+                                <li>Removes environmental covariance contribution</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Benchmark Method Comparisons</div>
+                        <div class="step-details">
+                            <strong>Single-Trait Benchmark Methods:</strong>
+                            <ul>
+                                <li><strong>GBLUP:</strong> Genomic BLUP with linear (genomic relationship) kernel</li>
+                                <li><strong>BayesC:</strong> Bayesian variable selection with spike-slab priors</li>
+                                <li><strong>RKHS:</strong> Reproducing Kernel Hilbert Space with RBF kernel</li>
+                                <li><strong>SVR:</strong> Standard Support Vector Regression with RBF kernel</li>
+                                <li><strong>SVR_Lin:</strong> Linear kernel SVR (equivalent to GBLUP loss function)</li>
+                            </ul>
+                            
+                            <strong>Multi-Trait Benchmark Methods:</strong>
+                            <ul>
+                                <li><strong>MTGBLUP:</strong> Multi-trait GBLUP with genetic/residual covariances</li>
+                                <li><strong>MTBC:</strong> Multi-trait BayesC with multivariate spike-slab priors</li>
+                                <li><strong>MTRKHS:</strong> Multi-trait RKHS with single bandwidth parameter</li>
+                                <li><strong>QMTSVR:</strong> Proposed method with trait-specific bandwidths</li>
+                                <li><strong>WQMTSVR:</strong> Weighted version with loci-specific importance</li>
+                            </ul>
+                            
+                            <strong>Computational Efficiency Comparison:</strong>
+                            <ul>
+                                <li><strong>MTGBLUP/MTRKHS:</strong> ~43 minutes (most efficient)</li>
+                                <li><strong>QMTSVR:</strong> ~78 minutes (moderate)</li>
+                                <li><strong>MTBC:</strong> ~263 minutes (6× slower, MCMC sampling)</li>
+                                <li><strong>Scalability:</strong> All methods O(N²) but different constants</li>
+                            </ul>
+                            
+                            <strong>Implementation Details:</strong>
+                            <ul>
+                                <li><strong>Bayesian methods:</strong> 20,000 MCMC iterations, 5,000 burn-in</li>
+                                <li><strong>Kernel methods:</strong> Same RBF bandwidth optimization via GA</li>
+                                <li><strong>All methods:</strong> Same training/testing split and evaluation metrics</li>
+                                <li><strong>Software:</strong> BGLR (Bayesian), kernlab (SVR), custom qmtsvr package</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-dataset">
+                <div class="section-title">🐓 Experimental Dataset and Design</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Broiler Population Characteristics</div>
+                        <div class="step-details">
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li><strong>Species:</strong> Commercial broiler purebred lines (Cobb-Vantress)</li>
+                                <li><strong>Breeding program:</strong> 23 overlapping mating generations (MG1-MG23)</li>
+                                <li><strong>Genotyped individuals:</strong> 6,011 animals with complete records</li>
+                                <li><strong>Marker density:</strong> ~60K SNP markers (Illumina moderate-density chip)</li>
+                                <li><strong>Data span:</strong> Multi-generational pedigree with forward-in-time structure</li>
+                            </ul>
+                            
+                            <strong>Trait Categories and Sample Sizes:</strong>
+                            <ul>
+                                <li><strong>Carcass traits (CT1, CT2):</strong> Post-mortem measurements, N = 11,002</li>
+                                <li><strong>Growth trait:</strong> Body weight and growth rate, N = 92,952</li>
+                                <li><strong>Feed Efficiency (FE):</strong> Feed conversion measures, N = 48,816</li>
+                                <li><strong>Measurement challenge:</strong> Carcass traits require slaughtering animals</li>
+                                <li><strong>Economic importance:</strong> All traits commercially relevant for broiler production</li>
+                            </ul>
+                            
+                            <strong>Data Quality Control Pipeline:</strong>
+                            <ul>
+                                <li><strong>Reliability threshold:</strong> DRP reliability > 0.4 for all traits</li>
+                                <li><strong>SNP filtering:</strong> Minor allele frequency > 0.05, call rate > 95%</li>
+                                <li><strong>Population structure:</strong> Principal component analysis for stratification</li>
+                                <li><strong>Temporal validation:</strong> Forward-in-time split for realistic assessment</li>
+                                <li><strong>Data preprocessing:</strong> Deregressed EBVs as pseudo-phenotypes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Genetic Parameters and Architecture</div>
+                        <div class="step-details">
+                            <strong>Heritability Estimates (h²):</strong>
+                            <ul>
+                                <li><strong>CT1 (Carcass trait 1):</strong> h² = 0.56 ± 0.01 (high heritability)</li>
+                                <li><strong>CT2 (Carcass trait 2):</strong> h² = 0.63 ± 0.03 (high heritability)</li>
+                                <li><strong>Growth trait:</strong> h² = 0.34 ± 0.01 (moderate heritability)</li>
+                                <li><strong>Feed Efficiency:</strong> h² = 0.35 ± 0.01 (moderate heritability)</li>
+                                <li><strong>Implication:</strong> High target trait heritability limits multi-trait benefits</li>
+                            </ul>
+                            
+                            <strong>Genetic Correlations (r_g):</strong>
+                            <ul>
+                                <li><strong>CT1 × Growth:</strong> r_g = 0.23 (weak positive correlation)</li>
+                                <li><strong>CT2 × Feed Efficiency:</strong> r_g = 0.38 (moderate positive correlation)</li>
+                                <li><strong>Other combinations:</strong> -0.163 to 0.02 (negligible correlations)</li>
+                                <li><strong>Limitation:</strong> Weak correlations reduce multi-trait prediction benefits</li>
+                            </ul>
+                            
+                            <strong>Environmental Correlations (r_e):</strong>
+                            <ul>
+                                <li><strong>CT1 × Growth:</strong> r_e = 0.47 (moderate environmental correlation)</li>
+                                <li><strong>CT2 × Feed Efficiency:</strong> r_e = 0.25 (weak environmental correlation)</li>
+                                <li><strong>Pattern:</strong> Environmental correlations generally higher than genetic</li>
+                                <li><strong>CV2 bias concern:</strong> Environmental correlations can inflate CV2 accuracy</li>
+                            </ul>
+                            
+                            <strong>Genomic Architecture Insights:</strong>
+                            <ul>
+                                <li><strong>Overall pattern:</strong> Polygenic architecture for all traits</li>
+                                <li><strong>QTL distribution:</strong> No major-effect loci detected</li>
+                                <li><strong>Pleiotropy:</strong> Limited evidence of shared QTL between traits</li>
+                                <li><strong>Selection signature:</strong> Growth trait shows directional selection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Training-Testing Split Design</div>
+                        <div class="step-details">
+                            <strong>Training Set (MG1-MG19):</strong>
+                            <ul>
+                                <li><strong>Sample size:</strong> N = 4,186 animals</li>
+                                <li><strong>Purpose:</strong> Model training and hyperparameter optimization</li>
+                                <li><strong>GA validation subset:</strong> MG17-MG19 (used during optimization)</li>
+                                <li><strong>Historical context:</strong> Represents past breeding decisions</li>
+                                <li><strong>Data completeness:</strong> All animals have genotypes and trait records</li>
+                            </ul>
+                            
+                            <strong>Testing Set (MG20-MG23):</strong>
+                            <ul>
+                                <li><strong>Sample size:</strong> N = 1,825 animals</li>
+                                <li><strong>Validation strategy:</strong> Forward-in-time (chronological)</li>
+                                <li><strong>Biological relevance:</strong> Represents future breeding candidates</li>
+                                <li><strong>Independence:</strong> No overlap with hyperparameter optimization</li>
+                                <li><strong>Realistic assessment:</strong> Mimics practical breeding program evaluation</li>
+                            </ul>
+                            
+                            <strong>Data Processing Pipeline:</strong>
+                            <ul>
+                                <li><strong>Pedigree-based analysis:</strong> Initial EBV estimation with all available data</li>
+                                <li><strong>Deregression procedure:</strong> Remove parent average effects (Garrick et al. 2009)</li>
+                                <li><strong>Pseudo-phenotypes:</strong> Deregressed EBVs used as training responses</li>
+                                <li><strong>Contemporary groups:</strong> Hatch, source, and mating generation effects</li>
+                                <li><strong>Fixed effects:</strong> Sex effects for growth and feed efficiency traits</li>
+                                <li><strong>Standardization:</strong> Traits scaled to common variance for multi-trait analysis</li>
+                            </ul>
+                            
+                            <strong>Validation Rationale:</strong>
+                            <ul>
+                                <li><strong>Temporal structure:</strong> Maintains genetic trends and selection response</li>
+                                <li><strong>Practical relevance:</strong> Simulates real breeding program decisions</li>
+                                <li><strong>Bias reduction:</strong> Avoids information leakage from future to past</li>
+                                <li><strong>Generalization:</strong> Tests model performance on unseen genetic backgrounds</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">📈 Comprehensive Results and Performance Analysis</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>CT1 ACC</th>
+                                <th>CT1 RMSE*</th>
+                                <th>CT1 Bias (b)</th>
+                                <th>CT2 ACC</th>
+                                <th>CT2 RMSE*</th>
+                                <th>CT2 Bias (b)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>GBLUP</strong></td>
+                                <td>0.71</td>
+                                <td>0.92</td>
+                                <td>0.83</td>
+                                <td>0.75</td>
+                                <td>0.84</td>
+                                <td>0.82</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>BayesC</strong></td>
+                                <td>0.72</td>
+                                <td>0.91</td>
+                                <td>0.85</td>
+                                <td>0.76</td>
+                                <td>0.83</td>
+                                <td>0.84</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>RKHS</strong></td>
+                                <td>0.77</td>
+                                <td>0.87</td>
+                                <td>1.15</td>
+                                <td>0.78</td>
+                                <td>0.82</td>
+                                <td>1.18</td>
+                            </tr>
+                            <tr class="high-pev-group">
+                                <td><strong>SVR</strong></td>
+                                <td>0.78</td>
+                                <td>0.86</td>
+                                <td>1.12</td>
+                                <td>0.79</td>
+                                <td>0.81</td>
+                                <td>1.16</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>MTRKHS-CV2</strong></td>
+                                <td>0.84</td>
+                                <td>0.82</td>
+                                <td>1.08</td>
+                                <td>0.83</td>
+                                <td>0.80</td>
+                                <td>1.12</td>
+                            </tr>
+                            <tr style="background: #e8f5e8; font-weight: bold;">
+                                <td><strong>QMTSVR-CV2</strong></td>
+                                <td>0.84</td>
+                                <td>0.80</td>
+                                <td>0.98</td>
+                                <td>0.84</td>
+                                <td>0.78</td>
+                                <td>1.01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Key Performance Insights and Rankings</div>
+                    <div class="step-details">
+                        <strong>Overall Performance Summary:</strong>
+                        <ul>
+                            <li><strong>Highest Accuracy:</strong> QMTSVR-CV2 achieved 0.84 for both traits (best overall)</li>
+                            <li><strong>Lowest Prediction Error:</strong> QMTSVR-CV2 with RMSE* of 0.80 (CT1) and 0.78 (CT2)</li>
+                            <li><strong>Best Bias Performance:</strong> QMTSVR-CV2 closest to ideal (b ≈ 1.0)</li>
+                            <li><strong>Most Consistent:</strong> QMTSVR performed well across all evaluation metrics</li>
+                        </ul>
+                        
+                        <strong>Relative Improvements over GBLUP:</strong>
+                        <ul>
+                            <li><strong>CT1 accuracy improvement:</strong> 18% increase (0.71 → 0.84)</li>
+                            <li><strong>CT2 accuracy improvement:</strong> 12% increase (0.75 → 0.84)</li>
+                            <li><strong>RMSE* reduction:</strong> 13% (CT1) and 7% (CT2) error reduction</li>
+                            <li><strong>Bias correction:</strong> Much closer to unbiased predictions (b ≈ 1.0)</li>
+                        </ul>
+                        
+                        <strong>Method-Specific Observations:</strong>
+                        <ul>
+                            <li><strong>Linear vs Non-linear:</strong> All kernel methods (RKHS, SVR, QMTSVR) outperformed linear methods</li>
+                            <li><strong>Single vs Multi-trait:</strong> Benefits mainly observed in CV2 design</li>
+                            <li><strong>Prediction bias:</strong> Non-linear methods showed more bias, but QMTSVR corrected this issue</li>
+                            <li><strong>Computational trade-offs:</strong> QMTSVR balanced accuracy gains with reasonable computation time</li>
+                        </ul>
+                        
+                        <strong>Validation Design Impact:</strong>
+                        <ul>
+                            <li><strong>CV1 performance:</strong> Minimal multi-trait advantage due to weak genetic correlations</li>
+                            <li><strong>CV2 advantages:</strong> Clear benefits from available indicator trait information</li>
+                            <li><strong>Bias assessment:</strong> Parametric accuracy confirmed results not due to environmental bias</li>
+                            <li><strong>Metric sensitivity:</strong> Model ranking sensitive to choice of accuracy metric for CT1</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Hyperparameter Optimization Results</div>
+                        <div class="step-details">
+                            <strong>Optimal Parameter Values Found:</strong>
+                            <ul>
+                                <li><strong>Trait-common bandwidth (θ₁₂):</strong> 3.28 - 7.00 (large values preferred)</li>
+                                <li><strong>Trait-specific bandwidth (θ₁₁, θ₂₂):</strong> 1.09 - 3.61 (smaller values)</li>
+                                <li><strong>Association constants (ρ₁₂):</strong> 0.1 - 0.3 (reflecting weak correlations)</li>
+                                <li><strong>Regularization (C):</strong> 0.1 - 4.0 (varies by trait and validation design)</li>
+                                <li><strong>Epsilon margin (ε):</strong> 0.0001 - 0.1 (generally small values preferred)</li>
+                            </ul>
+                            
+                            <strong>GA Convergence Characteristics:</strong>
+                            <ul>
+                                <li><strong>Early phase (Gen 1-10):</strong> Rapid fitness improvement</li>
+                                <li><strong>Refinement phase (Gen 10-30):</strong> Gradual optimization</li>
+                                <li><strong>Population diversity:</strong> Maintained through mutation and crossover</li>
+                                <li><strong>Convergence stability:</strong> Consistent across different traits and designs</li>
+                                <li><strong>Local optima:</strong> Random fluctuations help escape suboptimal solutions</li>
+                            </ul>
+                            
+                            <strong>Kernel Behavior Interpretation:</strong>
+                            <ul>
+                                <li><strong>Large θ₁₂ values:</strong> Indicate preference for local kernels in cross-trait blocks</li>
+                                <li><strong>Smaller θ₁₁, θ₂₂:</strong> Suggest higher influence of within-trait similarity</li>
+                                <li><strong>Low ρ₁₂ values:</strong> Reflect weak genetic correlations in study population</li>
+                                <li><strong>Bandwidth differences:</strong> Capture different scales of genetic similarity</li>
+                            </ul>
+                            
+                            <strong>Optimization Efficiency:</strong>
+                            <ul>
+                                <li><strong>Total evaluations:</strong> 750 hyperparameter combinations tested</li>
+                                <li><strong>Parallel processing:</strong> Multiple cores used for population evaluation</li>
+                                <li><strong>Memory requirements:</strong> Kernel matrix storage dominant cost</li>
+                                <li><strong>Convergence speed:</strong> Usually achieved within 20-25 generations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Statistical Significance and Bias Assessment</div>
+                        <div class="step-details">
+                            <strong>Parametric Accuracy (ACC_par) Results:</strong>
+                            <ul>
+                                <li><strong>CT1 range:</strong> 0.72 ± 0.04 (BayesC) to 0.82 ± 0.03 (QMTSVR-CV1)</li>
+                                <li><strong>CT2 range:</strong> 0.73 ± 0.04 (MTBC-CV1) to 0.85 ± 0.05 (QMTSVR-CV2)</li>
+                                <li><strong>Correlation with ACC:</strong> r = 0.86 (CT1), r = 0.95 (CT2)</li>
+                                <li><strong>Consistency:</strong> High correlation indicates minimal environmental bias</li>
+                            </ul>
+                            
+                            <strong>Posterior Probability Evidence:</strong>
+                            <ul>
+                                <li><strong>QMTSVR-CV1 > GBLUP (CT1):</strong> P[λ_ACC < 0] = 0.027 (moderate evidence)</li>
+                                <li><strong>QMTSVR-CV2 > GBLUP (CT2):</strong> P[λ_ACC < 0] = 0.0006 (strong evidence)</li>
+                                <li><strong>QMTSVR vs MTRKHS:</strong> P[λ_ACC < 0] ≈ 0.35 (no significant difference)</li>
+                                <li><strong>Evidence interpretation:</strong> Stronger support for CT2 than CT1 improvements</li>
+                            </ul>
+                            
+                            <strong>Cross-Validation Stability:</strong>
+                            <ul>
+                                <li><strong>Standard deviations:</strong> 0.02-0.04 across 4 testing generations</li>
+                                <li><strong>Ranking consistency:</strong> Maintained across different accuracy metrics</li>
+                                <li><strong>Robustness:</strong> Performance stable across trait combinations</li>
+                                <li><strong>Temporal stability:</strong> No systematic trend in prediction accuracy over time</li>
+                            </ul>
+                            
+                            <strong>Bias Correction Achievement:</strong>
+                            <ul>
+                                <li><strong>Linear methods:</strong> Systematic under-prediction (b < 1)</li>
+                                <li><strong>Non-linear methods:</strong> Over-prediction tendency (b > 1)</li>
+                                <li><strong>QMTSVR success:</strong> Near-optimal bias correction (b ≈ 1)</li>
+                                <li><strong>Practical importance:</strong> Unbiased predictions critical for breeding decisions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Computational Performance and Scalability</div>
+                        <div class="step-details">
+                            <strong>Runtime Comparison (Average Minutes):</strong>
+                            <ul>
+                                <li><strong>MTGBLUP/MTRKHS:</strong> 43.11 ± 0.19 (fastest, matrix operations)</li>
+                                <li><strong>QMTSVR:</strong> 78.34 ± 8.99 (moderate, includes GA optimization)</li>
+                                <li><strong>MTBC:</strong> 262.75 ± 0.16 (slowest, MCMC sampling)</li>
+                                <li><strong>Efficiency ranking:</strong> QMTSVR competitive for accuracy gained</li>
+                            </ul>
+                            
+                            <strong>Computational Complexity Analysis:</strong>
+                            <ul>
+                                <li><strong>Kernel matrix storage:</strong> O(N²) memory requirement</li>
+                                <li><strong>SMO algorithm:</strong> O(N²) to O(N³) time complexity</li>
+                                <li><strong>GA optimization:</strong> Embarrassingly parallel across population</li>
+                                <li><strong>Scalability limit:</strong> Memory becomes limiting factor for large N</li>
+                            </ul>
+                            
+                            <strong>Hardware Requirements and Usage:</strong>
+                            <ul>
+                                <li><strong>CPU:</strong> Intel Xeon E5-2609 @2.40 GHz (8 cores utilized)</li>
+                                <li><strong>Memory:</strong> 125-GB RAM for 6,011 animals (kernel matrix storage)</li>
+                                <li><strong>Parallelization:</strong> Multicore processing for GA population evaluation</li>
+                                <li><strong>Scaling estimate:</strong> ~3.5 MB per animal pair for kernel storage</li>
+                            </ul>
+                            
+                            <strong>Computational Bottlenecks and Solutions:</strong>
+                            <ul>
+                                <li><strong>Main bottleneck:</strong> Kernel matrix computation and storage</li>
+                                <li><strong>GA overhead:</strong> 750 model evaluations per optimization</li>
+                                <li><strong>Mitigation strategies:</strong> Sparse kernels, approximate methods</li>
+                                <li><strong>Future improvements:</strong> GPU acceleration, distributed computing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-practical">
+                <div class="section-title">🐓 Practical Implementation Guide for Breeding Programs</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Strategic Implementation for Commercial Breeding</div>
+                    <p>The QMTSVR methodology enables breeding companies to make accurate selection decisions on expensive traits (like carcass quality) using early-measured indicator traits (like growth and feed efficiency). This approach can dramatically reduce phenotyping costs while maintaining or improving selection accuracy, providing significant competitive advantages in commercial breeding programs.</p>
+                </div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Infrastructure Development</div>
+                            <div class="step-details">
+                                Establish comprehensive data collection and management systems
+                                <div class="step-specs">
+                                    <strong>Phenotype Collection Strategy:</strong><br>
+                                    • Target traits: Expensive/difficult to measure (carcass, disease resistance)<br>
+                                    • Indicator traits: Early/cheap to measure (growth, feed intake, behavior)<br>
+                                    • Temporal design: Minimum 3-5 overlapping generations<br>
+                                    • Sample size: At least 1000+ animals with complete phenotype-genotype records<br>
+                                    <strong>Genotyping Infrastructure:</strong><br>
+                                    • Marker density: Medium to high-density SNP arrays (≥20K markers)<br>
+                                    • Quality control: Automated pipelines for MAF and call rate filtering<br>
+                                    • Population monitoring: Regular assessment of population structure<br>
+                                    • Cost optimization: Balance marker density with phenotyping investment<br>
+                                    <strong>Pedigree and Record Management:</strong><br>
+                                    • Complete pedigree records for genetic evaluation<br>
+                                    • Contemporary group tracking (hatch, farm, season)<br>
+                                    • Environmental covariate collection<br>
+                                    • Data integration across breeding program components
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Model Development and Validation</div>
+                            <div class="step-details">
+                                Train and validate QMTSVR using historical breeding program data
+                                <div class="step-specs">
+                                    <strong>Training Data Preparation:</strong><br>
+                                    • Genetic evaluation: Estimate breeding values using all available data<br>
+                                    • Deregression: Remove parent average effects to avoid double-counting<br>
+                                    • Quality filtering: Include only animals with reliability > 0.4<br>
+                                    • Data standardization: Scale traits to common variance for multi-trait analysis<br>
+                                    <strong>Model Training Protocol:</strong><br>
+                                    • Hyperparameter optimization: Use genetic algorithm with proper validation<br>
+                                    • Cross-validation: Implement both CV1 and CV2 designs<br>
+                                    • Benchmark comparison: Test against GBLUP, BayesC, and RKHS methods<br>
+                                    • Sensitivity analysis: Assess robustness to data preprocessing choices<br>
+                                    <strong>Validation and Quality Assurance:</strong><br>
+                                    • Forward-in-time validation: Reserve most recent generation for testing<br>
+                                    • Multiple metrics: Assess accuracy, bias, and prediction error<br>
+                                    • Parametric accuracy: Check for environmental bias in predictions<br>
+                                    • Biological plausibility: Verify predictions align with genetic expectations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Operational Deployment</div>
+                            <div class="step-details">
+                                Integrate QMTSVR predictions into routine breeding decisions
+                                <div class="step-specs">
+                                    <strong>Selection Scenarios and Applications:</strong><br>
+                                    • Young candidate evaluation: CV1 predictions using genotype only<br>
+                                    • Performance-tested animals: CV2 predictions with indicator traits<br>
+                                    • Breeding value estimation: For expensive traits without direct measurement<br>
+                                    • Index selection: Combine QMTSVR predictions with other breeding objectives<br>
+                                    <strong>Decision-Making Framework:</strong><br>
+                                    • Ranking and selection: Order animals by genomic predicted values<br>
+                                    • Selection intensity: Adjust based on breeding goals and genetic diversity<br>
+                                    • Mating decisions: Consider prediction reliability in mate allocation<br>
+                                    • Risk management: Balance accuracy with genetic diversity conservation<br>
+                                    <strong>Economic Impact Assessment:</strong><br>
+                                    • Cost-benefit analysis: Compare phenotyping costs vs prediction accuracy<br>
+                                    • Generation interval: Quantify benefits of earlier selection decisions<br>
+                                    • Genetic gain: Monitor realized response vs predicted response<br>
+                                    • ROI calculation: Track return on investment in genomic technologies
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Continuous Improvement and Maintenance</div>
+                            <div class="step-details">
+                                Maintain and improve prediction accuracy through systematic updates
+                                <div class="step-specs">
+                                    <strong>Regular Model Updates:</strong><br>
+                                    • Annual retraining: Incorporate new generation data<br>
+                                    • Parameter re-optimization: Update hyperparameters when performance declines<br>
+                                    • Genetic parameter estimation: Monitor changes in heritability and correlations<br>
+                                    • Population structure: Track and adjust for changes in breeding program<br>
+                                    <strong>Performance Monitoring System:</strong><br>
+                                    • Prediction accuracy tracking: Compare realized vs predicted values<br>
+                                    • Bias detection: Monitor systematic over/under-prediction<br>
+                                    • Genetic trend analysis: Ensure predictions align with selection response<br>
+                                    • Diversity monitoring: Track inbreeding and effective population size<br>
+                                    <strong>Adaptive Management Strategies:</strong><br>
+                                    • Model selection: Switch methods if performance consistently declines<br>
+                                    • Trait incorporation: Add new traits as they become economically important<br>
+                                    • Technology updates: Integrate new genomic technologies (sequence data, etc.)<br>
+                                    • Competitive advantage: Maintain technological leadership through innovation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-software">
+                <div class="section-title">💻 Software Implementation and Tools</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">qmtsvr R Package Implementation</div>
+                        <div class="step-details">
+                            <strong>Core Package Functions:</strong>
+                            <ul>
+                                <li><strong>qmtsvr():</strong> Main function for multi-trait SVR model fitting</li>
+                                <li><strong>optimize_ga():</strong> Genetic algorithm hyperparameter optimization</li>
+                                <li><strong>compute_kernel_matrix():</strong> RBF kernel matrix computation with block structure</li>
+                                <li><strong>predict.qmtsvr():</strong> Prediction method for new individuals</li>
+                                <li><strong>cv_qmtsvr():</strong> Cross-validation utilities for model assessment</li>
+                            </ul>
+                            
+                            <strong>Key Implementation Features:</strong>
+                            <ul>
+                                <li><strong>Backend integration:</strong> Uses kernlab package for SMO optimization</li>
+                                <li><strong>Parallel processing:</strong> Multi-core support for GA population evaluation</li>
+                                <li><strong>Memory management:</strong> Efficient kernel matrix storage and computation</li>
+                                <li><strong>Validation tools:</strong> Built-in cross-validation and diagnostic functions</li>
+                                <li><strong>Plotting utilities:</strong> Visualization of GA convergence and prediction accuracy</li>
+                            </ul>
+                            
+                            <strong>Basic Usage Example:</strong>
+                            <div class="formula">
+                                # Install development version<br>
+                                devtools::install_github("alvesand/qmtsvr")<br>
+                                <br>
+                                # Load package and data<br>
+                                library(qmtsvr)<br>
+                                data(broiler_data)<br>
+                                <br>
+                                # Prepare multi-trait response matrix<br>
+                                Y <- cbind(CT1 = drp_ct1, Growth = drp_growth)<br>
+                                <br>
+                                # Fit QMTSVR model with GA optimization<br>
+                                model <- qmtsvr(Y = Y, M = markers, <br>
+                                               cv_design = "CV2",<br>
+                                               ga_params = list(popsize = 25, generations = 30))<br>
+                                <br>
+                                # Generate predictions<br>
+                                predictions <- predict(model, M_test)<br>
+                                <br>
+                                # Evaluate performance<br>
+                                accuracy <- evaluate_accuracy(predictions, y_test)
+                            </div>
+                            
+                            <strong>Advanced Configuration Options:</strong>
+                            <ul>
+                                <li><strong>Kernel customization:</strong> Specify bandwidth ranges and association constants</li>
+                                <li><strong>GA tuning:</strong> Adjust population size, generations, mutation rates</li>
+                                <li><strong>Validation schemes:</strong> Configure CV1/CV2 designs and metrics</li>
+                                <li><strong>Parallel computing:</strong> Set number of cores for optimization</li>
+                                <li><strong>Memory optimization:</strong> Control kernel matrix chunking and storage</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Integration with Existing Workflows</div>
+                        <div class="step-details">
+                            <strong>Compatibility with Standard Packages:</strong>
+                            <ul>
+                                <li><strong>BGLR integration:</strong> Import/export data formats for comparison studies</li>
+                                <li><strong>ASReml compatibility:</strong> Use variance components from mixed model analysis</li>
+                                <li><strong>BLUPF90 workflow:</strong> Import deregressed EBVs and reliability estimates</li>
+                                <li><strong>Plink integration:</strong> Direct import of genotype data in standard formats</li>
+                                <li><strong>tidyverse support:</strong> Compatible with modern R data manipulation tools</li>
+                            </ul>
+                            
+                            <strong>Data Format Requirements:</strong>
+                            <ul>
+                                <li><strong>Genotype matrix:</strong> N × P matrix (individuals × markers), coded 0/1/2</li>
+                                <li><strong>Phenotype matrix:</strong> N × T matrix (individuals × traits)</li>
+                                <li><strong>Pedigree information:</strong> Optional but recommended for validation</li>
+                                <li><strong>Reliability scores:</strong> For deregressed EBV analysis</li>
+                                <li><strong>Fixed effects:</strong> Contemporary groups, sex, and other systematic effects</li>
+                            </ul>
+                            
+                            <strong>Output and Reporting Features:</strong>
+                            <ul>
+                                <li><strong>Model diagnostics:</strong> Convergence plots, hyperparameter traces</li>
+                                <li><strong>Prediction summaries:</strong> Accuracy metrics across validation designs</li>
+                                <li><strong>Visualization tools:</strong> Scatter plots, prediction vs observed plots</li>
+                                <li><strong>Export capabilities:</strong> Save models and predictions in standard formats</li>
+                                <li><strong>Automated reporting:</strong> Generate summary reports with key findings</li>
+                            </ul>
+                            
+                            <strong>Performance Monitoring Tools:</strong>
+                            <ul>
+                                <li><strong>Real-time optimization:</strong> Track GA progress during hyperparameter search</li>
+                                <li><strong>Memory profiling:</strong> Monitor kernel matrix storage requirements</li>
+                                <li><strong>Computational benchmarks:</strong> Compare runtime across different methods</li>
+                                <li><strong>Cross-validation automation:</strong> Systematic evaluation across validation schemes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Alternative Implementation Platforms</div>
+                        <div class="step-details">
+                            <strong>Python Implementation (qmtsvr-py):</strong>
+                            <ul>
+                                <li><strong>scikit-learn integration:</strong> Compatible with sklearn pipeline framework</li>
+                                <li><strong>NumPy/SciPy backend:</strong> Optimized matrix operations for large datasets</li>
+                                <li><strong>Multiprocessing support:</strong> Built-in parallel GA optimization</li>
+                                <li><strong>Jupyter notebook examples:</strong> Interactive tutorials and demonstrations</li>
+                                <li><strong>TensorFlow/PyTorch integration:</strong> GPU acceleration for kernel computations</li>
+                            </ul>
+                            
+                            <strong>Julia Implementation (QMTSVR.jl):</strong>
+                            <ul>
+                                <li><strong>High-performance computing:</strong> Native speed for matrix operations</li>
+                                <li><strong>Distributed computing:</strong> Cluster-based hyperparameter optimization</li>
+                                <li><strong>Memory efficiency:</strong> Advanced memory management for large datasets</li>
+                                <li><strong>Package ecosystem:</strong> Integration with Julia ML and genomics packages</li>
+                                <li><strong>Interactive development:</strong> Pluto.jl notebooks for exploration</li>
+                            </ul>
+                            
+                            <strong>Cloud-Based Solutions:</strong>
+                            <ul>
+                                <li><strong>AWS implementation:</strong> EC2 instances with GPU support for acceleration</li>
+                                <li><strong>Google Cloud Platform:</strong> Integration with BigQuery for large-scale data</li>
+                                <li><strong>Azure Machine Learning:</strong> MLOps pipeline for production deployment</li>
+                                <li><strong>Docker containers:</strong> Reproducible environments across platforms</li>
+                                <li><strong>Kubernetes deployment:</strong> Scalable cloud-native genomic prediction</li>
+                            </ul>
+                            
+                            <strong>High-Performance Computing (HPC) Adaptations:</strong>
+                            <ul>
+                                <li><strong>MPI parallelization:</strong> Distribution across compute nodes</li>
+                                <li><strong>CUDA/OpenCL support:</strong> GPU acceleration for kernel matrix operations</li>
+                                <li><strong>Memory mapping:</strong> Out-of-core processing for very large datasets</li>
+                                <li><strong>Checkpoint/restart:</strong> Fault tolerance for long-running optimizations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Limitations and Future Directions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Current Method Limitations</div>
+                        <div class="step-details">
+                            <strong>Computational Scalability Issues:</strong>
+                            <ul>
+                                <li><strong>Memory requirements:</strong> O(N²) kernel matrix storage becomes prohibitive for very large N</li>
+                                <li><strong>Optimization complexity:</strong> GA hyperparameter search scales poorly with trait number</li>
+                                <li><strong>Processing time:</strong> SMO algorithm can be slow for very large datasets</li>
+                                <li><strong>Hardware constraints:</strong> Requires substantial RAM for kernel matrix operations</li>
+                            </ul>
+                            
+                            <strong>Biological and Statistical Limitations:</strong>
+                            <ul>
+                                <li><strong>Weak correlation dependence:</strong> Limited benefits when genetic correlations are low</li>
+                                <li><strong>High heritability bias:</strong> Less improvement for traits with already high heritability</li>
+                                <li><strong>Environmental confounding:</strong> CV2 results may be inflated by environmental correlations</li>
+                                <li><strong>Population specificity:</strong> Model performance may not generalize across populations</li>
+                            </ul>
+                            
+                            <strong>Methodological Constraints:</strong>
+                            <ul>
+                                <li><strong>Parameter interpretation:</strong> Lack of direct biological interpretation of hyperparameters</li>
+                                <li><strong>Model complexity:</strong> Many hyperparameters require careful tuning</li>
+                                <li><strong>Validation sensitivity:</strong> Performance depends heavily on validation design choice</li>
+                                <li><strong>Benchmark dependence:</strong> Relative performance varies with comparison methods</li>
+                            </ul>
+                            
+                            <strong>Data Requirements and Quality:</strong>
+                            <ul>
+                                <li><strong>Sample size needs:</strong> Requires substantial training data for stable performance</li>
+                                <li><strong>Data quality sensitivity:</strong> Poor phenotype quality can severely impact results</li>
+                                <li><strong>Missing data handling:</strong> Limited robustness to incomplete trait records</li>
+                                <li><strong>Population structure effects:</strong> Performance may degrade with strong stratification</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Proposed Improvements and Extensions</div>
+                        <div class="step-details">
+                            <strong>Computational Enhancements:</strong>
+                            <ul>
+                                <li><strong>Sparse kernel approximation:</strong> Nyström method for large-scale applications</li>
+                                <li><strong>Online learning algorithms:</strong> Incremental updates without full retraining</li>
+                                <li><strong>GPU acceleration:</strong> CUDA implementation for kernel matrix operations</li>
+                                <li><strong>Distributed computing:</strong> Multi-node parallelization for very large datasets</li>
+                                <li><strong>Memory optimization:</strong> Block-wise processing and streaming algorithms</li>
+                            </ul>
+                            
+                            <strong>Algorithmic Improvements:</strong>
+                            <ul>
+                                <li><strong>Automated hyperparameter selection:</strong> Bayesian optimization replacing genetic algorithms</li>
+                                <li><strong>Adaptive kernel design:</strong> Data-driven kernel selection and combination</li>
+                                <li><strong>Multi-scale kernels:</strong> Hierarchical kernels capturing different genomic scales</li>
+                                <li><strong>Robust loss functions:</strong> Alternative loss functions for better bias control</li>
+                                <li><strong>Uncertainty quantification:</strong> Prediction intervals and confidence measures</li>
+                            </ul>
+                            
+                            <strong>Biological Model Extensions:</strong>
+                            <ul>
+                                <li><strong>Epistatic interactions:</strong> Explicit modeling of gene-gene interactions</li>
+                                <li><strong>Environmental interactions:</strong> Genotype-by-environment modeling</li>
+                                <li><strong>Time-series traits:</strong> Longitudinal and repeated measures analysis</li>
+                                <li><strong>Multi-omics integration:</strong> Incorporation of transcriptomic and metabolomic data</li>
+                                <li><strong>Pathway-based kernels:</strong> Biological pathway information in kernel design</li>
+                            </ul>
+                            
+                            <strong>Practical Implementation Improvements:</strong>
+                            <ul>
+                                <li><strong>Real-time deployment:</strong> Integration with breeding management software</li>
+                                <li><strong>Model updating protocols:</strong> Systematic procedures for incorporating new data</li>
+                                <li><strong>Quality control automation:</strong> Automated detection of outliers and data issues</li>
+                                <li><strong>Decision support tools:</strong> Integration with economic selection indices</li>
+                                <li><strong>Interoperability standards:</strong> Standardized data formats and APIs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Directions</div>
+                        <div class="step-details">
+                            <strong>Methodological Research Priorities:</strong>
+                            <ul>
+                                <li><strong>Deep learning integration:</strong> Combine QMTSVR with neural network architectures</li>
+                                <li><strong>Transfer learning approaches:</strong> Leverage models trained on related populations</li>
+                                <li><strong>Federated learning:</strong> Collaborative training across breeding organizations</li>
+                                <li><strong>Causal inference methods:</strong> Distinguish correlation from causation in trait relationships</li>
+                                <li><strong>Interpretable AI techniques:</strong> Provide biological insights from model predictions</li>
+                            </ul>
+                            
+                            <strong>Application Domain Expansion:</strong>
+                            <ul>
+                                <li><strong>Plant breeding applications:</strong> Adaptation to crop species and breeding systems</li>
+                                <li><strong>Aquaculture genomics:</strong> Marine and freshwater species prediction</li>
+                                <li><strong>Conservation genetics:</strong> Endangered species management and breeding</li>
+                                <li><strong>Human genetic medicine:</strong> Polygenic risk score development</li>
+                                <li><strong>Microbiome-host interactions:</strong> Host-microbiome co-evolution modeling</li>
+                            </ul>
+                            
+                            <strong>Technology Integration Opportunities:</strong>
+                            <ul>
+                                <li><strong>Blockchain integration:</strong> Secure data sharing and model provenance</li>
+                                <li><strong>Edge computing deployment:</strong> On-farm genomic prediction capabilities</li>
+                                <li><strong>IoT sensor fusion:</strong> Real-time phenotype collection and prediction</li>
+                                <li><strong>Augmented reality interfaces:</strong> Visualizing predictions in breeding contexts</li>
+                                <li><strong>Quantum computing potential:</strong> Future quantum algorithms for genomic prediction</li>
+                            </ul>
+                            
+                            <strong>Validation and Benchmarking Needs:</strong>
+                            <ul>
+                                <li><strong>Cross-species validation:</strong> Test performance across diverse animal species</li>
+                                <li><strong>Multi-environment studies:</strong> Validate across different production systems</li>
+                                <li><strong>Long-term performance tracking:</strong> Monitor prediction accuracy over multiple generations</li>
+                                <li><strong>Economic impact assessment:</strong> Quantify breeding program economic benefits</li>
+                                <li><strong>Standardized benchmarks:</strong> Develop community-wide evaluation protocols</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Conclusions and Key Takeaways</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Major Scientific Contributions</div>
+                    <p>The QMTSVR method represents a significant advancement in multi-trait genomic prediction by successfully combining the flexibility of support vector regression with the information-sharing benefits of multi-trait analysis. The key innovation lies in the elegant data expansion scheme that enables standard SMO optimization while capturing complex trait relationships through trait-specific kernel parameterization.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Methodological Achievements</div>
+                        <div class="step-details">
+                            <strong>Technical Innovations:</strong>
+                            <ul>
+                                <li><strong>Block matrix kernel design:</strong> Elegant solution for multi-trait SVR optimization</li>
+                                <li><strong>Trait-specific parameterization:</strong> Captures unique and shared genetic architectures</li>
+                                <li><strong>GA-based optimization:</strong> Efficient hyperparameter search in high-dimensional space</li>
+                                <li><strong>Computational efficiency:</strong> Maintains O(N²) complexity while adding multi-trait capability</li>
+                                <li><strong>Standard algorithm compatibility:</strong> Uses existing SMO solvers without modification</li>
+                            </ul>
+                            
+                            <strong>Statistical Contributions:</strong>
+                            <ul>
+                                <li><strong>Bias correction:</strong> Successfully addresses over-prediction issues in kernel methods</li>
+                                <li><strong>Non-linear modeling:</strong> Captures complex genetic relationships beyond linear models</li>
+                                <li><strong>Validation framework:</strong> Comprehensive evaluation using multiple accuracy metrics</li>
+                                <li><strong>Environmental bias detection:</strong> Parametric accuracy assessment for CV2 validation</li>
+                                <li><strong>Sparse solutions:</strong> Automatic feature selection through support vector mechanism</li>
+                            </ul>
+                            
+                            <strong>Practical Advances:</strong>
+                            <ul>
+                                <li><strong>Implementation simplicity:</strong> Reduces complex covariance estimation requirements</li>
+                                <li><strong>Scalability considerations:</strong> Addresses real-world computational constraints</li>
+                                <li><strong>Software availability:</strong> Open-source R package for community adoption</li>
+                                <li><strong>Breeding integration:</strong> Compatible with existing genomic evaluation workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Performance Achievements and Limitations</div>
+                        <div class="step-details">
+                            <strong>Demonstrated Improvements:</strong>
+                            <ul>
+                                <li><strong>Accuracy gains:</strong> 18% improvement over GBLUP for CT1, 12% for CT2</li>
+                                <li><strong>Error reduction:</strong> 13% RMSE* reduction for CT1, 7% for CT2</li>
+                                <li><strong>Bias correction:</strong> Near-optimal inflation factors (b ≈ 1.0)</li>
+                                <li><strong>Consistent performance:</strong> Stable results across multiple evaluation metrics</li>
+                                <li><strong>Method competitiveness:</strong> Comparable or superior to existing multi-trait methods</li>
+                            </ul>
+                            
+                            <strong>Context-Dependent Performance:</strong>
+                            <ul>
+                                <li><strong>Correlation sensitivity:</strong> Benefits limited by weak trait correlations</li>
+                                <li><strong>Heritability effects:</strong> Smaller gains for highly heritable traits</li>
+                                <li><strong>Validation design impact:</strong> Clear advantages only in CV2 scenarios</li>
+                                <li><strong>Population specificity:</strong> Results may not generalize to other populations</li>
+                                <li><strong>Trait combination dependency:</strong> Performance varies with specific trait pairs</li>
+                            </ul>
+                            
+                            <strong>Computational Trade-offs:</strong>
+                            <ul>
+                                <li><strong>Runtime efficiency:</strong> Moderate computational cost (~78 minutes)</li>
+                                <li><strong>Memory requirements:</strong> Substantial RAM needed for kernel matrix storage</li>
+                                <li><strong>Optimization complexity:</strong> 750 model evaluations per trait combination</li>
+                                <li><strong>Scalability limits:</strong> O(N²) memory scaling becomes prohibitive for very large N</li>
+                            </ul>
+                            
+                            <strong>Validation Robustness:</strong>
+                            <ul>
+                                <li><strong>Forward-in-time assessment:</strong> Realistic evaluation using chronological splits</li>
+                                <li><strong>Multiple metrics:</strong> Consistent ranking across accuracy measures</li>
+                                <li><strong>Statistical significance:</strong> Bayesian evidence for performance improvements</li>
+                                <li><strong>Bias assessment:</strong> Parametric accuracy confirms genuine genetic gains</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Impact and Future Outlook</div>
+                        <div class="step-details">
+                            <strong>Immediate Applications:</strong>
+                            <ul>
+                                <li><strong>Broiler breeding:</strong> Direct application to carcass trait prediction</li>
+                                <li><strong>Other livestock:</strong> Adaptation to dairy, beef, swine, and aquaculture</li>
+                                <li><strong>Commercial breeding:</strong> Integration into operational breeding programs</li>
+                                <li><strong>Research tools:</strong> Platform for multi-trait genomic prediction research</li>
+                                <li><strong>Software ecosystem:</strong> Foundation for derivative methods and tools</li>
+                            </ul>
+                            
+                            <strong>Scientific Impact Potential:</strong>
+                            <ul>
+                                <li><strong>Method development:</strong> Template for other multi-task machine learning approaches</li>
+                                <li><strong>Breeding theory:</strong> Advances understanding of multi-trait selection</li>
+                                <li><strong>Computational genomics:</strong> Contributes to scalable genomic prediction methods</li>
+                                <li><strong>Cross-disciplinary applications:</strong> Potential use in human genetics and plant breeding</li>
+                                <li><strong>Educational value:</strong> Teaching tool for genomic selection concepts</li>
+                            </ul>
+                            
+                            <strong>Long-term Research Directions:</strong>
+                            <ul>
+                                <li><strong>Deep learning integration:</strong> Hybrid SVR-neural network architectures</li>
+                                <li><strong>Multi-omics extensions:</strong> Integration of transcriptomic and metabolomic data</li>
+                                <li><strong>Environmental modeling:</strong> Genotype-by-environment interaction prediction</li>
+                                <li><strong>Causal inference:</strong> Understanding trait causality beyond correlation</li>
+                                <li><strong>Precision breeding:</strong> Individual-specific optimization strategies</li>
+                            </ul>
+                            
+                            <strong>Industry Transformation Potential:</strong>
+                            <ul>
+                                <li><strong>Cost reduction:</strong> Reduced phenotyping costs through better prediction</li>
+                                <li><strong>Selection efficiency:</strong> Improved breeding decisions with limited data</li>
+                                <li><strong>Genetic gain acceleration:</strong> Faster progress through multi-trait optimization</li>
+                                <li><strong>Risk management:</strong> Better assessment of breeding value uncertainty</li>
+                                <li><strong>Sustainability improvement:</strong> More efficient resource utilization in breeding</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Key Implementation Recommendations:</strong>
+                    <ul>
+                        <li><strong>Start with CV2 validation:</strong> Focus on scenarios with indicator trait availability</li>
+                        <li><strong>Ensure adequate sample size:</strong> Minimum 1000+ animals with complete records</li>
+                        <li><strong>Optimize hyperparameters carefully:</strong> Use proper validation design for GA optimization</li>
+                        <li><strong>Monitor computational resources:</strong> Plan for substantial memory requirements</li>
+                        <li><strong>Validate with parametric accuracy:</strong> Check for environmental bias in CV2 results</li>
+                        <li><strong>Compare with standard methods:</strong> Benchmark against GBLUP and Bayesian approaches</li>
+                        <li><strong>Consider trait correlations:</strong> Method benefits increase with stronger genetic correlations</li>
+                        <li><strong>Plan for regular updates:</strong> Retrain models as new data becomes available</li>
+                    </ul>
+                </div>
+
+                <div class="significance-box">
+                    <div class="significance-title">Lasting Scientific Significance</div>
+                    <div class="significance-content">
+                        The QMTSVR method represents a successful bridge between machine learning and quantitative genetics, demonstrating that advanced ML techniques can be effectively adapted for genomic prediction while maintaining biological relevance and practical utility. By solving the multi-trait extension of SVR in a computationally efficient manner, this work opens new avenues for incorporating complex trait relationships into genomic selection programs. The method's emphasis on proper validation and bias assessment sets important standards for evaluating multi-trait genomic prediction methods, while its open-source implementation ensures broad accessibility for the research community.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
