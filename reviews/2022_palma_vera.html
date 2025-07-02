@@ -2,89 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Literature Review - Palma-Vera et al. 2022</title>
-       <link rel="stylesheet" href="style.css">
-
-<style>
-.mouse-lines {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin: 25px auto;
-    max-width: 95%;
-    padding: 0 15px;
-}
-
-.line-card {
-    background: white;
-    border: 3px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.line-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-.line-card.fertility {
-    border-color: #e91e63;
-    background: linear-gradient(135deg, #fad7e4 0%, #ffffff 100%);
-}
-
-.line-card.body-mass {
-    border-color: #f39c12;
-    background: linear-gradient(135deg, #fdeaa7 0%, #ffffff 100%);
-}
-
-.line-card.endurance {
-    border-color: #17a2b8;
-    background: linear-gradient(135deg, #d6eaf8 0%, #ffffff 100%);
-}
-
-.line-card.control {
-    border-color: #34495e;
-    background: linear-gradient(135deg, #d5dbdb 0%, #ffffff 100%);
-}
-
-.line-card h4 {
-    font-size: 1.3em;
-    font-weight: 900;
-    margin-bottom: 8px;
-    color: #2c3e50;
-}
-
-.line-card p {
-    margin: 5px 0;
-    font-size: 0.9em;
-    line-height: 1.4;
-}
-
-.experiment-details {
-    background: #d5f4e6;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px auto;
-    max-width: 95%;
-    border-left: 4px solid #27ae60;
-}
-</style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genomic Characterization of the World's Longest Selection Experiment in Mouse - Step-by-Step Decomposition</title>
+    <link rel="stylesheet" href="style.css">
 
 <script>
 (function() {
     'use strict';
 
     function initTheme() {
-        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        const filename = 'palma_vera_2022_selection_experiment';
         
         let seed = 0;
         
@@ -131,267 +58,1124 @@
 </head>
 <body>
     <div class="container">
-                        <!-- TOP LEFT NAVIGATION -->
+        <!-- TOP LEFT NAVIGATION -->
         <div class="top-left-nav">
-            <a href="../index.html">  Back to Index</a>
-        </div>
-        <div class="header">
-            <h1>Genomic characterization of the world's longest selection experiment in mouse reveals the complexity of polygenic traits</h1>
-            <p>Literature Review - Palma-Vera et al. (2022)</p>
-
+            <a href="../index.html">Back to Index</a>
         </div>
         
-        <div class="citation-box">
-            <strong>Citation:</strong> Palma-Vera, S.E., Reyer, H., Langhammer, M., Reinsch, N., Derezanin, L., Fickel, J., Qanbari, S., Weitzel, J.M., Franzenburg, S., Hemmrich-Stanisak, G., & Schoen, J. (2022). Genomic characterization of the world's longest selection experiment in mouse reveals the complexity of polygenic traits. BMC Biology, 20:52.
-            <br><br>
-            <strong>View Original Paper:</strong>
-            <a href="https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-022-01248-9" 
-               target="_blank" 
-               style="color: #3498db; text-decoration: none; font-weight: bold;">
-                View Original Paper
-            </a>
-        </div>
-        <div class="section" id="section-6">
-            <div class="section-title">Overview & Historical Significance</div>
+        <div class="header">
+            <h1>Genomic Characterization of the World's Longest Selection Experiment in Mouse</h1>
+            <p>Step-by-Step Decomposition and Replication Guide</p>
             
-            <div class="experiment-details">
-                <strong>The Dummerstorf Selection Experiment:</strong> Started in 1969 at the Research Institute for Farm Animal Biology (FBN), this represents the world's longest continuous selection experiment in mice, spanning over 140 generations.
+            <div class="header-info">
+                <p class="text-small"><strong>Original Authors:</strong> Sergio E. Palma-Vera, Henry Reyer, Martina Langhammer, et al.</p>
+                <p class="text-small text-top"><strong>Journal:</strong> BMC Biology, Vol. 20, Article 52, 2022</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Research Institute for Farm Animal Biology (FBN), Dummerstorf, Germany</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1186/s12915-022-01248-9"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Study Overview and Significance</div>
                 
-                <p><strong>Unique Features:</strong></p>
-                <ul>
-                    <li>Single founder population split into multiple trait-selected lines</li>
-                    <li>Maintained unselected control line throughout entire experiment</li>
-                    <li>Extreme phenotypes achieved: 2× litter size, 3× body mass, 3× endurance</li>
-                    <li>First comprehensive genomic analysis of this historic experiment</li>
-                </ul>
-            </div>
-            
-            <div class="mouse-lines">
-            <div class="line-card fertility">
-                    <h4>DUK & DUC</h4>
-                    <p>Fertility Lines</p>
-                    <p>2× litter size<br>(>20 pups/litter)</p>
+                <div class="innovation-box">
+                    <div class="innovation-title">🏆 World's Longest Mouse Selection Experiment</div>
+                    <p>This study represents the genomic characterization of the world's longest selection experiment in mice, spanning over 140 generations (1969-2022) at the Research Institute for Farm Animal Biology (FBN) in Dummerstorf, Germany. The experiment created extreme mouse lines with dramatically enhanced fertility, body mass, protein mass, and endurance capabilities.</p>
                 </div>
-                <div class="line-card body-mass">
-                    <h4>DU6</h4>
-                    <p>Body Mass Line</p>
-                    <p>3× body weight<br>(~90g at 6 weeks)</p>
-                </div>
-                <div class="line-card body-mass">
-                    <h4>DU6P</h4>
-                    <p>Protein Mass Line</p>
-                    <p>2× protein mass<br>(lean & muscular)</p>
-                </div>
-                <div class="line-card endurance">
-                    <h4>DUhLB</h4>
-                    <p>Endurance Line</p>
-                    <p>3× running distance<br>(treadmill performance)</p>
-                </div>
-                <div class="line-card control">
-                    <h4>FZTDU</h4>
-                    <p>Control Line</p>
-                    <p>Unselected<br>(genetic drift only)</p>
-                </div>
-            </div>
-        </div>
-        <div class="section" id="section-5">
-            <div class="section-title">Methodology & Genomic Analysis</div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 1: Sample Collection & Sequencing</div>
-                <p><strong>Sampling Design:</strong> 150 mice total (25 females per line) from two time points</p>
-                <ul>
-                    <li>Time point 1: 10 females/line, 30× coverage (high coverage)</li>
-                    <li>Time point 2: 15 females/line, 5× coverage (validation)</li>
-                    <li>Strategy: Capture line-specific genetic variation while minimizing kinship</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 2: Comprehensive Variant Discovery</div>
-                <p><strong>Variant Calling:</strong> GATK best practices pipeline</p>
-                <ul>
-                    <li><strong>SNPs:</strong> 5,099,945 single nucleotide polymorphisms</li>
-                    <li><strong>INDELs:</strong> 766,655 insertions/deletions</li>
-                    <li><strong>Structural Variants:</strong> Multiple SV callers (Manta, Whamg, Lumpy)</li>
-                    <li><strong>Annotation:</strong> SnpEff and VEP for functional impact prediction</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 3: Population Genetic Analysis</div>
-                <p><strong>Multi-level Analysis Approach:</strong></p>
-                <ul>
-                    <li><strong>Population Structure:</strong> Hierarchical clustering, admixture analysis</li>
-                    <li><strong>Genetic Diversity:</strong> Nucleotide diversity, runs of homozygosity (RoH)</li>
-                    <li><strong>Differentiation:</strong> FST-based sliding window analysis</li>
-                    <li><strong>Linkage Disequilibrium:</strong> Decay patterns across lines</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Step 4: Trait-Specific Region Detection</div>
-                <p><strong>Regions of Distinct Differentiation (RDDs):</strong></p>
-                <ul>
-                    <li>Top 5% FST windows for target trait vs. control</li>
-                    <li>Bottom 10% FST for all other comparisons</li>
-                    <li>Conservative approach to minimize false positives</li>
-                    <li>Gene annotation and functional enrichment analysis</li>
-                </ul>
-            </div>
-        </div>
-        <div class="section" id="section-4">
-            <div class="section-title">Major Findings & Results</div>
-            
-            <div class="results-box">
-                <strong>Dramatic Genetic Architecture Changes:</strong>
-                <ul>
-                    <li><strong>Genetic Diversity Loss:</strong> Trait-selected lines show 57.5-81.5% fixed loci vs. <25% in control</li>
-                    <li><strong>High Inbreeding:</strong> 65-78% of genome in runs of homozygosity</li>
-                    <li><strong>Strong Differentiation:</strong> FST values 0.44-0.61 between selected lines</li>
-                    <li><strong>Linkage Disequilibrium:</strong> Extensive LD in selected lines vs. rapid decay in control</li>
-                </ul>
-            </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Trait-Specific Candidate Genes</div>
-                <p><strong>Fertility Lines (DUK/DUC):</strong></p>
-                <ul>
-                    <li><strong>DUK:</strong> Phospholipase D signaling, ovarian development (Tsc1, Trp63), placental vascularization (Atoh8)</li>
-                    <li><strong>DUC:</strong> Steroid hormone signaling, progesterone receptor with missense mutation (Pgr)</li>
-                    <li><strong>Shared:</strong> Olfactory receptors affecting fertilization, reproductive metabolism genes</li>
-                </ul>
                 
-                <p><strong>Body Mass Lines (DU6/DU6P):</strong></p>
-                <ul>
-                    <li><strong>DU6:</strong> Energy metabolism (Hcrt), feed efficiency (Wdr27), bone formation (Smad5)</li>
-                    <li><strong>DU6P:</strong> Growth QTLs (Plag1, Chchd7), myotube formation (Piezo1), lipid content control (Cdh13)</li>
-                </ul>
-                
-                <p><strong>Endurance Line (DUhLB):</strong></p>
-                <ul>
-                    <li><strong>Metabolism:</strong> Brown adipocyte development (Srsf6), lipid mobilization (Aldh3a2)</li>
-                    <li><strong>Exercise Response:</strong> Mitochondrial function (Il15r), cardiac adaptation (Atp5j)</li>
-                </ul>
-            </div>
-        </div>
-        <div class="section" id="section-3">
-            <div class="section-title">Why, How, What Analysis</div>
-            
-            <div class="analysis-grid">
-            <div class="analysis-card why-card">
-                    <div class="analysis-title">WHY - Scientific Motivation</div>
-                    <div class="analysis-content">
-                        <strong>Unique Opportunity:</strong> First genomic analysis of the world's longest selection experiment.
-                        
-                        <ul>
-                            <li><strong>Historical Value:</strong> 50+ years of continuous selection and maintenance</li>
-                            <li><strong>Extreme Phenotypes:</strong> Multiple traits pushed to biological limits</li>
-                            <li><strong>Controlled Design:</strong> Single founder population, maintained control line</li>
-                            <li><strong>Polygenic Complexity:</strong> Understanding genetic architecture of complex traits</li>
-                        </ul>
-                        
-                        <strong>Research Gap:</strong> Previous selection experiments lacked comprehensive genomic characterization of such extreme, long-term selected lines.
+                <div class="problem-box">
+                    <strong>The Research Challenge:</strong> Understanding the genetic architecture of complex polygenic traits through long-term artificial selection. How do genomes evolve under continuous selection pressure, and what genes contribute to extreme phenotypes?
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Key Research Questions</div>
+                        <div class="step-details">
+                            <strong>Primary Objectives:</strong>
+                            <ul>
+                                <li>Characterize genomic patterns after 140+ generations of selection</li>
+                                <li>Identify candidate genes underlying extreme traits</li>
+                                <li>Understand effects of selection vs. genetic drift</li>
+                                <li>Map structural variations associated with trait improvement</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="analysis-card how-card">
-            <div class="analysis-title">HOW - Methodological Innovation</div>
-                    <div class="analysis-content">
-                        <strong>Comprehensive Genomic Approach:</strong> Multi-scale analysis from SNPs to structural variants.
-                        
-                        <ul>
-                            <li><strong>Whole Genome Sequencing:</strong> 150 mice across 6 lines, dual coverage strategy</li>
-                            <li><strong>Population Genomics:</strong> FST-based differentiation mapping</li>
-                            <li><strong>Structural Variation:</strong> Multiple SV callers for comprehensive detection</li>
-                            <li><strong>Conservative Statistics:</strong> Empirical thresholds to minimize false discoveries</li>
-                        </ul>
-                        
-                        <strong>Key Innovation:</strong> <span class="highlight">Regions of Distinct Differentiation (RDDs)</span> - method to identify trait-specific genomic regions while controlling for drift.
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Study Design Overview</div>
+                        <div class="step-details">
+                            <strong>Experimental Setup:</strong>
+                            <ul>
+                                <li><strong>Duration:</strong> 53+ years (1969-2022)</li>
+                                <li><strong>Lines:</strong> 5 selected + 1 control line</li>
+                                <li><strong>Samples:</strong> 150 mice (25 per line)</li>
+                                <li><strong>Method:</strong> Whole genome sequencing</li>
+                                <li><strong>Coverage:</strong> 30× (high) and 5× (low)</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="analysis-card what-card">
-            <div class="analysis-title">WHAT - Key Discoveries</div>
-                    <div class="analysis-content">
-                        <strong>Genomic Consequences of Selection:</strong>
-                        
-                        <ul>
-                            <li><span class="highlight">Massive diversity loss:</span> Most beneficial alleles reached fixation</li>
-                            <li><span class="highlight">Trait-specific pathways:</span> Different genetic routes to similar phenotypes</li>
-                            <li><span class="highlight">Structural variation role:</span> Large-scale genomic rearrangements contribute to traits</li>
-                            <li><span class="highlight">Polygenic complexity:</span> Multiple genes/pathways per trait</li>
-                        </ul>
-                        
-                        <strong>Biological Insights:</strong>
-                        <ul>
-                            <li>Fertility achieved through different reproductive strategies in DUK vs. DUC</li>
-                            <li>Body mass lines use distinct metabolic and growth pathways</li>
-                            <li>Endurance involves metabolic reprogramming and mitochondrial changes</li>
-                            <li>Control line preserves 89% of original genetic diversity</li>
-                        </ul>
-                        
-                        <strong>Broader Impact:</strong> Demonstrates how sustained selection shapes genomes and reveals genetic complexity underlying extreme phenotypes.
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Extreme Phenotypes Achieved</div>
+                        <div class="step-details">
+                            <strong>Selection Results:</strong>
+                            <ul>
+                                <li><strong>Fertility:</strong> 2× increase in litter size (>20 pups)</li>
+                                <li><strong>Body mass:</strong> 3× increase (90g at 6 weeks)</li>
+                                <li><strong>Protein mass:</strong> 2× increase (lean, muscular)</li>
+                                <li><strong>Endurance:</strong> 3× higher running capacity</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="section" id="section-2">
-            <div class="section-title">Significance & Implications</div>
-            
-            <div class="flow-step">
-            <div class="step-title">Evolutionary Biology Insights</div>
-                <ul>
-                    <li><strong>Selection vs. Drift:</strong> Demonstrates combined effects of directional selection and genetic drift</li>
-                    <li><strong>Genetic Architecture:</strong> Shows how polygenic traits respond to long-term selection</li>
-                    <li><strong>Fixation Patterns:</strong> Many beneficial alleles reached fixation alongside neutral variants</li>
-                    <li><strong>Bottleneck Effects:</strong> Population reduction during relocation influenced current genetic structure</li>
-                </ul>
+
+            <div class="section" id="section-mouse-lines">
+                <div class="section-title">🐭 The Dummerstorf Mouse Lines</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Line ID</th>
+                                <th>Selection Trait</th>
+                                <th>Selected Sex</th>
+                                <th>Established</th>
+                                <th>Generations</th>
+                                <th>Trait Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>FZTDU</strong></td>
+                                <td>Control (unselected)</td>
+                                <td>Both</td>
+                                <td>1969</td>
+                                <td>188/195</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>DUK</strong></td>
+                                <td>Fertility line 1</td>
+                                <td>Females</td>
+                                <td>1971</td>
+                                <td>182/189</td>
+                                <td>2× litter size</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>DUC</strong></td>
+                                <td>Fertility line 2</td>
+                                <td>Females</td>
+                                <td>1971</td>
+                                <td>180/187</td>
+                                <td>2× litter size</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>DU6</strong></td>
+                                <td>Body mass</td>
+                                <td>Males</td>
+                                <td>1975</td>
+                                <td>169/177</td>
+                                <td>3× body weight</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>DU6P</strong></td>
+                                <td>Protein mass</td>
+                                <td>Males</td>
+                                <td>1975</td>
+                                <td>152/152</td>
+                                <td>2× protein content</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>DUhLB</strong></td>
+                                <td>Treadmill endurance</td>
+                                <td>Males</td>
+                                <td>1982</td>
+                                <td>117/117</td>
+                                <td>3× running distance</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mouse-lines">
+                    <div class="line-card fertility">
+                        <h4>DUK & DUC</h4>
+                        <p><strong>Fertility Lines</strong></p>
+                        <p>Selected for number of offspring and litter weight at birth</p>
+                        <p>Achievement: >20 pups per litter</p>
+                    </div>
+                    
+                    <div class="line-card body-mass">
+                        <h4>DU6</h4>
+                        <p><strong>Body Mass Line</strong></p>
+                        <p>Selected for body mass at day 42</p>
+                        <p>Achievement: 90g at 6 weeks (obese phenotype)</p>
+                    </div>
+                    
+                    <div class="line-card endurance">
+                        <h4>DU6P</h4>
+                        <p><strong>Protein Mass Line</strong></p>
+                        <p>Selected for protein amount in carcass</p>
+                        <p>Achievement: Lean, muscular phenotype</p>
+                    </div>
+                    
+                    <div class="line-card control">
+                        <h4>DUhLB</h4>
+                        <p><strong>Endurance Line</strong></p>
+                        <p>Selected for treadmill running distance</p>
+                        <p>Achievement: Marathon performance</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Applied Breeding Implications</div>
-                <ul>
-                    <li><strong>Model Validation:</strong> Confirms theoretical predictions about selection response</li>
-                    <li><strong>Breeding Strategies:</strong> Multiple genetic paths can achieve similar phenotypic goals</li>
-                    <li><strong>Diversity Management:</strong> Importance of maintaining genetic diversity in breeding programs</li>
-                    <li><strong>Marker Development:</strong> Identified genes provide targets for genomic selection</li>
-                </ul>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">🔬 Step-by-Step Methodology</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Sample Collection Strategy</div>
+                            <div class="step-details">
+                                Systematic sampling to capture genetic diversity while minimizing kinship
+                                <div class="step-specs">
+                                    <strong>Sampling Design:</strong><br>
+                                    • <strong>Total samples:</strong> 150 females (25 per line)<br>
+                                    • <strong>Time-point 1:</strong> 10 females/line (lowest kinship)<br>
+                                    • <strong>Time-point 2:</strong> 15 females/line (random)<br>
+                                    • <strong>Kinship calculation:</strong> INBREED in SAS/STAT<br>
+                                    <strong>DNA Source:</strong> Tail biopsy samples<br>
+                                    <strong>Extraction:</strong> QIAamp DNA Mini Kit (Qiagen)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Whole Genome Sequencing</div>
+                            <div class="step-details">
+                                High-throughput sequencing with dual coverage strategy
+                                <div class="step-specs">
+                                    <strong>Sequencing Parameters:</strong><br>
+                                    • <strong>Platform:</strong> Illumina HiSeq 4000 & NovaSeq 6000<br>
+                                    • <strong>Read length:</strong> 151 bp paired-end<br>
+                                    • <strong>Coverage:</strong> 30× (60 samples) + 5× (90 samples)<br>
+                                    • <strong>Library prep:</strong> TruSeq Nano DNA Library Prep<br>
+                                    <strong>Quality Control:</strong><br>
+                                    • >90% reads mapped as pairs<br>
+                                    • Mean insert size ~380 bp<br>
+                                    • Coverage: 24× (high), 8× (low)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Read Processing and Alignment</div>
+                            <div class="step-details">
+                                Quality control and mapping to reference genome
+                                <div class="step-specs">
+                                    <strong>Processing Pipeline:</strong><br>
+                                    • <strong>Trimming:</strong> Trimmomatic v0.38 (HiSeq), FASTP v0.19.6 (NovaSeq)<br>
+                                    • <strong>Quality check:</strong> FastQC v0.11.5<br>
+                                    • <strong>Alignment:</strong> BWA-MEM to GRCm38.p6<br>
+                                    • <strong>Processing:</strong> Picard tools (sort, mark duplicates)<br>
+                                    <strong>Reference:</strong> Mouse genome GRCm38.p6 (Ensembl v93)<br>
+                                    <strong>Output:</strong> Processed BAM files ready for variant calling
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Variant Calling and Filtering</div>
+                            <div class="step-details">
+                                GATK best practices for SNP and INDEL discovery
+                                <div class="step-specs">
+                                    <strong>GATK Pipeline (v4.0.6.0):</strong><br>
+                                    • <strong>Base recalibration:</strong> BaseRecalibrator with dbSNP v150<br>
+                                    • <strong>Variant calling:</strong> HaplotypeCaller per sample<br>
+                                    • <strong>Joint genotyping:</strong> GenomicsDBImport + GenotypeGVCFs<br>
+                                    • <strong>Filtering:</strong> VQSR procedure<br>
+                                    <strong>Quality Filters:</strong><br>
+                                    • Depth: 4-3SD above mean<br>
+                                    • Genotype quality: ≥20<br>
+                                    • Presence: ≥15 samples/line (≥12 for DU6)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Variant Discovery Results</div>
+                    <div class="step-details">
+                        <strong>Final Variant Set:</strong>
+                        <ul>
+                            <li><strong>SNPs:</strong> 5,099,945 single nucleotide polymorphisms</li>
+                            <li><strong>INDELs:</strong> 766,655 insertions/deletions</li>
+                            <li><strong>Annotation:</strong> ~97% in non-coding regions</li>
+                            <li><strong>Impact variants:</strong> 20,236 SNPs + 1,801 INDELs (high/moderate impact)</li>
+                            <li><strong>dbSNP overlap:</strong> 95% SNPs, 55% INDELs</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Biomedical Research Value</div>
-                <ul>
-                    <li><strong>Disease Models:</strong> Extreme lines provide models for obesity, fertility disorders, metabolic diseases</li>
-                    <li><strong>Functional Genomics:</strong> Candidate genes for human health research</li>
-                    <li><strong>Pharmacological Targets:</strong> Identified pathways relevant for therapeutic development</li>
-                    <li><strong>Comparative Studies:</strong> Framework for understanding genetic basis of complex traits</li>
-                </ul>
+
+            <div class="section" id="section-structural-variants">
+                <div class="section-title">🧬 Structural Variant Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">SV Calling Strategy</div>
+                        <div class="step-details">
+                            <strong>Multi-caller Approach:</strong>
+                            <ul>
+                                <li><strong>Manta v1.6.0:</strong> Split-read and paired-end analysis</li>
+                                <li><strong>Whamg v1.7.0:</strong> Read-depth based detection</li>
+                                <li><strong>Lumpy v0.2.13:</strong> Probability framework</li>
+                            </ul>
+                            
+                            <strong>Consensus Calling:</strong>
+                            <ul>
+                                <li>SVs called by ≥2 callers</li>
+                                <li>Merged using Survivor v1.0.7</li>
+                                <li>Present in ≥10 samples</li>
+                                <li>Size range: 50 bp - 2 Mb</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">SV Filtering and QC</div>
+                        <div class="step-details">
+                            <strong>Quality Filters:</strong>
+                            <ul>
+                                <li><strong>Mapping quality:</strong> MAPQ ≥ 30</li>
+                                <li><strong>Read depth:</strong> ≥ 5×</li>
+                                <li><strong>Genotype quality:</strong> GQ ≥ 20</li>
+                                <li><strong>Supporting reads:</strong> ≥ 5 (Lumpy)</li>
+                            </ul>
+                            
+                            <strong>Post-processing:</strong>
+                            <ul>
+                                <li>Exclude high coverage regions (>80×)</li>
+                                <li>Remove reference genome gaps</li>
+                                <li>Filter cross-chromosomal mappings</li>
+                                <li>Genotype with Svtyper v0.7.1</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">SV Discovery Results</div>
+                        <div class="step-details">
+                            <strong>SV Types Detected:</strong>
+                            <ul>
+                                <li><strong>Deletions:</strong> Most abundant (3,902-5,560 per line)</li>
+                                <li><strong>Inversions:</strong> Variable (530-2,091 per line)</li>
+                                <li><strong>Duplications:</strong> Rare (14-48 per line)</li>
+                                <li><strong>Insertions:</strong> Insufficient for analysis</li>
+                            </ul>
+                            
+                            <strong>Line-specific SVs:</strong>
+                            <ul>
+                                <li>Most SVs in trait-selected lines vs. control</li>
+                                <li>DUC highest count: 36 line-specific SVs</li>
+                                <li>FZTDU lowest: 9 line-specific SVs</li>
+                                <li>98% in non-coding regions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="flow-step">
-            <div class="step-title">Study Limitations & Future Directions</div>
-                <ul>
-                    <li><strong>Missing Founder Data:</strong> No genetic material from original 1969 founders</li>
-                    <li><strong>Bottleneck Confounding:</strong> Relocation events complicate selection signal detection</li>
-                    <li><strong>No Replication:</strong> Single selection experiment (except fertility lines)</li>
-                    <li><strong>Functional Validation:</strong> Candidate genes need experimental confirmation</li>
-                </ul>
+
+            <div class="section" id="section-population-genetics">
+                <div class="section-title">📊 Population Genetic Analysis</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Diversity Assessment</div>
+                            <div class="step-details">
+                                Measuring the impact of selection on genetic variation
+                                <div class="step-specs">
+                                    <strong>Diversity Metrics:</strong><br>
+                                    • <strong>Nucleotide diversity (π):</strong> Sliding windows (50 kb)<br>
+                                    • <strong>Allele frequencies:</strong> Fixed vs. polymorphic sites<br>
+                                    • <strong>Heterozygosity:</strong> Observed vs. expected<br>
+                                    • <strong>Private alleles:</strong> Line-specific variants<br>
+                                    <strong>Key Finding:</strong> Dramatic diversity loss in selected lines<br>
+                                    Control line preserves 89% of trait-selected line variants
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Runs of Homozygosity (RoH)</div>
+                            <div class="step-details">
+                                Detecting inbreeding and population bottlenecks
+                                <div class="step-specs">
+                                    <strong>RoH Analysis:</strong><br>
+                                    • <strong>Method:</strong> BCFtools/RoH extension<br>
+                                    • <strong>Parameters:</strong> Hidden Markov model<br>
+                                    • <strong>Recombination rate:</strong> 0.51 cM/Mb (mouse average)<br>
+                                    <strong>Results:</strong><br>
+                                    • <strong>Selected lines:</strong> 65-78% genome in RoH<br>
+                                    • <strong>Control line:</strong> 45% genome in RoH<br>
+                                    • <strong>Pattern:</strong> 50% as 1-8 Mb tracts (selected lines)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Linkage Disequilibrium Analysis</div>
+                            <div class="step-details">
+                                Measuring genetic correlation patterns
+                                <div class="step-specs">
+                                    <strong>LD Calculation:</strong><br>
+                                    • <strong>Method:</strong> Genotype correlation (r²)<br>
+                                    • <strong>Distance range:</strong> 0.1-5 Mb windows<br>
+                                    • <strong>Thinning:</strong> Sites ≥100 kb apart<br>
+                                    <strong>LD Patterns:</strong><br>
+                                    • <strong>Strongest:</strong> DUK, DUC, DU6 (most homozygous)<br>
+                                    • <strong>Intermediate:</strong> DU6P, DUhLB<br>
+                                    • <strong>Weakest:</strong> FZTDU (control)<br>
+                                    Comparable to mountain gorillas (high inbreeding)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Population Structure</div>
+                            <div class="step-details">
+                                Assessing genetic relationships and admixture
+                                <div class="step-specs">
+                                    <strong>Structure Analysis:</strong><br>
+                                    • <strong>Hierarchical clustering:</strong> SNPRelate v1.22.0<br>
+                                    • <strong>Admixture analysis:</strong> ADMIXTURE v1.3.0<br>
+                                    • <strong>Visualization:</strong> ape v5.0 package<br>
+                                    <strong>Key Findings:</strong><br>
+                                    • Clear line-specific clustering<br>
+                                    • No admixture in selected lines (except 1 DUC animal)<br>
+                                    • FZTDU shows admixture of all lines<br>
+                                    • DUhLB largest contribution (youngest line)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="section" id="section-1">
-            <div class="section-title">Legacy & Future Impact</div>
-            
-            <p>This study represents a landmark achievement in quantitative genetics, providing the first comprehensive genomic characterization of the world's longest selection experiment. The <span class="highlight">Dummerstorf mouse lines</span> serve as a unique resource for understanding:</p>
-            
-            <ul>
-                <li><strong>Polygenic trait architecture</strong> under extreme selection pressure</li>
-                <li><strong>Evolutionary consequences</strong> of sustained artificial selection</li>
-                <li><strong>Genetic basis</strong> of complex biomedically relevant traits</li>
-                <li><strong>Breeding methodology</strong> optimization for sustainable genetic improvement</li>
-            </ul>
-            
-            <p>The extreme phenotypes achieved while maintaining viable populations demonstrate the remarkable plasticity of polygenic traits and provide invaluable insights for both evolutionary biology and practical breeding applications.</p>
+
+            <div class="section" id="section-differentiation">
+                <div class="section-title">🎯 Genetic Differentiation Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">FST Analysis Framework</div>
+                        <div class="step-details">
+                            <strong>Differentiation Metrics:</strong>
+                            <ul>
+                                <li><strong>Method:</strong> Wright's FST index</li>
+                                <li><strong>Window size:</strong> 50 kb (step: 25 kb)</li>
+                                <li><strong>Minimum SNPs:</strong> 10 per window</li>
+                                <li><strong>Average SNPs:</strong> ~125 per window</li>
+                            </ul>
+                            
+                            <strong>Standardization:</strong>
+                            <ul>
+                                <li>Transform to z-scores</li>
+                                <li>Separate standardization for X chromosome</li>
+                                <li>Account for different effective population sizes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Regions of Distinct Differentiation (RDDs)</div>
+                        <div class="step-details">
+                            <strong>RDD Identification Criteria:</strong>
+                            <ul>
+                                <li><strong>High differentiation:</strong> ≥95th percentile for target contrast</li>
+                                <li><strong>Low differentiation:</strong> ≤10th percentile for all other contrasts</li>
+                                <li><strong>Rationale:</strong> Minimize genetic drift effects</li>
+                                <li><strong>Validation:</strong> Based on previous maize study</li>
+                            </ul>
+                            
+                            <strong>Statistical Approach:</strong>
+                            <ul>
+                                <li>Empirical thresholds (no neutrality simulations)</li>
+                                <li>Conservative limits to reduce false positives</li>
+                                <li>Gap analysis between target and other lines</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Differentiation Results</div>
+                        <div class="step-details">
+                            <strong>Pairwise FST Values:</strong>
+                            <ul>
+                                <li><strong>Highest:</strong> DUK-DU6 (0.61), DUC-DU6 (0.59)</li>
+                                <li><strong>Fertility lines:</strong> DUK-DUC (0.57)</li>
+                                <li><strong>Range:</strong> 0.44-0.61 among selected lines</li>
+                                <li><strong>vs. Control:</strong> ~0.3 (DUhLB lowest: 0.26)</li>
+                            </ul>
+                            
+                            <strong>RDD Characteristics:</strong>
+                            <ul>
+                                <li>No extreme outlier regions</li>
+                                <li>Uniform high FST across genome</li>
+                                <li>Multiple loci per chromosome</li>
+                                <li>Max z-scores: 2.89-3.47</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Line Contrast</th>
+                                <th>RDD Regions</th>
+                                <th>Candidate Genes</th>
+                                <th>Key Functional Categories</th>
+                                <th>Trait Relevance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>DUK vs FZTDU</strong></td>
+                                <td>Multiple chromosomes</td>
+                                <td>Tsc1, Trp63, Atoh8, Cel, Ntm, Dio3</td>
+                                <td>Phospholipase D signaling, ovarian development</td>
+                                <td>Fertility, maternal lipid metabolism</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>DUC vs FZTDU</strong></td>
+                                <td>Multiple chromosomes</td>
+                                <td>Pgr, Yap1, Rxfp1, Rrm2</td>
+                                <td>Steroid hormone signaling</td>
+                                <td>Progesterone regulation, pregnancy</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>DU6 vs FZTDU</strong></td>
+                                <td>Scattered regions</td>
+                                <td>Hcrt, Wdr27, Atp11b, Smad5</td>
+                                <td>Energy metabolism, bone formation</td>
+                                <td>Body mass, feed efficiency</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>DU6P vs FZTDU</strong></td>
+                                <td>Growth-related loci</td>
+                                <td>Plag1, Chchd7, Impad1, Piezo1, Cdh13</td>
+                                <td>Growth control, muscle development</td>
+                                <td>Lean body mass, stature</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>DUhLB vs FZTDU</strong></td>
+                                <td>Metabolic regions</td>
+                                <td>Aldh3a1, Aldh3a2, Srsf6, Il15r, Pfkfb3</td>
+                                <td>Lipid metabolism, mitochondrial function</td>
+                                <td>Endurance, fat mobilization</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-candidate-genes">
+                <div class="section-title">🧬 Candidate Gene Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Fertility-Associated Genes</div>
+                        <div class="step-details">
+                            <strong>DUK Line Candidates:</strong>
+                            <ul>
+                                <li><strong>Tsc1:</strong> Ovarian development, primordial follicle maintenance</li>
+                                <li><strong>Trp63:</strong> Oocyte DNA damage quality control</li>
+                                <li><strong>Atoh8:</strong> Placental vascularization</li>
+                                <li><strong>Cel:</strong> Maternal lipid digestion in neonates</li>
+                                <li><strong>Dio3:</strong> Associated with litter size in multiple species</li>
+                            </ul>
+                            
+                            <strong>DUC Line Candidates:</strong>
+                            <ul>
+                                <li><strong>Pgr (missense mutation):</strong> Progesterone receptor, pregnancy maintenance</li>
+                                <li><strong>Yap1:</strong> Ovarian follicle development</li>
+                                <li><strong>Rxfp1:</strong> Uterine growth, endometrial angiogenesis</li>
+                                <li><strong>Rrm2:</strong> Endometrium preparation for implantation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Body Size and Metabolism Genes</div>
+                        <div class="step-details">
+                            <strong>DU6 (Body Mass) Candidates:</strong>
+                            <ul>
+                                <li><strong>Hcrt:</strong> Energy metabolism and food intake regulation</li>
+                                <li><strong>Wdr27:</strong> Feed efficiency and body composition</li>
+                                <li><strong>Atp11b:</strong> Body composition in other species</li>
+                                <li><strong>Smad5:</strong> Bone formation modulator</li>
+                            </ul>
+                            
+                            <strong>DU6P (Protein Mass) Candidates:</strong>
+                            <ul>
+                                <li><strong>Plag1:</strong> Major QTL for stature and body size</li>
+                                <li><strong>Chchd7:</strong> Growth control in multiple species</li>
+                                <li><strong>Impad1:</strong> Body size regulation</li>
+                                <li><strong>Piezo1:</strong> Myotube formation</li>
+                                <li><strong>Cdh13:</strong> Lipid content control in adipocytes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Endurance and Metabolic Genes</div>
+                        <div class="step-details">
+                            <strong>DUhLB (Endurance) Candidates:</strong>
+                            <ul>
+                                <li><strong>Aldh3a1/Aldh3a2:</strong> Histidine and β-alanine metabolism</li>
+                                <li><strong>Srsf6:</strong> Brown adipocyte development</li>
+                                <li><strong>Il15r:</strong> Fatty acid mobilization, mitochondrial content</li>
+                                <li><strong>Pfkfb3:</strong> Glycolysis regulation, obesity/weight control</li>
+                                <li><strong>Atp5j (SV):</strong> Exercise-induced cardiac hypertrophy</li>
+                            </ul>
+                            
+                            <strong>Metabolic Adaptations:</strong>
+                            <ul>
+                                <li>Accelerated browning of subcutaneous fat</li>
+                                <li>Altered mitochondrial biogenesis</li>
+                                <li>Enhanced lipid mobilization during exercise</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-functional-analysis">
+                <div class="section-title">🔬 Functional Enrichment Analysis</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Gene Ontology Enrichment</div>
+                            <div class="step-details">
+                                Pathway analysis of RDD genes using WebGestalt
+                                <div class="step-specs">
+                                    <strong>Analysis Parameters:</strong><br>
+                                    • <strong>Tool:</strong> WebGestalt web interface<br>
+                                    • <strong>Reference set:</strong> Whole mouse genome<br>
+                                    • <strong>FDR threshold:</strong> 10%<br>
+                                    • <strong>Categories:</strong> GO Biological Processes, KEGG pathways<br>
+                                    <strong>Significant Enrichments:</strong><br>
+                                    • <strong>DUK:</strong> Phospholipase D signaling pathway<br>
+                                    • <strong>DUC:</strong> Intracellular steroid hormone receptor signaling<br>
+                                    • <strong>DUhLB:</strong> Histidine and β-alanine metabolism
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Structural Variant Gene Classification</div>
+                            <div class="step-details">
+                                Functional grouping of genes affected by line-specific SVs
+                                <div class="step-specs">
+                                    <strong>Classification Method:</strong><br>
+                                    • Literature search (OrthoDB, Uniprot, NCBI)<br>
+                                    • Gene Ontology analysis (ShinyGO, FDR < 0.05)<br>
+                                    • Biological process categorization<br>
+                                    <strong>Major Functional Groups:</strong><br>
+                                    • <strong>Sensory perception:</strong> Predominantly olfaction (DUK, DUC)<br>
+                                    • <strong>Cell cycle:</strong> Transcription and translation (DUC)<br>
+                                    • <strong>Metabolism:</strong> Energy conversion (DUC, DU6P)<br>
+                                    • <strong>Signaling:</strong> Various pathway components
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">QTL Database Cross-Reference</div>
+                            <div class="step-details">
+                                Validation using Mouse Genome Database QTL data
+                                <div class="step-specs">
+                                    <strong>QTL Analysis:</strong><br>
+                                    • <strong>Database:</strong> Mouse Genome Database (MGD)<br>
+                                    • <strong>Method:</strong> Genomic overlap analysis<br>
+                                    • <strong>Focus:</strong> Body weight, reproduction, metabolism QTLs<br>
+                                    <strong>Validation Results:</strong><br>
+                                    • DU6P genes overlap with sheep growth QTLs<br>
+                                    • Fertility genes match reproduction QTLs<br>
+                                    • Endurance genes align with metabolic QTLs<br>
+                                    • Cross-species conservation of candidate regions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-replication-guide">
+                <div class="section-title">🔄 Complete Replication Protocol</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">📋 Full Workflow Overview</div>
+                    <p>This section provides a complete step-by-step protocol for replicating the Palma-Vera et al. (2022) analysis, from raw sequencing data to candidate gene identification. Each step includes specific software versions, parameters, and expected outputs.</p>
+                </div>
+
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">A</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Preparation Phase</div>
+                            <div class="step-details">
+                                Setting up the computational environment and downloading data
+                                <div class="step-specs">
+                                    <strong>System Requirements:</strong><br>
+                                    • High-performance computing cluster or workstation<br>
+                                    • ≥500 GB storage for intermediate files<br>
+                                    • ≥64 GB RAM for large-scale analyses<br>
+                                    • Multiple CPU cores (≥16 recommended)<br>
+                                    <strong>Data Download:</strong><br>
+                                    • <strong>Raw reads:</strong> European Nucleotide Archive (PRJEB44248)<br>
+                                    • <strong>Variants:</strong> European Variation Archive (PRJEB45961)<br>
+                                    • <strong>Reference:</strong> GRCm38.p6 from Ensembl v93<br>
+                                    • <strong>Annotations:</strong> Ensembl gene set v93
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">B</div>
+                        <div class="step-content">
+                            <div class="step-title">Software Installation</div>
+                            <div class="step-details">
+                                Complete software environment setup with exact versions
+                                <div class="step-specs">
+                                    <strong>Core Analysis Tools:</strong><br>
+                                    • <strong>Trimmomatic:</strong> v0.38 (adapter removal)<br>
+                                    • <strong>FASTP:</strong> v0.19.6 (quality trimming)<br>
+                                    • <strong>BWA:</strong> Latest (read alignment)<br>
+                                    • <strong>GATK:</strong> v4.0.6.0 (variant calling)<br>
+                                    • <strong>SAMtools/BCFtools:</strong> v1.5 (file processing)<br>
+                                    • <strong>Picard:</strong> Latest (read group management)<br>
+                                    <strong>Specialized Tools:</strong><br>
+                                    • <strong>Manta:</strong> v1.6.0, <strong>Whamg:</strong> v1.7.0, <strong>Lumpy:</strong> v0.2.13<br>
+                                    • <strong>Survivor:</strong> v1.0.7, <strong>Svtyper:</strong> v0.7.1<br>
+                                    • <strong>vcftools:</strong> v0.1.13, <strong>PLINK:</strong> v2.00a2LM
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">C</div>
+                        <div class="step-content">
+                            <div class="step-title">Read Processing Pipeline</div>
+                            <div class="step-details">
+                                Step-by-step read quality control and alignment
+                                <div class="step-specs">
+                                    <strong>Command Examples:</strong><br>
+                                    <code># Quality trimming (HiSeq data)</code><br>
+                                    <code>java -jar trimmomatic-0.38.jar PE input_R1.fastq input_R2.fastq \</code><br>
+                                    <code>  output_R1_paired.fastq output_R1_unpaired.fastq \</code><br>
+                                    <code>  output_R2_paired.fastq output_R2_unpaired.fastq \</code><br>
+                                    <code>  ILLUMINACLIP:adapters.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36</code><br>
+                                    <code># Alignment</code><br>
+                                    <code>bwa mem -t 16 GRCm38.p6.fa output_R1_paired.fastq output_R2_paired.fastq | \</code><br>
+                                    <code>  samtools sort -@ 16 -o aligned.bam</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">D</div>
+                        <div class="step-content">
+                            <div class="step-title">GATK Variant Calling</div>
+                            <div class="step-details">
+                                Complete GATK best practices workflow
+                                <div class="step-specs">
+                                    <strong>GATK Workflow:</strong><br>
+                                    <code># Base quality recalibration</code><br>
+                                    <code>gatk BaseRecalibrator -I input.bam -R reference.fa \</code><br>
+                                    <code>  --known-sites dbsnp_150.vcf -O recal_data.table</code><br>
+                                    <code>gatk ApplyBQSR -I input.bam -R reference.fa \</code><br>
+                                    <code>  --bqsr-recal-file recal_data.table -O recalibrated.bam</code><br>
+                                    <code># Variant calling</code><br>
+                                    <code>gatk HaplotypeCaller -I recalibrated.bam -R reference.fa \</code><br>
+                                    <code>  -O sample.g.vcf.gz -ERC GVCF</code><br>
+                                    <code># Joint genotyping</code><br>
+                                    <code>gatk CombineGVCFs -R reference.fa --variant sample1.g.vcf.gz \</code><br>
+                                    <code>  --variant sample2.g.vcf.gz ... -O cohort.g.vcf.gz</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Key Analysis Scripts</div>
+                    <div class="step-details">
+                        <strong>Critical Analysis Components:</strong>
+                        <ul>
+                            <li><strong>FST calculation:</strong> vcftools --weir-fst-pop for sliding windows</li>
+                            <li><strong>RDD identification:</strong> Custom R scripts for percentile filtering</li>
+                            <li><strong>Population structure:</strong> ADMIXTURE and SNPRelate workflows</li>
+                            <li><strong>RoH detection:</strong> BCFtools/RoH with HMM parameters</li>
+                            <li><strong>Gene annotation:</strong> GenomicRanges overlap analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-expected-outputs">
+                <div class="section-title">📈 Expected Results and Validation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Key Genomic Patterns</div>
+                        <div class="step-details">
+                            <strong>Expected Findings:</strong>
+                            <ul>
+                                <li><strong>Diversity loss:</strong> 57.5-81.5% fixed loci in selected lines</li>
+                                <li><strong>High FST:</strong> 0.44-0.61 between selected lines</li>
+                                <li><strong>Extensive RoH:</strong> 65-78% genome coverage</li>
+                                <li><strong>Strong LD:</strong> Extended linkage disequilibrium</li>
+                            </ul>
+                            
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li>Clear line-specific clustering</li>
+                                <li>Minimal admixture in selected lines</li>
+                                <li>Control line as ancestral admixture</li>
+                                <li>Recent selection signatures</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Candidate Gene Validation</div>
+                        <div class="step-details">
+                            <strong>Literature Validation:</strong>
+                            <ul>
+                                <li>Cross-species QTL correspondence</li>
+                                <li>Functional pathway enrichment</li>
+                                <li>Previous association studies</li>
+                                <li>Knockout phenotype data</li>
+                            </ul>
+                            
+                            <strong>Statistical Validation:</strong>
+                            <ul>
+                                <li>Permutation tests for enrichment</li>
+                                <li>Cross-validation with held-out data</li>
+                                <li>Comparison with random gene sets</li>
+                                <li>Multiple testing correction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Troubleshooting Guide</div>
+                        <div class="step-details">
+                            <strong>Common Issues:</strong>
+                            <ul>
+                                <li><strong>Low variant counts:</strong> Check coverage thresholds</li>
+                                <li><strong>Failed SV calling:</strong> Verify insert size distributions</li>
+                                <li><strong>Missing RDDs:</strong> Adjust percentile thresholds</li>
+                                <li><strong>Poor enrichment:</strong> Check gene annotation versions</li>
+                            </ul>
+                            
+                            <strong>Quality Checks:</strong>
+                            <ul>
+                                <li>Compare variant counts with publication</li>
+                                <li>Validate population structure patterns</li>
+                                <li>Check FST distribution shapes</li>
+                                <li>Verify known candidate genes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-biological-insights">
+                <div class="section-title">🧬 Biological Insights and Implications</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Key Biological Discoveries</div>
+                    <p>The study reveals that extreme phenotypes can be achieved through the fixation of beneficial alleles alongside neutral variants. Despite dramatic genetic diversity loss, traits continued to improve, suggesting that critical beneficial alleles reached fixation early in the selection process and were maintained throughout the experiment.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Selection vs. Drift Effects</div>
+                        <div class="step-details">
+                            <strong>Combined Evolutionary Forces:</strong>
+                            <ul>
+                                <li><strong>Directional selection:</strong> Continuous trait improvement</li>
+                                <li><strong>Genetic drift:</strong> Random allele frequency changes</li>
+                                <li><strong>Founder effects:</strong> Initial diversity limitation</li>
+                                <li><strong>Bottlenecks:</strong> Line relocations and population reductions</li>
+                            </ul>
+                            
+                            <strong>Distinguishing Selection:</strong>
+                            <ul>
+                                <li>Line-specific differentiation patterns</li>
+                                <li>Functional gene enrichment</li>
+                                <li>Trait-relevant pathway involvement</li>
+                                <li>Cross-species QTL validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Polygenic Architecture Insights</div>
+                        <div class="step-details">
+                            <strong>Complex Trait Genetics:</strong>
+                            <ul>
+                                <li><strong>Multiple pathways:</strong> Different routes to same phenotype</li>
+                                <li><strong>Epistatic interactions:</strong> Gene-by-gene effects</li>
+                                <li><strong>Regulatory networks:</strong> Coordinated expression changes</li>
+                                <li><strong>Pleiotropic effects:</strong> Single genes affecting multiple traits</li>
+                            </ul>
+                            
+                            <strong>Fertility Line Differences:</strong>
+                            <ul>
+                                <li>DUK: Follicle development, ovulation rate</li>
+                                <li>DUC: Hormonal signaling, pregnancy maintenance</li>
+                                <li>Convergent phenotype, divergent mechanisms</li>
+                                <li>Demonstrates genetic solution diversity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Translational Applications</div>
+                        <div class="step-details">
+                            <strong>Agricultural Applications:</strong>
+                            <ul>
+                                <li>Livestock breeding program optimization</li>
+                                <li>Genetic diversity conservation strategies</li>
+                                <li>Marker-assisted selection protocols</li>
+                                <li>Understanding selection limits</li>
+                            </ul>
+                            
+                            <strong>Biomedical Relevance:</strong>
+                            <ul>
+                                <li>Model for human genetic diseases</li>
+                                <li>Metabolic syndrome research</li>
+                                <li>Fertility disorder studies</li>
+                                <li>Exercise physiology insights</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Study Limitations and Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Methodological Limitations</div>
+                        <div class="step-details">
+                            <strong>Key Constraints:</strong>
+                            <ul>
+                                <li><strong>No founder samples:</strong> Original genetic material unavailable</li>
+                                <li><strong>Incomplete pedigrees:</strong> >140 generations of records gaps</li>
+                                <li><strong>No neutrality modeling:</strong> Cannot simulate expected patterns</li>
+                                <li><strong>Empirical thresholds:</strong> Conservative RDD identification</li>
+                            </ul>
+                            
+                            <strong>Technical Limitations:</strong>
+                            <ul>
+                                <li><strong>Short-read SV detection:</strong> Limited accuracy vs. long reads</li>
+                                <li><strong>Single time point:</strong> No temporal sampling</li>
+                                <li><strong>Coverage differences:</strong> Two-tier sequencing strategy</li>
+                                <li><strong>Population bottlenecks:</strong> Confound selection signatures</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Experimental Design Issues</div>
+                        <div class="step-details">
+                            <strong>Historical Constraints:</strong>
+                            <ul>
+                                <li>Experiment predates genomic era</li>
+                                <li>Not designed for molecular analysis</li>
+                                <li>Variable selection intensities over time</li>
+                                <li>Multiple facility relocations</li>
+                            </ul>
+                            
+                            <strong>Replication Concerns:</strong>
+                            <ul>
+                                <li>Most lines not replicated (except fertility)</li>
+                                <li>Cannot distinguish selection from drift definitively</li>
+                                <li>Population size variations affect interpretation</li>
+                                <li>Selection criteria evolution over time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Interpretation Challenges</div>
+                        <div class="step-details">
+                            <strong>Statistical Challenges:</strong>
+                            <ul>
+                                <li>Multiple testing without proper controls</li>
+                                <li>Distinguishing causation from correlation</li>
+                                <li>Population structure confounding</li>
+                                <li>Ascertainment bias in candidate genes</li>
+                            </ul>
+                            
+                            <strong>Biological Complexity:</strong>
+                            <ul>
+                                <li>Polygenic trait architecture</li>
+                                <li>Epistatic interaction effects</li>
+                                <li>Regulatory vs. coding mutations</li>
+                                <li>Tissue-specific expression patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important Caveat:</strong> While this study provides valuable insights into long-term selection effects, the extreme population structure and bottlenecks limit definitive conclusions about which specific variants drove trait improvements. Results should be validated through functional studies and additional populations.
+                </div>
+            </div>
+
+            <div class="section" id="section-future-directions">
+                <div class="section-title">🚀 Future Research Directions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Immediate Next Steps</div>
+                        <div class="step-details">
+                            <strong>Functional Validation:</strong>
+                            <ul>
+                                <li>CRISPR/Cas9 knockout studies of candidate genes</li>
+                                <li>Tissue-specific expression analysis</li>
+                                <li>Protein function assays</li>
+                                <li>Metabolomic profiling</li>
+                            </ul>
+                            
+                            <strong>Improved Genomics:</strong>
+                            <ul>
+                                <li>Long-read sequencing for better SV detection</li>
+                                <li>RNA-seq for expression differences</li>
+                                <li>Epigenome analysis (methylation, histone marks)</li>
+                                <li>Single-cell genomics approaches</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Comparative Studies</div>
+                        <div class="step-details">
+                            <strong>Cross-Species Validation:</strong>
+                            <ul>
+                                <li>Similar selection experiments in other species</li>
+                                <li>Livestock breeding program analysis</li>
+                                <li>Wild population adaptation studies</li>
+                                <li>Laboratory evolution experiments</li>
+                            </ul>
+                            
+                            <strong>Temporal Analysis:</strong>
+                            <ul>
+                                <li>Historical sample collection and sequencing</li>
+                                <li>Selection trajectory reconstruction</li>
+                                <li>Allele frequency time series</li>
+                                <li>Predictive modeling of future responses</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Applied Applications</div>
+                        <div class="step-details">
+                            <strong>Breeding Applications:</strong>
+                            <ul>
+                                <li>Genomic prediction model development</li>
+                                <li>Optimal crossing design strategies</li>
+                                <li>Diversity conservation protocols</li>
+                                <li>Selection limit prediction</li>
+                            </ul>
+                            
+                            <strong>Biomedical Applications:</strong>
+                            <ul>
+                                <li>Disease model development</li>
+                                <li>Drug target identification</li>
+                                <li>Personalized medicine approaches</li>
+                                <li>Population health strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Summary and Key Takeaways</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Major Contributions</div>
+                    <div class="significance-content">
+                        This study represents the first comprehensive genomic analysis of the world's longest mouse selection experiment, providing unprecedented insights into the genomic architecture of complex traits and the long-term effects of artificial selection. The work demonstrates that extreme phenotypes can be achieved and maintained despite severe genetic diversity loss, revealing the power of beneficial allele fixation in determining trait evolution.
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Key Scientific Insights:</strong>
+                    <ul>
+                        <li><strong>Genomic basis of extreme phenotypes:</strong> Multiple pathways lead to similar trait improvements</li>
+                        <li><strong>Selection vs. drift effects:</strong> Complex interplay shapes genome evolution</li>
+                        <li><strong>Polygenic architecture:</strong> Many genes of small effect contribute to complex traits</li>
+                        <li><strong>Diversity paradox:</strong> Extreme phenotypes achievable despite low diversity</li>
+                        <li><strong>Translational value:</strong> Insights applicable to breeding and biomedical research</li>
+                    </ul>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Legacy and Impact</div>
+                    <p>The Dummerstorf mouse lines represent an irreplaceable scientific resource, providing a unique window into long-term evolutionary processes under controlled conditions. This genomic characterization establishes the foundation for decades of future research into the genetic basis of complex traits, serving as a model for understanding both natural adaptation and artificial selection in biological systems.</p>
+                </div>
+            </div>
         </div>
     </div>
-</body></html>
+</body>
+</html>
