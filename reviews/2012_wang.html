@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genome-wide association mapping including phenotypes from relatives without genotypes</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'wang_2012_ssgblup_gwas';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Genome-wide association mapping including phenotypes from relatives without genotypes</h1>
+            <p>Bridging Genomic Selection and GWAS Through Single-Step Methodology</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> H. Wang, I. Misztal, I. Aguilar, A. Legarra, W.M. Muir</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Genetics Research Cambridge, Vol. 94, pp. 73-83, 2012</p>
+                <p class="text-small text-top"><strong>Institution:</strong> University of Georgia, INIA Las Brujas, INRA, Purdue University</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1017/S0016672312000274"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 The Core Innovation: Single-Step GWAS</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Breaking the Genotyping Barrier</div>
+                    <p>Traditional GWAS requires all animals to be genotyped, severely limiting sample sizes and statistical power. This paper introduces single-step GBLUP (ssGBLUP) for GWAS, which can utilize phenotypic information from thousands of ungenotyped relatives to dramatically improve QTL detection power and precision without increasing genotyping costs.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Challenge:</strong> Classical GWAS and Bayesian methods (BayesA/BayesB) could only use phenotypes from genotyped animals. This created a fundamental limitation: either genotype everyone (expensive) or accept reduced power. Multi-step approaches using pseudo-data were complex and often suboptimal.
+                </div>
+
+                <div class="solution-box">
+                    <strong>The Innovation:</strong> ssGBLUP seamlessly blends pedigree and genomic relationships in a single analysis, allowing direct use of phenotypes from ungenotyped relatives. This paper extends ssGBLUP to derive SNP effects and weights for GWAS applications.
+                </div>
+            </div>
+
+            <div class="section" id="section-mathematical">
+                <div class="section-title">📐 Mathematical Framework</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Core ssGBLUP Model</div>
+                    <div class="formula-main">y = 1μ + Z<sub>a</sub>a + e</div>
+                    <div class="formula-note">Where y = phenotypes, a = animal effects, H blends pedigree and genomic relationships</div>
+                </div>
+
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Unified Relationship Matrix H</div>
+                        <div class="step-details">
+                            <strong>The Key Innovation:</strong>
+                            <div class="formula">H<sup>-1</sup> = A<sup>-1</sup> + [0  0; 0  G<sup>-1</sup> - A<sub>22</sub><sup>-1</sup>]</div>
+                            
+                            <strong>Components:</strong>
+                            <ul>
+                                <li><strong>A:</strong> Pedigree relationship matrix (all animals)</li>
+                                <li><strong>A<sub>22</sub>:</strong> Pedigree relationships among genotyped animals</li>
+                                <li><strong>G:</strong> Genomic relationship matrix (genotyped animals only)</li>
+                            </ul>
+                            
+                            <strong>Elegance:</strong>
+                            This matrix seamlessly combines information from genotyped and ungenotyped animals in a single analysis
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">SNP Effects Derivation</div>
+                        <div class="step-details">
+                            <strong>From Animal Effects to SNP Effects:</strong>
+                            <div class="formula">a<sub>g</sub> = Zu</div>
+                            <div class="formula">û = λDZ'G*<sup>-1</sup>â<sub>g</sub></div>
+                            
+                            <strong>Where:</strong>
+                            <ul>
+                                <li><strong>Z:</strong> Matrix relating SNP genotypes to animals</li>
+                                <li><strong>u:</strong> Vector of SNP effects</li>
+                                <li><strong>D:</strong> Diagonal matrix of SNP variance weights</li>
+                                <li><strong>λ:</strong> Variance ratio = σ²<sub>u</sub>/σ²<sub>a</sub></li>
+                            </ul>
+                            
+                            <strong>Innovation:</strong>
+                            Best linear unbiased predictor of SNP effects given animal effects
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Iterative Weighting Algorithm</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Two Implementation Scenarios</div>
+                        <div class="step-details">
+                            <strong>Scenario S1 (Recommended):</strong>
+                            <ul>
+                                <li>Compute animal effects once with ssGBLUP</li>
+                                <li>Update SNP weights iteratively</li>
+                                <li>More stable and consistent</li>
+                                <li>Suitable for multi-trait models</li>
+                            </ul>
+                            
+                            <strong>Scenario S2 (Experimental):</strong>
+                            <ul>
+                                <li>Re-compute both animal and SNP effects each iteration</li>
+                                <li>Potentially higher accuracy initially</li>
+                                <li>May deteriorate with excessive iterations</li>
+                                <li>Risk of overfitting to larger effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Weight Calculation Strategy</div>
+                        <div class="step-details">
+                            <strong>Individual SNP Variance Estimation:</strong>
+                            <div class="formula">σ̂²<sub>u,i</sub> = û²<sub>i</sub> / [2p<sub>i</sub>(1-p<sub>i</sub>)]</div>
+                            
+                            <strong>Normalization Step:</strong>
+                            <div class="formula">D<sup>(t+1)</sup> = [tr(D<sup>(0)</sup>) / tr(D<sup>(t+1)*</sup>)] × D<sup>(t+1)*</sup></div>
+                            
+                            <strong>Why This Works:</strong>
+                            <ul>
+                                <li>Allows unequal variances like BayesB</li>
+                                <li>No sampling - deterministic approach</li>
+                                <li>Computationally efficient</li>
+                                <li>Maintains compatibility with infinitesimal model</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Convergence Properties</div>
+                        <div class="step-details">
+                            <strong>Optimal Stopping:</strong>
+                            <ul>
+                                <li>S1: Stable after 2-3 iterations</li>
+                                <li>S2: Best at iteration 2 for m=8 SNPs</li>
+                                <li>Further iterations may reduce accuracy</li>
+                                <li>Excessive weighting favors large effects</li>
+                            </ul>
+                            
+                            <strong>Validation Metrics:</strong>
+                            <ul>
+                                <li>Correlation between true and estimated QTL effects</li>
+                                <li>Sum of m adjacent SNP effects (m = 1 to 40)</li>
+                                <li>Breeding value prediction accuracy</li>
+                                <li>Standard deviation across replicates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-simulation">
+                <div class="section-title">🧪 Simulation Study Design</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Population Structure</div>
+                            <div class="step-details">
+                                Complex multi-generational pedigree with realistic breeding structure
+                                <div class="step-specs">
+                                    <strong>Design Parameters:</strong><br>
+                                    • 15,800 total animals with phenotypes<br>
+                                    • Only 1,500 animals genotyped (9.5%)<br>
+                                    • 6 generations (0-5) with complete records<br>
+                                    • Heritability = 0.5, phenotypic variance = 1.0<br>
+                                    <strong>Realistic Challenge:</strong><br>
+                                    Mimics livestock breeding programs where most animals have phenotypes but only a subset are genotyped
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Genomic Architecture</div>
+                            <div class="step-details">
+                                Two chromosomes with realistic QTL and marker distribution
+                                <div class="step-specs">
+                                    <strong>Chromosome Setup:</strong><br>
+                                    • Chromosome 1: 1,552 SNPs, 16 QTLs<br>
+                                    • Chromosome 2: 1,448 SNPs, 14 QTLs<br>
+                                    • Total: 3,000 SNPs, 30 QTLs<br>
+                                    • QTL effects from Gamma distribution (shape=0.4, scale=1.36)<br>
+                                    <strong>Genetic Complexity:</strong><br>
+                                    • Minor allele frequency > 0.05<br>
+                                    • No overlap between QTL and marker positions<br>
+                                    • 1,000 generations of evolution before data collection
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Method Comparisons</div>
+                            <div class="step-details">
+                                Comprehensive comparison across three major approaches
+                                <div class="step-specs">
+                                    <strong>Methods Tested:</strong><br>
+                                    • ssGBLUP with iterative weights (S1 and S2)<br>
+                                    • BayesB with deregressed proofs (weighted/unweighted)<br>
+                                    • Classical GWAS (CGWAS) using WOMBAT<br>
+                                    <strong>Evaluation Criteria:</strong><br>
+                                    • GEBV accuracy (correlation with true breeding values)<br>
+                                    • QTL detection accuracy (correlation with true QTL effects)<br>
+                                    • Computational efficiency and robustness
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>GEBV Accuracy</th>
+                                <th>QTL Detection (m=8)</th>
+                                <th>Standard Deviation</th>
+                                <th>Computing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>ssGBLUP S1 (it2)</strong></td>
+                                <td>0.89 (0.01)</td>
+                                <td>0.82 (0.02)</td>
+                                <td>Low (0.02)</td>
+                                <td>~2 min/iteration</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>BayesB (m=16)</strong></td>
+                                <td>0.88 (0.02)</td>
+                                <td>0.83 (0.07)</td>
+                                <td>High (0.07-0.27)</td>
+                                <td>~5 hours</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>CGWAS</strong></td>
+                                <td>N/A</td>
+                                <td>0.74 (0.07)</td>
+                                <td>Medium (0.05-0.14)</td>
+                                <td>13 seconds</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">📊 Key Results and Insights</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Superior Accuracy and Stability</div>
+                        <div class="step-details">
+                            <strong>GEBV Prediction Performance:</strong>
+                            <ul>
+                                <li>ssGBLUP achieved 0.89 accuracy vs 0.88 for BayesB</li>
+                                <li>Much lower standard deviations across replicates</li>
+                                <li>More consistent results than Bayesian methods</li>
+                                <li>No need for complex pseudo-data preparation</li>
+                            </ul>
+                            
+                            <strong>QTL Detection Power:</strong>
+                            <ul>
+                                <li>Optimal window size: 8 adjacent SNPs</li>
+                                <li>Peak correlation: 0.82 for ssGBLUP vs 0.83 for BayesB</li>
+                                <li>BayesB required 16 SNPs to achieve similar performance</li>
+                                <li>CGWAS best for single SNP (m=1) detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computational Advantages</div>
+                        <div class="step-details">
+                            <strong>Speed Comparison:</strong>
+                            <ul>
+                                <li><strong>ssGBLUP:</strong> 2 minutes per iteration</li>
+                                <li><strong>BayesB:</strong> 5 hours with MCMC sampling</li>
+                                <li><strong>CGWAS:</strong> 13 seconds (but limited functionality)</li>
+                            </ul>
+                            
+                            <strong>Practical Benefits:</strong>
+                            <ul>
+                                <li>No sampling variance from MCMC</li>
+                                <li>Deterministic algorithm</li>
+                                <li>Easy to implement and debug</li>
+                                <li>Direct use of phenotypes without pseudo-data</li>
+                            </ul>
+                            
+                            <strong>Scalability:</strong>
+                            <ul>
+                                <li>Linear cost with number of SNPs</li>
+                                <li>Cubic cost with genotyped animals (current implementation)</li>
+                                <li>Potential for sub-cubic with advanced algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Method-Specific Insights</div>
+                        <div class="step-details">
+                            <strong>ssGBLUP Strengths:</strong>
+                            <ul>
+                                <li>Best balance of accuracy and stability</li>
+                                <li>Utilizes all available phenotypic information</li>
+                                <li>Suitable for complex models (multi-trait, maternal effects)</li>
+                                <li>No need for deregressed proofs</li>
+                            </ul>
+                            
+                            <strong>BayesB Characteristics:</strong>
+                            <ul>
+                                <li>Slightly higher peak accuracy</li>
+                                <li>Much higher variance across replicates</li>
+                                <li>Requires careful tuning and longer runs</li>
+                                <li>Limited to genotyped animals only</li>
+                            </ul>
+                            
+                            <strong>CGWAS Limitations:</strong>
+                            <ul>
+                                <li>Best for single SNP identification</li>
+                                <li>Poor at regional QTL detection</li>
+                                <li>Noisiest SNP effect estimates</li>
+                                <li>Requires separate BLUP run for pseudo-data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Optimal Implementation Strategy</div>
+                    <div class="step-details">
+                        <strong>Recommended Protocol:</strong>
+                        <ul>
+                            <li><strong>Use Scenario S1:</strong> Update weights but not GEBVs iteratively</li>
+                            <li><strong>Stop at iteration 2-3:</strong> Peak accuracy achieved early</li>
+                            <li><strong>Evaluate m=8 SNPs:</strong> Optimal window for QTL detection</li>
+                            <li><strong>Monitor convergence:</strong> Watch for deterioration in later rounds</li>
+                        </ul>
+                        
+                        <strong>When to Choose ssGBLUP:</strong>
+                        <ul>
+                            <li>Large numbers of ungenotyped relatives with phenotypes</li>
+                            <li>Complex models requiring unified analysis</li>
+                            <li>Need for computational efficiency and stability</li>
+                            <li>Multi-trait or longitudinal data scenarios</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-implementation">
+                <div class="section-title">💻 Implementation Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Software Requirements</div>
+                        <div class="step-details">
+                            <strong>Core Infrastructure:</strong>
+                            <ul>
+                                <li><strong>BLUPF90:</strong> Modified for genomic analyses</li>
+                                <li><strong>Matrix Operations:</strong> Efficient G⁻¹ computation</li>
+                                <li><strong>Memory Management:</strong> Handle large relationship matrices</li>
+                                <li><strong>Convergence Monitoring:</strong> Track iteration progress</li>
+                            </ul>
+                            
+                            <strong>Data Preparation:</strong>
+                            <ul>
+                                <li>Pedigree file with all relationships</li>
+                                <li>Phenotype records for all animals</li>
+                                <li>Marker genotypes for subset of animals</li>
+                                <li>Quality control on all input data</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computational Challenges</div>
+                        <div class="step-details">
+                            <strong>Matrix Inversion Issues:</strong>
+                            <ul>
+                                <li>G⁻¹ computation scales cubically</li>
+                                <li>Memory requirements for large datasets</li>
+                                <li>Numerical stability with sparse matrices</li>
+                                <li>Need for iterative solvers in practice</li>
+                            </ul>
+                            
+                            <strong>Scaling Solutions:</strong>
+                            <ul>
+                                <li>Preconditioned conjugate gradients (PCG)</li>
+                                <li>Block-wise matrix operations</li>
+                                <li>Sparse matrix representations</li>
+                                <li>Parallel computing strategies</li>
+                            </ul>
+                            
+                            <strong>Quality Control:</strong>
+                            <ul>
+                                <li>Monitor weight distributions</li>
+                                <li>Check convergence criteria</li>
+                                <li>Validate SNP effect estimates</li>
+                                <li>Cross-validate predictions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Extensions and Future Work</div>
+                        <div class="step-details">
+                            <strong>Methodological Improvements:</strong>
+                            <ul>
+                                <li>Better SNP variance estimation (EM algorithm)</li>
+                                <li>Uncertainty quantification for SNP effects</li>
+                                <li>Significance testing framework</li>
+                                <li>Multi-trait ssGBLUP for GWAS</li>
+                            </ul>
+                            
+                            <strong>Model Extensions:</strong>
+                            <ul>
+                                <li>Maternal and epigenetic effects</li>
+                                <li>Gene × environment interactions</li>
+                                <li>Random regression models</li>
+                                <li>Multivariate trait analysis</li>
+                            </ul>
+                            
+                            <strong>Practical Applications:</strong>
+                            <ul>
+                                <li>Livestock breeding programs</li>
+                                <li>Plant breeding initiatives</li>
+                                <li>Human genetics (family studies)</li>
+                                <li>Conservation genetics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Limitations and Considerations</div>
+                
+                <div class="warning-box">
+                    <strong>Important Limitations:</strong> The method assumes infinitesimal model architecture and may not distinguish well between true associations and linkage disequilibrium effects. Significance testing frameworks need further development for practical GWAS applications.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Methodological Limitations</div>
+                        <div class="step-details">
+                            <strong>Infinitesimal Model Assumption:</strong>
+                            <ul>
+                                <li>Assumes equal variance for all SNP effects initially</li>
+                                <li>May not capture true genetic architecture</li>
+                                <li>Less realistic than BayesB variable selection</li>
+                                <li>Identical G matrix across all traits</li>
+                            </ul>
+                            
+                            <strong>Linkage Disequilibrium Issues:</strong>
+                            <ul>
+                                <li>Difficulty separating causation from correlation</li>
+                                <li>Strong LD in related populations</li>
+                                <li>May not identify true causal variants</li>
+                                <li>Regional rather than single-SNP resolution</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Statistical Concerns</div>
+                        <div class="step-details">
+                            <strong>Significance Testing Gap:</strong>
+                            <ul>
+                                <li>No established P-value framework</li>
+                                <li>Difficult to define detection thresholds</li>
+                                <li>Shrunken estimates complicate inference</li>
+                                <li>Multiple testing correction unclear</li>
+                            </ul>
+                            
+                            <strong>Weight Estimation Issues:</strong>
+                            <ul>
+                                <li>Treats SNP effect estimates as true values</li>
+                                <li>Ignores uncertainty in effect estimation</li>
+                                <li>May lead to excessive weighting</li>
+                                <li>Potential for overfitting in later iterations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Practical Constraints</div>
+                        <div class="step-details">
+                            <strong>Data Requirements:</strong>
+                            <ul>
+                                <li>Requires comprehensive pedigree information</li>
+                                <li>Quality control critical for all data types</li>
+                                <li>Population stratification may bias results</li>
+                                <li>Missing data handling not fully addressed</li>
+                            </ul>
+                            
+                            <strong>Computational Scalability:</strong>
+                            <ul>
+                                <li>Current implementation scales cubically</li>
+                                <li>Memory intensive for large datasets</li>
+                                <li>May require approximations for huge populations</li>
+                                <li>Need for specialized computing infrastructure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-impact">
+                <div class="section-title">🌟 Impact and Significance</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏆 Paradigm Shift in GWAS Methodology</div>
+                    <p>This paper fundamentally changed how researchers approach GWAS in populations with family structure. By enabling direct use of phenotypes from ungenotyped relatives, ssGBLUP opened new possibilities for powerful association studies without prohibitive genotyping costs. The method became essential for livestock genomics and influenced human genetics applications.</p>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Scientific Contributions</div>
+                        <div class="step-details">
+                            <strong>Methodological Advances:</strong>
+                            <ul>
+                                <li>First practical single-step approach for GWAS</li>
+                                <li>Unified framework combining genomic selection and association mapping</li>
+                                <li>Deterministic alternative to computationally intensive Bayesian methods</li>
+                                <li>Bridge between classical quantitative genetics and modern genomics</li>
+                            </ul>
+                            
+                            <strong>Theoretical Insights:</strong>
+                            <ul>
+                                <li>Optimal window size for QTL detection (m=8)</li>
+                                <li>Convergence properties of iterative weighting</li>
+                                <li>Trade-offs between accuracy and stability</li>
+                                <li>Relationship matrix design for unified analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Practical Applications</div>
+                        <div class="step-details">
+                            <strong>Livestock Breeding:</strong>
+                            <ul>
+                                <li>Enabled cost-effective GWAS in commercial populations</li>
+                                <li>Integration with routine genetic evaluations</li>
+                                <li>QTL discovery for economically important traits</li>
+                                <li>Genomic selection implementation support</li>
+                            </ul>
+                            
+                            <strong>Research Adoption:</strong>
+                            <ul>
+                                <li>Foundation for numerous follow-up studies</li>
+                                <li>Implementation in major software packages</li>
+                                <li>Standard methodology in animal breeding</li>
+                                <li>Extension to plant breeding programs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Long-term Influence</div>
+                        <div class="step-details">
+                            <strong>Software Development:</strong>
+                            <ul>
+                                <li>Integration into BLUPF90 family of programs</li>
+                                <li>Adoption by commercial breeding companies</li>
+                                <li>Implementation in open-source genomics tools</li>
+                                <li>Training materials and workshops worldwide</li>
+                            </ul>
+                            
+                            <strong>Research Directions:</strong>
+                            <ul>
+                                <li>Multi-trait and multi-population extensions</li>
+                                <li>Integration with functional genomics</li>
+                                <li>Machine learning hybrid approaches</li>
+                                <li>Human genetics family study applications</li>
+                            </ul>
+                            
+                            <strong>Citation Impact:</strong>
+                            <ul>
+                                <li>800+ citations across multiple disciplines</li>
+                                <li>Standard reference in genomic selection</li>
+                                <li>Foundation for subsequent methodological advances</li>
+                                <li>Influence on statistical genomics curriculum</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-comparison">
+                <div class="section-title">🔍 Method Comparison Summary</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>ssGBLUP</th>
+                                <th>BayesB</th>
+                                <th>Classical GWAS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Data Utilization</strong></td>
+                                <td>All phenotypes (genotyped + ungenotyped)</td>
+                                <td>Genotyped animals only</td>
+                                <td>Genotyped animals only</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Computational Time</strong></td>
+                                <td>~2 minutes/iteration</td>
+                                <td>~5 hours (MCMC)</td>
+                                <td>~13 seconds</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Stability</strong></td>
+                                <td>High (low SD)</td>
+                                <td>Moderate (high SD)</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>QTL Detection</strong></td>
+                                <td>Regional (m=8 optimal)</td>
+                                <td>Regional (m=16 optimal)</td>
+                                <td>Single SNP best</td>
+                            </tr>
+                            <tr class="high-pev-group">
+                                <td><strong>Implementation</strong></td>
+                                <td>Moderate complexity</td>
+                                <td>High complexity</td>
+                                <td>Simple</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="best-practices">
+                    <strong>When to Use Each Method:</strong>
+                    <ul>
+                        <li><strong>ssGBLUP:</strong> Complex pedigrees, many ungenotyped relatives, multi-trait analysis</li>
+                        <li><strong>BayesB:</strong> All animals genotyped, variable selection important, computational resources available</li>
+                        <li><strong>Classical GWAS:</strong> Simple population structure, single-SNP focus, rapid screening</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-future">
+                <div class="section-title">🔮 Future Directions and Extensions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Methodological Improvements</div>
+                        <div class="step-details">
+                            <strong>Statistical Refinements:</strong>
+                            <ul>
+                                <li><strong>EM Algorithm:</strong> Better SNP variance estimation considering uncertainty</li>
+                                <li><strong>Bayesian Framework:</strong> Proper uncertainty quantification</li>
+                                <li><strong>Significance Testing:</strong> P-value calculation for shrinkage estimators</li>
+                                <li><strong>Multiple Testing:</strong> FDR control for genome-wide scans</li>
+                            </ul>
+                            
+                            <strong>Computational Advances:</strong>
+                            <ul>
+                                <li>Sub-cubic algorithms using PCG iteration</li>
+                                <li>Distributed computing implementations</li>
+                                <li>GPU acceleration for matrix operations</li>
+                                <li>Memory-efficient sparse matrix methods</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Model Extensions</div>
+                        <div class="step-details">
+                            <strong>Multi-Trait Applications:</strong>
+                            <ul>
+                                <li>Joint analysis of correlated traits</li>
+                                <li>Genetic correlation estimation</li>
+                                <li>Pleiotropic QTL detection</li>
+                                <li>Cross-trait prediction accuracy</li>
+                            </ul>
+                            
+                            <strong>Complex Model Integration:</strong>
+                            <ul>
+                                <li>Maternal and paternal effect models</li>
+                                <li>Random regression for longitudinal traits</li>
+                                <li>Reaction norm models for G×E</li>
+                                <li>Social interaction effects</li>
+                            </ul>
+                            
+                            <strong>Advanced Genomic Features:</strong>
+                            <ul>
+                                <li>Structural variant incorporation</li>
+                                <li>Functional annotation weighting</li>
+                                <li>Pathway-based analysis</li>
+                                <li>Multi-omics data integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Emerging Applications</div>
+                        <div class="step-details">
+                            <strong>Human Genetics:</strong>
+                            <ul>
+                                <li>Large family studies (e.g., Amish populations)</li>
+                                <li>Biobank data with family structure</li>
+                                <li>Rare disease gene mapping</li>
+                                <li>Pharmacogenomics applications</li>
+                            </ul>
+                            
+                            <strong>Plant Breeding:</strong>
+                            <ul>
+                                <li>Multi-environment trial analysis</li>
+                                <li>Breeding cycle optimization</li>
+                                <li>Climate adaptation studies</li>
+                                <li>Hybrid prediction models</li>
+                            </ul>
+                            
+                            <strong>Conservation Genomics:</strong>
+                            <ul>
+                                <li>Small population management</li>
+                                <li>Fitness trait association</li>
+                                <li>Adaptive potential assessment</li>
+                                <li>Breeding program design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Key Takeaways and Lasting Impact</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Revolutionary Contribution</div>
+                    <div class="significance-content">
+                        The Wang et al. (2012) paper fundamentally changed GWAS methodology by demonstrating how to effectively utilize phenotypic information from ungenotyped relatives. This breakthrough enabled cost-effective association studies in populations with complex family structures, particularly transforming livestock genomics and influencing approaches in human genetics and plant breeding.
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Essential Principles Established:</strong>
+                    <ul>
+                        <li><strong>Unified Framework:</strong> Single analysis combining pedigree and genomic information</li>
+                        <li><strong>Information Maximization:</strong> Use all available phenotypic data, regardless of genotyping status</li>
+                        <li><strong>Computational Efficiency:</strong> Deterministic approach avoiding expensive MCMC sampling</li>
+                        <li><strong>Practical Implementation:</strong> Build on existing mixed model infrastructure</li>
+                        <li><strong>Iterative Refinement:</strong> Improve SNP effect estimation through weighting</li>
+                    </ul>
+                </div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌐 Transformative Impact on Genomics</div>
+                    <p>This methodology became the foundation for modern genomic association studies in structured populations. By solving the fundamental problem of utilizing ungenotyped relatives, it enabled cost-effective GWAS in livestock, influenced human genetics family studies, and provided a unified framework that continues to evolve with advances in statistical genomics and computational methods.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Theoretical Legacy</div>
+                        <div class="step-details">
+                            <strong>Conceptual Contributions:</strong>
+                            <ul>
+                                <li>Unified relationship matrix design</li>
+                                <li>SNP effect derivation from animal effects</li>
+                                <li>Iterative weighting convergence properties</li>
+                                <li>Trade-offs between accuracy and stability</li>
+                            </ul>
+                            
+                            <strong>Mathematical Framework:</strong>
+                            <ul>
+                                <li>Best linear unbiased prediction of SNP effects</li>
+                                <li>Variance component estimation strategies</li>
+                                <li>Matrix algebra for genomic relationships</li>
+                                <li>Normalization and scaling procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Practical Advances</div>
+                        <div class="step-details">
+                            <strong>Industry Adoption:</strong>
+                            <ul>
+                                <li>Standard methodology in livestock breeding</li>
+                                <li>Integration with routine genetic evaluations</li>
+                                <li>Cost-effective QTL discovery programs</li>
+                                <li>Training and education materials</li>
+                            </ul>
+                            
+                            <strong>Software Integration:</strong>
+                            <ul>
+                                <li>BLUPF90 family implementations</li>
+                                <li>Commercial breeding software adoption</li>
+                                <li>Open-source tool development</li>
+                                <li>User-friendly interfaces</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Outlook</div>
+                        <div class="step-details">
+                            <strong>Continuing Evolution:</strong>
+                            <ul>
+                                <li>Integration with machine learning approaches</li>
+                                <li>Multi-omics data incorporation</li>
+                                <li>Real-time genomic evaluation systems</li>
+                                <li>Cloud-based implementation platforms</li>
+                            </ul>
+                            
+                            <strong>Emerging Challenges:</strong>
+                            <ul>
+                                <li>Massive dataset scalability</li>
+                                <li>Complex trait architecture modeling</li>
+                                <li>Population stratification handling</li>
+                                <li>Causal inference improvement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gap-analysis">
+                    <div class="gap-title">Remaining Research Gaps</div>
+                    <div class="gap-content">
+                        While ssGBLUP for GWAS has proven highly successful, several areas need continued development: (1) significance testing frameworks for shrinkage estimators, (2) improved methods for distinguishing causation from linkage disequilibrium, (3) better computational algorithms for massive datasets, and (4) integration with functional genomics and multi-omics data for enhanced biological interpretation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
