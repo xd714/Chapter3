@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effects of ignoring inbreeding in model-based accuracy for BLUP and SSGBLUP</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = location.pathname.split('/').pop().replace('.html', '') || 'default';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Effects of ignoring inbreeding in model-based accuracy for BLUP and SSGBLUP</h1>
+            <p>Critical Analysis of Inbreeding Effects on Breeding Value Accuracy</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> Ignacio Aguilar, Eduardo N. Fernandez, Agustin Blasco, Olga Ravagnolo, Andres Legarra</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Breeding and Genetics, Vol. 137, pp. 356-364, 2020</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Instituto Nacional de Investigación Agropecuaria (INIA), Uruguay</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1111/jbg.12470"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">Introduction & Problem Statement</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🎯 Critical Accuracy Issue</div>
+                    <p>First comprehensive quantification of errors introduced when ignoring inbreeding coefficients in genetic evaluation accuracy calculations. Demonstrates systematic bias in reliability estimates affecting breeding decisions across BLUP, GBLUP, and single-step GBLUP (SSGBLUP) methodologies.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>Core Problem:</strong> Model-based accuracy calculations commonly ignore inbreeding in two critical places: (1) in the denominator of reliability formula rel = 1 - PEV/(1+F)σ²ᵤ, and (2) in Henderson's rules for computing A⁻¹ matrices. This dual approximation leads to incorrect breeding value accuracies, affecting selection decisions and breeding program optimization.
+                </div>
+                
+                <div class="citation-box">
+                    <p><strong>Citation:</strong> Aguilar, I., Fernandez, E. N., Blasco, A., Ravagnolo, O., & Legarra, A. (2020). Effects of ignoring inbreeding in model-based accuracy for BLUP and SSGBLUP. Journal of Animal Breeding and Genetics, 137(4), 356-364.</p>
+                    
+                    <p><strong>Research Context:</strong></p>
+                    <ul class="list-top">
+                        <li>Growing importance of accuracy measures in genomic selection era</li>
+                        <li>Increasing selection for complex traits requiring precise uncertainty quantification</li>
+                        <li>Need for reliable accuracy measures in small to medium datasets</li>
+                        <li>Computational convenience often prioritized over theoretical correctness</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-theory">
+                <div class="section-title">Theoretical Framework</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Correct Reliability Formula</div>
+                    <div class="formula-main">rel<sub>i</sub> = 1 - PEV<sub>i</sub>/[(1+F<sub>i</sub>)σ²<sub>u</sub>]</div>
+                    <div class="formula-note">Where F<sub>i</sub> is the inbreeding coefficient, PEV is prediction error variance, and σ²<sub>u</sub> is genetic variance</div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box model-1">
+                        <div class="model-title">Individual Variance Structure</div>
+                        <div class="step-details">
+                            <strong>Key Insight:</strong> Individual genetic variance depends on inbreeding status
+                            
+                            <strong>Variance Components:</strong>
+                            <ul>
+                                <li><strong>BLUP:</strong> Var(u<sub>i</sub>) = A<sub>ii</sub>σ²<sub>u</sub> = (1+F<sub>i</sub>)σ²<sub>u</sub></li>
+                                <li><strong>GBLUP:</strong> Var(u<sub>i</sub>) = G<sub>ii</sub>σ²<sub>u</sub></li>
+                                <li><strong>SSGBLUP:</strong> Var(u<sub>i</sub>) = H<sub>ii</sub>σ²<sub>u</sub></li>
+                            </ul>
+                            
+                            <strong>Common Error:</strong>
+                            <ul>
+                                <li>Textbooks often assume Var(u) = σ²<sub>u</sub> (constant)</li>
+                                <li>Ignores individual-specific variance inflation</li>
+                                <li>Results in systematic reliability underestimation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box model-2">
+                        <div class="model-title">Henderson's Rules Approximation</div>
+                        <div class="step-details">
+                            <strong>Computational Shortcut:</strong> A*⁻¹ computed without inbreeding
+                            
+                            <strong>Matrix Relationships:</strong>
+                            <ul>
+                                <li>Approximate: A*⁻¹ ≠ (A*)⁻¹</li>
+                                <li>Implied relationships: A* = (A*⁻¹)⁻¹ ≠ A</li>
+                                <li>False assumption: non-inbred animals treated as inbred</li>
+                            </ul>
+                            
+                            <strong>Consequences:</strong>
+                            <ul>
+                                <li>Inflated self-relationships for non-inbred animals</li>
+                                <li>Modified mixed model equations (MME)</li>
+                                <li>Incorrect prediction error variances (PEV*)</li>
+                                <li>Convergence problems in large datasets</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">SSGBLUP-Specific Complications</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Single-Step Matrix Structure</div>
+                    <div class="formula-main">H⁻¹ = A⁻¹ + [0 0; 0 G⁻¹ - A₂₂⁻¹]</div>
+                    <div class="formula-note">Combines pedigree (A) and genomic (G) relationship matrices</div>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Genotyped Animals</div>
+                        <div class="step-details">
+                            <strong>Inbreeding Measure:</strong> H<sub>ii</sub> = G<sub>ii</sub> (direct from genotypes)
+                            
+                            <strong>Genomic Features:</strong>
+                            <ul>
+                                <li>Higher variability in inbreeding estimates</li>
+                                <li>Possible "negative" inbreeding (G<sub>ii</sub> < 1)</li>
+                                <li>Indicates higher heterozygosity than population average</li>
+                                <li>Straightforward computation via cross-products</li>
+                            </ul>
+                            
+                            <strong>Accuracy Impact:</strong>
+                            <ul>
+                                <li>More heterozygous animals: higher reliability</li>
+                                <li>More homozygous animals: lower reliability</li>
+                                <li>Ignoring F<sub>i</sub> causes both over and underestimation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Non-genotyped Animals</div>
+                        <div class="step-details">
+                            <strong>Complex Calculation:</strong> H<sub>ii</sub> = A<sub>ii</sub> + a<sub>i,2</sub>A₂₂⁻¹(G - A₂₂)A₂₂⁻¹a<sub>2,i</sub>
+                            
+                            <strong>Computational Challenges:</strong>
+                            <ul>
+                                <li>Requires genomic information from relatives</li>
+                                <li>Involves matrix multiplications with genomic data</li>
+                                <li>More computationally expensive than pedigree F<sub>i</sub></li>
+                                <li>Alternative: sparse inversion of H⁻¹</li>
+                            </ul>
+                            
+                            <strong>Practical Solutions:</strong>
+                            <ul>
+                                <li>Sparse matrix inversion methods</li>
+                                <li>Indirect computation approaches</li>
+                                <li>Monte Carlo sampling alternatives</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Error Propagation</div>
+                        <div class="step-details">
+                            <strong>Dual Error Sources:</strong>
+                            <ol>
+                                <li>Wrong PEV* from incorrect H*⁻¹</li>
+                                <li>Wrong denominator (missing 1+F<sub>i</sub>)</li>
+                            </ol>
+                            
+                            <strong>Compounding Effects:</strong>
+                            <ul>
+                                <li>Errors multiply across evaluation steps</li>
+                                <li>Different impacts on genotyped vs non-genotyped</li>
+                                <li>Variable effects depending on population structure</li>
+                                <li>Potential for negative reliabilities</li>
+                            </ul>
+                            
+                            <strong>Software Implications:</strong>
+                            <ul>
+                                <li>Default settings in many packages ignore inbreeding</li>
+                                <li>Users often unaware of approximations</li>
+                                <li>Need for explicit inbreeding-corrected options</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-datasets">
+                <div class="section-title">Experimental Design & Datasets</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box census-box">
+                        <div class="comparison-title">Uruguayan Holstein Dataset</div>
+                        <div class="step-details">
+                            <strong>Population Characteristics:</strong>
+                            <ul>
+                                <li>925,821 milk yield records from 377,612 cows</li>
+                                <li>511,576 animals in pedigree (3 generations back)</li>
+                                <li>5,072 genotyped animals (39,288 SNPs)</li>
+                                <li>Low to moderate inbreeding levels</li>
+                            </ul>
+                            
+                            <strong>Evaluation Models:</strong>
+                            <ul>
+                                <li>Single-trait repeated records model</li>
+                                <li>Fixed: herd-year-season, lactation-age</li>
+                                <li>Random: permanent environment, additive genetic</li>
+                                <li>Heritability: 0.20</li>
+                            </ul>
+                            
+                            <strong>Analysis Scenarios:</strong>
+                            <ul>
+                                <li>BLUP (pedigree only)</li>
+                                <li>SSGBLUP (pedigree + genomic)</li>
+                                <li>Correct vs incorrect A⁻¹/H⁻¹ computation</li>
+                                <li>Correct vs incorrect reliability denominator</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box dna-box">
+                        <div class="comparison-title">Spanish Rabbit Line A</div>
+                        <div class="step-details">
+                            <strong>Extreme Inbreeding Design:</strong>
+                            <ul>
+                                <li>Closed line for >40 generations</li>
+                                <li>5,668 animals with complete pedigree</li>
+                                <li>15,671 litter size records</li>
+                                <li>Average inbreeding: 0.30 by 2009</li>
+                            </ul>
+                            
+                            <strong>Selection Program:</strong>
+                            <ul>
+                                <li>Maternal line selected for litter size</li>
+                                <li>Heritability: 0.10</li>
+                                <li>Steady inbreeding increase: 0.0084 per generation</li>
+                                <li>Inbreeding depression fitted as covariate</li>
+                            </ul>
+                            
+                            <strong>Research Purpose:</strong>
+                            <ul>
+                                <li>Test extreme inbreeding scenarios</li>
+                                <li>Validate theoretical predictions</li>
+                                <li>Quantify practical magnitude of errors</li>
+                                <li>Demonstrate importance in closed populations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Dataset</th>
+                                <th>Species</th>
+                                <th>Inbreeding Level</th>
+                                <th>Evaluation Method</th>
+                                <th>Key Finding</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>Holstein Dairy</td>
+                                <td>Cattle</td>
+                                <td>Low-Moderate</td>
+                                <td>BLUP + SSGBLUP</td>
+                                <td>Small PEV effects, significant reliability bias</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>Line A Rabbit</td>
+                                <td>Rabbit</td>
+                                <td>High (F=0.30)</td>
+                                <td>BLUP</td>
+                                <td>Large PEV inflation, dramatic reliability errors</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">Key Findings & Results</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Dairy Cattle: Low Inbreeding Impact</div>
+                        <div class="step-details">
+                            <strong>Relationship Matrix Effects:</strong>
+                            <ul>
+                                <li>Correlation r(diag(A), diag(A*)) = 0.94</li>
+                                <li>Correlation r(diag(H), diag(H*)) = 0.87</li>
+                                <li>Moderate distortion of genetic assumptions</li>
+                                <li>PEV changes generally negligible</li>
+                            </ul>
+                            
+                            <strong>PEV Accuracy:</strong>
+                            <ul>
+                                <li>Correlation PEV vs PEV* > 0.99</li>
+                                <li>Extra 10% "implied wrong" inbreeding → 0.5% PEV increase</li>
+                                <li>No observable bias in PEV estimates</li>
+                                <li>Regression coefficient ≈ 1.0</li>
+                            </ul>
+                            
+                            <strong>Reliability Impact:</strong>
+                            <ul>
+                                <li>BLUP: systematic underestimation when ignoring F<sub>i</sub></li>
+                                <li>SSGBLUP: both over and underestimation</li>
+                                <li>Some animals with PEV* > σ²<sub>u</sub> (negative reliability)</li>
+                                <li>Affects breeding decisions for borderline candidates</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card how-card">
+                        <div class="analysis-title">Rabbit: High Inbreeding Consequences</div>
+                        <div class="step-details">
+                            <strong>Dramatic Matrix Distortion:</strong>
+                            <ul>
+                                <li>Severe inflation of assumed self-relationships</li>
+                                <li>Non-inbred founders treated as highly inbred</li>
+                                <li>Correlation PEV vs PEV* = 0.92 (substantial deviation)</li>
+                                <li>Progressive worsening with generation number</li>
+                            </ul>
+                            
+                            <strong>Reliability Patterns by Generation:</strong>
+                            <ol>
+                                <li><strong>Correct (rel):</strong> Stable reliability across generations</li>
+                                <li><strong>Wrong PEV (rel#):</strong> Apparent decreasing trend</li>
+                                <li><strong>Wrong both (rel*):</strong> Negative reliabilities</li>
+                            </ol>
+                            
+                            <strong>Practical Implications:</strong>
+                            <ul>
+                                <li>Analyst would be puzzled by declining accuracy</li>
+                                <li>Information content unchanged but reliability drops</li>
+                                <li>Impossible negative accuracy values</li>
+                                <li>Breeding program optimization compromised</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card what-card">
+                        <div class="analysis-title">SSGBLUP-Specific Findings</div>
+                        <div class="step-details">
+                            <strong>Genotyped vs Non-genotyped:</strong>
+                            <ul>
+                                <li>Different error patterns for each group</li>
+                                <li>Genomic heterozygosity affects reliability direction</li>
+                                <li>H<sub>ii</sub> < 1 animals: overestimated reliability when ignoring F<sub>i</sub></li>
+                                <li>H<sub>ii</sub> > 1 animals: underestimated reliability</li>
+                            </ul>
+                            
+                            <strong>Matrix Block Effects:</strong>
+                            <ul>
+                                <li>Genotyped block no longer equals G matrix</li>
+                                <li>Cross-block relationships affected</li>
+                                <li>Non-genotyped animals inherit genomic information distortion</li>
+                                <li>Convergence issues in large evaluations</li>
+                            </ul>
+                            
+                            <strong>Selection Decision Impact:</strong>
+                            <ul>
+                                <li>Example: rel* = 0.40 (acc = 0.63) vs correct rel = 0.55 (acc = 0.75)</li>
+                                <li>Substantial difference in perceived accuracy</li>
+                                <li>Could inhibit use of superior but apparently "less reliable" animals</li>
+                                <li>Genomic heterozygosity advantages masked</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Quantitative Error Analysis</div>
+                
+                <div class="coverage-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">0.94</div>
+                        <div class="stat-label">Correlation A vs A* (Dairy)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">0.87</div>
+                        <div class="stat-label">Correlation H vs H* (Dairy)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">0.92</div>
+                        <div class="stat-label">Correlation PEV vs PEV* (Rabbit)</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-number">0.30</div>
+                        <div class="stat-label">Average F in Rabbit Line</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-implications">
+                <div class="section-title">Practical Implications & Recommendations</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🚨 Critical Recommendations</div>
+                    <p>Always include inbreeding in both A⁻¹/H⁻¹ computation and reliability calculations. The computational cost is negligible compared to evaluation overhead, but accuracy benefits are substantial, especially in populations with moderate to high inbreeding levels.</p>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box methodological">
+                        <div class="theme-title">Software Implementation</div>
+                        <div class="step-details">
+                            <strong>Current Status:</strong>
+                            <ul>
+                                <li>BLUPF90 family: default ignores inbreeding</li>
+                                <li>MixBLUP: uses simplified A*⁻¹</li>
+                                <li>PEST: approximate matrix default</li>
+                                <li>ASReml, WOMBAT: correct A⁻¹ by default</li>
+                            </ul>
+                            
+                            <strong>Needed Changes:</strong>
+                            <ul>
+                                <li>Explicit inbreeding options in all software</li>
+                                <li>Clear documentation of approximations used</li>
+                                <li>Warnings when inbreeding ignored</li>
+                                <li>Educational materials for users</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Breeding Program Benefits</div>
+                        <div class="step-details">
+                            <strong>Selection Accuracy:</strong>
+                            <ul>
+                                <li>Fair comparison between inbred and non-inbred animals</li>
+                                <li>Proper accounting for genomic heterozygosity</li>
+                                <li>Avoidance of spurious negative reliabilities</li>
+                                <li>Improved selection decisions</li>
+                            </ul>
+                            
+                            <strong>Risk Management:</strong>
+                            <ul>
+                                <li>Correct uncertainty quantification</li>
+                                <li>Better mate allocation decisions</li>
+                                <li>Appropriate confidence in genomic predictions</li>
+                                <li>Protection from unexpected convergence issues</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">Computational Considerations</div>
+                
+                <div class="results-grid">
+                    <div class="results-box">
+                        <div class="results-title">Cost-Benefit Analysis</div>
+                        <div class="step-details">
+                            <strong>Computational Costs:</strong>
+                            <ul>
+                                <li>Pedigree inbreeding: negligible overhead</li>
+                                <li>Genomic inbreeding (G<sub>ii</sub>): simple cross-product</li>
+                                <li>SSGBLUP H<sub>ii</sub>: requires matrix operations</li>
+                                <li>Alternative: sparse inversion methods</li>
+                            </ul>
+                            
+                            <strong>Accuracy Benefits:</strong>
+                            <ul>
+                                <li>Eliminates systematic reliability bias</li>
+                                <li>Prevents negative reliability artifacts</li>
+                                <li>Improves convergence stability</li>
+                                <li>Essential for high-inbreeding populations</li>
+                            </ul>
+                            
+                            <strong>Implementation Priority:</strong>
+                            <ol>
+                                <li>Always correct reliability denominator (easy)</li>
+                                <li>Use correct A⁻¹ computation (medium)</li>
+                                <li>Implement H<sub>ii</sub> calculation for SSGBLUP (harder)</li>
+                                <li>Monitor for convergence improvements</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="results-box">
+                        <div class="results-title">Population-Specific Guidance</div>
+                        <div class="step-details">
+                            <strong>Low Inbreeding Populations:</strong>
+                            <ul>
+                                <li>PEV effects minimal</li>
+                                <li>Reliability denominator correction essential</li>
+                                <li>Benefits may seem small but accumulate</li>
+                                <li>Good practice for future population changes</li>
+                            </ul>
+                            
+                            <strong>High Inbreeding Populations:</strong>
+                            <ul>
+                                <li>Both matrix and denominator effects critical</li>
+                                <li>Large reliability distortions possible</li>
+                                <li>Negative reliabilities likely if ignored</li>
+                                <li>Breeding program success depends on correction</li>
+                            </ul>
+                            
+                            <strong>Genomic Populations:</strong>
+                            <ul>
+                                <li>Variable effects on genotyped vs non-genotyped</li>
+                                <li>Heterozygosity advantages properly captured</li>
+                                <li>Cross-reference validation recommended</li>
+                                <li>Monitor for convergence improvements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">Study Limitations & Future Directions</div>
+                
+                <div class="gap-analysis">
+                    <div class="gap-title">Current Study Limitations</div>
+                    <div class="gap-content">
+                        <strong>Heritability Scope:</strong> Both datasets had moderate heritability (0.10-0.20). High heritability traits would show smaller PEV values and potentially less dramatic error effects, though the bias direction would remain unchanged.
+                        
+                        <strong>Population Diversity:</strong> Only two population types examined (dairy cattle, rabbit line). Effects may vary in other species, breeding systems, or population structures.
+                        
+                        <strong>Genomic Panel Density:</strong> Analysis used moderate-density SNP panels. High-density arrays or sequence data might show different patterns in genomic inbreeding estimates.
+                        
+                        <strong>Selection Intensity:</strong> Long-term selection effects and Bulmer effect reductions in genetic variance were not explicitly modeled, though these are rarely considered in standard reliability reporting.
+                    </div>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Research Extensions Needed</div>
+                        <div class="step-details">
+                            <strong>Population Scope:</strong>
+                            <ul>
+                                <li>Other livestock species with different mating systems</li>
+                                <li>Crossbred populations with complex ancestry</li>
+                                <li>Conservation populations with extreme bottlenecks</li>
+                                <li>Aquaculture species with high fecundity</li>
+                            </ul>
+                            
+                            <strong>Methodological Extensions:</strong>
+                            <ul>
+                                <li>Multi-trait evaluations with correlated responses</li>
+                                <li>Threshold traits and non-linear models</li>
+                                <li>Random regression and longitudinal traits</li>
+                                <li>Metafounders and unknown parent groups</li>
+                            </ul>
+                            
+                            <strong>Computational Research:</strong>
+                            <ul>
+                                <li>Efficient algorithms for large-scale H<sub>ii</sub> calculation</li>
+                                <li>Approximation methods for routine evaluations</li>
+                                <li>Memory-efficient sparse matrix approaches</li>
+                                <li>Parallel computing implementations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Industry Implementation Challenges</div>
+                        <div class="step-details">
+                            <strong>Software Transition:</strong>
+                            <ul>
+                                <li>Legacy code bases with simplified assumptions</li>
+                                <li>User training on new reliability interpretation</li>
+                                <li>Backward compatibility with existing evaluations</li>
+                                <li>Performance benchmarking and validation</li>
+                            </ul>
+                            
+                            <strong>Stakeholder Education:</strong>
+                            <ul>
+                                <li>Breeder understanding of reliability changes</li>
+                                <li>Industry acceptance of computational overhead</li>
+                                <li>Clear communication of accuracy improvements</li>
+                                <li>Demonstration of selection decision benefits</li>
+                            </ul>
+                            
+                            <strong>Validation Requirements:</strong>
+                            <ul>
+                                <li>Cross-validation with realized breeding values</li>
+                                <li>Comparison with progeny test accuracies</li>
+                                <li>Long-term genetic gain monitoring</li>
+                                <li>Industry-specific implementation studies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Priorities</div>
+                        <div class="step-details">
+                            <strong>Methodological Development:</strong>
+                            <ul>
+                                <li>Inbreeding effects in machine learning genomic prediction</li>
+                                <li>Uncertainty quantification in deep learning models</li>
+                                <li>Integration with functional genomic information</li>
+                                <li>Multi-environment genomic evaluation accuracies</li>
+                            </ul>
+                            
+                            <strong>Population Genomics:</strong>
+                            <ul>
+                                <li>Runs of homozygosity-based inbreeding measures</li>
+                                <li>Local vs global inbreeding effects on accuracy</li>
+                                <li>Ancient vs recent inbreeding differential impacts</li>
+                                <li>Heterosis effects in crossbred evaluations</li>
+                            </ul>
+                            
+                            <strong>Applied Studies:</strong>
+                            <ul>
+                                <li>Economic value of improved accuracy measures</li>
+                                <li>Selection response differences with correct reliabilities</li>
+                                <li>Inbreeding management optimization strategies</li>
+                                <li>Conservation breeding program applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mathematical">
+                <div class="section-title">Mathematical Framework Summary</div>
+                
+                <div class="equation-grid">
+                    <div class="formula-box">
+                        <div class="formula-title">Correct vs Incorrect Reliability</div>
+                        <div class="formula-main">
+                            Correct: rel = 1 - PEV/[(1+F<sub>i</sub>)σ²<sub>u</sub>]<br>
+                            Incorrect: rel* = 1 - PEV*/σ²<sub>u</sub>
+                        </div>
+                        <div class="formula-note">PEV* computed using approximate matrices A*⁻¹ or H*⁻¹</div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div class="formula-title">Matrix Relationship Errors</div>
+                        <div class="formula-main">
+                            True: A⁻¹ with inbreeding<br>
+                            Approximate: A*⁻¹ without inbreeding<br>
+                            Implication: A* = (A*⁻¹)⁻¹ ≠ A
+                        </div>
+                        <div class="formula-note">Results in inflated self-relationships and incorrect genetic assumptions</div>
+                    </div>
+                </div>
+                
+                <div class="matrix-container">
+                    <div class="matrix-definition">
+                        <strong>SSGBLUP Relationship Matrix Structure:</strong>
+                    </div>
+                    <div class="matrix-equation">
+                        <div class="matrix-flexible">
+                            <div class="matrix-row">
+                                <div class="matrix-cell">A₁₁</div>
+                                <div class="matrix-cell">A₁₂</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-cell">A₂₁</div>
+                                <div class="matrix-cell">A₂₂</div>
+                            </div>
+                        </div>
+                        <span class="equals">vs</span>
+                        <div class="matrix-flexible">
+                            <div class="matrix-row">
+                                <div class="matrix-cell">A₁₁</div>
+                                <div class="matrix-cell">A₁₂</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-cell">A₂₁</div>
+                                <div class="matrix-cell">G</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formula-note">Non-genotyped (1) vs Genotyped (2) blocks; G replaces A₂₂ in genomic evaluation</div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-box">
+                        <div class="model-title">Error Magnitude Relationships</div>
+                        <div class="step-details">
+                            <strong>Dairy Cattle (Low F):</strong>
+                            <ul>
+                                <li>PEV correlation: >0.99 (minimal PEV distortion)</li>
+                                <li>Matrix correlation: A vs A* = 0.94</li>
+                                <li>Primary error: denominator correction</li>
+                                <li>Effect: systematic reliability underestimation</li>
+                            </ul>
+                            
+                            <strong>Rabbit Line (High F):</strong>
+                            <ul>
+                                <li>PEV correlation: 0.92 (substantial PEV inflation)</li>
+                                <li>Matrix distortion: severe assumption violations</li>
+                                <li>Combined error: both numerator and denominator</li>
+                                <li>Effect: dramatic reliability underestimation, negatives</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="model-box">
+                        <div class="model-title">Computational Cost Analysis</div>
+                        <div class="step-details">
+                            <strong>Pedigree Inbreeding (F<sub>ped</sub>):</strong>
+                            <ul>
+                                <li>Algorithm: recursive parent averaging</li>
+                                <li>Complexity: O(n) with sorted pedigree</li>
+                                <li>Memory: minimal additional storage</li>
+                                <li>Cost: negligible vs evaluation overhead</li>
+                            </ul>
+                            
+                            <strong>Genomic Inbreeding (G<sub>ii</sub>):</strong>
+                            <ul>
+                                <li>Computation: diagonal elements of G matrix</li>
+                                <li>Method: sum of squared standardized genotypes</li>
+                                <li>Cost: O(p) per animal (p = markers)</li>
+                                <li>Benefit: exact individual heterozygosity</li>
+                            </ul>
+                            
+                            <strong>SSGBLUP H<sub>ii</sub>:</strong>
+                            <ul>
+                                <li>Direct: H<sub>ii</sub> = A<sub>ii</sub> + a<sub>i,2</sub>A₂₂⁻¹(G-A₂₂)A₂₂⁻¹a<sub>2,i</sub></li>
+                                <li>Alternative: sparse inversion of H⁻¹</li>
+                                <li>Cost: higher but manageable</li>
+                                <li>Necessity: critical for non-genotyped accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-significance">
+                <div class="section-title">Scientific Significance & Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Paradigm Shift in Accuracy Reporting</div>
+                    <p>This work fundamentally challenges the widespread practice of ignoring inbreeding in genetic evaluation accuracy calculations. By demonstrating systematic biases across different evaluation methods and population structures, it establishes the theoretical and practical necessity for inbreeding-corrected reliability measures in modern breeding programs.</p>
+                </div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Long-term Industry Impact</div>
+                    <div class="significance-content">
+                        <strong>Immediate Benefits:</strong> Software developers and researchers now have clear evidence and guidelines for implementing theoretically correct accuracy measures. The computational methods described enable practical implementation without prohibitive overhead.
+                        
+                        <strong>Breeding Program Optimization:</strong> Correct reliability measures enable better selection decisions, particularly important as genomic selection adoption increases and inbreeding levels rise in many populations. The ability to properly account for genomic heterozygosity advantages represents a significant advancement.
+                        
+                        <strong>Research Foundation:</strong> This work provides the mathematical and empirical foundation for future research on uncertainty quantification in genetic evaluation, establishing benchmarks for method comparison and validation studies.
+                    </div>
+                </div>
+                
+                <div class="theme-container">
+                    <div class="theme-box historical">
+                        <div class="theme-title">Historical Context</div>
+                        <div class="step-details">
+                            <strong>Evolution of Accuracy Measures:</strong>
+                            <ul>
+                                <li>1970s-80s: Henderson's BLUP theory development</li>
+                                <li>1990s: Van Vleck's explicit inbreeding correction</li>
+                                <li>2000s: Genomic selection emergence</li>
+                                <li>2010s: Single-step methodology adoption</li>
+                                <li>2020s: This study's comprehensive analysis</li>
+                            </ul>
+                            
+                            <strong>Computational Evolution:</strong>
+                            <ul>
+                                <li>Early focus on computational feasibility</li>
+                                <li>Simplified approximations became defaults</li>
+                                <li>Modern computing enables exact calculations</li>
+                                <li>Need to update legacy practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-box genetic">
+                        <div class="theme-title">Future Implications</div>
+                        <div class="step-details">
+                            <strong>Genomic Era Applications:</strong>
+                            <ul>
+                                <li>Machine learning model uncertainty quantification</li>
+                                <li>Multi-trait genomic evaluation accuracies</li>
+                                <li>Functional genomic information integration</li>
+                                <li>Cross-population prediction reliability</li>
+                            </ul>
+                            
+                            <strong>Breeding Technology Integration:</strong>
+                            <ul>
+                                <li>Precision breeding decision support systems</li>
+                                <li>Real-time genetic evaluation platforms</li>
+                                <li>Automated mating recommendation systems</li>
+                                <li>Conservation breeding optimization tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">Conclusions & Recommendations</div>
+                
+                <div class="best-practices">
+                    <strong>Essential Implementation Guidelines:</strong>
+                    <ol>
+                        <li><strong>Always correct the reliability denominator:</strong> Use (1+F<sub>i</sub>)σ²<sub>u</sub> instead of σ²<sub>u</sub> - minimal computational cost, substantial accuracy benefit</li>
+                        <li><strong>Implement correct matrix inversion:</strong> Use Henderson's rules with inbreeding for A⁻¹ and H⁻¹ - prevents convergence issues and matrix assumption violations</li>
+                        <li><strong>Calculate individual inbreeding coefficients:</strong> Pedigree-based F<sub>i</sub> for BLUP, genomic G<sub>ii</sub> for genotyped animals, sparse H<sub>ii</sub> for SSGBLUP</li>
+                        <li><strong>Monitor for negative reliabilities:</strong> These indicate computation errors and should trigger investigation of inbreeding handling</li>
+                        <li><strong>Validate accuracy measures:</strong> Cross-check against realized breeding values and progeny performance when possible</li>
+                    </ol>
+                </div>
+                
+                <div class="legacy-box">
+                    <strong>Scientific Legacy:</strong> This comprehensive analysis definitively establishes that ignoring inbreeding in genetic evaluation accuracy calculations introduces systematic bias that compromises breeding decisions. The work bridges theoretical genetic evaluation methodology with practical breeding program implementation, providing both the mathematical framework and empirical evidence needed for industry adoption. The findings are particularly critical as genomic selection adoption increases and breeding populations face rising inbreeding levels globally.
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Critical Warning:</strong> Breeding programs using approximate accuracy measures may be making suboptimal selection decisions, particularly in populations with moderate to high inbreeding. The computational cost of correction is negligible compared to the potential breeding program improvements. Software developers and users should prioritize implementing these corrections to ensure reliable uncertainty quantification in genetic evaluation systems.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
