@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renewed Selection for Heat Loss in Mice: Direct and Correlated Responses</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'mcdonald_nielsen_2007_heat_loss';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Renewed Selection for Heat Loss in Mice: Direct Responses and Correlated Responses in Feed Intake, Body Weight, Litter Size, and Conception Rate</h1>
+            <p>Long-term Selection Experiment on Metabolic Efficiency and Maintenance Requirements</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Authors:</strong> J. M. McDonald, M. K. Nielsen</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Journal of Animal Science, Vol. 85, pp. 658-666, 2007</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Department of Animal Science, University of Nebraska, Lincoln</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.2527/jas.2006-465"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Experimental Design and Objectives</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Long-term Selection Experiment</div>
+                    <p>This study represents one of the longest-running selection experiments in animal breeding, spanning over 50 generations. After 16 initial generations of divergent selection for heat loss, followed by 26 generations of relaxed selection, the researchers renewed selection for 9 additional generations to assess genetic potential and correlated responses in key production traits.</p>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Selection Lines and Criteria</div>
+                        <div class="step-details">
+                            <strong>Direct Heat Loss Measurement:</strong>
+                            <ul>
+                                <li><strong>Calorimetry chambers:</strong> Direct measurement of energy expenditure</li>
+                                <li><strong>Respiratory chambers:</strong> Indirect calorimetry for large animals</li>
+                                <li><strong>Heart rate monitoring:</strong> Proxy measures for metabolic rate</li>
+                                <li><strong>Feed efficiency records:</strong> Residual feed intake as selection criterion</li>
+                            </ul>
+                            
+                            <strong>Breeding Program Integration:</strong>
+                            <ul>
+                                <li><strong>Progeny testing:</strong> Evaluate maintenance requirements in offspring</li>
+                                <li><strong>Genomic selection:</strong> DNA markers for efficiency traits</li>
+                                <li><strong>Index selection:</strong> Balance efficiency with production and reproduction</li>
+                                <li><strong>Crossbreeding systems:</strong> Exploit heterosis for efficiency traits</li>
+                            </ul>
+                            
+                            <strong>Economic Considerations:</strong>
+                            <ul>
+                                <li><strong>Measurement costs:</strong> High-precision equipment requirements</li>
+                                <li><strong>Generation interval:</strong> Balance accuracy with genetic progress</li>
+                                <li><strong>Selection intensity:</strong> Population size vs. selection pressure</li>
+                                <li><strong>Correlated responses:</strong> Monitor reproduction and health traits</li>
+                            </ul>
+                            
+                            <strong>Species-Specific Applications:</strong>
+                            <ul>
+                                <li><strong>Dairy cattle:</strong> Maintenance efficiency during lactation</li>
+                                <li><strong>Beef cattle:</strong> Feed conversion in growing animals</li>
+                                <li><strong>Swine:</strong> Reproductive efficiency and growth performance</li>
+                                <li><strong>Poultry:</strong> Broiler efficiency and laying hen maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Long-term Selection Considerations</div>
+                        <div class="step-details">
+                            <strong>Genetic Plateau Effects:</strong>
+                            <ul>
+                                <li><strong>Diminishing returns:</strong> Heritability decline over generations</li>
+                                <li><strong>Biological limits:</strong> Physiological constraints on efficiency</li>
+                                <li><strong>Genetic variance:</strong> Erosion of additive variance over time</li>
+                                <li><strong>Population management:</strong> Maintain effective population size</li>
+                            </ul>
+                            
+                            <strong>Natural Selection Pressure:</strong>
+                            <ul>
+                                <li><strong>Fitness consequences:</strong> Extreme efficiency may reduce fitness</li>
+                                <li><strong>Stress susceptibility:</strong> Efficient animals may be more fragile</li>
+                                <li><strong>Reproductive costs:</strong> Energy allocation trade-offs</li>
+                                <li><strong>Environmental adaptation:</strong> Maintain adaptability to changing conditions</li>
+                            </ul>
+                            
+                            <strong>Breeding Program Sustainability:</strong>
+                            <ul>
+                                <li><strong>Genetic diversity:</strong> Prevent inbreeding depression</li>
+                                <li><strong>Multiple traits:</strong> Balanced improvement across trait complexes</li>
+                                <li><strong>Economic weighting:</strong> Adjust selection emphasis over time</li>
+                                <li><strong>Environmental monitoring:</strong> Assess genotype × environment interactions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Directions</div>
+                        <div class="step-details">
+                            <strong>Molecular Genetic Approaches:</strong>
+                            <ul>
+                                <li><strong>Quantitative trait loci:</strong> Map genes affecting maintenance efficiency</li>
+                                <li><strong>Genome-wide association:</strong> Identify molecular markers</li>
+                                <li><strong>Gene expression:</strong> Understand regulatory mechanisms</li>
+                                <li><strong>Metabolomics:</strong> Characterize metabolic pathway differences</li>
+                            </ul>
+                            
+                            <strong>Physiological Mechanisms:</strong>
+                            <ul>
+                                <li><strong>Mitochondrial efficiency:</strong> Cellular energy production differences</li>
+                                <li><strong>Protein turnover:</strong> Maintenance metabolism components</li>
+                                <li><strong>Thermoregulation:</strong> Heat production vs. conservation mechanisms</li>
+                                <li><strong>Endocrine factors:</strong> Hormonal regulation of metabolism</li>
+                            </ul>
+                            
+                            <strong>Environmental Interactions:</strong>
+                            <ul>
+                                <li><strong>Temperature effects:</strong> Thermoneutral vs. stress conditions</li>
+                                <li><strong>Nutritional interactions:</strong> Diet composition effects on efficiency</li>
+                                <li><strong>Disease challenges:</strong> Immune system energy costs</li>
+                                <li><strong>Management systems:</strong> Housing and feeding system optimization</li>
+                            </ul>
+                            
+                            <strong>Advanced Selection Methods:</strong>
+                            <ul>
+                                <li><strong>Optimal contribution:</strong> Maximize gain while controlling inbreeding</li>
+                                <li><strong>Genomic selection:</strong> Early prediction of breeding values</li>
+                                <li><strong>Multi-trait indices:</strong> Sophisticated weighting systems</li>
+                                <li><strong>Simulation modeling:</strong> Predict long-term selection outcomes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Limitations and Critical Evaluation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Experimental Limitations</div>
+                        <div class="step-details">
+                            <strong>Measurement Constraints:</strong>
+                            <ul>
+                                <li><strong>Single time point:</strong> 15-hour measurement may not capture daily variation</li>
+                                <li><strong>Age specificity:</strong> Heat loss measured only at 9-11.5 weeks</li>
+                                <li><strong>Sex limitation:</strong> Selection based only on male measurements</li>
+                                <li><strong>Environmental standardization:</strong> Limited variation in measurement conditions</li>
+                            </ul>
+                            
+                            <strong>Population Structure Issues:</strong>
+                            <ul>
+                                <li><strong>Small population size:</strong> 16 litters per line-replicate</li>
+                                <li><strong>Inbreeding accumulation:</strong> 36% inbreeding by generation 51</li>
+                                <li><strong>Founder effects:</strong> Limited base population genetic diversity</li>
+                                <li><strong>Drift effects:</strong> Random genetic changes in small populations</li>
+                            </ul>
+                            
+                            <strong>Selection Protocol Limitations:</strong>
+                            <ul>
+                                <li><strong>Truncation selection:</strong> Top 16 males only, no intermediate selection</li>
+                                <li><strong>Fixed mating ratio:</strong> 1:2 male:female ratio regardless of merit</li>
+                                <li><strong>No female selection:</strong> Only indirect selection through male offspring</li>
+                                <li><strong>Contemporary group effects:</strong> Limited environmental standardization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Statistical and Analytical Issues</div>
+                        <div class="step-details">
+                            <strong>Distribution Assumptions:</strong>
+                            <ul>
+                                <li><strong>Non-normality:</strong> Both MH and ML lines deviated from normal distribution</li>
+                                <li><strong>Heteroscedasticity:</strong> Unequal variances between lines affect comparisons</li>
+                                <li><strong>Skewness effects:</strong> Distribution shape influences selection efficiency</li>
+                                <li><strong>Transformation needs:</strong> Raw data may require statistical transformation</li>
+                            </ul>
+                            
+                            <strong>Heritability Estimation Challenges:</strong>
+                            <ul>
+                                <li><strong>Realized vs. predicted:</strong> Large difference between initial and renewed h²</li>
+                                <li><strong>Temporal changes:</strong> Heritability varies across generations</li>
+                                <li><strong>Directional asymmetry:</strong> Different h² for upward vs. downward selection</li>
+                                <li><strong>Sampling variance:</strong> Large standard errors with only 3 replicates</li>
+                            </ul>
+                            
+                            <strong>Correlated Response Analysis:</strong>
+                            <ul>
+                                <li><strong>Confounding factors:</strong> Multiple traits changing simultaneously</li>
+                                <li><strong>Causal relationships:</strong> Correlation doesn't imply causation</li>
+                                <li><strong>Environmental effects:</strong> Management changes may influence correlations</li>
+                                <li><strong>Genetic correlations:</strong> May change over generations of selection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Biological and Practical Constraints</div>
+                        <div class="step-details">
+                            <strong>Physiological Limits:</strong>
+                            <ul>
+                                <li><strong>Minimum metabolism:</strong> Basal metabolic requirements cannot be reduced indefinitely</li>
+                                <li><strong>Maintenance functions:</strong> Essential cellular processes require energy</li>
+                                <li><strong>Thermoregulation:</strong> Heat production necessary for temperature control</li>
+                                <li><strong>Activity requirements:</strong> Behavioral and locomotor needs constrain efficiency</li>
+                            </ul>
+                            
+                            <strong>Fitness Consequences:</strong>
+                            <ul>
+                                <li><strong>Reproductive costs:</strong> Efficiency improvements may reduce fertility</li>
+                                <li><strong>Stress tolerance:</strong> Efficient animals may be more environmentally sensitive</li>
+                                <li><strong>Disease resistance:</strong> Immune function energy costs may be compromised</li>
+                                <li><strong>Longevity effects:</strong> Long-term survival consequences unknown</li>
+                            </ul>
+                            
+                            <strong>Scaling and Translation Issues:</strong>
+                            <ul>
+                                <li><strong>Species differences:</strong> Mouse results may not translate to livestock</li>
+                                <li><strong>Size scaling:</strong> Metabolic allometry differs between species</li>
+                                <li><strong>Generation intervals:</strong> Livestock have much longer generation times</li>
+                                <li><strong>Economic context:</strong> Feed costs and market values differ across species</li>
+                            </ul>
+                            
+                            <strong>Management Interactions:</strong>
+                            <ul>
+                                <li><strong>Feeding systems:</strong> Ad libitum vs. restricted feeding effects</li>
+                                <li><strong>Housing conditions:</strong> Environmental temperature and comfort</li>
+                                <li><strong>Social dynamics:</strong> Group vs. individual housing effects</li>
+                                <li><strong>Production cycles:</strong> Lactation, growth, and reproductive phases</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Conclusions and Key Takeaways</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Major Scientific Contributions</div>
+                    <p>This study represents one of the most comprehensive long-term selection experiments ever conducted, spanning over 50 generations and demonstrating the feasibility of selecting for maintenance efficiency. The research provides crucial insights into the genetic architecture of metabolic efficiency and its correlated responses, establishing a foundation for improving feed efficiency in livestock breeding programs.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Key Experimental Findings</div>
+                        <div class="step-details">
+                            <strong>Selection Response Achievements:</strong>
+                            <ul>
+                                <li><strong>Sustained divergence:</strong> 55.7% difference in heat loss maintained after 50+ generations</li>
+                                <li><strong>Feed efficiency:</strong> 34% improvement in maintenance requirements achieved</li>
+                                <li><strong>Selection accuracy:</strong> 99-102% of intended selection successfully applied</li>
+                                <li><strong>Genetic progress:</strong> Continued response despite reduced heritability</li>
+                            </ul>
+                            
+                            <strong>Biological Mechanisms Identified:</strong>
+                            <ul>
+                                <li><strong>Maintenance-specific effects:</strong> Selection affected only maintenance, not growth efficiency</li>
+                                <li><strong>Body composition changes:</strong> Altered fat deposition contributed to efficiency</li>
+                                <li><strong>Stress response differences:</strong> High heat loss animals more stress-sensitive</li>
+                                <li><strong>Reproductive trade-offs:</strong> Efficiency gains associated with reproductive costs</li>
+                            </ul>
+                            
+                            <strong>Genetic Architecture Insights:</strong>
+                            <ul>
+                                <li><strong>Asymmetric response:</strong> Greater genetic variation in upward direction</li>
+                                <li><strong>Heritability decline:</strong> Genetic variance erosion over generations</li>
+                                <li><strong>Natural selection:</strong> Counter-selection against extreme efficiency</li>
+                                <li><strong>Relaxed selection effects:</strong> Differential response maintenance between directions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Practical Breeding Implications</div>
+                        <div class="step-details">
+                            <strong>Implementation Feasibility:</strong>
+                            <ul>
+                                <li><strong>Measurement requirements:</strong> Sophisticated equipment needed for heat loss assessment</li>
+                                <li><strong>Alternative approaches:</strong> Residual feed intake may be more practical</li>
+                                <li><strong>Genomic selection potential:</strong> DNA markers could reduce measurement needs</li>
+                                <li><strong>Cost-benefit analysis:</strong> Economic justification depends on feed cost savings</li>
+                            </ul>
+                            
+                            <strong>Breeding Program Design:</strong>
+                            <ul>
+                                <li><strong>Selection intensity:</strong> Balance genetic gain with population sustainability</li>
+                                <li><strong>Multi-trait indices:</strong> Include reproduction and health traits</li>
+                                <li><strong>Population management:</strong> Maintain genetic diversity to prevent inbreeding</li>
+                                <li><strong>Environmental testing:</strong> Evaluate genotype × environment interactions</li>
+                            </ul>
+                            
+                            <strong>Economic Considerations:</strong>
+                            <ul>
+                                <li><strong>Feed cost savings:</strong> 15% reduction in maintenance requirements significant</li>
+                                <li><strong>Reproductive consequences:</strong> Fertility effects must be economically weighted</li>
+                                <li><strong>Long-term sustainability:</strong> Monitor response persistence over generations</li>
+                                <li><strong>Market adaptation:</strong> Efficiency value varies with feed prices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Future Research Priorities</div>
+                        <div class="step-details">
+                            <strong>Molecular Genetic Investigation:</strong>
+                            <ul>
+                                <li><strong>QTL mapping:</strong> Identify chromosomal regions affecting efficiency</li>
+                                <li><strong>Candidate genes:</strong> Focus on metabolic pathway components</li>
+                                <li><strong>Gene expression:</strong> Understand regulatory mechanisms</li>
+                                <li><strong>Genomic prediction:</strong> Develop DNA-based selection tools</li>
+                            </ul>
+                            
+                            <strong>Physiological Mechanisms:</strong>
+                            <ul>
+                                <li><strong>Mitochondrial function:</strong> Cellular energy production efficiency</li>
+                                <li><strong>Protein metabolism:</strong> Turnover rates and maintenance costs</li>
+                                <li><strong>Endocrine regulation:</strong> Hormonal control of metabolism</li>
+                                <li><strong>Thermoregulation:</strong> Heat production and conservation mechanisms</li>
+                            </ul>
+                            
+                            <strong>Applied Research Needs:</strong>
+                            <ul>
+                                <li><strong>Livestock validation:</strong> Replicate findings in commercial species</li>
+                                <li><strong>Environmental interactions:</strong> Test under various production conditions</li>
+                                <li><strong>Nutrition studies:</strong> Optimize feeding strategies for efficient animals</li>
+                                <li><strong>Welfare assessment:</strong> Ensure animal well-being not compromised</li>
+                            </ul>
+                            
+                            <strong>Breeding Methodology Development:</strong>
+                            <ul>
+                                <li><strong>Selection indices:</strong> Optimize multi-trait selection strategies</li>
+                                <li><strong>Mating systems:</strong> Design optimal breeding schemes</li>
+                                <li><strong>Population genetics:</strong> Model long-term selection outcomes</li>
+                                <li><strong>Economic evaluation:</strong> Develop comprehensive benefit-cost analyses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Lasting Scientific Impact and Significance</div>
+                    <div class="step-details">
+                        <strong>Fundamental Contributions:</strong>
+                        <ul>
+                            <li><strong>Proof of concept:</strong> Demonstrated feasibility of selecting for maintenance efficiency</li>
+                            <li><strong>Long-term perspective:</strong> Showed sustainability of genetic improvement over 50+ generations</li>
+                            <li><strong>Biological understanding:</strong> Revealed mechanisms underlying metabolic efficiency</li>
+                            <li><strong>Practical framework:</strong> Established methods for efficiency improvement programs</li>
+                        </ul>
+                        
+                        <strong>Broader Implications:</strong>
+                        <ul>
+                            <li><strong>Food security:</strong> Improved efficiency could help meet growing protein demands</li>
+                            <li><strong>Environmental sustainability:</strong> Reduced feed requirements lower environmental impact</li>
+                            <li><strong>Economic efficiency:</strong> Feed cost reduction improves producer profitability</li>
+                            <li><strong>Genetic resource management:</strong> Demonstrates value of maintaining genetic diversity</li>
+                        </ul>
+                        
+                        <strong>Methodological Advances:</strong>
+                        <ul>
+                            <li><strong>Selection methodology:</strong> Refined approaches for long-term breeding programs</li>
+                            <li><strong>Measurement protocols:</strong> Standardized methods for efficiency assessment</li>
+                            <li><strong>Statistical analysis:</strong> Advanced techniques for selection experiment evaluation</li>
+                            <li><strong>Experimental design:</strong> Framework for multi-generational selection studies</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Key Recommendations for Implementation:</strong>
+                    <ul>
+                        <li><strong>Start with measurement standardization:</strong> Develop reliable, cost-effective efficiency assessment methods</li>
+                        <li><strong>Design balanced selection indices:</strong> Include reproduction and health alongside efficiency</li>
+                        <li><strong>Maintain population diversity:</strong> Prevent inbreeding while maximizing genetic gain</li>
+                        <li><strong>Monitor correlated responses:</strong> Track all economically important traits</li>
+                        <li><strong>Implement gradually:</strong> Phase in selection to assess consequences</li>
+                        <li><strong>Validate across environments:</strong> Test performance under various production conditions</li>
+                        <li><strong>Develop genomic tools:</strong> Invest in molecular markers for early selection</li>
+                        <li><strong>Conduct economic analysis:</strong> Quantify costs and benefits before implementation</li>
+                    </ul>
+                </div>
+
+                <div class="significance-box">
+                    <div class="significance-title">Enduring Scientific Legacy</div>
+                    <div class="significance-content">
+                        This landmark study stands as one of the most comprehensive selection experiments ever conducted, providing irrefutable evidence that maintenance energy requirements can be modified through genetic selection. The work has fundamentally changed our understanding of metabolic efficiency inheritance and established the theoretical foundation for improving feed efficiency in livestock species. By demonstrating both the potential and limitations of long-term selection for efficiency, McDonald and Nielsen have created a roadmap for sustainable genetic improvement that balances productivity gains with biological constraints. The study's emphasis on correlated responses and long-term consequences provides crucial guidance for responsible breeding program design that considers animal welfare, reproductive fitness, and environmental sustainability alongside economic objectives.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                            <strong>Three Selection Lines (3 replicates each):</strong>
+                            <ul>
+                                <li><strong>MH Line:</strong> Selection for high heat loss (inefficient animals)</li>
+                                <li><strong>ML Line:</strong> Selection for low heat loss (efficient animals)</li>
+                                <li><strong>MC Line:</strong> Unselected control line</li>
+                            </ul>
+                            
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li><strong>Generation interval:</strong> 15 weeks</li>
+                                <li><strong>Breeding design:</strong> 16 litters per line-replicate</li>
+                                <li><strong>Measurement protocol:</strong> 15-hour overnight heat loss in calorimeters</li>
+                                <li><strong>Base population:</strong> 4-way cross of outbred lines</li>
+                            </ul>
+                            
+                            <strong>Selection Timeline:</strong>
+                            <ul>
+                                <li><strong>Generations 0-16:</strong> Initial divergent selection</li>
+                                <li><strong>Generations 16-42:</strong> Relaxed selection (26 generations)</li>
+                                <li><strong>Generations 42-51:</strong> Renewed selection (9 generations)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Measurement Protocols</div>
+                        <div class="step-details">
+                            <strong>Heat Loss Measurement:</strong>
+                            <ul>
+                                <li><strong>Equipment:</strong> 10 direct gradient-layer calorimeters</li>
+                                <li><strong>Duration:</strong> 15 hours overnight (nocturnal animals)</li>
+                                <li><strong>Animals:</strong> Male mice aged 9-11.5 weeks</li>
+                                <li><strong>Units:</strong> kcal kg⁻⁰·⁷⁵ d⁻¹ (metabolic body weight basis)</li>
+                                <li><strong>Sample size:</strong> 75-80 males per line-replicate</li>
+                            </ul>
+                            
+                            <strong>Feed Intake Assessment:</strong>
+                            <ul>
+                                <li><strong>Period:</strong> 21 days from 8-11 weeks of age</li>
+                                <li><strong>Housing:</strong> Littermate cages in plastic housing</li>
+                                <li><strong>Diet:</strong> Maintenance diet (Teklad 8604: 24% CP, 4% fat)</li>
+                                <li><strong>Measurement:</strong> Daily grams per kg⁰·⁷⁵ metabolic weight</li>
+                                <li><strong>Calculation:</strong> Feed disappeared ÷ number of animals ÷ days</li>
+                            </ul>
+                            
+                            <strong>Breeding and Reproductive Measures:</strong>
+                            <ul>
+                                <li><strong>Mating design:</strong> 1 male × 2 full-sib females</li>
+                                <li><strong>Mating duration:</strong> 16 days</li>
+                                <li><strong>Litter standardization:</strong> 8 pups (5 males, 3 females preferred)</li>
+                                <li><strong>Conception rate:</strong> Females producing litters ÷ females exposed</li>
+                                <li><strong>Litter size:</strong> Total live + dead fully-formed pups at birth</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Statistical Analysis Framework</div>
+                        <div class="step-details">
+                            <strong>Selection Differential Calculations:</strong>
+                            <div class="formula-box">
+                                <div class="formula-title">Cumulative Selection Differential</div>
+                                <div class="formula-main">CSD<sub>n</sub> = 0.5 M<sub>n-1</sub> + 0.25 Σ<sub>i=42</sub><sup>n-2</sup> (M<sub>i</sub> + F<sub>i</sub>)</div>
+                                <div class="formula-note">Where M and F are male and female selection differentials</div>
+                            </div>
+                            
+                            <strong>Heritability Estimation:</strong>
+                            <ul>
+                                <li><strong>Realized heritability:</strong> Regression of divergence on CSD difference</li>
+                                <li><strong>Directional estimates:</strong> Separate h² for upward and downward selection</li>
+                                <li><strong>Empirical SE:</strong> Calculated across 3 replicates with 2 df</li>
+                                <li><strong>Generation trends:</strong> Response regressed on generation number</li>
+                            </ul>
+                            
+                            <strong>Mixed Model for Reproductive Traits:</strong>
+                            <div class="formula">Y<sub>ijkl</sub> = rep<sub>i</sub> + line<sub>j</sub> + gen<sub>k</sub> + interactions + e<sub>ijkl</sub></div>
+                            
+                            <strong>Contrast Testing:</strong>
+                            <ul>
+                                <li><strong>Selection effect:</strong> MH vs. ML contrast</li>
+                                <li><strong>Asymmetry:</strong> (MH + ML)/2 vs. MC contrast</li>
+                                <li><strong>Significance level:</strong> P < 0.05 for main effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">📊 Selection Response and Genetic Parameters</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Selection Line</th>
+                                <th>Cumulative Intended</th>
+                                <th>Cumulative Realized</th>
+                                <th>Standardized Realized</th>
+                                <th>Selection Achieved (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>MH (High Heat Loss)</strong></td>
+                                <td>91.40</td>
+                                <td>91.78</td>
+                                <td>5.46</td>
+                                <td>100.4</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>ML (Low Heat Loss)</strong></td>
+                                <td>-54.04</td>
+                                <td>-54.75</td>
+                                <td>-5.04</td>
+                                <td>101.3</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>MC (Control)</strong></td>
+                                <td>0.00</td>
+                                <td>-2.07</td>
+                                <td>-0.12</td>
+                                <td>Negligible drift</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Key Genetic Parameter Estimates</div>
+                    <div class="step-details">
+                        <strong>Realized Heritability Estimates:</strong>
+                        <ul>
+                            <li><strong>Overall divergence (h²):</strong> 0.14 ± 0.01 (lower than initial 0.28 ± 0.03)</li>
+                            <li><strong>MH selection (h²):</strong> 0.16 ± 0.05</li>
+                            <li><strong>ML selection (h²):</strong> 0.07 ± 0.06 (substantially reduced)</li>
+                            <li><strong>Early renewed selection:</strong> 0.25 ± 0.02 (generations 42-46)</li>
+                        </ul>
+                        
+                        <strong>Response Characteristics:</strong>
+                        <ul>
+                            <li><strong>Selection efficiency:</strong> 99-102% of intended selection achieved</li>
+                            <li><strong>Asymmetric response:</strong> Greater variation and response in MH direction</li>
+                            <li><strong>Distribution effects:</strong> Non-normal distributions affecting selection</li>
+                            <li><strong>Diminishing returns:</strong> Reduced heritability in later generations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Heat Loss Response Patterns</div>
+                        <div class="step-details">
+                            <strong>Generation 42 (Start of Renewed Selection):</strong>
+                            <ul>
+                                <li><strong>MH line:</strong> 155.7 kcal kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>MC line:</strong> 133.0 kcal kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>ML line:</strong> 109.9 kcal kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>Divergence:</strong> 34.4% of MC mean</li>
+                            </ul>
+                            
+                            <strong>Generation 51 (End of Renewed Selection):</strong>
+                            <ul>
+                                <li><strong>MH line:</strong> 164.9 kcal kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>MC line:</strong> 124.3 kcal kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>ML line:</strong> 95.6 kcal kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>Divergence:</strong> 55.7% of MC mean</li>
+                            </ul>
+                            
+                            <strong>Historical Comparison:</strong>
+                            <ul>
+                                <li><strong>Generation 15 divergence:</strong> 53.6% of MC mean</li>
+                                <li><strong>Relaxed selection impact:</strong> Divergence decreased to 34.4%</li>
+                                <li><strong>Response recovery:</strong> Renewed selection restored divergence</li>
+                                <li><strong>ML line stability:</strong> Maintained low heat loss during relaxation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Feed Intake Correlated Responses</div>
+                        <div class="step-details">
+                            <strong>Generation 51 Feed Intake Means:</strong>
+                            <ul>
+                                <li><strong>MH line:</strong> 78.4 g kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>MC line:</strong> 65.2 g kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>ML line:</strong> 56.2 g kg⁻⁰·⁷⁵ d⁻¹</li>
+                                <li><strong>Final divergence:</strong> 34.0% of MC mean</li>
+                            </ul>
+                            
+                            <strong>Temporal Trends:</strong>
+                            <ul>
+                                <li><strong>MH vs ML regression:</strong> 0.79 ± 0.28 g per generation</li>
+                                <li><strong>MH vs MC regression:</strong> 0.84 ± 0.27 g per generation</li>
+                                <li><strong>ML vs MC regression:</strong> 0.05 ± 0.01 g per generation</li>
+                                <li><strong>Efficiency improvement:</strong> ~15% reduction in ML line</li>
+                            </ul>
+                            
+                            <strong>Maintenance vs Growth Components:</strong>
+                            <ul>
+                                <li><strong>Primary effect:</strong> Changes in maintenance requirements</li>
+                                <li><strong>Growth efficiency:</strong> No evidence of altered growth costs</li>
+                                <li><strong>Partial efficiency:</strong> Only maintenance component affected</li>
+                                <li><strong>Feed conversion:</strong> Improved efficiency through reduced maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Body Weight and Reproductive Responses</div>
+                        <div class="step-details">
+                            <strong>Male Body Weight Patterns:</strong>
+                            <ul>
+                                <li><strong>MC line advantage:</strong> 2.86 ± 0.12 g heavier than MH (P < 0.01)</li>
+                                <li><strong>MC line advantage:</strong> 3.10 ± 0.12 g heavier than ML (P < 0.01)</li>
+                                <li><strong>MH vs ML divergence:</strong> 0.33 ± 0.13 g per generation</li>
+                                <li><strong>Selection mechanism:</strong> Reduced body size in both selected lines</li>
+                            </ul>
+                            
+                            <strong>Litter Size Responses:</strong>
+                            <ul>
+                                <li><strong>MH line:</strong> 12.0 ± 0.23 pups per litter</li>
+                                <li><strong>MC line:</strong> 11.6 ± 0.20 pups per litter</li>
+                                <li><strong>ML line:</strong> 10.4 ± 0.26 pups per litter</li>
+                                <li><strong>Selection effect:</strong> MH > ML by 1.6 pups (P = 0.05)</li>
+                            </ul>
+                            
+                            <strong>Conception Rate Differences:</strong>
+                            <ul>
+                                <li><strong>MH line:</strong> 87.6 ± 1.9% conception rate</li>
+                                <li><strong>MC line:</strong> 93.7 ± 1.9% conception rate</li>
+                                <li><strong>ML line:</strong> 93.5 ± 1.9% conception rate</li>
+                                <li><strong>Pattern:</strong> ML females 6.7% higher than MH (P = 0.08)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mechanisms">
+                <div class="section-title">🔬 Biological Mechanisms and Interpretations</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Physiological Basis of Heat Loss Variation</div>
+                            <div class="step-details">
+                                Understanding the biological foundation of maintenance energy differences
+                                <div class="step-specs">
+                                    <strong>Metabolic Components:</strong><br>
+                                    • Heat loss represents energy not stored in products<br>
+                                    • Maintenance requirements highly variable between animals<br>
+                                    • Production costs (growth, milk) more consistent per unit<br>
+                                    • Selection targets the maintenance coefficient of efficiency<br>
+                                    <strong>Stress Response Differences:</strong><br>
+                                    • MH mice show greater corticosterone response to stress<br>
+                                    • Higher locomotor activity in MH line<br>
+                                    • Environmental sensitivity may contribute to natural selection<br>
+                                    • Stress reactivity potentially explains response loss during relaxation<br>
+                                    <strong>Body Composition Effects:</strong><br>
+                                    • MH mice have less body fat (>1.0 g difference)<br>
+                                    • Altered body composition contributes to weight differences<br>
+                                    • Fat deposition efficiency unchanged by selection<br>
+                                    • Metabolic differences independent of growth efficiency
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Architecture and Selection Response</div>
+                            <div class="step-details">
+                                Exploring the genetic basis of long-term selection response
+                                <div class="step-specs">
+                                    <strong>Distribution Characteristics:</strong><br>
+                                    • MH line: Right-skewed, platykurtic distribution<br>
+                                    • ML line: Left-skewed, leptokurtic distribution<br>
+                                    • Non-normal distributions affect selection efficiency<br>
+                                    • Standardized selection differentials more comparable<br>
+                                    <strong>Asymmetric Response Patterns:</strong><br>
+                                    • Greater genetic variance in upward direction<br>
+                                    • MH selection 70% greater than ML (unstandardized)<br>
+                                    • Heritability much lower for ML in later generations<br>
+                                    • Possible approach to biological limits in ML direction<br>
+                                    <strong>Relaxed Selection Effects:</strong><br>
+                                    • ML response maintained during 26 generation pause<br>
+                                    • MH lost ~40% of response during relaxation<br>
+                                    • Natural selection against high heat loss likely<br>
+                                    • Linkage breakdown less probable explanation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Correlated Response Mechanisms</div>
+                            <div class="step-details">
+                                Analyzing the biological basis of trait correlations
+                                <div class="step-specs">
+                                    <strong>Feed Intake Relationships:</strong><br>
+                                    • Direct consequence of altered maintenance requirements<br>
+                                    • Positive genetic correlation with heat loss<br>
+                                    • Response magnitude: 34% divergence in feed intake<br>
+                                    • Efficiency gains through reduced maintenance only<br>
+                                    <strong>Reproductive Trade-offs:</strong><br>
+                                    • Litter size positively correlated with heat loss<br>
+                                    • Ovulation rate differences drive litter size changes<br>
+                                    • Conception rate inversely related to metabolic demands<br>
+                                    • Reproductive investment vs. maintenance efficiency<br>
+                                    <strong>Body Weight Reductions:</strong><br>
+                                    • Both selected lines smaller than control<br>
+                                    • Different mechanisms in MH vs ML lines<br>
+                                    • Indirect selection on body size occurred<br>
+                                    • Size reduction contributes to maintenance differences
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-comparisons">
+                <div class="section-title">📈 Literature Comparisons and Context</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Related Selection Experiments</div>
+                        <div class="step-details">
+                            <strong>Feed Intake Selection Studies:</strong>
+                            <ul>
+                                <li><strong>Sharp et al. (1984):</strong> 17% divergence in feed intake, h² = 0.15</li>
+                                <li><strong>Sutherland et al. (1970):</strong> h² = 0.20 ± 0.06 for feed intake</li>
+                                <li><strong>Current study:</strong> 34% divergence, maintenance-specific effects</li>
+                                <li><strong>Advantage:</strong> Targeting maintenance vs. total intake more precise</li>
+                            </ul>
+                            
+                            <strong>Efficiency Selection Approaches:</strong>
+                            <ul>
+                                <li><strong>Gain:feed ratio selection:</strong> Increases gain component primarily</li>
+                                <li><strong>Residual feed intake:</strong> Similar concept to heat loss selection</li>
+                                <li><strong>Growth rate selection:</strong> Inversely related to metabolic rate</li>
+                                <li><strong>Heat loss selection:</strong> Direct targeting of maintenance efficiency</li>
+                            </ul>
+                            
+                            <strong>Livestock Applications:</strong>
+                            <ul>
+                                <li><strong>Holstein bulls (Jensen et al.):</strong> h² = 0.30 for residual energy intake</li>
+                                <li><strong>Broiler chickens (Pym & Nicholls):</strong> h² = 0.37 for body weight gain</li>
+                                <li><strong>Laying hens (Luiting & Urff):</strong> 0.52-0.58 repeatability for residual intake</li>
+                                <li><strong>Mouse model relevance:</strong> Proof of concept for livestock applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Heritability Comparisons Across Studies</div>
+                        <div class="step-details">
+                            <strong>Heat Loss and Metabolic Traits:</strong>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Study</th>
+                                            <th>Trait</th>
+                                            <th>Species</th>
+                                            <th>Heritability</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Nielsen et al. (1997)</td>
+                                            <td>Heat loss (initial)</td>
+                                            <td>Mice</td>
+                                            <td>0.28 ± 0.03</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Current study</td>
+                                            <td>Heat loss (renewed)</td>
+                                            <td>Mice</td>
+                                            <td>0.14 ± 0.01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jensen et al. (1992)</td>
+                                            <td>Residual energy intake</td>
+                                            <td>Holstein bulls</td>
+                                            <td>0.30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sharp et al. (1984)</td>
+                                            <td>Feed intake</td>
+                                            <td>Mice</td>
+                                            <td>0.15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <strong>Temporal Heritability Changes:</strong>
+                            <ul>
+                                <li><strong>Initial vs renewed:</strong> 50% reduction in realized heritability</li>
+                                <li><strong>Early renewed:</strong> h² = 0.25 (generations 42-46)</li>
+                                <li><strong>Late renewed:</strong> h² = 0.14 (generations 42-51)</li>
+                                <li><strong>Directional asymmetry:</strong> ML response declining faster than MH</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Reproductive Trade-offs in Selection Literature</div>
+                        <div class="step-details">
+                            <strong>Efficiency-Reproduction Relationships:</strong>
+                            <ul>
+                                <li><strong>Energy allocation theory:</strong> Limited resources create trade-offs</li>
+                                <li><strong>Maintenance vs reproduction:</strong> Competing demands for energy</li>
+                                <li><strong>Stress response effects:</strong> High metabolic animals more stress-sensitive</li>
+                                <li><strong>Selection intensity:</strong> May inadvertently affect reproductive fitness</li>
+                            </ul>
+                            
+                            <strong>Comparative Reproductive Responses:</strong>
+                            <ul>
+                                <li><strong>Litter size correlation:</strong> Positive with heat loss (metabolic demands)</li>
+                                <li><strong>Conception rate pattern:</strong> Lower in high heat loss line</li>
+                                <li><strong>Ovulation rate mechanism:</strong> Driving litter size differences</li>
+                                <li><strong>Evolutionary constraint:</strong> Natural selection limiting extreme efficiency</li>
+                            </ul>
+                            
+                            <strong>Implications for Breeding Programs:</strong>
+                            <ul>
+                                <li><strong>Balanced selection:</strong> Consider reproductive consequences</li>
+                                <li><strong>Index construction:</strong> Weight efficiency against fertility</li>
+                                <li><strong>Long-term monitoring:</strong> Track correlated responses over time</li>
+                                <li><strong>Economic evaluation:</strong> Total economic value including reproduction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-implications">
+                <div class="section-title">🎯 Practical Applications and Future Directions</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Livestock Breeding Applications</div>
+                    <p>The successful demonstration of long-term selection for maintenance efficiency in mice provides a proof-of-concept for improving feed efficiency in livestock species. With feed costs representing 60-70% of production costs in many livestock systems, even modest improvements in maintenance efficiency could yield substantial economic benefits.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Implementation Strategies</div>
+                        <div class="step-details">
+                            

@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3.2.3 garrick_2009_dBV.md",
+                "file": "6.Handling  Logistic Link in Animal Breed.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3.2.3 garrick_2009_dBV"
+              "title": "6.Handling  Logistic Link in Animal Breed"
             }
           }
         ],
@@ -269,24 +269,24 @@
   },
   "active": "ddfcaca0f77c8b44",
   "lastOpenFiles": [
-    "3.3 complete_dbv_derivation.md",
-    "1.1 du6_methodology.md",
+    "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
+    "3.2 Relatedness of PEV of MSE with DRP Garrick 2009.md",
+    "3.2 methods of calculating PEV of MSE-.md",
+    "3.1 reasons considering MSE and how to calculate its PEV.md",
+    "2. literatures dBV as phnotype in GWAs.md",
     "2.2 Why using 2 steps dBV GWAS other than ssGBLUP.md",
+    "2.1 Why MME Shrinks Toward Population Mean.md",
+    "1.1 du6_methodology.md",
+    "3.2.3 garrick_2009_dBV.md",
+    "3.3 complete_dbv_derivation.md",
     "complete_dbv_derivation.md",
     "2.3 ssGBLUP vs Bayes A,B.md",
     "2.4 bayesian_equations_summary_table.md",
     "2.5 bayesian_methods_equations.md",
-    "2. literatures dBV as phnotype in GWAs.md",
-    "2.1 Why MME Shrinks Toward Population Mean.md",
-    "3.1 reasons considering MSE and how to calculate its PEV.md",
     "4. Why use BV as phenotype not residual.md",
-    "3.2.3 garrick_2009_dBV.md",
     "3.2.2 garrick_mendelian_math.md",
     "Bayesian shrinkage and Bayesian ridge.md",
     "chat-ai-2025-06-30-132228.json",
-    "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
-    "3.2 methods of calculating PEV of MSE-.md",
-    "3.2 Relatedness of PEV of MSE with DRP Garrick 2009.md",
     "5.1 Litter size.md",
     "5.1 mendelian_error_report.md",
     "5. Results.md",
