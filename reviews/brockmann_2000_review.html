@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTL Effects, Epistasis, and Pleiotropy in DU6i × DBA/2 Mice - Step-by-Step Decomposition</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'brockmann_2000_qtl_epistasis';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Single QTL Effects, Epistasis, and Pleiotropy Account for Two-thirds of the Phenotypic F₂ Variance of Growth and Obesity in DU6i × DBA/2 Mice</h1>
+            <p>Step-by-Step Decomposition and Replication Guide</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Original Authors:</strong> Gudrun A. Brockmann, Jürgen Kratzsch, Chris S. Haley, et al.</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Genome Research, Vol. 10, pp. 1941-1957, 2000</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Research Institute for the Biology of Farm Animals, Dummerstorf, Germany</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1101/gr.149900"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Study Overview and Significance</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Pioneering Epistasis Analysis in QTL Mapping</div>
+                    <p>This groundbreaking study represents one of the first comprehensive analyses of epistatic interactions (gene-by-gene effects) in QTL mapping for complex traits. Using an F₂ intercross between the extreme high-growth DU6i mouse line and DBA/2, the researchers demonstrated that QTL effects, epistasis, and pleiotropy together explain an unprecedented two-thirds of phenotypic variance in growth and obesity traits.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Research Challenge:</strong> Understanding the genetic architecture of complex traits requires not only identifying individual QTL but also determining how genes interact with each other (epistasis) and affect multiple traits (pleiotropy). Most QTL studies at the time focused solely on additive effects, missing crucial gene interaction effects.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Experimental Limitations</div>
+                        <div class="step-details">
+                            <strong>Design Constraints:</strong>
+                            <ul>
+                                <li><strong>Single population:</strong> Results specific to DU6i × DBA/2 cross</li>
+                                <li><strong>Limited replication:</strong> No independent validation populations</li>
+                                <li><strong>Marker density:</strong> 14.1 cM average spacing may miss QTL</li>
+                                <li><strong>Sample size:</strong> 411 F₂ individuals limits power for small effects</li>
+                                <li><strong>Single time point:</strong> Only 42-day measurements</li>
+                                <li><strong>Non-fasting conditions:</strong> Higher measurement variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Statistical Considerations</div>
+                        <div class="step-details">
+                            <strong>Analytical Limitations:</strong>
+                            <ul>
+                                <li><strong>Multiple testing:</strong> Risk of false positive interactions</li>
+                                <li><strong>Effect size bias:</strong> Winner's curse in QTL effect estimation</li>
+                                <li><strong>Marker-QTL distance:</strong> Recombination reduces effect estimates</li>
+                                <li><strong>Model assumptions:</strong> Additive and dominance effects only</li>
+                                <li><strong>Background effects:</strong> Simplified composite mapping approach</li>
+                                <li><strong>Sex differences:</strong> Limited analysis of sex-specific effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Interpretation Challenges</div>
+                        <div class="step-details">
+                            <strong>Biological Complexity:</strong>
+                            <ul>
+                                <li><strong>Causation vs correlation:</strong> QTL associations don't prove causation</li>
+                                <li><strong>Candidate gene validation:</strong> Limited functional studies</li>
+                                <li><strong>Developmental effects:</strong> Single age measurement misses dynamics</li>
+                                <li><strong>Environmental interactions:</strong> Gene × environment effects not studied</li>
+                                <li><strong>Epistasis mechanisms:</strong> Unknown biological basis for interactions</li>
+                                <li><strong>Population specificity:</strong> Results may not generalize to other strains</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important Considerations:</strong> While this study provided groundbreaking insights into epistasis and pleiotropy, the results are specific to this particular cross and should be validated in independent populations. The high variance explained may be partly due to the extreme phenotypic differences between parental strains and the controlled laboratory environment.
+                </div>
+            </div>
+
+            <div class="section" id="section-future-directions">
+                <div class="section-title">🚀 Future Research Directions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Methodological Advances</div>
+                        <div class="step-details">
+                            <strong>Next-Generation Approaches:</strong>
+                            <ul>
+                                <li><strong>Higher resolution mapping:</strong> SNP arrays and whole genome sequencing</li>
+                                <li><strong>Advanced statistics:</strong> Machine learning for complex interactions</li>
+                                <li><strong>Multi-parent populations:</strong> Greater genetic diversity and mapping resolution</li>
+                                <li><strong>Time-series analysis:</strong> Developmental trajectory mapping</li>
+                                <li><strong>Multi-trait GWAS:</strong> Joint analysis of correlated traits</li>
+                                <li><strong>Network analysis:</strong> Systems genetics approaches</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Functional Validation</div>
+                        <div class="step-details">
+                            <strong>Mechanistic Studies:</strong>
+                            <ul>
+                                <li><strong>Gene editing:</strong> CRISPR/Cas9 validation of candidate genes</li>
+                                <li><strong>Expression analysis:</strong> RNA-seq in relevant tissues</li>
+                                <li><strong>Protein function:</strong> Biochemical characterization of variants</li>
+                                <li><strong>Pathway analysis:</strong> Metabolomic and proteomic studies</li>
+                                <li><strong>Tissue specificity:</strong> Cell-type specific expression patterns</li>
+                                <li><strong>Developmental studies:</strong> Time-course gene expression</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Translational Applications</div>
+                        <div class="step-details">
+                            <strong>Practical Applications:</strong>
+                            <ul>
+                                <li><strong>Precision breeding:</strong> Genomic selection with epistasis</li>
+                                <li><strong>Human genetics:</strong> Interaction effects in disease susceptibility</li>
+                                <li><strong>Drug discovery:</strong> Multi-target therapeutic approaches</li>
+                                <li><strong>Personalized medicine:</strong> Individual genetic interaction profiles</li>
+                                <li><strong>Conservation genetics:</strong> Managing genetic diversity</li>
+                                <li><strong>Synthetic biology:</strong> Engineering genetic networks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-legacy">
+                <div class="section-title">🏆 Scientific Legacy and Impact</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Historical Significance</div>
+                    <div class="significance-content">
+                        This study represents a watershed moment in quantitative genetics, being among the first to systematically demonstrate the massive contribution of epistatic interactions to complex trait variation. The finding that gene-by-gene interactions contribute as much variance as individual QTL effects fundamentally changed how geneticists think about complex traits and launched the field of systems genetics.
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Lasting Contributions:</strong>
+                    <ul>
+                        <li><strong>Epistasis demonstration:</strong> First comprehensive proof of interaction importance</li>
+                        <li><strong>Methodological framework:</strong> Standard approach for interaction analysis</li>
+                        <li><strong>Variance decomposition:</strong> Quantitative assessment of genetic effects</li>
+                        <li><strong>Multi-trait insights:</strong> Genetic basis of trait correlations</li>
+                        <li><strong>Breeding implications:</strong> Importance of genetic interactions in selection</li>
+                        <li><strong>Systems approach:</strong> Foundation for network-based genetics</li>
+                    </ul>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Enduring Impact</div>
+                    <p>The Brockmann et al. (2000) study fundamentally shifted the field from single-gene thinking to network-based approaches in genetics. It demonstrated that understanding complex traits requires not just identifying individual genes, but comprehensively analyzing how they interact. This work laid the foundation for modern systems genetics, genome-wide epistasis studies, and precision medicine approaches that consider multi-gene interactions.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Summary and Key Takeaways</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Major Scientific Findings</div>
+                        <div class="step-details">
+                            <strong>Revolutionary Discoveries:</strong>
+                            <ul>
+                                <li><strong>Epistasis magnitude:</strong> 20-36% additional variance from interactions</li>
+                                <li><strong>Total variance explained:</strong> Two-thirds of phenotypic variation</li>
+                                <li><strong>Network effects:</strong> Genes function in coordinated networks</li>
+                                <li><strong>Pleiotropy patterns:</strong> Single genes affect multiple traits</li>
+                                <li><strong>Correlation basis:</strong> Genetic explanation for trait relationships</li>
+                                <li><strong>Selection response:</strong> Correlated responses via pleiotropic QTL</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Methodological Innovations</div>
+                        <div class="step-details">
+                            <strong>Technical Advances:</strong>
+                            <ul>
+                                <li><strong>Systematic epistasis:</strong> Comprehensive interaction testing framework</li>
+                                <li><strong>Multi-QTL detection:</strong> Methods for multiple QTL per chromosome</li>
+                                <li><strong>Permutation testing:</strong> Appropriate significance thresholds</li>
+                                <li><strong>Variance decomposition:</strong> Quantifying relative effect contributions</li>
+                                <li><strong>Multi-trait analysis:</strong> Joint analysis of correlated phenotypes</li>
+                                <li><strong>Statistical modeling:</strong> Proper handling of complex pedigree structure</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Broader Implications</div>
+                        <div class="step-details">
+                            <strong>Field Transformation:</strong>
+                            <ul>
+                                <li><strong>Paradigm shift:</strong> From single genes to genetic networks</li>
+                                <li><strong>Missing heritability:</strong> Interactions explain unexplained variance</li>
+                                <li><strong>Breeding programs:</strong> Importance of epistasis in selection</li>
+                                <li><strong>Human genetics:</strong> Framework for disease susceptibility</li>
+                                <li><strong>Systems biology:</strong> Foundation for network approaches</li>
+                                <li><strong>Precision medicine:</strong> Multi-gene interaction considerations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Legacy Statement</div>
+                    <p>The Brockmann et al. (2000) study stands as a cornerstone of modern quantitative genetics, demonstrating that the complexity of life emerges not just from individual genes, but from the intricate web of interactions between them. By showing that two-thirds of phenotypic variance in complex traits can be explained through comprehensive genetic analysis, this work opened new frontiers in our understanding of biological complexity and provided the foundation for systems-level approaches to genetics that continue to drive scientific discovery today.</p>
+                </div>
+            </div>
+
+            <div class="section" id="section-software-tools">
+                <div class="section-title">💻 Software and Tools for Replication</div>
+                
+                <div class="software-grid">
+                    <div class="software-card">
+                        <div class="software-name">R/qtl Package</div>
+                        <div class="step-details">
+                            <strong>Primary QTL Mapping:</strong>
+                            <ul>
+                                <li><strong>Functions:</strong> scanone(), scantwo(), fitqtl()</li>
+                                <li><strong>Permutations:</strong> Automated significance testing</li>
+                                <li><strong>Multi-QTL:</strong> stepwiseqtl() for model selection</li>
+                                <li><strong>Effects:</strong> Effect size and confidence intervals</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="software-card">
+                        <div class="software-name">SAS Statistical Software</div>
+                        <div class="step-details">
+                            <strong>Fixed Effects Analysis:</strong>
+                            <ul>
+                                <li><strong>PROC GLM:</strong> Variance analysis for fixed effects</li>
+                                <li><strong>PROC MIXED:</strong> Random effects modeling</li>
+                                <li><strong>INBREED:</strong> Kinship coefficient calculation</li>
+                                <li><strong>Model validation:</strong> Residual analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="software-card">
+                        <div class="software-name">Custom R Scripts</div>
+                        <div class="step-details">
+                            <strong>Epistasis Analysis:</strong>
+                            <ul>
+                                <li><strong>Pairwise testing:</strong> All marker combinations</li>
+                                <li><strong>GLM framework:</strong> Linear model interactions</li>
+                                <li><strong>Multiple testing:</strong> FDR and Bonferroni correction</li>
+                                <li><strong>Variance decomposition:</strong> Effect size calculation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-data-requirements">
+                <div class="section-title">📊 Data Requirements and Format</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Data Type</th>
+                                <th>Format</th>
+                                <th>Variables</th>
+                                <th>Sample Size</th>
+                                <th>Quality Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>Phenotype Data</td>
+                                <td>CSV/Excel</td>
+                                <td>9 quantitative traits</td>
+                                <td>411 F₂ individuals</td>
+                                <td>Normality testing, outlier detection</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>Genotype Data</td>
+                                <td>R/qtl format</td>
+                                <td>93 microsatellite markers</td>
+                                <td>All chromosomes</td>
+                                <td>Mendelian errors, missing data</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>Genetic Map</td>
+                                <td>cM distances</td>
+                                <td>Marker positions</td>
+                                <td>14.1 cM average spacing</td>
+                                <td>Map consistency validation</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>Pedigree Structure</td>
+                                <td>Family IDs</td>
+                                <td>12 subfamilies</td>
+                                <td>F₁ parent pairs</td>
+                                <td>Relationship verification</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-statistical-models">
+                <div class="section-title">📈 Statistical Models and Equations</div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Basic QTL Model</div>
+                    <div class="formula-main">
+                        y<sub>ijkl</sub> = μ + sex<sub>i</sub> + family<sub>j</sub> + parity<sub>k</sub> + pupsize<sub>l</sub> + α<sub>q</sub> + δ<sub>q</sub> + ε<sub>ijkl</sub>
+                    </div>
+                    <div class="formula-note">
+                        Where α<sub>q</sub> = additive QTL effect, δ<sub>q</sub> = dominance effect, ε = residual error
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Epistasis Model</div>
+                    <div class="formula-main">
+                        y = μ + fixed effects + α<sub>1</sub> + δ<sub>1</sub> + α<sub>2</sub> + δ<sub>2</sub> + αα<sub>12</sub> + αδ<sub>12</sub> + δα<sub>12</sub> + δδ<sub>12</sub> + ε
+                    </div>
+                    <div class="formula-note">
+                        Four types of epistatic interactions: additive×additive, additive×dominance, dominance×additive, dominance×dominance
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula-title">Variance Decomposition</div>
+                    <div class="formula-main">
+                        V<sub>P</sub> = V<sub>G</sub> + V<sub>E</sub> = V<sub>A</sub> + V<sub>D</sub> + V<sub>AA</sub> + V<sub>AD</sub> + V<sub>DD</sub> + V<sub>E</sub>
+                    </div>
+                    <div class="formula-note">
+                        Total phenotypic variance partitioned into additive, dominance, epistatic, and environmental components
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-code-examples">
+                <div class="section-title">💻 R Code Examples</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">QTL Mapping Code</div>
+                        <div class="step-details">
+                            <strong>Basic Analysis:</strong>
+                            <pre><code># Load R/qtl package
+library(qtl)
+
+# Read cross data
+cross <- read.cross("csv", ".", "genotype.csv", 
+                   "phenotype.csv", "map.csv")
+
+# Calculate genotype probabilities  
+cross <- calc.genoprob(cross, step=1, error.prob=0.01)
+
+# Single QTL scan
+out.em <- scanone(cross, pheno.col=1, method="em")
+
+# Permutation test
+perm.em <- scanone(cross, pheno.col=1, method="em", 
+                   n.perm=1000, verbose=FALSE)
+
+# Significance thresholds
+summary(perm.em)
+
+# Plot results
+plot(out.em, main="Body Weight QTL")
+abline(h=summary(perm.em)[1], col="red", lty=2)</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Multi-QTL Detection</div>
+                        <div class="step-details">
+                            <strong>Two-QTL Analysis:</strong>
+                            <pre><code># Two-QTL scan for chromosome 11
+chr11 <- subset(cross, chr=11)
+out.2q <- scantwo(chr11, pheno.col=1, method="em")
+
+# Test for second QTL
+max(out.2q, what="full")
+max(out.2q, what="add") 
+max(out.2q, what="int")
+
+# Plot two-QTL results  
+plot(out.2q)
+
+# Stepwise QTL model building
+qtl.model <- stepwiseqtl(cross, pheno.col=1, 
+                        max.qtl=5, method="hk")
+                        
+# Final model
+formula(qtl.model)
+summary(fitqtl(cross, qtl=qtl.model, 
+               formula=formula(qtl.model)))</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Epistasis Testing</div>
+                        <div class="step-details">
+                            <strong>Interaction Analysis:</strong>
+                            <pre><code># Extract marker genotypes
+geno.data <- pull.geno(cross)
+pheno.data <- pull.pheno(cross)
+
+# Test all pairwise interactions
+n.markers <- ncol(geno.data)
+interactions <- matrix(NA, n.markers, n.markers)
+
+for(i in 1:(n.markers-1)) {
+  for(j in (i+1):n.markers) {
+    # Fit interaction model
+    model <- lm(pheno.data[,1] ~ sex + family + 
+                geno.data[,i] * geno.data[,j])
+    
+    # Extract interaction p-value
+    interactions[i,j] <- anova(model)$"Pr(>F)"[4]
+  }
+}
+
+# Apply multiple testing correction
+interactions.adj <- p.adjust(interactions, method="fdr")
+
+# Identify significant interactions
+sig.int <- which(interactions.adj < 0.01, arr.ind=TRUE)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-troubleshooting">
+                <div class="section-title">🔧 Common Issues and Solutions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Data Format Issues</div>
+                        <div class="step-details">
+                            <strong>Common Problems:</strong>
+                            <ul>
+                                <li><strong>Missing genotypes:</strong> Use fill.geno() with appropriate method</li>
+                                <li><strong>Map inconsistencies:</strong> Verify marker order and distances</li>
+                                <li><strong>Phenotype outliers:</strong> Check for data entry errors</li>
+                                <li><strong>Pedigree errors:</strong> Validate parent-offspring relationships</li>
+                            </ul>
+                            
+                            <strong>Solutions:</strong>
+                            <ul>
+                                <li>Use checkAlleles() to identify genotyping errors</li>
+                                <li>Apply findDupMarkers() to remove redundant markers</li>
+                                <li>Use plotMissing() to visualize missing data patterns</li>
+                                <li>Implement drop.nullmarkers() for uninformative markers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Analysis Problems</div>
+                        <div class="step-details">
+                            <strong>QTL Mapping Issues:</strong>
+                            <ul>
+                                <li><strong>Low LOD scores:</strong> Check marker informativity and spacing</li>
+                                <li><strong>Multiple peaks:</strong> May indicate multiple linked QTL</li>
+                                <li><strong>Inflated statistics:</strong> Verify population structure correction</li>
+                                <li><strong>Missing interactions:</strong> Insufficient power or wrong model</li>
+                            </ul>
+                            
+                            <strong>Epistasis Challenges:</strong>
+                            <ul>
+                                <li>Computational intensity: Use parallel processing</li>
+                                <li>Multiple testing burden: Apply appropriate corrections</li>
+                                <li>Model overfitting: Use cross-validation</li>
+                                <li>Biological interpretation: Focus on consistent patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Computational Considerations</div>
+                        <div class="step-details">
+                            <strong>Performance Optimization:</strong>
+                            <ul>
+                                <li><strong>Memory management:</strong> Process large datasets in chunks</li>
+                                <li><strong>Parallel computing:</strong> Use doParallel for permutations</li>
+                                <li><strong>Storage requirements:</strong> Compress intermediate results</li>
+                                <li><strong>Runtime estimation:</strong> Scale based on marker density</li>
+                            </ul>
+                            
+                            <strong>Hardware Requirements:</strong>
+                            <ul>
+                                <li>RAM: 16+ GB for full epistasis analysis</li>
+                                <li>CPU: Multi-core processor recommended</li>
+                                <li>Storage: 50+ GB for intermediate files</li>
+                                <li>Time: Days to weeks for complete analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>-card theory-card">
+                        <div class="analysis-title">Key Research Questions</div>
+                        <div class="step-details">
+                            <strong>Primary Objectives:</strong>
+                            <ul>
+                                <li>Map QTL for body weight, fat accumulation, and muscle development</li>
+                                <li>Identify genetic control of serum leptin, insulin, and IGF-I</li>
+                                <li>Quantify epistatic interactions between QTL</li>
+                                <li>Determine pleiotropic effects across related traits</li>
+                                <li>Calculate total genetic variance explained by all effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Experimental Design</div>
+                        <div class="step-details">
+                            <strong>F₂ Intercross Design:</strong>
+                            <ul>
+                                <li><strong>Parents:</strong> DU6i (high-growth, 4 generations inbred) × DBA/2 (commercial inbred)</li>
+                                <li><strong>F₂ animals:</strong> 411 individuals from 12 subfamilies</li>
+                                <li><strong>Markers:</strong> 93 microsatellites across all chromosomes</li>
+                                <li><strong>Phenotypes:</strong> 9 traits (body weight, fat, muscle, organs, hormones)</li>
+                                <li><strong>Age at measurement:</strong> 42 days (end of juvenile phase)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Extreme Phenotypic Contrast</div>
+                        <div class="step-details">
+                            <strong>DU6i vs DBA/2 Differences:</strong>
+                            <ul>
+                                <li><strong>Body weight:</strong> 68.6g vs 18.3g (274% increase)</li>
+                                <li><strong>Abdominal fat:</strong> 1801mg vs 241mg (7.5× increase)</li>
+                                <li><strong>Muscle weight:</strong> 617mg vs 240mg (2.6× increase)</li>
+                                <li><strong>Leptin:</strong> 21.16 vs 1.72 ng/ml (12× increase)</li>
+                                <li><strong>Insulin:</strong> 1651 vs <26 pmol/L (>63× increase)</li>
+                                <li><strong>IGF-I:</strong> 750 vs 238 ng/ml (3.2× increase)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mouse-strains">
+                <div class="section-title">🐭 Mouse Strains and Pedigree Structure</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">DU6i Mouse Line</div>
+                        <div class="step-details">
+                            <strong>Line Characteristics:</strong>
+                            <ul>
+                                <li><strong>Origin:</strong> 78 generations selected for high body weight at 42 days</li>
+                                <li><strong>Base populations:</strong> 4 outbred + 4 inbred strains</li>
+                                <li><strong>Inbreeding:</strong> 4 generations to create DU6i from outbred DU6</li>
+                                <li><strong>Phenotype:</strong> Extreme obesity with hyperleptinemia</li>
+                                <li><strong>Metabolism:</strong> Hyperinsulinemia and elevated IGF-I</li>
+                                <li><strong>Selection age:</strong> 42 days (end of juvenile growth phase)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">DBA/2 Control Line</div>
+                        <div class="step-details">
+                            <strong>Strain Properties:</strong>
+                            <ul>
+                                <li><strong>Type:</strong> Commercial inbred strain</li>
+                                <li><strong>Purpose:</strong> Genetic contrast to DU6i</li>
+                                <li><strong>Phenotype:</strong> Normal body weight and composition</li>
+                                <li><strong>Hormones:</strong> Baseline leptin, insulin, IGF-I levels</li>
+                                <li><strong>Advantage:</strong> Well-characterized genetic background</li>
+                                <li><strong>Marker informativity:</strong> High polymorphism with DU6i</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>F₂ Subfamily</th>
+                                <th>F₁ Parents</th>
+                                <th>Total Offspring</th>
+                                <th>Males</th>
+                                <th>Females</th>
+                                <th>Serum Samples</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>1</td>
+                                <td>F₁₅ × F₁₁₇</td>
+                                <td>32</td>
+                                <td>17</td>
+                                <td>15</td>
+                                <td>32</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>2</td>
+                                <td>F₁₆ × F₁₁₈</td>
+                                <td>34</td>
+                                <td>19</td>
+                                <td>15</td>
+                                <td>33</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>3</td>
+                                <td>F₁₇ × F₁₁₉</td>
+                                <td>26</td>
+                                <td>13</td>
+                                <td>13</td>
+                                <td>25</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>4</td>
+                                <td>F₁₈ × F₁₂₀</td>
+                                <td>45</td>
+                                <td>24</td>
+                                <td>21</td>
+                                <td>43</td>
+                            </tr>
+                            <tr class="published-group">
+                                <td>5-12</td>
+                                <td>8 additional families</td>
+                                <td>274</td>
+                                <td>160</td>
+                                <td>114</td>
+                                <td>237</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Total</strong></td>
+                                <td><strong>12 subfamilies</strong></td>
+                                <td><strong>411</strong></td>
+                                <td><strong>233</strong></td>
+                                <td><strong>178</strong></td>
+                                <td><strong>370</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">🔬 Step-by-Step QTL Mapping Methodology</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Phenotypic Data Collection</div>
+                            <div class="step-details">
+                                Comprehensive phenotyping at 42 days of age under non-fasting conditions
+                                <div class="step-specs">
+                                    <strong>Growth Traits:</strong><br>
+                                    • <strong>Body weight (BW):</strong> Total live weight<br>
+                                    • <strong>Abdominal fat weight (AFW):</strong> Testicular (♂) or perimetrial (♀) fat<br>
+                                    • <strong>Muscle weight (MW):</strong> Quadriceps complex weight<br>
+                                    • <strong>Organ weights:</strong> Liver, kidney, spleen<br>
+                                    <strong>Serum Hormones:</strong><br>
+                                    • <strong>Leptin:</strong> Quantikine Murine ELISA<br>
+                                    • <strong>Insulin:</strong> Ultrasensitive rat insulin ELISA<br>
+                                    • <strong>IGF-I:</strong> ELISA after acid ethanol extraction
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Marker Selection and Genotyping</div>
+                            <div class="step-details">
+                                Genome-wide microsatellite marker screening and genotyping
+                                <div class="step-specs">
+                                    <strong>Marker Discovery:</strong><br>
+                                    • <strong>Total screened:</strong> >630 microsatellite markers<br>
+                                    • <strong>Final panel:</strong> 93 informative loci<br>
+                                    • <strong>Coverage:</strong> All chromosomes + X chromosome<br>
+                                    • <strong>Average spacing:</strong> 14.1 cM between markers<br>
+                                    <strong>Genotyping Protocol:</strong><br>
+                                    • Standard DNA preparation from tail biopsies<br>
+                                    • PCR amplification with Research Genetics primers<br>
+                                    • Double scoring and repeat runs for discrepancies
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Model and Fixed Effects</div>
+                            <div class="step-details">
+                                Comprehensive variance analysis to identify and control for systematic effects
+                                <div class="step-specs">
+                                    <strong>Fixed Effects Analyzed:</strong><br>
+                                    • <strong>Sex:</strong> Male vs female effects<br>
+                                    • <strong>Parity:</strong> Maternal parity effects (5 classes)<br>
+                                    • <strong>Subfamily:</strong> F₁ parent pair effects (12 classes)<br>
+                                    • <strong>Pupsize:</strong> Litter size effects (5 classes)<br>
+                                    <strong>Data Transformations:</strong><br>
+                                    • Leptin and IGF-I: Logarithmic transformation<br>
+                                    • All other traits: No transformation needed<br>
+                                    • Normality testing with SAS procedure capability
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">QTL Mapping Analysis</div>
+                            <div class="step-details">
+                                Multiple regression approach with interval mapping and multi-QTL detection
+                                <div class="step-specs">
+                                    <strong>Mapping Strategy:</strong><br>
+                                    • <strong>Method:</strong> Multiple regression interval mapping<br>
+                                    • <strong>Grid search:</strong> 2 cM intervals for second QTL detection<br>
+                                    • <strong>Multi-QTL model:</strong> F-test with 3 df for additional QTL<br>
+                                    • <strong>Background effects:</strong> Cofactor analysis (Zeng, 1993)<br>
+                                    <strong>Significance Thresholds:</strong><br>
+                                    • <strong>Permutation tests:</strong> 1,000 replicates, 1 cM steps<br>
+                                    • <strong>Genome-wide significant:</strong> F > 7.07 (P < 0.05)<br>
+                                    • <strong>Highly significant:</strong> F > 9.86 (P < 0.01)<br>
+                                    • <strong>Chromosome-wise suggestive:</strong> Variable by chromosome
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-qtl-results">
+                <div class="section-title">📊 QTL Mapping Results</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Major QTL Discoveries</div>
+                        <div class="step-details">
+                            <strong>Highly Significant QTL (F > 9.86):</strong>
+                            <ul>
+                                <li><strong>Body weight:</strong> Chromosomes 1, 5, 7 (12.3% variance)</li>
+                                <li><strong>Abdominal fat:</strong> Chromosome 7 (12.0% variance)</li>
+                                <li><strong>Muscle weight:</strong> Chromosomes 7, 11, 12</li>
+                                <li><strong>IGF-I:</strong> Chromosome 10 at Igf1 locus (15.0% variance)</li>
+                                <li><strong>Leptin:</strong> Chromosome 14 (4.4% variance)</li>
+                                <li><strong>Insulin:</strong> Chromosome 4 near Lepr (4.2% variance)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Chromosome 7 - Major Effect Locus</div>
+                        <div class="step-details">
+                            <strong>Bw14 QTL Complex (Peak at 28 cM):</strong>
+                            <ul>
+                                <li><strong>Body weight:</strong> F = 25.91, 12.3% variance</li>
+                                <li><strong>Fat accumulation:</strong> F = 24.93 at 23 cM</li>
+                                <li><strong>Muscle development:</strong> F = 19.49 at 29 cM</li>
+                                <li><strong>Liver weight:</strong> F = 28.76 at 32 cM</li>
+                                <li><strong>Kidney weight:</strong> F = 14.50 at 28 cM</li>
+                                <li><strong>Insulin:</strong> F = 6.2 at 32 cM</li>
+                                <li><strong>Confidence interval:</strong> 10 cM region</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Multiple QTL Detection</div>
+                        <div class="step-details">
+                            <strong>Chromosomes with Multiple QTL:</strong>
+                            <ul>
+                                <li><strong>Chromosome 11:</strong> Bw16 (14 cM) + Bw4 (55 cM)</li>
+                                <li><strong>Chromosome 13:</strong> Bw15 (10 cM) + Bw10 (47 cM)</li>
+                                <li><strong>Chromosome 12:</strong> Two muscle weight QTL</li>
+                                <li><strong>Total body weight QTL:</strong> 34.9% of F₂ variance</li>
+                                <li><strong>Total fat QTL:</strong> 34.1% of F₂ variance</li>
+                                <li><strong>Total muscle QTL:</strong> 27.9% of F₂ variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Chromosome</th>
+                                <th>QTL Position (cM)</th>
+                                <th>Trait</th>
+                                <th>F-Ratio</th>
+                                <th>Additive Effect</th>
+                                <th>% F₂ Variance</th>
+                                <th>QTL Symbol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>1</td>
+                                <td>36</td>
+                                <td>Body weight</td>
+                                <td>10.44</td>
+                                <td>+1.3g</td>
+                                <td>5.36</td>
+                                <td>Bw5</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>5</td>
+                                <td>81</td>
+                                <td>Body weight</td>
+                                <td>11.69</td>
+                                <td>+1.45g</td>
+                                <td>5.96</td>
+                                <td>Bw13</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>7</td>
+                                <td>28</td>
+                                <td>Body weight</td>
+                                <td>25.91</td>
+                                <td>+2.34g</td>
+                                <td>12.31</td>
+                                <td>Bw14</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>10</td>
+                                <td>38</td>
+                                <td>IGF-I</td>
+                                <td>29.70</td>
+                                <td>+0.056 log units</td>
+                                <td>14.98</td>
+                                <td>Igf1q1</td>
+                            </tr>
+                            <tr class="published-group">
+                                <td>11</td>
+                                <td>14</td>
+                                <td>Body weight</td>
+                                <td>7.52</td>
+                                <td>+1.06g</td>
+                                <td>3.92</td>
+                                <td>Bw16</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>14</td>
+                                <td>28</td>
+                                <td>Leptin</td>
+                                <td>7.58</td>
+                                <td>+0.061 log units</td>
+                                <td>4.36</td>
+                                <td>Lepq1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-epistasis">
+                <div class="section-title">🔗 Epistasis Analysis - Gene-by-Gene Interactions</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🧬 Groundbreaking Epistasis Discovery</div>
+                    <p>This study represents one of the first comprehensive analyses of epistatic interactions in QTL mapping. The researchers discovered that gene-by-gene interactions contribute 20-36% additional variance beyond individual QTL effects, demonstrating the critical importance of epistasis in complex trait architecture.</p>
+                </div>
+
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Interaction Analysis Strategy</div>
+                            <div class="step-details">
+                                Systematic testing of pairwise interactions between QTL-linked markers
+                                <div class="step-specs">
+                                    <strong>Analysis Framework:</strong><br>
+                                    • <strong>Markers tested:</strong> 49 out of 93 QTL-linked markers<br>
+                                    • <strong>Model:</strong> GLM with marker effects + interaction<br>
+                                    • <strong>Degrees of freedom:</strong> 2 df per marker, 4 df per interaction<br>
+                                    • <strong>Significance levels:</strong> P < 0.001 (stringent), P < 0.01 (relaxed)<br>
+                                    <strong>Strategy Rationale:</strong><br>
+                                    • Include markers linked to QTL for target trait<br>
+                                    • Test interactions with QTL for correlated traits<br>
+                                    • Account for high trait correlations and pleiotropic effects
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Highly Significant Interactions (P < 0.001)</div>
+                            <div class="step-details">
+                                Most significant epistatic effects identified across traits
+                                <div class="step-specs">
+                                    <strong>Major Interactions:</strong><br>
+                                    • <strong>Leptin:</strong> C9-61 × C11-37 (Chr 9 × Chr 11)<br>
+                                    • <strong>Insulin:</strong> C4-56 × C11-14 (Chr 4 × Chr 11)<br>
+                                    • <strong>IGF-I:</strong> C1-43 × C13-61, C7-37 × C15-26, C14-44 × C15-49<br>
+                                    <strong>Interaction Patterns:</strong><br>
+                                    • <strong>Chromosome 11:</strong> Multiple interactions with other chromosomes<br>
+                                    • <strong>Chromosome 14:</strong> Central role in multiple trait regulation<br>
+                                    • <strong>Chromosome 17:</strong> Obesity-specific interaction effects
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Coordinate Regulation Discovery</div>
+                            <div class="step-details">
+                                Interactions affecting multiple correlated traits simultaneously
+                                <div class="step-specs">
+                                    <strong>Multi-trait Interactions:</strong><br>
+                                    • <strong>C18-50 × CX-16:</strong> Body weight + muscle weight + leptin<br>
+                                    • <strong>C2-9 × C14-52:</strong> Body weight + muscle weight coordination<br>
+                                    • <strong>C14-20 interactions:</strong> Body weight + leptin regulation<br>
+                                    <strong>Biological Significance:</strong><br>
+                                    • Evidence for shared regulatory pathways<br>
+                                    • Genetic basis for trait correlations<br>
+                                    • Pleiotropic interaction networks<br>
+                                    • Coordinated growth and metabolism control
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Variance Contribution Assessment</div>
+                            <div class="step-details">
+                                Quantifying the relative importance of epistatic effects
+                                <div class="step-specs">
+                                    <strong>Interaction Variance Components:</strong><br>
+                                    • <strong>Body weight:</strong> 33% additional variance<br>
+                                    • <strong>Abdominal fat:</strong> 36% additional variance<br>
+                                    • <strong>Muscle weight:</strong> 21% additional variance<br>
+                                    • <strong>Leptin:</strong> 30% additional variance<br>
+                                    • <strong>Insulin:</strong> 20% additional variance<br>
+                                    • <strong>IGF-I:</strong> 33% additional variance<br>
+                                    <strong>Total Variance Explained:</strong><br>
+                                    • QTL + Interactions: 64% (body weight), 63% (fat)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Trait</th>
+                                <th>QTL Effects (%)</th>
+                                <th>Interaction Effects (%)</th>
+                                <th>Combined Effects (%)</th>
+                                <th>Significance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>Body Weight</td>
+                                <td>34.9</td>
+                                <td>32.9</td>
+                                <td>64.4</td>
+                                <td>Two-thirds of variance</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>Abdominal Fat</td>
+                                <td>34.1</td>
+                                <td>35.5</td>
+                                <td>62.8</td>
+                                <td>Two-thirds of variance</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>Muscle Weight</td>
+                                <td>27.9</td>
+                                <td>20.7</td>
+                                <td>31.8</td>
+                                <td>One-third of variance</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>Leptin</td>
+                                <td>24.0</td>
+                                <td>29.9</td>
+                                <td>44.5</td>
+                                <td>Nearly half of variance</td>
+                            </tr>
+                            <tr class="published-group">
+                                <td>Insulin</td>
+                                <td>9.1</td>
+                                <td>20.3</td>
+                                <td>21.2</td>
+                                <td>One-fifth of variance</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>IGF-I</td>
+                                <td>22.5</td>
+                                <td>32.8</td>
+                                <td>41.6</td>
+                                <td>Two-fifths of variance</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-pleiotropy">
+                <div class="section-title">🌐 Pleiotropy Analysis - Multi-trait Effects</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">QTL Pleiotropy Patterns</div>
+                        <div class="step-details">
+                            <strong>Multi-trait QTL Effects:</strong>
+                            <ul>
+                                <li><strong>Chromosome 7 (28 cM):</strong> Body weight + fat + muscle + organs</li>
+                                <li><strong>Chromosome 11:</strong> Multiple QTL affecting growth traits</li>
+                                <li><strong>Chromosome 4:</strong> Fat + insulin + leptin coordination</li>
+                                <li><strong>Chromosome 10:</strong> IGF-I specific (no other trait effects)</li>
+                                <li><strong>Body weight covariate:</strong> Removes most organ weight QTL</li>
+                                <li><strong>Trait correlations:</strong> r = 0.69 (fat-leptin), r = 0.49 (fat-insulin)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Interaction Pleiotropy</div>
+                        <div class="step-details">
+                            <strong>Multi-trait Interaction Effects:</strong>
+                            <ul>
+                                <li><strong>C18-50:</strong> Affects body weight, fat, and leptin through interactions</li>
+                                <li><strong>C14-44:</strong> Multiple interaction partners affecting fat and IGF-I</li>
+                                <li><strong>C17-57:</strong> Obesity-specific interactions (fat traits only)</li>
+                                <li><strong>C11 markers:</strong> Interact to affect protein, fat, or hormones specifically</li>
+                                <li><strong>Coordinate regulation:</strong> Same marker pairs affect correlated traits</li>
+                                <li><strong>Tissue specificity:</strong> Some interactions show sex-specific effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Biological Implications</div>
+                        <div class="step-details">
+                            <strong>Pleiotropy Insights:</strong>
+                            <ul>
+                                <li><strong>Growth coordination:</strong> Single genes affect multiple aspects of growth</li>
+                                <li><strong>Metabolic networks:</strong> Integrated control of hormones and body composition</li>
+                                <li><strong>Developmental timing:</strong> Coordinated trait expression at 42 days</li>
+                                <li><strong>Energy balance:</strong> Linked regulation of intake, storage, and expenditure</li>
+                                <li><strong>Selection response:</strong> Correlated responses explained by pleiotropy</li>
+                                <li><strong>Breeding implications:</strong> Difficulty in independent trait improvement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-candidate-genes">
+                <div class="section-title">🧬 Candidate Gene Analysis</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Hormone Regulation Candidates</div>
+                        <div class="step-details">
+                            <strong>Leptin (Chromosome 14, 28 cM):</strong>
+                            <ul>
+                                <li><strong>Novel locus:</strong> First identified leptin QTL at this position</li>
+                                <li><strong>Human homology:</strong> 14q11.2 (no known obesity associations)</li>
+                                <li><strong>Effect size:</strong> 4.4% of leptin variance</li>
+                                <li><strong>Functional candidates:</strong> Unknown regulatory factors</li>
+                            </ul>
+                            
+                            <strong>Insulin (Chromosome 4, 61 cM):</strong>
+                            <ul>
+                                <li><strong>Co-localization:</strong> Near leptin receptor (Lepr) gene</li>
+                                <li><strong>Sequence variant:</strong> Amino acid 359 change in Lepr</li>
+                                <li><strong>Binding domain:</strong> Within leptin-binding region (323-640)</li>
+                                <li><strong>Interaction:</strong> Possible Lepr × distal gene effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">IGF-I System Genes</div>
+                        <div class="step-details">
+                            <strong>Igf1q1 (Chromosome 10, 38 cM):</strong>
+                            <ul>
+                                <li><strong>Direct mapping:</strong> QTL at Igf1 gene locus itself</li>
+                                <li><strong>Large effect:</strong> 15.0% of IGF-I variance</li>
+                                <li><strong>Expression evidence:</strong> Transcript differences in DU6 vs controls</li>
+                                <li><strong>No pleiotropy:</strong> IGF-I specific effects</li>
+                            </ul>
+                            
+                            <strong>Igf1q2 (Chromosome 18, 39 cM):</strong>
+                            <ul>
+                                <li><strong>Secondary locus:</strong> 5.3% additional variance</li>
+                                <li><strong>Unknown gene:</strong> No obvious candidate</li>
+                                <li><strong>Additive effect:</strong> DU6i allele increases IGF-I</li>
+                                <li><strong>Independent effect:</strong> No linkage to growth traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Growth and Muscle Candidates</div>
+                        <div class="step-details">
+                            <strong>Muscle Development (Multiple Chromosomes):</strong>
+                            <ul>
+                                <li><strong>Chromosome 1:</strong> Myostatin (Mstn), IGF-binding proteins</li>
+                                <li><strong>Chromosome 7:</strong> IGF-1 receptor (Igf1r)</li>
+                                <li><strong>Chromosome 11:</strong> STAT proteins (Stat3, Stat5a/b), Growth hormone (Gh)</li>
+                                <li><strong>Chromosome 12:</strong> Somatostatin receptor 1 (Smstr1)</li>
+                            </ul>
+                            
+                            <strong>Body Weight QTL:</strong>
+                            <ul>
+                                <li><strong>Proportional effects:</strong> All muscle QTL scale with body weight</li>
+                                <li><strong>Covariate analysis:</strong> Body weight removes muscle QTL effects</li>
+                                <li><strong>Integrated growth:</strong> Coordinated muscle and overall development</li>
+                                <li><strong>Selection target:</strong> Overall size rather than specific muscle mass</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-trait-correlations">
+                <div class="section-title">📈 Trait Correlation Analysis</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Trait Pair</th>
+                                <th>All Animals</th>
+                                <th>Males</th>
+                                <th>Females</th>
+                                <th>Biological Significance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>Body Weight × Abdominal Fat</td>
+                                <td>0.75</td>
+                                <td>0.76</td>
+                                <td>0.74</td>
+                                <td>Fat accumulation with growth</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>Body Weight × Muscle Weight</td>
+                                <td>0.84</td>
+                                <td>0.80</td>
+                                <td>0.81</td>
+                                <td>Coordinated growth</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>Abdominal Fat × Leptin</td>
+                                <td>0.69</td>
+                                <td>0.69</td>
+                                <td>0.67</td>
+                                <td>Leptin as fat signal</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>Abdominal Fat × Insulin</td>
+                                <td>0.49</td>
+                                <td>0.51</td>
+                                <td>0.33</td>
+                                <td>Insulin resistance</td>
+                            </tr>
+                            <tr class="published-group">
+                                <td>Muscle Weight × Leptin</td>
+                                <td>0.34</td>
+                                <td>0.28</td>
+                                <td>0.36</td>
+                                <td>Leptin muscle effects</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>Leptin × Insulin</td>
+                                <td>0.46</td>
+                                <td>0.53</td>
+                                <td>0.28</td>
+                                <td>Hormone interdependence</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>IGF-I × Body Weight</td>
+                                <td>0.31</td>
+                                <td>0.35</td>
+                                <td>0.26</td>
+                                <td>Growth factor effects</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>Leptin × IGF-I</td>
+                                <td>0.17</td>
+                                <td>0.17</td>
+                                <td>-</td>
+                                <td>Independent regulation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology-detail">
+                <div class="section-title">🔬 Detailed Methodological Framework</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">A</div>
+                        <div class="step-content">
+                            <div class="step-title">Genetic Map Construction</div>
+                            <div class="step-details">
+                                Building the linkage map and marker spacing optimization
+                                <div class="step-specs">
+                                    <strong>Map Construction:</strong><br>
+                                    • <strong>CRIMAP analysis:</strong> Pedigree-specific map generation<br>
+                                    • <strong>Consensus map:</strong> Use published mouse genome distances<br>
+                                    • <strong>Map validation:</strong> Consistency check with known positions<br>
+                                    • <strong>Special case:</strong> D8Mit112 reassigned to chromosome 9<br>
+                                    <strong>Map Characteristics:</strong><br>
+                                    • <strong>Total length:</strong> ~1,400 cM coverage<br>
+                                    • <strong>Average spacing:</strong> 14.1 cM between markers<br>
+                                    • <strong>Chromosome coverage:</strong> All autosomes + X chromosome<br>
+                                    • <strong>Informativity:</strong> >630 markers screened for polymorphism
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">B</div>
+                        <div class="step-content">
+                            <div class="step-title">Multi-QTL Detection Protocol</div>
+                            <div class="step-details">
+                                Systematic approach to identify multiple QTL per chromosome
+                                <div class="step-specs">
+                                    <strong>Two-QTL Testing:</strong><br>
+                                    • <strong>Grid search:</strong> 2 cM intervals across chromosome<br>
+                                    • <strong>Model comparison:</strong> 1-QTL vs 2-QTL models<br>
+                                    • <strong>F-test:</strong> 3 degrees of freedom for additional QTL<br>
+                                    • <strong>Significance:</strong> P < 0.05 for second QTL acceptance<br>
+                                    <strong>Background Effects:</strong><br>
+                                    • <strong>Cofactor inclusion:</strong> All suggestive QTL as background<br>
+                                    • <strong>Target exclusion:</strong> Drop background effect when testing its position<br>
+                                    • <strong>Composite mapping:</strong> Zeng (1993) methodology<br>
+                                    • <strong>Effect refinement:</strong> Improved estimates with background control
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">C</div>
+                        <div class="step-content">
+                            <div class="step-title">Permutation Testing Framework</div>
+                            <div class="step-details">
+                                Empirical threshold determination for genome-wide significance
+                                <div class="step-specs">
+                                    <strong>Permutation Protocol:</strong><br>
+                                    • <strong>Replicates:</strong> 1,000 permutations per trait<br>
+                                    • <strong>Grid size:</strong> 1 cM step intervals<br>
+                                    • <strong>Null hypothesis:</strong> Random trait-genotype associations<br>
+                                    • <strong>Common thresholds:</strong> Same F-values used across traits<br>
+                                    <strong>Significance Levels:</strong><br>
+                                    • <strong>Genome-wide α = 0.01:</strong> F > 9.86 (highly significant)<br>
+                                    • <strong>Genome-wide α = 0.05:</strong> F > 7.07 (significant)<br>
+                                    • <strong>Chromosome-wise α = 0.05:</strong> Suggestive (varies by chromosome)<br>
+                                    • <strong>Support intervals:</strong> 1-LOD drop confidence regions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">D</div>
+                        <div class="step-content">
+                            <div class="step-title">Interaction Testing Strategy</div>
+                            <div class="step-details">
+                                Comprehensive epistasis analysis between QTL-linked markers
+                                <div class="step-specs">
+                                    <strong>Interaction Model:</strong><br>
+                                    • <strong>Base model:</strong> Sex + subfamily + parity + pupsize<br>
+                                    • <strong>Marker effects:</strong> Single marker effects (2 df each)<br>
+                                    • <strong>Interaction term:</strong> Marker₁ × Marker₂ (4 df)<br>
+                                    • <strong>Variance estimation:</strong> Reduction in residual sum of squares<br>
+                                    <strong>Multiple Testing:</strong><br>
+                                    • <strong>Conservative threshold:</strong> P < 0.001 for reporting<br>
+                                    • <strong>Relaxed threshold:</strong> P < 0.01 for biological investigation<br>
+                                    • <strong>Independent tests:</strong> Each trait analyzed separately<br>
+                                    • <strong>Marker selection:</strong> 49 QTL-linked markers from 93 total
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-replication-guide">
+                <div class="section-title">🔄 Complete Replication Protocol</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">📋 Full Analysis Workflow</div>
+                    <p>This section provides a comprehensive protocol for replicating the Brockmann et al. (2000) analysis, including QTL mapping, epistasis detection, and pleiotropy analysis. Each step includes specific software requirements, statistical models, and expected outputs.</p>
+                </div>
+
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Preparation and Quality Control</div>
+                            <div class="step-details">
+                                Setting up the F₂ intercross data for analysis
+                                <div class="step-specs">
+                                    <strong>Required Data Files:</strong><br>
+                                    • Pedigree file with F₂ family structure (411 individuals)<br>
+                                    • Genotype file with 93 microsatellite markers<br>
+                                    • Phenotype file with 9 quantitative traits<br>
+                                    • Marker map file with genetic distances<br>
+                                    <strong>Quality Checks:</strong><br>
+                                    • <strong>Genotyping errors:</strong> Double-scoring verification<br>
+                                    • <strong>Pedigree validation:</strong> Mendelian inheritance checks<br>
+                                    • <strong>Phenotype normality:</strong> Shapiro-Wilk tests<br>
+                                    • <strong>Outlier detection:</strong> Standardized residual analysis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Software Setup</div>
+                            <div class="step-details">
+                                Installing and configuring analysis software
+                                <div class="step-specs">
+                                    <strong>Core Software Requirements:</strong><br>
+                                    • <strong>SAS:</strong> For variance analysis and fixed effects<br>
+                                    • <strong>R/qtl:</strong> For QTL mapping and permutations<br>
+                                    • <strong>CRIMAP:</strong> For genetic map construction<br>
+                                    • <strong>Custom scripts:</strong> For epistasis analysis<br>
+                                    <strong>R Packages Needed:</strong><br>
+                                    • qtl, qtltools, genetics, MASS<br>
+                                    • ggplot2, dplyr, reshape2 for visualization<br>
+                                    • doParallel for parallel permutations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">QTL Mapping Implementation</div>
+                            <div class="step-details">
+                                Step-by-step QTL analysis protocol
+                                <div class="step-specs">
+                                    <strong>R/qtl Analysis Steps:</strong><br>
+                                    <code># Load data and create cross object</code><br>
+                                    <code>cross <- read.cross("csv", ".", "data.csv", "map.csv")</code><br>
+                                    <code># Interval mapping</code><br>
+                                    <code>out.em <- scanone(cross, method="em")</code><br>
+                                    <code># Permutation tests</code><br>
+                                    <code>perm <- scanone(cross, method="em", n.perm=1000)</code><br>
+                                    <code># Multi-QTL analysis</code><br>
+                                    <code>out.2 <- scantwo(cross, method="em")</code><br>
+                                    <strong>Expected Outputs:</strong><br>
+                                    • LOD curves for each chromosome<br>
+                                    • Significance thresholds from permutations<br>
+                                    • QTL positions and confidence intervals<br>
+                                    • Effect size estimates and variance explained
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Epistasis Analysis Protocol</div>
+                            <div class="step-details">
+                                Comprehensive interaction testing framework
+                                <div class="step-specs">
+                                    <strong>GLM Analysis in R:</strong><br>
+                                    <code># Extract genotypes at QTL markers</code><br>
+                                    <code>geno <- pull.geno(cross)</code><br>
+                                    <code># Test all pairwise interactions</code><br>
+                                    <code>for(i in 1:49) {</code><br>
+                                    <code>  for(j in (i+1):49) {</code><br>
+                                    <code>    model <- lm(trait ~ sex + family + marker.i * marker.j)</code><br>
+                                    <code>    # Extract interaction p-value and effect size</code><br>
+                                    <code>  }</code><br>
+                                    <code>}</code><br>
+                                    <strong>Multiple Testing Correction:</strong><br>
+                                    • Bonferroni adjustment for multiple comparisons<br>
+                                    • FDR control for interaction discovery<br>
+                                    • Permutation-based significance assessment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Expected Analysis Outputs</div>
+                    <div class="step-details">
+                        <strong>Key Results to Replicate:</strong>
+                        <ul>
+                            <li><strong>QTL detection:</strong> 10+ significant QTL for body weight</li>
+                            <li><strong>Variance explained:</strong> 34.9% for individual QTL effects</li>
+                            <li><strong>Major QTL:</strong> Chromosome 7 at 28 cM (F = 25.91)</li>
+                            <li><strong>Epistasis:</strong> 32.9% additional variance from interactions</li>
+                            <li><strong>Total variance:</strong> 64.4% for body weight (QTL + epistasis)</li>
+                            <li><strong>Hormone QTL:</strong> IGF-I (Chr 10), leptin (Chr 14), insulin (Chr 4)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-validation">
+                <div class="section-title">✅ Results Validation and Troubleshooting</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Critical Validation Points</div>
+                        <div class="step-details">
+                            <strong>QTL Mapping Validation:</strong>
+                            <ul>
+                                <li><strong>Peak positions:</strong> Verify chromosome 7 QTL at 28 cM</li>
+                                <li><strong>F-statistics:</strong> Match reported F-values within 5%</li>
+                                <li><strong>Effect sizes:</strong> Additive effects should match Table 5</li>
+                                <li><strong>Variance explained:</strong> Individual QTL percentages</li>
+                                <li><strong>Multiple QTL:</strong> Detect two QTL on chromosomes 11 and 13</li>
+                                <li><strong>Confidence intervals:</strong> 1-LOD support regions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Epistasis Validation</div>
+                        <div class="step-details">
+                            <strong>Interaction Analysis Checks:</strong>
+                            <ul>
+                                <li><strong>Highly significant interactions:</strong> P < 0.001 effects</li>
+                                <li><strong>Variance contributions:</strong> 20-36% additional variance</li>
+                                <li><strong>Multi-trait effects:</strong> C18-50 × CX-16 interactions</li>
+                                <li><strong>Coordinate regulation:</strong> Same marker pairs affect correlated traits</li>
+                                <li><strong>Total variance:</strong> Combined QTL + epistasis effects</li>
+                                <li><strong>Statistical thresholds:</strong> Appropriate multiple testing correction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Common Issues and Solutions</div>
+                        <div class="step-details">
+                            <strong>Troubleshooting Guide:</strong>
+                            <ul>
+                                <li><strong>Low F-statistics:</strong> Check fixed effects model and data transformations</li>
+                                <li><strong>Missing QTL:</strong> Verify marker map distances and positions</li>
+                                <li><strong>Inflated interactions:</strong> Ensure proper multiple testing correction</li>
+                                <li><strong>Software compatibility:</strong> Use R/qtl version compatible with methods</li>
+                                <li><strong>Computational time:</strong> Use parallel processing for permutations</li>
+                                <li><strong>Memory issues:</strong> Process epistasis analysis in batches</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-biological-significance">
+                <div class="section-title">🧬 Biological Significance and Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Revolutionary Insights</div>
+                    <p>This study fundamentally changed our understanding of complex trait genetics by demonstrating that epistatic interactions contribute as much variance as individual QTL effects. The finding that two-thirds of phenotypic variance could be explained through genetic analysis was unprecedented and showed the power of comprehensive interaction analysis.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Genetic Architecture Insights</div>
+                        <div class="step-details">
+                            <strong>Key Discoveries:</strong>
+                            <ul>
+                                <li><strong>Epistasis importance:</strong> 20-36% additional variance beyond additive effects</li>
+                                <li><strong>Network effects:</strong> Genes work in coordinated networks, not independently</li>
+                                <li><strong>Pleiotropy patterns:</strong> Single genes affect multiple related traits</li>
+                                <li><strong>Trait correlations:</strong> Genetic basis for phenotypic correlations</li>
+                                <li><strong>Selection response:</strong> Correlated responses explained by pleiotropic QTL</li>
+                                <li><strong>Missing heritability:</strong> Interactions explain previously unexplained variance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Methodological Advances</div>
+                        <div class="step-details">
+                            <strong>Technical Contributions:</strong>
+                            <ul>
+                                <li><strong>Systematic epistasis:</strong> First comprehensive QTL interaction analysis</li>
+                                <li><strong>Multi-trait modeling:</strong> Simultaneous analysis of correlated traits</li>
+                                <li><strong>Variance decomposition:</strong> Quantifying relative contributions</li>
+                                <li><strong>Statistical framework:</strong> Appropriate thresholds for interaction testing</li>
+                                <li><strong>Biological validation:</strong> Candidate gene support for QTL</li>
+                                <li><strong>Experimental design:</strong> F₂ intercross optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Broader Implications</div>
+                        <div class="step-details">
+                            <strong>Field Impact:</strong>
+                            <ul>
+                                <li><strong>Complex trait genetics:</strong> Paradigm shift toward interaction analysis</li>
+                                <li><strong>Animal breeding:</strong> Importance of epistasis in selection programs</li>
+                                <li><strong>Human genetics:</strong> Framework for disease susceptibility interactions</li>
+                                <li><strong>Evolutionary biology:</strong> Role of epistasis in adaptation</li>
+                                <li><strong>Systems biology:</strong> Network approaches to trait regulation</li>
+                                <li><strong>Precision medicine:</strong> Multi-gene interaction effects in treatment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Study Limitations and Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis">
+                    </div>
+    </div>
+</body>
+</html>
