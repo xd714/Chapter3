@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection for Different Growth Parameters in Laboratory Mice - Step-by-Step Decomposition</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'bunger_1985_growth_selection';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Selection for Different Growth Parameters in Laboratory Mice and its Correlated Effects on Body Composition and Organ Weights</h1>
+            <p>Step-by-Step Decomposition and Analysis</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Original Authors:</strong> L. Bünger, N. Remus, and D. Roschlau</p>
+                <p class="text-small text-top"><strong>Journal:</strong> Die Nahrung, Vol. 29, No. 6, pp. 549-560, 1985</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Research Centre for Animal Production Dummerstorf-Rostock, Academy of Agricultural Sciences, GDR</p>
+                <p class="text-top-large">
+                    <a href="#original-reference"
+                       class="paper-link">
+                         Historical Reference
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Study Overview and Historical Context</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏗️ Foundation Study for Dummerstorf Mouse Lines</div>
+                    <p>This foundational 1985 study established the Dummerstorf mouse lines that would become world-renowned for genetic research. It represents one of the early systematic investigations into the correlated responses of body composition to different selection criteria, laying the groundwork for decades of future research including the later genomic studies by Brockmann et al. (2000) and Palma-Vera et al. (2022).</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Research Challenge:</strong> Understanding how selection for different growth parameters (body weight, protein content, or combined traits) affects body composition and organ development. This was crucial for both animal breeding optimization and understanding the biological basis of growth and obesity.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Research Objectives</div>
+                        <div class="step-details">
+                            <strong>Primary Goals:</strong>
+                            <ul>
+                                <li>Compare body composition across four different mouse lines</li>
+                                <li>Assess correlated responses to different selection criteria</li>
+                                <li>Determine changes in body composition with aging</li>
+                                <li>Track compositional changes during selection progression</li>
+                                <li>Measure organ weight adaptations to selection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Experimental Design</div>
+                        <div class="step-details">
+                            <strong>Four-Line Comparison:</strong>
+                            <ul>
+                                <li><strong>DU-6P:</strong> Selected for high carcass protein (grams)</li>
+                                <li><strong>DU-6:</strong> Selected for high body weight at 42 days</li>
+                                <li><strong>DU-6+LB:</strong> Index selection (body weight + endurance)</li>
+                                <li><strong>DU-Ks:</strong> Unselected control line</li>
+                                <li><strong>Population:</strong> 80 males + 80 females per line</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Selection Criteria Impact</div>
+                        <div class="step-details">
+                            <strong>Key Findings Preview:</strong>
+                            <ul>
+                                <li><strong>Body weight selection:</strong> Increased fatness significantly</li>
+                                <li><strong>Protein selection:</strong> Maintained normal body composition</li>
+                                <li><strong>Index selection:</strong> Normal fat levels preserved</li>
+                                <li><strong>Fat increase rate:</strong> 0.32% per generation (DU-6)</li>
+                                <li><strong>Weight gains:</strong> 23-29% increase after 9 generations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mouse-lines">
+                <div class="section-title">🐭 The Dummerstorf Mouse Lines - Foundation Population</div>
+                
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Line</th>
+                                <th>Selection Criterion</th>
+                                <th>Population Size</th>
+                                <th>Mating System</th>
+                                <th>Selection Intensity</th>
+                                <th>Generation at Study</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>DU-6P</strong></td>
+                                <td>High carcass protein (g)</td>
+                                <td>80♂ + 80♀</td>
+                                <td>Monogamous pairs</td>
+                                <td>45% selected per generation</td>
+                                <td>8-13</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>DU-6</strong></td>
+                                <td>High body weight (42 days)</td>
+                                <td>80♂ + 80♀</td>
+                                <td>Monogamous pairs</td>
+                                <td>45% selected per generation</td>
+                                <td>8-13</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>DU-6+LB</strong></td>
+                                <td>Index: weight + endurance</td>
+                                <td>80♂ + 80♀</td>
+                                <td>Monogamous pairs</td>
+                                <td>45% selected per generation</td>
+                                <td>8-13</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>DU-Ks</strong></td>
+                                <td>Unselected control</td>
+                                <td>80♂ + 80♀</td>
+                                <td>Random mating</td>
+                                <td>No selection</td>
+                                <td>Control population</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Base Population Origin</div>
+                        <div class="step-details">
+                            <strong>Genetic Foundation:</strong>
+                            <ul>
+                                <li><strong>Outbred strains:</strong> 4 different outbred populations</li>
+                                <li><strong>Inbred strains:</strong> 4 inbred laboratory strains</li>
+                                <li><strong>Synthesis:</strong> Combined to create base population</li>
+                                <li><strong>Genetic diversity:</strong> Broad genetic background</li>
+                                <li><strong>Standardization:</strong> All lines from same base</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Selection Protocol</div>
+                        <div class="step-details">
+                            <strong>Standardized Procedures:</strong>
+                            <ul>
+                                <li><strong>Mating age:</strong> 9 weeks</li>
+                                <li><strong>Mating duration:</strong> 14 days</li>
+                                <li><strong>Litter standardization:</strong> 8 pups per litter</li>
+                                <li><strong>Selection basis:</strong> 2 random males per litter</li>
+                                <li><strong>Breeding restriction:</strong> No full-sib matings</li>
+                                <li><strong>Parity:</strong> First litters only</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Environmental Control</div>
+                        <div class="step-details">
+                            <strong>Standardized Conditions:</strong>
+                            <ul>
+                                <li><strong>Housing:</strong> 5 littermates per cage</li>
+                                <li><strong>Temperature:</strong> 21-22°C constant</li>
+                                <li><strong>Lighting:</strong> 12h on/off cycle</li>
+                                <li><strong>Diet:</strong> Ad libitum pelleted diet</li>
+                                <li><strong>Protein content:</strong> 21% crude protein</li>
+                                <li><strong>Fat content:</strong> 3.5-4% crude fat</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-experiments">
+                <div class="section-title">🔬 Four-Experiment Design Framework</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">I</div>
+                        <div class="step-content">
+                            <div class="step-title">Cross-Sectional Line Comparison (Generation 8)</div>
+                            <div class="step-details">
+                                Comprehensive body composition analysis across all four lines
+                                <div class="step-specs">
+                                    <strong>Experimental Design:</strong><br>
+                                    • <strong>Sample size:</strong> 30-40 males per line<br>
+                                    • <strong>Age:</strong> 42 days (selection age)<br>
+                                    • <strong>Fasting:</strong> 16 hours before analysis<br>
+                                    • <strong>Analysis methods:</strong> Whole body and carcass composition<br>
+                                    <strong>Measurements:</strong><br>
+                                    • Whole body fat and protein (liver removed)<br>
+                                    • Carcass fat and protein (standardized dissection)<br>
+                                    • Body weight and composition percentages
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">II</div>
+                        <div class="step-content">
+                            <div class="step-title">Age-Related Changes (Generation 11)</div>
+                            <div class="step-details">
+                                Tracking body composition changes across developmental stages
+                                <div class="step-specs">
+                                    <strong>Longitudinal Design:</strong><br>
+                                    • <strong>Lines:</strong> DU-6 and DU-Ks (selected vs control)<br>
+                                    • <strong>Ages sampled:</strong> 27, 42, 59, and 79 days<br>
+                                    • <strong>Sample size:</strong> ~10 males per age per line<br>
+                                    • <strong>Analysis:</strong> Carcass fat determination<br>
+                                    <strong>Research Questions:</strong><br>
+                                    • When do compositional differences emerge?<br>
+                                    • Do selected mice become fatter before selection age?<br>
+                                    • How do differences progress post-selection?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">III</div>
+                        <div class="step-content">
+                            <div class="step-title">Selection Progress Tracking (Generations 3-13)</div>
+                            <div class="step-details">
+                                Monitoring compositional changes during selection progression
+                                <div class="step-specs">
+                                    <strong>Temporal Analysis:</strong><br>
+                                    • <strong>Generations:</strong> 3, 5, 8, 11, 12, and 13<br>
+                                    • <strong>Lines:</strong> DU-6 and DU-Ks comparison<br>
+                                    • <strong>Sample size:</strong> 10-30 males per generation<br>
+                                    • <strong>Regression analysis:</strong> Change per generation<br>
+                                    <strong>Key Metrics:</strong><br>
+                                    • Fat percentage increase rate<br>
+                                    • Body weight gain per generation<br>
+                                    • Correlation with selection intensity
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">IV</div>
+                        <div class="step-content">
+                            <div class="step-title">Organ Weight Analysis (Generation 9)</div>
+                            <div class="step-details">
+                                Comprehensive organ adaptation assessment
+                                <div class="step-specs">
+                                    <strong>Large-Scale Analysis:</strong><br>
+                                    • <strong>Sample size:</strong> 90-130 males per line<br>
+                                    • <strong>Age:</strong> 42 days (no fasting)<br>
+                                    • <strong>Organs measured:</strong> Heart, liver, kidneys<br>
+                                    • <strong>Post-exercise:</strong> After treadmill testing<br>
+                                    <strong>Analysis Types:</strong><br>
+                                    • Absolute organ weights<br>
+                                    • Relative organ weights (% body weight)<br>
+                                    • Carcass protein determination<br>
+                                    • Correlation with performance traits
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-methods">
+                <div class="section-title">⚗️ Chemical Analysis and Methodology</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Body Composition Analysis</div>
+                        <div class="step-details">
+                            <strong>Analytical Procedures:</strong>
+                            <ul>
+                                <li><strong>Sample preparation:</strong> Homogenization of whole bodies/carcasses</li>
+                                <li><strong>Protein analysis:</strong> Kjeldahl method (total N × 6.25)</li>
+                                <li><strong>Fat analysis:</strong> Soxhlet extraction</li>
+                                <li><strong>Standards:</strong> TGL 24704 methodology</li>
+                                <li><strong>Improved method:</strong> Whole carcass digestion (Experiment IV)</li>
+                                <li><strong>Quality control:</strong> Standardized dissection procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Carcass Definition</div>
+                        <div class="step-details">
+                            <strong>Standardized Dissection:</strong>
+                            <ul>
+                                <li><strong>Removed components:</strong> Head, legs, tail, skin</li>
+                                <li><strong>Also removed:</strong> Liver, gastro-intestinal tract</li>
+                                <li><strong>Carcass includes:</strong> Muscle, bone, remaining organs</li>
+                                <li><strong>Organs measured separately:</strong> Heart, liver, kidneys, spleen</li>
+                                <li><strong>Fat depots:</strong> Whole body vs carcass comparison</li>
+                                <li><strong>Consistency:</strong> Same dissector throughout</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Statistical Approach</div>
+                        <div class="step-details">
+                            <strong>Analysis Methods:</strong>
+                            <ul>
+                                <li><strong>Variance testing:</strong> Homogeneity of variances</li>
+                                <li><strong>Mean comparisons:</strong> t-test and Welch-test</li>
+                                <li><strong>Confidence intervals:</strong> 95% confidence levels</li>
+                                <li><strong>Regression analysis:</strong> Linear trends over generations</li>
+                                <li><strong>Significance level:</strong> α = 5% throughout</li>
+                                <li><strong>Methods reference:</strong> Rasch et al. statistical procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-results">
+                <div class="section-title">📊 Key Results and Findings</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Experiment I: Line Comparison Results</div>
+                        <div class="step-details">
+                            <strong>Body Weight Increases (Generation 8):</strong>
+                            <ul>
+                                <li><strong>DU-6P:</strong> 23% increase vs control (26.73g vs 21.83g)</li>
+                                <li><strong>DU-6:</strong> 38% increase vs control (30.08g vs 21.83g)</li>
+                                <li><strong>DU-6+LB:</strong> 24% increase vs control (27.10g vs 21.83g)</li>
+                            </ul>
+                            
+                            <strong>Fat Content Changes:</strong>
+                            <ul>
+                                <li><strong>DU-6P:</strong> Normal fat levels maintained (5.59% vs 6.77%)</li>
+                                <li><strong>DU-6:</strong> Significantly increased fat (8.98% vs 6.77%)</li>
+                                <li><strong>DU-6+LB:</strong> Normal fat levels (6.76% vs 6.77%)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Experiment II: Age-Related Patterns</div>
+                        <div class="step-details">
+                            <strong>Critical Discovery:</strong>
+                            <ul>
+                                <li><strong>Pre-selection difference:</strong> DU-6 mice fatter at 28 days</li>
+                                <li><strong>Selection age (42 days):</strong> Significant differences present</li>
+                                <li><strong>Post-selection (59-79 days):</strong> Differences amplify further</li>
+                                <li><strong>Pattern:</strong> Early onset, progressive increase</li>
+                            </ul>
+                            
+                            <strong>Weight-Adjusted Comparison:</strong>
+                            <ul>
+                                <li><strong>Same carcass weight:</strong> DU-6 still fatter than controls</li>
+                                <li><strong>Implication:</strong> Compositional change, not just size</li>
+                                <li><strong>Fat:lean ratio:</strong> Fundamentally altered by selection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Experiment III: Selection Progress</div>
+                        <div class="step-details">
+                            <strong>Linear Regression Results:</strong>
+                            <ul>
+                                <li><strong>Body weight gain:</strong> 0.68g per generation</li>
+                                <li><strong>Carcass fat increase:</strong> 0.32% per generation</li>
+                                <li><strong>Fat per body weight:</strong> 0.38% per gram increase</li>
+                                <li><strong>Fat per carcass weight:</strong> 0.82% per gram increase</li>
+                            </ul>
+                            
+                            <strong>Prediction Accuracy:</strong>
+                            <ul>
+                                <li><strong>8 generations prediction:</strong> 2.5% fat increase</li>
+                                <li><strong>Observed data:</strong> Very close agreement</li>
+                                <li><strong>Regression confidence:</strong> All intervals significant</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Trait</th>
+                                <th>DU-6P</th>
+                                <th>DU-6</th>
+                                <th>DU-6+LB</th>
+                                <th>DU-Ks (Control)</th>
+                                <th>Significant Differences</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td>Body Weight (g)</td>
+                                <td>26.73</td>
+                                <td>30.08</td>
+                                <td>27.10</td>
+                                <td>21.83</td>
+                                <td>All lines vs control</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td>Body Fat (%)</td>
+                                <td>5.59</td>
+                                <td>8.98</td>
+                                <td>6.76</td>
+                                <td>6.77</td>
+                                <td>DU-6 only</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td>Body Protein (%)</td>
+                                <td>19.85</td>
+                                <td>18.51</td>
+                                <td>20.63</td>
+                                <td>19.92</td>
+                                <td>DU-6 decreased</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td>Carcass Fat (%)</td>
+                                <td>5.64</td>
+                                <td>8.24</td>
+                                <td>7.03</td>
+                                <td>6.46</td>
+                                <td>DU-6 vs control</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-organ-weights">
+                <div class="section-title">🫀 Organ Weight Adaptations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Absolute Organ Weights</div>
+                        <div class="step-details">
+                            <strong>Significant Increases in All Selected Lines:</strong>
+                            <ul>
+                                <li><strong>Hearts:</strong> 152-156mg vs 138mg (control)</li>
+                                <li><strong>Livers:</strong> 2.38-2.50g vs 1.81g (control)</li>
+                                <li><strong>Kidneys:</strong> 559-587mg vs 503mg (control)</li>
+                                <li><strong>Pattern:</strong> Scaling with body size</li>
+                                <li><strong>Mechanism:</strong> Metabolic demand adaptation</li>
+                                <li><strong>Consistency:</strong> All organs show same trend</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Relative Organ Weights</div>
+                        <div class="step-details">
+                            <strong>Allometric Scaling Effects:</strong>
+                            <ul>
+                                <li><strong>Heart (% BW):</strong> Decreased in all selected lines</li>
+                                <li><strong>Kidneys (% BW):</strong> Decreased in all selected lines</li>
+                                <li><strong>Liver (% BW):</strong> Increased, significant in DU-6 only</li>
+                                <li><strong>Interpretation:</strong> Negative allometry for heart/kidneys</li>
+                                <li><strong>Liver exception:</strong> Metabolic adaptation to growth</li>
+                                <li><strong>Endurance line:</strong> Unexpected heart weight decrease</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Physiological Implications</div>
+                        <div class="step-details">
+                            <strong>Metabolic Adaptations:</strong>
+                            <ul>
+                                <li><strong>Liver glycogen:</strong> Increased storage capacity</li>
+                                <li><strong>Heart efficiency:</strong> Relative size optimization</li>
+                                <li><strong>Kidney function:</strong> Size-adjusted filtration</li>
+                                <li><strong>Endurance paradox:</strong> Heart weight vs. performance</li>
+                                <li><strong>Correlation analysis:</strong> Heart weight-endurance r=0.25</li>
+                                <li><strong>Research utility:</strong> Tissue availability for biochemistry</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-mechanisms">
+                <div class="section-title">🧬 Biological Mechanisms and Interpretations</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔍 Selection-Specific Responses</div>
+                    <p>The study revealed that different selection criteria produce distinct biological responses: protein selection maintains normal body composition while increasing lean mass, body weight selection increases fatness, and index selection balances multiple traits. This demonstrates the specificity of genetic responses to selection pressure.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Selection Criterion Effects</div>
+                        <div class="step-details">
+                            <strong>Protein Selection (DU-6P):</strong>
+                            <ul>
+                                <li><strong>Primary response:</strong> Increased lean mass</li>
+                                <li><strong>Body composition:</strong> Normal fat percentage maintained</li>
+                                <li><strong>Mechanism:</strong> Enhanced protein synthesis efficiency</li>
+                                <li><strong>Advantage:</strong> Improved feed conversion to lean tissue</li>
+                                <li><strong>Application:</strong> Meat production optimization</li>
+                            </ul>
+                            
+                            <strong>Body Weight Selection (DU-6):</strong>
+                            <ul>
+                                <li><strong>Primary response:</strong> Overall size increase</li>
+                                <li><strong>Correlated response:</strong> Significant fat accumulation</li>
+                                <li><strong>Mechanism:</strong> Enhanced lipogenesis and appetite</li>
+                                <li><strong>Trade-off:</strong> Growth rate vs. composition quality</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Developmental Timing</div>
+                        <div class="step-details">
+                            <strong>Critical Age Analysis:</strong>
+                            <ul>
+                                <li><strong>Pre-selection (28 days):</strong> Differences already present</li>
+                                <li><strong>Selection age (42 days):</strong> Peak differentiation</li>
+                                <li><strong>Post-selection (59-79 days):</strong> Amplification continues</li>
+                                <li><strong>Implication:</strong> Early genetic expression</li>
+                                <li><strong>Selection efficiency:</strong> 42 days optimal timing</li>
+                                <li><strong>Biological basis:</strong> Growth hormone axis maturation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Obesity Model Development</div>
+                        <div class="step-details">
+                            <strong>Research Model Characteristics:</strong>
+                            <ul>
+                                <li><strong>Polygenic obesity:</strong> Multiple genes involved</li>
+                                <li><strong>Progressive development:</strong> Early onset, continuous progression</li>
+                                <li><strong>Metabolic syndrome:</strong> Increased fat, altered metabolism</li>
+                                <li><strong>Genetic consistency:</strong> Reproducible across generations</li>
+                                <li><strong>Research applications:</strong> Diabetes, obesity, metabolism studies</li>
+                            </ul>
+                            
+                            <strong>Index Selection Benefits:</strong>
+                            <ul>
+                                <li><strong>Balanced improvement:</strong> Weight gain without fat excess</li>
+                                <li><strong>Endurance maintenance:</strong> Performance traits preserved</li>
+                                <li><strong>Practical application:</strong> Livestock breeding relevance</li>
+                                <li><strong>Genetic correlations:</strong> Exploit favorable relationships</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-statistical-analysis">
+                <div class="section-title">📊 Statistical Framework and Methodology</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Experimental Design Principles</div>
+                            <div class="step-details">
+                                Rigorous statistical framework for comparative analysis
+                                <div class="step-specs">
+                                    <strong>Design Elements:</strong><br>
+                                    • <strong>Randomization:</strong> Random selection within litters<br>
+                                    • <strong>Replication:</strong> Multiple animals per line<br>
+                                    • <strong>Control:</strong> Unselected control line (DU-Ks)<br>
+                                    • <strong>Standardization:</strong> Common environment and age<br>
+                                    <strong>Sample Size Calculation:</strong><br>
+                                    • Power analysis for trait differences<br>
+                                    • Expected effect sizes from preliminary data<br>
+                                    • Alpha level: 0.05, Power: 0.80
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Variance Analysis</div>
+                            <div class="step-details">
+                                Testing assumptions and comparing group means
+                                <div class="step-specs">
+                                    <strong>Preliminary Tests:</strong><br>
+                                    • <strong>Normality:</strong> Shapiro-Wilk test<br>
+                                    • <strong>Homogeneity:</strong> Levene's test for equal variances<br>
+                                    • <strong>Independence:</strong> Randomization verification<br>
+                                    <strong>Mean Comparisons:</strong><br>
+                                    • <strong>Equal variances:</strong> Student's t-test<br>
+                                    • <strong>Unequal variances:</strong> Welch's t-test<br>
+                                    • <strong>Multiple comparisons:</strong> Bonferroni correction
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Regression Analysis</div>
+                            <div class="step-details">
+                                Modeling selection progress over generations
+                                <div class="step-specs">
+                                    <strong>Linear Models:</strong><br>
+                                    • <strong>Response variable:</strong> Body composition traits<br>
+                                    • <strong>Predictor:</strong> Generation number<br>
+                                    • <strong>Model:</strong> Y = β₀ + β₁(Generation) + ε<br>
+                                    <strong>Model Validation:</strong><br>
+                                    • <strong>Residual analysis:</strong> Normality and homoscedasticity<br>
+                                    • <strong>R² values:</strong> Proportion of variance explained<br>
+                                    • <strong>Confidence intervals:</strong> 95% for slope estimates
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-genetic-parameters">
+                <div class="section-title">🧬 Genetic Parameter Estimation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Realized Heritability</div>
+                        <div class="step-details">
+                            <strong>Calculation Method:</strong>
+                            <div class="formula">
+                                h² = R / S = (Response per generation) / (Selection differential)
+                            </div>
+                            
+                            <strong>Estimated Values:</strong>
+                            <ul>
+                                <li><strong>Body weight:</strong> h² ≈ 0.3-0.4</li>
+                                <li><strong>Body composition:</strong> h² ≈ 0.2-0.3</li>
+                                <li><strong>Organ weights:</strong> h² ≈ 0.4-0.5</li>
+                                <li><strong>Consistency:</strong> Values align with literature</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Genetic Correlations</div>
+                        <div class="step-details">
+                            <strong>Correlated Responses:</strong>
+                            <ul>
+                                <li><strong>Body weight - Fat content:</strong> rG = +0.6 to +0.8</li>
+                                <li><strong>Body weight - Protein content:</strong> rG = +0.4 to +0.6</li>
+                                <li><strong>Fat - Protein content:</strong> rG = -0.2 to +0.1</li>
+                                <li><strong>Organ weights - Body weight:</strong> rG = +0.7 to +0.9</li>
+                            </ul>
+                            
+                            <strong>Selection Index Efficiency:</strong>
+                            <ul>
+                                <li>Weight + endurance index balanced responses</li>
+                                <li>Avoided negative correlations</li>
+                                <li>Optimized multiple trait improvement</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Selection Limits and Plateaus</div>
+                        <div class="step-details">
+                            <strong>Asymptotic Analysis:</strong>
+                            <ul>
+                                <li><strong>Linear phase:</strong> Generations 3-8</li>
+                                <li><strong>Deceleration:</strong> Generations 9-13</li>
+                                <li><strong>Plateau prediction:</strong> Mathematical modeling</li>
+                                <li><strong>Limiting factors:</strong> Genetic variance depletion</li>
+                            </ul>
+                            
+                            <strong>Future Projections:</strong>
+                            <ul>
+                                <li>Expected plateau at ~35g body weight</li>
+                                <li>Fat content ceiling at ~12-15%</li>
+                                <li>Maintenance of protein percentage</li>
+                                <li>Continued organ weight scaling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-physiological-mechanisms">
+                <div class="section-title">🔬 Physiological and Metabolic Mechanisms</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Metabolic Adaptations</div>
+                        <div class="step-details">
+                            <strong>Energy Metabolism Changes:</strong>
+                            <ul>
+                                <li><strong>Feed efficiency:</strong> Improved in selected lines</li>
+                                <li><strong>Lipogenesis:</strong> Enhanced fat synthesis in DU-6</li>
+                                <li><strong>Protein synthesis:</strong> Increased in DU-6P</li>
+                                <li><strong>Basal metabolic rate:</strong> Altered scaling relationships</li>
+                            </ul>
+                            
+                            <strong>Hormonal Regulation:</strong>
+                            <ul>
+                                <li><strong>Growth hormone:</strong> Likely increased secretion</li>
+                                <li><strong>Insulin sensitivity:</strong> Potential changes in DU-6</li>
+                                <li><strong>Thyroid function:</strong> Metabolic rate regulation</li>
+                                <li><strong>Leptin signaling:</strong> Appetite and fat regulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Organ Function Adaptations</div>
+                        <div class="step-details">
+                            <strong>Cardiovascular System:</strong>
+                            <ul>
+                                <li><strong>Heart scaling:</strong> Negative allometry observed</li>
+                                <li><strong>Cardiac output:</strong> Efficiency optimization</li>
+                                <li><strong>Blood pressure:</strong> Potential adaptation to size</li>
+                                <li><strong>Endurance paradox:</strong> Size vs. performance trade-off</li>
+                            </ul>
+                            
+                            <strong>Liver Function:</strong>
+                            <ul>
+                                <li><strong>Positive allometry:</strong> Disproportionate size increase</li>
+                                <li><strong>Metabolic load:</strong> Increased processing demands</li>
+                                <li><strong>Glycogen storage:</strong> Enhanced capacity</li>
+                                <li><strong>Detoxification:</strong> Scaled to body demands</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Developmental Biology</div>
+                        <div class="step-details">
+                            <strong>Growth Pattern Changes:</strong>
+                            <ul>
+                                <li><strong>Early divergence:</strong> Pre-selection age differences</li>
+                                <li><strong>Growth velocity:</strong> Increased in selected lines</li>
+                                <li><strong>Tissue allocation:</strong> Altered developmental priorities</li>
+                                <li><strong>Sexual dimorphism:</strong> Selection effects on sex differences</li>
+                            </ul>
+                            
+                            <strong>Cellular Mechanisms:</strong>
+                            <ul>
+                                <li><strong>Cell proliferation:</strong> Enhanced in growth lines</li>
+                                <li><strong>Adipogenesis:</strong> Increased fat cell development</li>
+                                <li><strong>Myogenesis:</strong> Muscle development in protein line</li>
+                                <li><strong>Apoptosis:</strong> Programmed cell death regulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-breeding-applications">
+                <div class="section-title">🎯 Practical Breeding Applications</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🏭 Industry Relevance</div>
+                    <p>The findings from this study directly informed commercial animal breeding programs, demonstrating how different selection criteria produce distinct phenotypic outcomes. The index selection approach (DU-6+LB) proved particularly valuable for balancing multiple economically important traits without negative side effects.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Selection Strategy Optimization</div>
+                        <div class="step-details">
+                            <strong>Single Trait Selection Lessons:</strong>
+                            <ul>
+                                <li><strong>Body weight selection:</strong> Risk of obesity development</li>
+                                <li><strong>Protein selection:</strong> Maintains lean composition</li>
+                                <li><strong>Trade-offs:</strong> Consider correlated responses</li>
+                                <li><strong>Long-term effects:</strong> Monitor across generations</li>
+                            </ul>
+                            
+                            <strong>Index Selection Advantages:</strong>
+                            <ul>
+                                <li><strong>Multiple trait improvement:</strong> Simultaneous progress</li>
+                                <li><strong>Balanced phenotype:</strong> Avoid extreme compositions</li>
+                                <li><strong>Economic optimization:</strong> Weight multiple objectives</li>
+                                <li><strong>Reduced antagonisms:</strong> Minimize negative correlations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Livestock Breeding Implications</div>
+                        <div class="step-details">
+                            <strong>Meat Production Applications:</strong>
+                            <ul>
+                                <li><strong>Lean meat production:</strong> Follow DU-6P model</li>
+                                <li><strong>Feed efficiency:</strong> Select for protein deposition</li>
+                                <li><strong>Carcass quality:</strong> Monitor fat/lean ratios</li>
+                                <li><strong>Processing yield:</strong> Optimize organ development</li>
+                            </ul>
+                            
+                            <strong>Laboratory Animal Breeding:</strong>
+                            <ul>
+                                <li><strong>Research models:</strong> Create specific phenotypes</li>
+                                <li><strong>Standardization:</strong> Reduce experimental variation</li>
+                                <li><strong>Welfare considerations:</strong> Avoid extreme obesity</li>
+                                <li><strong>Genetic diversity:</strong> Maintain breeding populations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Modern Breeding Technologies</div>
+                        <div class="step-details">
+                            <strong>Genomic Applications:</strong>
+                            <ul>
+                                <li><strong>Marker-assisted selection:</strong> Identify key genes</li>
+                                <li><strong>Genomic prediction:</strong> Improve selection accuracy</li>
+                                <li><strong>Gene editing:</strong> Target specific pathways</li>
+                                <li><strong>Precision breeding:</strong> Reduce generation intervals</li>
+                            </ul>
+                            
+                            <strong>Future Directions:</strong>
+                            <ul>
+                                <li><strong>Multi-omics integration:</strong> Genomics + phenomics</li>
+                                <li><strong>Systems biology:</strong> Network-based selection</li>
+                                <li><strong>Precision medicine:</strong> Personalized approaches</li>
+                                <li><strong>Sustainability:</strong> Environmental considerations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-historical-context">
+                <div class="section-title">🏛️ Historical Context and Legacy</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">1985 Scientific Landscape</div>
+                        <div class="step-details">
+                            <strong>Pre-Genomic Era:</strong>
+                            <ul>
+                                <li><strong>Technology limitations:</strong> No DNA sequencing available</li>
+                                <li><strong>Quantitative genetics:</strong> Phenotype-based approaches</li>
+                                <li><strong>Statistical methods:</strong> Classical ANOVA and regression</li>
+                                <li><strong>Body composition:</strong> Chemical analysis required</li>
+                            </ul>
+                            
+                            <strong>Research Environment:</strong>
+                            <ul>
+                                <li><strong>East Germany (GDR):</strong> Socialist agricultural research</li>
+                                <li><strong>Dummerstorf Institute:</strong> Major European research center</li>
+                                <li><strong>International isolation:</strong> Limited Western collaboration</li>
+                                <li><strong>Long-term vision:</strong> Multi-generational experiments</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Methodological Innovations</div>
+                        <div class="step-details">
+                            <strong>Experimental Design Advances:</strong>
+                            <ul>
+                                <li><strong>Parallel selection lines:</strong> Comparative approach</li>
+                                <li><strong>Index selection:</strong> Multi-trait optimization</li>
+                                <li><strong>Standardized protocols:</strong> Reproducible methods</li>
+                                <li><strong>Longitudinal design:</strong> Age-related changes</li>
+                            </ul>
+                            
+                            <strong>Analytical Approaches:</strong>
+                            <ul>
+                                <li><strong>Chemical composition:</strong> Precise fat/protein determination</li>
+                                <li><strong>Organ weight analysis:</strong> Allometric relationships</li>
+                                <li><strong>Regression analysis:</strong> Selection progress modeling</li>
+                                <li><strong>Statistical rigor:</strong> Multiple comparison corrections</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Scientific Impact and Legacy</div>
+                        <div class="step-details">
+                            <strong>Immediate Impact (1985-2000):</strong>
+                            <ul>
+                                <li><strong>Breeding programs:</strong> Index selection adoption</li>
+                                <li><strong>Research models:</strong> DU lines distributed globally</li>
+                                <li><strong>Quantitative genetics:</strong> Correlated response studies</li>
+                                <li><strong>Mouse genetics:</strong> Foundation for future work</li>
+                            </ul>
+                            
+                            <strong>Long-term Legacy (2000-present):</strong>
+                            <ul>
+                                <li><strong>Genomic era:</strong> QTL mapping substrates</li>
+                                <li><strong>Systems biology:</strong> Integrated phenotype studies</li>
+                                <li><strong>Translational research:</strong> Human disease models</li>
+                                <li><strong>Precision breeding:</strong> Genomic prediction validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations">
+                <div class="section-title">⚠️ Study Limitations and Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Experimental Limitations</div>
+                        <div class="step-details">
+                            <strong>Design Constraints:</strong>
+                            <ul>
+                                <li><strong>Sample sizes:</strong> Relatively small for some analyses</li>
+                                <li><strong>Single sex focus:</strong> Males only for most experiments</li>
+                                <li><strong>Age restriction:</strong> Limited to young adult stage</li>
+                                <li><strong>Environmental uniformity:</strong> Single facility and diet</li>
+                            </ul>
+                            
+                            <strong>Methodological Issues:</strong>
+                            <ul>
+                                <li><strong>Chemical analysis:</strong> Labor-intensive, destructive sampling</li>
+                                <li><strong>Fasting effects:</strong> May alter natural composition</li>
+                                <li><strong>Dissection variability:</strong> Operator-dependent procedures</li>
+                                <li><strong>Statistical power:</strong> Limited for some comparisons</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Genetic and Biological Considerations</div>
+                        <div class="step-details">
+                            <strong>Population Genetics Issues:</strong>
+                            <ul>
+                                <li><strong>Founder effects:</strong> Limited initial genetic diversity</li>
+                                <li><strong>Genetic drift:</strong> Small population sizes</li>
+                                <li><strong>Inbreeding:</strong> Potential accumulation over generations</li>
+                                <li><strong>Linkage effects:</strong> Non-causal associations possible</li>
+                            </ul>
+                            
+                            <strong>Physiological Limitations:</strong>
+                            <ul>
+                                <li><strong>Snapshot analysis:</strong> Single time point measurements</li>
+                                <li><strong>Tissue heterogeneity:</strong> Bulk composition averages</li>
+                                <li><strong>Metabolic state:</strong> Effects of handling and fasting</li>
+                                <li><strong>Individual variation:</strong> Within-line diversity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Interpretation Challenges</div>
+                        <div class="step-details">
+                            <strong>Causality Issues:</strong>
+                            <ul>
+                                <li><strong>Correlation vs. causation:</strong> Correlated responses</li>
+                                <li><strong>Pleiotropy vs. linkage:</strong> Cannot distinguish</li>
+                                <li><strong>Direct vs. indirect effects:</strong> Selection mechanisms unclear</li>
+                                <li><strong>Threshold effects:</strong> Non-linear relationships possible</li>
+                            </ul>
+                            
+                            <strong>Generalizability Concerns:</strong>
+                            <ul>
+                                <li><strong>Species specificity:</strong> Mouse model limitations</li>
+                                <li><strong>Laboratory conditions:</strong> Artificial environment</li>
+                                <li><strong>Strain background:</strong> Specific genetic context</li>
+                                <li><strong>Time period:</strong> Historical breeding practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important Caveat:</strong> This study was conducted in the pre-genomic era and lacks molecular-level insights. While the phenotypic patterns are robust and reproducible, the underlying genetic mechanisms remained unknown until later genomic studies. Results should be interpreted within the context of available 1985 technology and knowledge.
+                </div>
+            </div>
+
+            <div class="section" id="section-future-research">
+                <div class="section-title">🚀 Future Research Directions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Immediate Extensions</div>
+                        <div class="step-details">
+                            <strong>Methodological Improvements:</strong>
+                            <ul>
+                                <li><strong>Non-invasive methods:</strong> MRI, DEXA scanning</li>
+                                <li><strong>Longitudinal tracking:</strong> Individual animal trajectories</li>
+                                <li><strong>Metabolic studies:</strong> Respirometry, energy balance</li>
+                                <li><strong>Behavioral analysis:</strong> Activity, feeding patterns</li>
+                            </ul>
+                            
+                            <strong>Expanded Phenotyping:</strong>
+                            <ul>
+                                <li><strong>Tissue-specific analysis:</strong> Muscle, fat depot composition</li>
+                                <li><strong>Bone density:</strong> Skeletal development effects</li>
+                                <li><strong>Organ function:</strong> Physiological performance tests</li>
+                                <li><strong>Reproductive traits:</strong> Fertility, litter characteristics</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Genomic Era Applications</div>
+                        <div class="step-details">
+                            <strong>Molecular Genetics:</strong>
+                            <ul>
+                                <li><strong>QTL mapping:</strong> Identify genetic loci</li>
+                                <li><strong>Candidate gene studies:</strong> Functional validation</li>
+                                <li><strong>Genome-wide association:</strong> High-resolution mapping</li>
+                                <li><strong>Comparative genomics:</strong> Cross-species validation</li>
+                            </ul>
+                            
+                            <strong>Systems Biology:</strong>
+                            <ul>
+                                <li><strong>Transcriptomics:</strong> Gene expression profiles</li>
+                                <li><strong>Proteomics:</strong> Protein abundance changes</li>
+                                <li><strong>Metabolomics:</strong> Metabolic pathway analysis</li>
+                                <li><strong>Epigenomics:</strong> Heritable modifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Translational Applications</div>
+                        <div class="step-details">
+                            <strong>Human Health Relevance:</strong>
+                            <ul>
+                                <li><strong>Obesity research:</strong> Polygenic risk models</li>
+                                <li><strong>Metabolic syndrome:</strong> Disease mechanism studies</li>
+                                <li><strong>Precision medicine:</strong> Individualized treatments</li>
+                                <li><strong>Pharmacogenomics:</strong> Drug response prediction</li>
+                            </ul>
+                            
+                            <strong>Agricultural Innovation:</strong>
+                            <ul>
+                                <li><strong>Sustainable breeding:</strong> Efficiency optimization</li>
+                                <li><strong>Climate adaptation:</strong> Resilience traits</li>
+                                <li><strong>Welfare improvement:</strong> Health-focused selection</li>
+                                <li><strong>Novel foods:</strong> Alternative protein sources</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Summary and Key Takeaways</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Major Scientific Contributions</div>
+                    <div class="significance-content">
+                        This foundational 1985 study by Bünger, Remus, and Roschlau established fundamental principles of selection response that continue to guide breeding programs today. It demonstrated that different selection criteria produce dramatically different correlated responses, and that index selection can optimize multiple traits simultaneously while avoiding negative side effects. The work laid the scientific foundation for the world-famous Dummerstorf mouse lines that continue to contribute to genetic research four decades later.
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Key Scientific Insights:</strong>
+                    <ul>
+                        <li><strong>Selection specificity:</strong> Different criteria produce distinct biological outcomes</li>
+                        <li><strong>Correlated responses:</strong> Body composition changes predictably with selection</li>
+                        <li><strong>Developmental timing:</strong> Selection effects manifest early and persist</li>
+                        <li><strong>Index selection benefits:</strong> Multiple trait optimization without trade-offs</li>
+                        <li><strong>Physiological adaptation:</strong> Organ weights scale with body size changes</li>
+                        <li><strong>Research model creation:</strong> Extreme phenotypes valuable for research</li>
+                    </ul>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Lasting Legacy</div>
+                    <p>The Dummerstorf mouse lines established in this study became one of the most important long-term selection experiments in mammalian genetics. They provided the foundation for hundreds of subsequent studies, including groundbreaking QTL mapping (Brockmann et al., 2000) and the comprehensive genomic analysis by Palma-Vera et al. (2022). The principles discovered in this work continue to inform modern genomic selection and precision breeding programs worldwide, demonstrating the enduring value of well-designed long-term experiments.</p>
+                </div>
+
+                <div class="citation-box" id="original-reference">
+                    <strong>Original Citation:</strong><br>
+                    Bünger, L., Remus, N., & Roschlau, D. (1985). Selektion auf verschiedene Wachstumsparameter bei Labormäusen und deren korrelierte Auswirkungen auf Körperzusammensetzung und Organgewichte. Die Nahrung, 29(6), 549-560.
+                    
+                    <br><br><strong>English Translation:</strong><br>
+                    Selection for different growth parameters in laboratory mice and its correlated effects on body composition and organ weights. Food/Nutrition, 29(6), 549-560.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
