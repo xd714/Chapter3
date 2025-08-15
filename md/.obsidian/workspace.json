@@ -8,133 +8,91 @@
         "type": "tabs",
         "children": [
           {
-            "id": "04a8a057ce06a486",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "4. Why use BV as phenotype not residual.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "4. Why use BV as phenotype not residual"
-            }
-          },
-          {
-            "id": "582dc6f7ac45d53f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "5. Results.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5. Results"
-            }
-          },
-          {
-            "id": "e2ca189727e32887",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "4. Why use BV as phenotype not residual.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "4. Why use BV as phenotype not residual"
-            }
-          },
-          {
-            "id": "1318db8180249357",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "5. Results.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5. Results"
-            }
-          },
-          {
-            "id": "8341a309ea454b89",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3.1 reasons considering MSE and how to calculate its PEV.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "3.1 reasons considering MSE and how to calculate its PEV"
-            }
-          },
-          {
-            "id": "920b55f3d81d88bf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2. literatures dBV as phnotype in GWAs.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "2. literatures dBV as phnotype in GWAs"
-            }
-          },
-          {
-            "id": "cd4c2096a97c820a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2.5 bayesian_methods_equations.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "2.5 bayesian_methods_equations"
-            }
-          },
-          {
-            "id": "ddfcaca0f77c8b44",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects"
-            }
-          },
-          {
             "id": "87dbf06d8e7a6601",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3.3 why conception rate is not ok.md",
+                "file": "Thesis/Chap1_Marvin Gertz_doctorthesis_pipeline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3.3 why conception rate is not ok"
+              "title": "Chap1_Marvin Gertz_doctorthesis_pipeline"
+            }
+          },
+          {
+            "id": "c04448fddf66d376",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Thesis/Chap2_Marvin Gertz_doctorthesis_pipeline.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chap2_Marvin Gertz_doctorthesis_pipeline"
+            }
+          },
+          {
+            "id": "17742d443f361d57",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Thesis/Chap3_Marvin Gertz_doctorthesis_pipeline.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chap3_Marvin Gertz_doctorthesis_pipeline"
+            }
+          },
+          {
+            "id": "bb76b972dc1ad112",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Thesis/Chap4_Marvin Gertz_doctorthesis_pipeline.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chap4_Marvin Gertz_doctorthesis_pipeline"
+            }
+          },
+          {
+            "id": "b21ce93fa42525a6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Thesis/Chap5_Marvin Gertz_doctorthesis_pipeline.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chap5_Marvin Gertz_doctorthesis_pipeline"
+            }
+          },
+          {
+            "id": "a49babf8bdedd842",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Thesis/Chap1_Marvin Gertz_doctorthesis_pipeline.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chap1_Marvin Gertz_doctorthesis_pipeline"
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -281,39 +239,40 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "87dbf06d8e7a6601",
+  "active": "92bb0a7acddb9d7d",
   "lastOpenFiles": [
-    "3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
+    "Chap3/1. du6_analysis_workflow.md",
+    "Thesis",
+    "Chap3/6. Handling  Logistic Link in Animal Breed.md",
+    "Chap3",
+    "Thesis/gertz_citation_guide.md",
+    "Thesis/Chap1_Marvin Gertz_doctorthesis_pipeline.md",
+    "Thesis/Chap5_Marvin Gertz_doctorthesis_pipeline.md",
+    "Thesis/Chap4_Marvin Gertz_doctorthesis_pipeline.md",
+    "Thesis/Chap3_Marvin Gertz_doctorthesis_pipeline.md",
+    "Thesis/Chap2_Marvin Gertz_doctorthesis_pipeline.md",
+    "Critical_Marvin Gertz_doctorthesis_pipeline.md",
+    "Chap3/Pasted image 20250807131336.png",
+    "Marvin Gertz_doctorthesis_pipeline.md",
+    "Marvin Gertz_doctorthesis_literature_citations_analysis.md",
+    "literature_citations_analysis.md",
+    "Chap3/1.1.3. du6_detailed_technical_guide.md",
+    "1.1.2. gigamuga_pipeline_explanation.md",
+    "1.1.1. gigamuga_execution_guide.md",
+    "Chap3/3.1 reasons considering MSE and how to calculate its PEV.md",
+    "Chap3/2. literatures dBV as phnotype in GWAs.md",
+    "Chap3/2.5 bayesian_methods_equations.md",
+    "Chap3/3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
+    "gigamuga_pipeline_explanation.md",
+    "Chap3/1.1 du6_methodology.md",
+    "du6_analysis_workflow.md",
+    "Chap3/3.3 my mice conception rate, in group is 0.6, the trai.md",
+    "gigamuga_execution_guide.md",
     "3.3 why conception rate is not ok.md",
-    "6.Handling  Logistic Link in Animal Breed.md",
-    "6. Handling  Logistic Link in Animal Breed.md",
-    "3.2 Relatedness of PEV of MSE with DRP Garrick 2009.md",
-    "3.2 methods of calculating PEV of MSE-.md",
-    "3.1 reasons considering MSE and how to calculate its PEV.md",
-    "2. literatures dBV as phnotype in GWAs.md",
-    "2.2 Why using 2 steps dBV GWAS other than ssGBLUP.md",
-    "2.1 Why MME Shrinks Toward Population Mean.md",
-    "1.1 du6_methodology.md",
-    "3.2.3 garrick_2009_dBV.md",
-    "3.3 complete_dbv_derivation.md",
-    "complete_dbv_derivation.md",
-    "2.3 ssGBLUP vs Bayes A,B.md",
-    "2.4 bayesian_equations_summary_table.md",
-    "2.5 bayesian_methods_equations.md",
-    "4. Why use BV as phenotype not residual.md",
-    "3.2.2 garrick_mendelian_math.md",
-    "Bayesian shrinkage and Bayesian ridge.md",
     "chat-ai-2025-06-30-132228.json",
-    "5.1 Litter size.md",
-    "5.1 mendelian_error_report.md",
-    "5. Results.md",
-    "1.1.2 du6_detailed_technical_guide.md",
-    "1.2 methodology_literatures.md",
     "3.2 Relateness of PEV of MSE with DRP Garrick 2009",
-    "mendelian_error_report.md",
     "ocs_mendelian_simulation.r",
     "New Text Document.txt",
-    "未命名",
     "mendelian_sampling_flowchart.html"
   ]
 }
