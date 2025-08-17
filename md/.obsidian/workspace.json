@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Thesis/Chap1_Marvin Gertz_doctorthesis_pipeline.md",
+                "file": "Thesis/gertz_Chap1_pipeline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chap1_Marvin Gertz_doctorthesis_pipeline"
+              "title": "gertz_Chap1_pipeline"
             }
           },
           {
@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Thesis/Chap2_Marvin Gertz_doctorthesis_pipeline.md",
+                "file": "Thesis/gertz_Chap2_pipeline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chap2_Marvin Gertz_doctorthesis_pipeline"
+              "title": "gertz_Chap2_pipeline"
             }
           },
           {
@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Thesis/Chap3_Marvin Gertz_doctorthesis_pipeline.md",
+                "file": "Thesis/gertz_Chap3_pipeline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chap3_Marvin Gertz_doctorthesis_pipeline"
+              "title": "gertz_Chap3_pipeline"
             }
           },
           {
@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Thesis/Chap4_Marvin Gertz_doctorthesis_pipeline.md",
+                "file": "Thesis/gertz_Chap4_pipeline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chap4_Marvin Gertz_doctorthesis_pipeline"
+              "title": "gertz_Chap4_pipeline"
             }
           },
           {
@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Thesis/Chap5_Marvin Gertz_doctorthesis_pipeline.md",
+                "file": "Thesis/gertz_Chap5_pipeline.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chap5_Marvin Gertz_doctorthesis_pipeline"
+              "title": "gertz_Chap5_pipeline"
             }
           },
           {
@@ -83,16 +83,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Thesis/Chap1_Marvin Gertz_doctorthesis_pipeline.md",
-                "mode": "preview",
+                "file": "Thesis/jas_manuscript_bulletpoints.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chap1_Marvin Gertz_doctorthesis_pipeline"
+              "title": "jas_manuscript_bulletpoints"
+            }
+          },
+          {
+            "id": "64f418b1f0063200",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "all of statistics/chapter_25_high_dimensional.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "chapter_25_high_dimensional"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -239,40 +253,44 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "92bb0a7acddb9d7d",
+  "active": "64f418b1f0063200",
   "lastOpenFiles": [
-    "Chap3/1. du6_analysis_workflow.md",
-    "Thesis",
-    "Chap3/6. Handling  Logistic Link in Animal Breed.md",
-    "Chap3",
-    "Thesis/gertz_citation_guide.md",
-    "Thesis/Chap1_Marvin Gertz_doctorthesis_pipeline.md",
-    "Thesis/Chap5_Marvin Gertz_doctorthesis_pipeline.md",
-    "Thesis/Chap4_Marvin Gertz_doctorthesis_pipeline.md",
-    "Thesis/Chap3_Marvin Gertz_doctorthesis_pipeline.md",
-    "Thesis/Chap2_Marvin Gertz_doctorthesis_pipeline.md",
-    "Critical_Marvin Gertz_doctorthesis_pipeline.md",
-    "Chap3/Pasted image 20250807131336.png",
-    "Marvin Gertz_doctorthesis_pipeline.md",
-    "Marvin Gertz_doctorthesis_literature_citations_analysis.md",
-    "literature_citations_analysis.md",
-    "Chap3/1.1.3. du6_detailed_technical_guide.md",
-    "1.1.2. gigamuga_pipeline_explanation.md",
-    "1.1.1. gigamuga_execution_guide.md",
-    "Chap3/3.1 reasons considering MSE and how to calculate its PEV.md",
-    "Chap3/2. literatures dBV as phnotype in GWAs.md",
-    "Chap3/2.5 bayesian_methods_equations.md",
-    "Chap3/3.2.1 Prediction Error Variance (PEV) of Mendelian Sampling Effects.md",
-    "gigamuga_pipeline_explanation.md",
-    "Chap3/1.1 du6_methodology.md",
-    "du6_analysis_workflow.md",
-    "Chap3/3.3 my mice conception rate, in group is 0.6, the trai.md",
-    "gigamuga_execution_guide.md",
-    "3.3 why conception rate is not ok.md",
-    "chat-ai-2025-06-30-132228.json",
-    "3.2 Relateness of PEV of MSE with DRP Garrick 2009",
-    "ocs_mendelian_simulation.r",
-    "New Text Document.txt",
-    "mendelian_sampling_flowchart.html"
+    "all of statistics/chapter_24_simulation.md",
+    "all of statistics/chapter_22_smoothing.md",
+    "all of statistics/chapter_21_high_dimensional.md",
+    "all of statistics/chapter_22_machine_learning.md",
+    "Thesis/gertz_Chap4_pipeline.md",
+    "all of statistics/chapter_25_high_dimensional.md",
+    "all of statistics/chapter_18_time_series.md",
+    "all of statistics/chapter_19_survival_analysis.md",
+    "all of statistics/chapter_17_nonparametric_smoothing.md",
+    "all of statistics/chapter_16_logistic_regression.md",
+    "all of statistics/chapter_15_multiple_regression.md",
+    "all of statistics/chapter_01_introduction.md",
+    "Thesis/blunk_chapter4_pipeline.md",
+    "all of statistics/chapter_20_directed_graphs.md",
+    "all of statistics/chapter_07_statistical_inference.md",
+    "all of statistics/chapter_13_decision_theory.md",
+    "all of statistics/chapter_10_parametric_inference.md",
+    "all of statistics/chapter_08_cdf_estimation.md",
+    "all of statistics/chapter_05_inequalities.md",
+    "all of statistics/chapter_04_expectation.md",
+    "Thesis/blunk_chapter3_pipeline.md",
+    "all of statistics/chapter_06_convergence.md",
+    "all of statistics/chapter_23_classification.md",
+    "all of statistics/all-of-statistics-master/README.md",
+    "all of statistics/chapter_03_random_variables.md",
+    "all of statistics/all-of-statistics-master/Chapter 25 - Simulation Methods.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 24 - Stochastic Processes.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 23 - Classification.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 22 - Smoothing Using Orthogonal Functions.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 21 - Nonparametric Curve Estimation.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 20 - Directed Graphs.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 19 - Causal Inference.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 18 - Loglinear Models.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 17 - Undirected Graphs and Conditional Independence.ipynb",
+    "all of statistics/all-of-statistics-master/Chapter 16 - Inference about Independence.ipynb",
+    "all of statistics/chapter_12_bayesian_inference.md",
+    "Chap3/Pasted image 20250807131336.png"
   ]
 }
