@@ -97,12 +97,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "all of statistics/chapter_25_high_dimensional.md",
+                "file": "all of statistics/chapter_24_simulation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "chapter_25_high_dimensional"
+              "title": "chapter_24_simulation"
             }
           }
         ],
@@ -255,12 +255,12 @@
   },
   "active": "64f418b1f0063200",
   "lastOpenFiles": [
+    "all of statistics/chapter_25_high_dimensional.md",
     "all of statistics/chapter_24_simulation.md",
     "all of statistics/chapter_22_smoothing.md",
     "all of statistics/chapter_21_high_dimensional.md",
     "all of statistics/chapter_22_machine_learning.md",
     "Thesis/gertz_Chap4_pipeline.md",
-    "all of statistics/chapter_25_high_dimensional.md",
     "all of statistics/chapter_18_time_series.md",
     "all of statistics/chapter_19_survival_analysis.md",
     "all of statistics/chapter_17_nonparametric_smoothing.md",

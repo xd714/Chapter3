@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Scanning Genomes for Imprinted Loci - Step-by-Step Decomposition</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    'use strict';
+
+    function initTheme() {
+        const filename = 'blunk_chapter4_imprinting_gwas_2022';
+        
+        let seed = 0;
+        
+        // Mix all character codes into the seed with prime multipliers
+        for (let i = 0; i < filename.length; i++) {
+            seed += filename.charCodeAt(i) * (31 + (i % 7));
+        }
+
+        // Extract year if any (4-digit number in filename)
+        const yearMatch = filename.match(/\d{4}/);
+        if (yearMatch) {
+            seed += parseInt(yearMatch[0]) * 13;
+        }
+
+        // Further mix with golden ratio to scatter more
+        seed = Math.floor((seed * 0.6180339887) % 1 * 10000);
+
+        const themeNumber = (seed % 30) + 1; // Result: 1 to 30
+
+        document.body.setAttribute('data-theme', 'auto-' + themeNumber);
+        if (yearMatch) {
+            document.body.setAttribute('data-year', yearMatch[0]);
+        }
+    }
+
+    function initBackToTop() {
+        const btn = document.createElement('div');
+        btn.className = 'back-to-top';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+        
+        window.onscroll = () => {
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        };
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', () => {initTheme(); initBackToTop();})
+        : (initTheme(), initBackToTop());
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- TOP LEFT NAVIGATION -->
+        <div class="top-left-nav">
+            <a href="../index.html">Back to Index</a>
+        </div>
+        
+        <div class="header">
+            <h1>Scanning Genomes for Imprinted Loci Acting in Ungenotyped Progeny</h1>
+            <p>Revolutionary Method for Genomic Imprinting Discovery</p>
+            
+            <div class="header-info">
+                <p class="text-small"><strong>Original Authors:</strong> Inga Blunk, Manfred Mayer, Henning Hamann, Norbert Reinsch</p>
+                <p class="text-small text-top"><strong>Institution:</strong> Leibniz Institute for Farm Animal Biology (FBN), Dummerstorf, Germany</p>
+                <p class="text-small text-top"><strong>Innovation:</strong> First method to map imprinted loci using unphased parental genotypes</p>
+                <p class="text-top-large">
+                    <a href="https://doi.org/10.1186/s12711-015-0096-6"
+                       target="_blank" 
+                       class="paper-link">
+                         View Original Paper
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section" id="section-overview">
+                <div class="section-title">🎯 Revolutionary Breakthrough Overview</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Paradigm Shift in Imprinting Research</div>
+                    <p>This chapter presents a groundbreaking methodology that eliminates two major barriers in genomic imprinting research: the need for phased genotypes (knowing which allele came from which parent) and the requirement for genotypes from animals with phenotype records. Instead, it uses estimated parent-of-origin effects (ePOEs) as pseudo-phenotypes.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <strong>The Traditional Challenge:</strong> Mapping imprinted loci required expensive phased genotypes from phenotyped animals (e.g., slaughtered cattle). In livestock, this means genotyping thousands of animals that are ultimately processed, making the approach cost-prohibitive and logistically impossible.
+                </div>
+
+                <div class="solution-box">
+                    <strong>The Breakthrough Solution:</strong> Use estimated parent-of-origin effects (ePOEs) from parents as pseudo-phenotypes and regress them on simple unphased genotypes (0, 1, 2 gene counts) of breeding animals that are already genotyped for selection purposes.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Software Requirements</div>
+                        <div class="step-details">
+                            <strong>Core Analysis Tools:</strong>
+                            <ul>
+                                <li><strong>R/ASReml:</strong> Mixed model analysis and ePOE estimation</li>
+                                <li><strong>PLINK v1.07:</strong> Genotype quality control</li>
+                                <li><strong>BEAGLE v3.3.2:</strong> Genotype imputation (if needed)</li>
+                                <li><strong>Custom R scripts:</strong> ePOE preprocessing pipeline</li>
+                            </ul>
+                            
+                            <strong>Data Requirements:</strong>
+                            <ul>
+                                <li><strong>Pedigree file:</strong> Multi-generational relationships</li>
+                                <li><strong>Phenotype data:</strong> Progeny trait measurements</li>
+                                <li><strong>Genotype data:</strong> Parental SNP arrays</li>
+                                <li><strong>Map file:</strong> SNP positions and alleles</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Computational Pipeline</div>
+                        <div class="step-details">
+                            <strong>Step-by-Step Workflow:</strong>
+                            <ul>
+                                <li><strong>Step 1:</strong> Estimate ePOEs using equivalent model</li>
+                                <li><strong>Step 2:</strong> Apply Garrick et al. preprocessing</li>
+                                <li><strong>Step 3:</strong> Quality control genotype data</li>
+                                <li><strong>Step 4:</strong> Single-marker association testing</li>
+                                <li><strong>Step 5:</strong> Multiple testing correction</li>
+                            </ul>
+                            
+                            <strong>Key R Functions:</strong>
+                            <ul>
+                                <li><code>asreml()</code> - Mixed model estimation</li>
+                                <li><code>preprocess_epoes()</code> - Custom preprocessing</li>
+                                <li><code>gwas_single_marker()</code> - Association testing</li>
+                                <li><code>p.adjust()</code> - FDR correction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Example Code Structure</div>
+                        <div class="step-details">
+                            <strong>Main Analysis Script:</strong>
+                            <pre><code># Load libraries
+library(asreml)
+library(GenomicRanges)
+
+# Step 1: Load ePOEs and reliabilities
+epoes <- load_epoe_data("epoe_results.csv")
+
+# Step 2: Preprocess ePOEs
+processed <- preprocess_epoes(
+  epoes = epoes$values,
+  reliabilities = epoes$reliability,
+  pedigree = pedigree_data,
+  c_parameter = 0.1
+)
+
+# Step 3: Load and QC genotypes
+genotypes <- load_plink_data("genotypes")
+clean_geno <- qc_genotypes(genotypes)
+
+# Step 4: Run GWAS
+results <- gwas_analysis(
+  phenotypes = processed$epoes,
+  genotypes = clean_geno,
+  weights = processed$weights
+)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Analysis Step</th>
+                                <th>Input</th>
+                                <th>Software</th>
+                                <th>Output</th>
+                                <th>Time (Brown Swiss)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>ePOE Estimation</strong></td>
+                                <td>Pedigree + Phenotypes</td>
+                                <td>ASReml</td>
+                                <td>ePOEs + Reliabilities</td>
+                                <td>2-4 hours</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Preprocessing</strong></td>
+                                <td>Raw ePOEs</td>
+                                <td>Custom R</td>
+                                <td>Processed ePOEs</td>
+                                <td>10-30 minutes</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Genotype QC</strong></td>
+                                <td>Raw genotypes</td>
+                                <td>PLINK</td>
+                                <td>Clean SNP matrix</td>
+                                <td>15-45 minutes</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>GWAS Analysis</strong></td>
+                                <td>ePOEs + Genotypes</td>
+                                <td>ASReml/R</td>
+                                <td>Association results</td>
+                                <td>3-8 hours</td>
+                            </tr>
+                            <tr class="high-pev-group">
+                                <td><strong>Post-processing</strong></td>
+                                <td>Raw p-values</td>
+                                <td>R</td>
+                                <td>Final results</td>
+                                <td>5-15 minutes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-applications">
+                <div class="section-title">🌍 Broad Applications and Impact</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🚀 Revolutionary Applications</div>
+                    <p>This methodology opens up genomic imprinting research to virtually any species and study design where phenotype and pedigree data exist. It transforms imprinting discovery from an expensive specialty technique to a routine analysis that can be applied retrospectively to existing datasets.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Livestock and Agriculture</div>
+                        <div class="step-details">
+                            <strong>Immediate Applications:</strong>
+                            <ul>
+                                <li><strong>Dairy cattle:</strong> Milk production and fertility traits</li>
+                                <li><strong>Beef cattle:</strong> Growth and carcass quality</li>
+                                <li><strong>Swine:</strong> Reproduction and meat quality</li>
+                                <li><strong>Poultry:</strong> Egg production and meat traits</li>
+                                <li><strong>Sheep/Goats:</strong> Fiber and meat production</li>
+                            </ul>
+                            
+                            <strong>Economic Impact:</strong>
+                            <ul>
+                                <li>Utilize existing breeding program data</li>
+                                <li>Identify new selection opportunities</li>
+                                <li>Understand heterosis mechanisms</li>
+                                <li>Optimize mating strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Human Genetics and Medicine</div>
+                        <div class="step-details">
+                            <strong>Clinical Applications:</strong>
+                            <ul>
+                                <li><strong>Family studies:</strong> Retrospective analysis of existing cohorts</li>
+                                <li><strong>Disease mapping:</strong> Identify parent-of-origin disease loci</li>
+                                <li><strong>Pharmacogenomics:</strong> Drug response imprinting effects</li>
+                                <li><strong>Developmental disorders:</strong> Growth and developmental traits</li>
+                            </ul>
+                            
+                            <strong>Research Opportunities:</strong>
+                            <ul>
+                                <li>Re-analyze existing GWAS data</li>
+                                <li>Biobank applications</li>
+                                <li>Electronic health records</li>
+                                <li>Population health studies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Model Organisms and Conservation</div>
+                        <div class="step-details">
+                            <strong>Research Applications:</strong>
+                            <ul>
+                                <li><strong>Laboratory animals:</strong> Mouse, rat, zebrafish studies</li>
+                                <li><strong>Plant breeding:</strong> Crop improvement programs</li>
+                                <li><strong>Aquaculture:</strong> Fish and shellfish breeding</li>
+                                <li><strong>Forestry:</strong> Tree breeding programs</li>
+                            </ul>
+                            
+                            <strong>Conservation Biology:</strong>
+                            <ul>
+                                <li>Wildlife population studies</li>
+                                <li>Endangered species breeding</li>
+                                <li>Zoo breeding programs</li>
+                                <li>Captive breeding optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-advantages-limitations">
+                <div class="section-title">⚖️ Advantages and Limitations</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box advantages">
+                        <div class="comparison-title">✅ Major Advantages</div>
+                        <div class="step-details">
+                            <strong>Cost Efficiency:</strong>
+                            <ul>
+                                <li>90% reduction in genotyping costs</li>
+                                <li>Use existing breeding animal genotypes</li>
+                                <li>Leverage comprehensive phenotype databases</li>
+                                <li>No specialized experimental design needed</li>
+                            </ul>
+                            
+                            <strong>Technical Simplicity:</strong>
+                            <ul>
+                                <li>No phasing algorithms required</li>
+                                <li>Standard GWAS pipeline</li>
+                                <li>Existing software tools</li>
+                                <li>Faster computational time</li>
+                            </ul>
+                            
+                            <strong>Broad Applicability:</strong>
+                            <ul>
+                                <li>Any species with pedigree data</li>
+                                <li>Retrospective analysis possible</li>
+                                <li>Multiple traits simultaneously</li>
+                                <li>Large-scale implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box limitations">
+                        <div class="comparison-title">⚠️ Important Limitations</div>
+                        <div class="step-details">
+                            <strong>Statistical Power:</strong>
+                            <ul>
+                                <li>Moderate power compared to direct methods</li>
+                                <li>Depends on ePOE reliability</li>
+                                <li>Requires adequate sample sizes</li>
+                                <li>May miss small effect loci</li>
+                            </ul>
+                            
+                            <strong>Data Requirements:</strong>
+                            <ul>
+                                <li>Comprehensive pedigree needed</li>
+                                <li>Sufficient phenotype data</li>
+                                <li>Quality genotype information</li>
+                                <li>Balanced family structures preferred</li>
+                            </ul>
+                            
+                            <strong>Interpretation Challenges:</strong>
+                            <ul>
+                                <li>Cannot distinguish true imprinting from other POEs</li>
+                                <li>Maternal effects may confound results</li>
+                                <li>X-chromosomal effects possible</li>
+                                <li>Functional validation still needed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Critical Consideration:</strong> While this method greatly expands access to imprinting research, results should be interpreted as parent-of-origin effects rather than definitive genomic imprinting. Functional validation through expression studies or knockout experiments remains essential for confirming true imprinting mechanisms.
+                </div>
+            </div>
+
+            <div class="section" id="section-replication-protocol">
+                <div class="section-title">📋 Complete Replication Protocol</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">A</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Preparation Phase</div>
+                            <div class="step-details">
+                                Organize and validate input data
+                                <div class="step-specs">
+                                    <strong>Required Data Files:</strong><br>
+                                    • <strong>Pedigree:</strong> Multi-generational family file (3+ generations)<br>
+                                    • <strong>Phenotypes:</strong> Trait measurements for progeny<br>
+                                    • <strong>Genotypes:</strong> SNP array data for parents/ancestors<br>
+                                    • <strong>Map file:</strong> SNP positions and allele coding<br>
+                                    <strong>Quality Checks:</strong><br>
+                                    • Verify pedigree completeness and consistency<br>
+                                    • Check phenotype distributions and outliers<br>
+                                    • Validate genotype call rates and HWE<br>
+                                    • Ensure ID matching across files
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">B</div>
+                        <div class="step-content">
+                            <div class="step-title">ePOE Estimation</div>
+                            <div class="step-details">
+                                Apply equivalent imprinting model to estimate parent-of-origin effects
+                                <div class="step-specs">
+                                    <strong>ASReml Model Code:</strong><br>
+                                    <code>trait ~ fixed_effects !r sire and(dam,1) imprinting_effect</code><br>
+                                    <strong>Key Components:</strong><br>
+                                    • <strong>Fixed effects:</strong> Environmental factors<br>
+                                    • <strong>Random effects:</strong> Sire, dam, imprinting<br>
+                                    • <strong>Relationship matrix:</strong> Pedigree-based A matrix<br>
+                                    <strong>Outputs:</strong><br>
+                                    • ePOE estimates for each parent<br>
+                                    • Prediction error variances (PEVs)<br>
+                                    • Reliability calculations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">C</div>
+                        <div class="step-content">
+                            <div class="step-title">ePOE Preprocessing</div>
+                            <div class="step-details">
+                                Apply Garrick et al. (2009) method adapted for ePOEs
+                                <div class="step-specs">
+                                    <strong>R Implementation:</strong><br>
+                                    <code>processed_epoes <- preprocess_epoes(</code><br>
+                                    <code>  epoes = raw_epoes,</code><br>
+                                    <code>  reliabilities = rel_values,</code><br>
+                                    <code>  pedigree = ped_data,</code><br>
+                                    <code>  c_parameter = 0.1</code><br>
+                                    <code>)</code><br>
+                                    <strong>Steps:</strong><br>
+                                    • Parent-average correction<br>
+                                    • De-regression procedure<br>
+                                    • Variance weighting<br>
+                                    • Quality filtering (reliability > 3%)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">D</div>
+                        <div class="step-content">
+                            <div class="step-title">Genotype Quality Control</div>
+                            <div class="step-details">
+                                Standard GWAS quality control procedures
+                                <div class="step-specs">
+                                    <strong>PLINK Commands:</strong><br>
+                                    <code>plink --bfile genotypes --maf 0.05 --hwe 1e-5</code><br>
+                                    <code>  --mind 0.1 --geno 0.1 --make-bed --out clean_geno</code><br>
+                                    <strong>Filters Applied:</strong><br>
+                                    • Minor allele frequency > 5%<br>
+                                    • Hardy-Weinberg equilibrium p > 1×10⁻⁵<br>
+                                    • Individual call rate > 90%<br>
+                                    • SNP call rate > 90%<br>
+                                    <strong>Additional Steps:</strong><br>
+                                    • Remove sex chromosome SNPs<br>
+                                    • Filter related individuals if needed<br>
+                                    • Check for population stratification
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">E</div>
+                        <div class="step-content">
+                            <div class="step-title">Association Analysis</div>
+                            <div class="step-details">
+                                Single-marker regression testing
+                                <div class="step-specs">
+                                    <strong>Analysis Loop:</strong><br>
+                                    <code>for(snp in 1:ncol(genotypes)) {</code><br>
+                                    <code>  model <- asreml(epoe ~ genotype[,snp],</code><br>
+                                    <code>    random = ~ vm(animal, grm),</code><br>
+                                    <code>    weights = weights)</code><br>
+                                    <code>  results[snp,] <- extract_results(model)</code><br>
+                                    <code>}</code><br>
+                                    <strong>Statistical Test:</strong><br>
+                                    • Conditional Wald F-test<br>
+                                    • Test H₀: β = 0 (no association)<br>
+                                    • Extract p-value, effect size, standard error
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">F</div>
+                        <div class="step-content">
+                            <div class="step-title">Multiple Testing Correction</div>
+                            <div class="step-details">
+                                Control false discovery rate and interpret results
+                                <div class="step-specs">
+                                    <strong>FDR Correction:</strong><br>
+                                    <code>results$p_fdr <- p.adjust(results$p_value, method = "BH")</code><br>
+                                    <strong>Significance Thresholds:</strong><br>
+                                    • 5% genome-wide: FDR < 0.05<br>
+                                    • 5% chromosome-wide: within-chromosome FDR<br>
+                                    • 10% genome-wide: FDR < 0.10<br>
+                                    <strong>Result Interpretation:</strong><br>
+                                    • Annotate significant SNPs to genes<br>
+                                    • Check linkage disequilibrium patterns<br>
+                                    • Cross-reference with functional databases<br>
+                                    • Generate Manhattan and Q-Q plots
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Expected Computational Resources</div>
+                    <div class="step-details">
+                        <strong>Hardware Requirements:</strong>
+                        <ul>
+                            <li><strong>RAM:</strong> 16-64 GB (depending on dataset size)</li>
+                            <li><strong>CPU:</strong> Multi-core processor (8+ cores recommended)</li>
+                            <li><strong>Storage:</strong> 100-500 GB for intermediate files</li>
+                            <li><strong>Runtime:</strong> 6-24 hours for genome-wide analysis</li>
+                        </ul>
+                        
+                        <strong>Software Dependencies:</strong>
+                        <ul>
+                            <li>R (≥4.0) with ASReml-R license</li>
+                            <li>PLINK v1.07 or v1.9</li>
+                            <li>Additional R packages: data.table, ggplot2, GenomicRanges</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-troubleshooting">
+                <div class="section-title">🔧 Troubleshooting and Common Issues</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Data Quality Issues</div>
+                        <div class="step-details">
+                            <strong>Low ePOE Reliability:</strong>
+                            <ul>
+                                <li><strong>Cause:</strong> Insufficient progeny per parent</li>
+                                <li><strong>Solution:</strong> Increase minimum progeny threshold</li>
+                                <li><strong>Alternative:</strong> Use less stringent reliability filter</li>
+                                <li><strong>Prevention:</strong> Ensure balanced breeding design</li>
+                            </ul>
+                            
+                            <strong>Poor Genotype Quality:</strong>
+                            <ul>
+                                <li><strong>Missing data:</strong> Impute or remove low-call-rate SNPs</li>
+                                <li><strong>HWE violations:</strong> Check for population stratification</li>
+                                <li><strong>Low MAF:</strong> Reduce filter threshold for rare variants</li>
+                                <li><strong>ID mismatches:</strong> Verify sample identity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Analysis Problems</div>
+                        <div class="step-details">
+                            <strong>Convergence Issues:</strong>
+                            <ul>
+                                <li><strong>ASReml errors:</strong> Check model specification</li>
+                                <li><strong>Singular matrices:</strong> Remove redundant effects</li>
+                                <li><strong>Slow convergence:</strong> Adjust starting values</li>
+                                <li><strong>Memory issues:</strong> Use sparse matrix methods</li>
+                            </ul>
+                            
+                            <strong>No Significant Results:</strong>
+                            <ul>
+                                <li><strong>Check power:</strong> Verify effect sizes detectable</li>
+                                <li><strong>Sample size:</strong> May need more parents</li>
+                                <li><strong>Trait choice:</strong> Some traits show no imprinting</li>
+                                <li><strong>Population structure:</strong> Adjust for relatedness</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Interpretation Challenges</div>
+                        <div class="step-details">
+                            <strong>Confounding Effects:</strong>
+                            <ul>
+                                <li><strong>Maternal effects:</strong> Cannot distinguish from imprinting</li>
+                                <li><strong>X-chromosome:</strong> Check for sex-linked patterns</li>
+                                <li><strong>Population stratification:</strong> Use genomic relationship matrix</li>
+                                <li><strong>Batch effects:</strong> Include technical covariates</li>
+                            </ul>
+                            
+                            <strong>Validation Steps:</strong>
+                            <ul>
+                                <li>Cross-validate in independent populations</li>
+                                <li>Check literature for functional evidence</li>
+                                <li>Examine expression data if available</li>
+                                <li>Consider experimental validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Best Practices for Success:</strong>
+                    <ul>
+                        <li><strong>Start small:</strong> Test methodology on subset before full analysis</li>
+                        <li><strong>Validate preprocessing:</strong> Check ePOE distributions after each step</li>
+                        <li><strong>Use controls:</strong> Include known imprinted regions if available</li>
+                        <li><strong>Document everything:</strong> Maintain detailed analysis logs</li>
+                        <li><strong>Collaborate:</strong> Work with domain experts for biological interpretation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="section-future-directions">
+                <div class="section-title">🚀 Future Developments and Extensions</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Methodological Improvements</div>
+                        <div class="step-details">
+                            <strong>Enhanced Statistical Models:</strong>
+                            <ul>
+                                <li><strong>Multi-trait analysis:</strong> Joint modeling of correlated traits</li>
+                                <li><strong>Bayesian approaches:</strong> Better uncertainty quantification</li>
+                                <li><strong>Machine learning:</strong> Non-linear relationship detection</li>
+                                <li><strong>Network analysis:</strong> Pathway-based testing</li>
+                            </ul>
+                            
+                            <strong>Technical Advances:</strong>
+                            <ul>
+                                <li>Improved preprocessing algorithms</li>
+                                <li>Better handling of population structure</li>
+                                <li>Integration with expression data</li>
+                                <li>Automated pipeline development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Data Integration</div>
+                        <div class="step-details">
+                            <strong>Multi-omics Integration:</strong>
+                            <ul>
+                                <li><strong>RNA-seq:</strong> Expression quantitative trait loci</li>
+                                <li><strong>Methylation:</strong> Epigenetic modification patterns</li>
+                                <li><strong>Proteomics:</strong> Protein abundance associations</li>
+                                <li><strong>Metabolomics:</strong> Metabolite level analyses</li>
+                            </ul>
+                            
+                            <strong>Cross-Species Validation:</strong>
+                            <ul>
+                                <li>Comparative genomics approaches</li>
+                                <li>Evolutionary conservation analysis</li>
+                                <li>Model organism validation</li>
+                                <li>Human-animal translation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Broader Applications</div>
+                        <div class="step-details">
+                            <strong>New Research Areas:</strong>
+                            <ul>
+                                <li><strong>Climate adaptation:</strong> Environmental stress responses</li>
+                                <li><strong>Microbiome:</strong> Host-microbe interactions</li>
+                                <li><strong>Behavioral traits:</strong> Cognitive and social behaviors</li>
+                                <li><strong>Disease resistance:</strong> Pathogen response mechanisms</li>
+                            </ul>
+                            
+                            <strong>Practical Applications:</strong>
+                            <ul>
+                                <li>Precision breeding programs</li>
+                                <li>Personalized medicine</li>
+                                <li>Conservation genetics</li>
+                                <li>Agricultural sustainability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-conclusion">
+                <div class="section-title">🎯 Revolutionary Impact and Legacy</div>
+                
+                <div class="significance-box">
+                    <div class="significance-title">Paradigm Shift Achievement</div>
+                    <div class="significance-content">
+                        Chapter 4 represents a fundamental breakthrough in genomic imprinting research methodology. By eliminating the need for phased genotypes and phenotyped animals, this approach democratizes imprinting discovery, making it accessible to any research group with basic phenotype and pedigree data. The method transforms genomic imprinting from a specialized, expensive technique to a routine analysis that can be applied retrospectively to existing datasets worldwide.
+                    </div>
+                </div>
+
+                <div class="innovation-box">
+                    <div class="innovation-title">🌟 Key Scientific Contributions</div>
+                    <p><strong>Theoretical Innovation:</strong> Demonstrated that parent-of-origin effects can be reliably detected using unphased parental genotypes, fundamentally changing how we approach imprinting research.</p>
+                    <p><strong>Practical Revolution:</strong> Reduced costs by 90% while maintaining statistical validity, opening imprinting research to resource-limited settings.</p>
+                    <p><strong>Broad Impact:</strong> Method applicable across species, traits, and study designs, with immediate applications in livestock, human genetics, and model organisms.</p>
+                </div>
+
+                <div class="best-practices">
+                    <strong>Legacy and Future Impact:</strong>
+                    <ul>
+                        <li><strong>Immediate adoption:</strong> Method ready for implementation in ongoing breeding programs</li>
+                        <li><strong>Retrospective analysis:</strong> Vast datasets can now be re-analyzed for imprinting effects</li>
+                        <li><strong>Global accessibility:</strong> Developing countries can participate in cutting-edge genomics</li>
+                        <li><strong>Accelerated discovery:</strong> Faster identification of imprinted loci across species</li>
+                        <li><strong>Enhanced breeding:</strong> Better understanding of parent-of-origin effects in selection</li>
+                    </ul>
+                </div>
+
+                <div class="gap-analysis">
+                    <div class="gap-title">Closing the Research Gap</div>
+                    <div class="gap-content">
+                        Before this breakthrough, genomic imprinting research was limited to well-funded laboratories with access to specialized experimental designs. This methodology eliminates technical barriers and cost constraints, enabling researchers worldwide to contribute to our understanding of parent-of-origin effects. The approach transforms genomic imprinting from an exclusive specialty to an inclusive field accessible to the broader scientific community.
+                    </div>
+                </div>
+
+                <div class="legacy-box">
+                    <strong>Long-term Vision:</strong> This revolutionary methodology will catalyze a new era of genomic imprinting research, leading to discoveries that improve human health, enhance agricultural productivity, and deepen our understanding of inheritance mechanisms. The approach represents a perfect example of how innovative thinking can overcome seemingly insurmountable technical barriers, opening new frontiers in genomic science.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Core Innovation</div>
+                        <div class="step-details">
+                            <strong>Revolutionary Concept:</strong>
+                            <ul>
+                                <li>Transform imprinting detection from progeny-based to parent-based analysis</li>
+                                <li>Use breeding animals' existing genotype data</li>
+                                <li>Leverage comprehensive phenotype databases</li>
+                                <li>Eliminate need for phasing algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Method Validation</div>
+                        <div class="step-details">
+                            <strong>Proof of Concept:</strong>
+                            <ul>
+                                <li><strong>Simulation study:</strong> 100 replications, 5 QTL types</li>
+                                <li><strong>Real data:</strong> 1,857 Brown Swiss sires</li>
+                                <li><strong>37,443 SNPs:</strong> Genome-wide coverage</li>
+                                <li><strong>Multiple traits:</strong> Growth, carcass, and fat traits</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Impact and Applications</div>
+                        <div class="step-details">
+                            <strong>Broad Applications:</strong>
+                            <ul>
+                                <li><strong>Livestock breeding:</strong> Cost-effective imprinting discovery</li>
+                                <li><strong>Human genetics:</strong> Utilize existing family studies</li>
+                                <li><strong>Model organisms:</strong> Retrospective analysis</li>
+                                <li><strong>Conservation:</strong> Wildlife population studies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-traditional-vs-new">
+                <div class="section-title">⚡ Traditional vs. Revolutionary Approach</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box traditional-approach">
+                        <div class="comparison-title">❌ Traditional Method Limitations</div>
+                        <div class="step-details">
+                            <strong>Required Components:</strong>
+                            <ul>
+                                <li><strong>Phased genotypes:</strong> Expensive computational phasing</li>
+                                <li><strong>Phenotyped animals:</strong> Must genotype slaughter animals</li>
+                                <li><strong>Large sample sizes:</strong> Need thousands of genotyped progeny</li>
+                                <li><strong>Time-consuming:</strong> Years to collect adequate data</li>
+                            </ul>
+                            
+                            <strong>Cost Barriers:</strong>
+                            <ul>
+                                <li>~$50-100 per animal for genotyping</li>
+                                <li>Phasing algorithms add computational cost</li>
+                                <li>Most phenotyped animals are processed (can't be re-sampled)</li>
+                                <li>Limited to specific experimental designs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box new-approach">
+                        <div class="comparison-title">✅ Revolutionary Method Advantages</div>
+                        <div class="step-details">
+                            <strong>Innovative Components:</strong>
+                            <ul>
+                                <li><strong>Unphased genotypes:</strong> Simple 0, 1, 2 gene counts</li>
+                                <li><strong>Parental data:</strong> Use existing breeding animal genotypes</li>
+                                <li><strong>ePOEs:</strong> Extract information from comprehensive databases</li>
+                                <li><strong>Efficient:</strong> Leverage existing infrastructure</li>
+                            </ul>
+                            
+                            <strong>Cost Benefits:</strong>
+                            <ul>
+                                <li>Use already-genotyped breeding animals</li>
+                                <li>No phasing algorithms needed</li>
+                                <li>Utilize existing phenotype databases</li>
+                                <li>Rapid analysis pipeline</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Traditional Approach</th>
+                                <th>New ePOE Method</th>
+                                <th>Advantage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Genotype Requirements</strong></td>
+                                <td>Phased (Qq vs qQ)</td>
+                                <td>Unphased (0, 1, 2)</td>
+                                <td>No phasing algorithms needed</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Target Animals</strong></td>
+                                <td>Phenotyped progeny</td>
+                                <td>Breeding parents</td>
+                                <td>Use existing genotype data</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Sample Size</strong></td>
+                                <td>Thousands of progeny</td>
+                                <td>Hundreds of parents</td>
+                                <td>Reduced genotyping costs</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Data Processing</strong></td>
+                                <td>Complex phasing pipelines</td>
+                                <td>Standard GWAS workflow</td>
+                                <td>Faster analysis</td>
+                            </tr>
+                            <tr class="high-pev-group">
+                                <td><strong>Cost per Study</strong></td>
+                                <td>$50,000-200,000</td>
+                                <td>$5,000-20,000</td>
+                                <td>90% cost reduction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-methodology">
+                <div class="section-title">🔬 Step-by-Step Methodology</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Generate ePOEs Using Equivalent Model</div>
+                            <div class="step-details">
+                                Extract parent-of-origin effects from existing phenotype data
+                                <div class="step-specs">
+                                    <strong>Input Data Required:</strong><br>
+                                    • <strong>Pedigree:</strong> Multi-generational family relationships<br>
+                                    • <strong>Phenotypes:</strong> Trait measurements (e.g., growth, carcass quality)<br>
+                                    • <strong>Model:</strong> Equivalent imprinting model (Chapter 2)<br>
+                                    <strong>Output:</strong> ePOEs + reliability estimates for each parent<br>
+                                    <strong>Brown Swiss Example:</strong><br>
+                                    • 173,051 fattening bulls with phenotypes<br>
+                                    • 428,710 animals in pedigree<br>
+                                    • ePOEs for net BW gain, carcass traits, fatness
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Preprocess ePOEs for GWAS</div>
+                            <div class="step-details">
+                                Apply Garrick et al. (2009) method adapted for ePOEs
+                                <div class="step-specs">
+                                    <strong>Three Critical Steps:</strong><br>
+                                    • <strong>Parent-Average Correction:</strong> Remove inherited bias<br>
+                                    • <strong>De-regression:</strong> Adjust for reliability-based shrinkage<br>
+                                    • <strong>Weighting:</strong> Account for heterogeneous variances<br>
+                                    <strong>Quality Filter:</strong><br>
+                                    • Remove ePOEs with reliability < 3%<br>
+                                    • Final samples: 1,033-1,793 sires per trait<br>
+                                    • Average reliability: 9.73-25.86%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Quality Control Genotype Data</div>
+                            <div class="step-details">
+                                Standard GWAS quality control procedures
+                                <div class="step-specs">
+                                    <strong>QC Parameters:</strong><br>
+                                    • <strong>MAF filter:</strong> > 0.05 (remove rare variants)<br>
+                                    • <strong>HWE test:</strong> p > 1×10⁻⁵ (remove problematic SNPs)<br>
+                                    • <strong>Imputation:</strong> Pre-imputed using BEAGLE v3.3.2<br>
+                                    <strong>Final Dataset:</strong><br>
+                                    • Net BW gain: 37,443 SNPs, 1,857 sires<br>
+                                    • Carcass traits: 37,433 SNPs, 1,831 sires<br>
+                                    • High-quality genotype matrix ready for analysis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Single-Marker Association Testing</div>
+                            <div class="step-details">
+                                Regress processed ePOEs on unphased genotypes
+                                <div class="step-specs">
+                                    <strong>Association Model:</strong><br>
+                                    <code>ePOE<sub>i</sub> = μ + b × genotype<sub>i</sub> + u<sub>i</sub> + e<sub>i</sub></code><br>
+                                    • <strong>ePOE<sub>i</sub>:</strong> Processed parent-of-origin effect<br>
+                                    • <strong>genotype<sub>i</sub>:</strong> Simple gene count (0, 1, 2)<br>
+                                    • <strong>u<sub>i</sub>:</strong> Random polygenic effect (genomic relationship matrix)<br>
+                                    <strong>Statistical Test:</strong> Conditional Wald F-test (ASReml)<br>
+                                    <strong>Multiple Testing:</strong> Benjamini-Hochberg FDR correction
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">Core Association Model</div>
+                    <div class="formula-main">
+                        ePOE<sub>i</sub> = μ + β × GenomeCount<sub>i</sub> + Σ(γ<sub>j</sub> × G<sub>ij</sub>) + ε<sub>i</sub>
+                    </div>
+                    <div class="formula-note">
+                        Where β ≠ 0 indicates imprinted locus association
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-simulation-validation">
+                <div class="section-title">🧪 Simulation Study Validation</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Simulation Design</div>
+                        <div class="step-details">
+                            <strong>Population Structure:</strong>
+                            <ul>
+                                <li><strong>Two-generation:</strong> 100 parents → 30,000 progeny</li>
+                                <li><strong>Three-generation:</strong> 10 grandparents → 41,273 progeny</li>
+                                <li><strong>Mating design:</strong> Cross-classified (all × all)</li>
+                                <li><strong>Replicates:</strong> 100 independent simulations</li>
+                            </ul>
+                            
+                            <strong>Genetic Architecture:</strong>
+                            <ul>
+                                <li><strong>15 markers:</strong> 5 linked to QTLs, 10 neutral</li>
+                                <li><strong>QTL types:</strong> Mendelian, paternal, maternal, partial</li>
+                                <li><strong>Linkage:</strong> 10 cM distance (realistic LD)</li>
+                                <li><strong>Heritability:</strong> 0.40 (moderate)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Method Comparison</div>
+                        <div class="step-details">
+                            <strong>Four Analysis Scenarios:</strong>
+                            <ul>
+                                <li><strong>1A:</strong> Progeny phenotypes + phased genotypes (additive only)</li>
+                                <li><strong>1B:</strong> Progeny phenotypes + phased genotypes (+ imprinting)</li>
+                                <li><strong>2A:</strong> Parental TAs + unphased genotypes</li>
+                                <li><strong>2B:</strong> Parental ePOEs + unphased genotypes (NEW)</li>
+                            </ul>
+                            
+                            <strong>Performance Metrics:</strong>
+                            <ul>
+                                <li>Power to detect imprinted vs. Mendelian loci</li>
+                                <li>False positive rates</li>
+                                <li>Effect size estimation accuracy</li>
+                                <li>Computational efficiency</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Validation Results</div>
+                        <div class="step-details">
+                            <strong>Key Findings:</strong>
+                            <ul>
+                                <li><strong>✅ Method works:</strong> ePOEs distinguish imprinted from Mendelian loci</li>
+                                <li><strong>✅ Correct detection:</strong> Only imprinted loci show significance</li>
+                                <li><strong>✅ Effect estimation:</strong> Accurate effect size recovery</li>
+                                <li><strong>✅ Efficiency:</strong> 30,000 progeny data → 100 parent analyses</li>
+                            </ul>
+                            
+                            <strong>Power Comparison:</strong>
+                            <ul>
+                                <li>Traditional method: Higher power but requires phased data</li>
+                                <li>ePOE method: Moderate power with massive cost savings</li>
+                                <li>Trade-off: Statistical power vs. practical feasibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="performance-table">
+                        <thead>
+                            <tr>
+                                <th>QTL Type</th>
+                                <th>Simulated Effect</th>
+                                <th>Traditional Method (1B)</th>
+                                <th>ePOE Method (2B)</th>
+                                <th>Detection Success</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Mendelian</strong></td>
+                                <td>0.461</td>
+                                <td>p = 0.473 (no signal)</td>
+                                <td>p = 0.459 (no signal)</td>
+                                <td>✅ Correctly ignored</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Paternal Imprinted</strong></td>
+                                <td>0.130</td>
+                                <td>p < 0.001***</td>
+                                <td>p = 0.012*</td>
+                                <td>✅ Detected</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Maternal Imprinted</strong></td>
+                                <td>-0.133</td>
+                                <td>p < 0.001***</td>
+                                <td>p = 0.025*</td>
+                                <td>✅ Detected</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Partial Imprinted 1</strong></td>
+                                <td>0.130</td>
+                                <td>p < 0.001***</td>
+                                <td>p = 0.010*</td>
+                                <td>✅ Detected</td>
+                            </tr>
+                            <tr class="high-pev-group">
+                                <td><strong>Partial Imprinted 2</strong></td>
+                                <td>-0.130</td>
+                                <td>p < 0.001***</td>
+                                <td>p = 0.010*</td>
+                                <td>✅ Detected</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-brown-swiss-results">
+                <div class="section-title">🐄 Brown Swiss Cattle Results</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Genome-wide Significant Hits</div>
+                        <div class="step-details">
+                            <strong>Net BW Gain (Growth):</strong>
+                            <ul>
+                                <li><strong>Chromosome 11:</strong> ARS-BFGL-NGS-101636</li>
+                                <li><strong>Gene:</strong> REEP1 (Receptor Accessory Protein 1)</li>
+                                <li><strong>P-value:</strong> 1.1×10⁻⁸ (genome-wide significant)</li>
+                                <li><strong>Function:</strong> Adipogenesis regulation, fat metabolism</li>
+                            </ul>
+                            
+                            <strong>Additional Findings:</strong>
+                            <ul>
+                                <li><strong>Chromosome 24:</strong> Multiple signals with higher c-parameter</li>
+                                <li><strong>Genes:</strong> MYOM1 (myomesin 1), YES1 (tyrosine kinase)</li>
+                                <li><strong>Context:</strong> Muscle development and cell cycle</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Carcass Fat Traits</div>
+                        <div class="step-details">
+                            <strong>Chromosome 5 Cluster:</strong>
+                            <ul>
+                                <li><strong>45 chromosome-wide significant SNPs</strong></li>
+                                <li><strong>Lead genes:</strong> TROAP, FAIM2</li>
+                                <li><strong>Location:</strong> 30.15-30.66 Mb region</li>
+                                <li><strong>Evidence:</strong> Potential imprinting cluster</li>
+                            </ul>
+                            
+                            <strong>Supporting Evidence:</strong>
+                            <ul>
+                                <li><strong>SLC38A4:</strong> Known imprinted in mice (nearby)</li>
+                                <li><strong>Consistent signals:</strong> Both ePOEs and TAs significant</li>
+                                <li><strong>Partial imprinting:</strong> Pattern suggests incomplete silencing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Biological Validation</div>
+                        <div class="step-details">
+                            <strong>REEP1 Functional Evidence:</strong>
+                            <ul>
+                                <li><strong>Mouse studies:</strong> Reep1-null mice are thinner</li>
+                                <li><strong>Function:</strong> White adipose tissue regulation</li>
+                                <li><strong>Human disease:</strong> Mutations cause spastic paraplegia</li>
+                                <li><strong>Relevance:</strong> Growth and fat metabolism</li>
+                            </ul>
+                            
+                            <strong>Cross-Species Support:</strong>
+                            <ul>
+                                <li>Previous cattle QTL studies support regions</li>
+                                <li>Mouse imprinting data validates candidates</li>
+                                <li>Human genetic associations confirm relevance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Breakthrough Discovery Summary</div>
+                    <div class="step-details">
+                        <strong>Major Achievements:</strong>
+                        <ul>
+                            <li><strong>First successful application</strong> of ePOE-based imprinting GWAS</li>
+                            <li><strong>Novel loci identified</strong> that would be missed by traditional methods</li>
+                            <li><strong>Cost-effective discovery</strong> using existing breeding infrastructure</li>
+                            <li><strong>Biological validation</strong> through functional literature</li>
+                            <li><strong>Reproducible methodology</strong> applicable to any species</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-preprocessing-details">
+                <div class="section-title">⚙️ Critical ePOE Preprocessing Steps</div>
+                
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Parent-Average (PA) Correction</div>
+                            <div class="step-details">
+                                Remove inherited information bias from ePOEs
+                                <div class="step-specs">
+                                    <strong>Problem:</strong> ePOEs contain information from the animal's own parents<br>
+                                    <strong>Solution:</strong> Subtract parent-average component<br>
+                                    <strong>Formula:</strong> ePOE<sub>corrected</sub> = ePOE<sub>raw</sub> - PA<sub>contribution</sub><br>
+                                    <strong>Implementation:</strong> Matrix operations following Garrick et al. (2009)<br>
+                                    <strong>Result:</strong> Removes double-counting of familial information
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">De-regression Procedure</div>
+                            <div class="step-details">
+                                Adjust for reliability-based shrinkage to population mean
+                                <div class="step-specs">
+                                    <strong>Problem:</strong> ePOEs are shrunken toward zero based on reliability<br>
+                                    <strong>Solution:</strong> Inflate estimates to "raw" scale<br>
+                                    <strong>Formula:</strong> ePOE<sub>deregressed</sub> = ePOE<sub>PA-corrected</sub> / reliability²<br>
+                                    <strong>Rationale:</strong> Recover true underlying genetic effects<br>
+                                    <strong>Validation:</strong> Increases effect size estimates by ~1/3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Variance Weighting</div>
+                            <div class="step-details">
+                                Account for heterogeneous prediction error variances
+                                <div class="step-specs">
+                                    <strong>Problem:</strong> Different ePOEs have different error variances<br>
+                                    <strong>Solution:</strong> Weight by inverse of prediction error variance<br>
+                                    <strong>Formula:</strong> Weight<sub>i</sub> = 1 / PEV<sub>i</sub><br>
+                                    <strong>Parameter c:</strong> Controls genetic variance not captured by markers<br>
+                                    <strong>Sensitivity:</strong> Results stable across c values (0.1-0.8)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Critical Implementation Note:</strong> The preprocessing steps are essential for valid statistical inference. Skipping de-regression leads to deflated effect estimates, while ignoring weighting reduces power to detect associations. The Garrick et al. (2009) framework, adapted for ePOEs, ensures proper statistical properties.
+                </div>
+            </div>
+
+            <div class="section" id="section-technical-implementation">
+                <div class="section-title">💻 Technical Implementation Guide</div>
+                
+                <div class="analysis-grid">
+                
+            <div class="section" id="section-technical-implementation">
+                <div class="section-title">💻 Technical Implementation Guide</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">R Environment Setup</div>
+                        <div class="step-details">
+                            <strong>Required R Packages:</strong>
+                            <ul>
+                                <li><strong>ASReml-R:</strong> Mixed model analysis (requires license)</li>
+                                <li><strong>kinship2:</strong> Pedigree relationship matrices</li>
+                                <li><strong>GenomicRanges:</strong> Genomic interval operations</li>
+                                <li><strong>data.table:</strong> Efficient data manipulation</li>
+                                <li><strong>ggplot2:</strong> Visualization and Manhattan plots</li>
+                            </ul>
+                            
+                            <strong>Installation Commands:</strong>
+                            <ul>
+                                <li><code>install.packages("kinship2")</code></li>
+                                <li><code>BiocManager::install("GenomicRanges")</code></li>
+                                <li><code>install.packages("data.table")</code></li>
+                                <li><code>install.packages("ggplot2")</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">PLINK Quality Control</div>
+                        <div class="step-details">
+                            <strong>Basic QC Commands:</strong>
+                            <ul>
+                                <li><strong>MAF filtering:</strong> <code>--maf 0.05</code></li>
+                                <li><strong>Call rate:</strong> <code>--geno 0.1 --mind 0.1</code></li>
+                                <li><strong>HWE test:</strong> <code>--hwe 1e-5</code></li>
+                                <li><strong>Output format:</strong> <code>--make-bed --out clean_data</code></li>
+                            </ul>
+                            
+                            <strong>Example Command:</strong>
+                            <ul>
+                                <li><code>plink --bfile raw_genotypes --maf 0.05 --geno 0.1 --mind 0.1 --hwe 1e-5 --make-bed --out clean_genotypes</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Data Format Requirements</div>
+                        <div class="step-details">
+                            <strong>Input Files Needed:</strong>
+                            <ul>
+                                <li><strong>Pedigree file:</strong> Animal ID, Sire, Dam columns</li>
+                                <li><strong>Phenotype file:</strong> Animal ID + trait measurements</li>
+                                <li><strong>Genotype files:</strong> PLINK .bed/.bim/.fam format</li>
+                                <li><strong>ePOE results:</strong> Estimated effects + reliabilities</li>
+                            </ul>
+                            
+                            <strong>File Structure Example:</strong>
+                            <ul>
+                                <li>Pedigree: ID, SIRE, DAM, SEX, GENERATION</li>
+                                <li>Phenotypes: ID, TRAIT1, TRAIT2, TRAIT3, ...</li>
+                                <li>ePOEs: ID, EPOE_VALUE, RELIABILITY, PEV</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <div class="formula-title">Core R Analysis Workflow</div>
+                    <div class="formula-main">
+                        <pre><code># 1. Load libraries and data
+library(asreml)
+library(kinship2)
+library(GenomicRanges)
+
+# 2. Estimate ePOEs
+model <- asreml(trait ~ fixed_effects, 
+                random = ~ sire + and(dam,1) + imprinting,
+                data = phenotype_data)
+
+# 3. Extract and preprocess ePOEs
+epoes <- model$coefficients$random
+processed_epoes <- preprocess_garrick(epoes, reliabilities)
+
+# 4. Load and QC genotypes
+geno_data <- load_plink_files("clean_genotypes")
+
+# 5. Run GWAS
+gwas_results <- run_association_test(processed_epoes, geno_data)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-brown-swiss-analysis">
+                <div class="section-title">🐄 Brown Swiss Analysis Results</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🔬 Major Discoveries</div>
+                    <p>The Brown Swiss cattle analysis revealed several significant associations, including a genome-wide significant hit within the REEP1 gene on chromosome 11. This represents the first successful application of the ePOE-based GWAS methodology to real livestock data, demonstrating the practical value of the approach.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Genome-wide Significant Results</div>
+                        <div class="step-details">
+                            <strong>Net BW Gain (Chromosome 11):</strong>
+                            <ul>
+                                <li><strong>SNP:</strong> ARS-BFGL-NGS-101636</li>
+                                <li><strong>Position:</strong> 48,473,153 bp</li>
+                                <li><strong>P-value:</strong> 1.1 × 10⁻⁸ (genome-wide significant)</li>
+                                <li><strong>Gene:</strong> REEP1 (Receptor Accessory Protein 1)</li>
+                                <li><strong>Function:</strong> Adipogenesis regulation, white adipose tissue development</li>
+                            </ul>
+                            
+                            <strong>Biological Validation:</strong>
+                            <ul>
+                                <li>REEP1-null mice show reduced adipose tissue</li>
+                                <li>Males have significantly decreased fat proportion</li>
+                                <li>Expression of pro-adipogenesis markers reduced</li>
+                                <li>Directly relevant to growth and body composition</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Chromosome-wide Significant Hits</div>
+                        <div class="step-details">
+                            <strong>Carcass Fatness (Chromosome 5):</strong>
+                            <ul>
+                                <li><strong>45 significant SNPs</strong> in clustered region</li>
+                                <li><strong>Lead genes:</strong> TROAP, FAIM2</li>
+                                <li><strong>Location:</strong> 30.15-30.66 Mb region</li>
+                                <li><strong>Evidence:</strong> Potential imprinting cluster</li>
+                            </ul>
+                            
+                            <strong>Supporting Evidence:</strong>
+                            <ul>
+                                <li><strong>SLC38A4:</strong> Known imprinted in mice (nearby at 33.61-33.65 Mb)</li>
+                                <li>Both ePOEs and TAs show significant associations</li>
+                                <li>Pattern suggests partial imprinting effects</li>
+                                <li>Cross-species conservation of candidate region</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Additional Associations</div>
+                        <div class="step-details">
+                            <strong>Net BW Gain (Chromosome 24):</strong>
+                            <ul>
+                                <li><strong>Genes:</strong> MYOM1 (myomesin 1), YES1 (tyrosine kinase)</li>
+                                <li><strong>Context:</strong> Muscle development and cell cycle control</li>
+                                <li><strong>Significance:</strong> 5% chromosome-wide (c=0.8)</li>
+                                <li><strong>Function:</strong> Myosin filament scaffold, cytokinesis</li>
+                            </ul>
+                            
+                            <strong>Carcass Muscularity:</strong>
+                            <ul>
+                                <li>SNPs on chromosomes 7 and 18</li>
+                                <li>Different results between linear and threshold models</li>
+                                <li>Lower power due to smaller sample sizes</li>
+                                <li>Potential for further investigation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Trait</th>
+                                <th>Chromosome</th>
+                                <th>Position (bp)</th>
+                                <th>Gene</th>
+                                <th>P-value</th>
+                                <th>Effect Size</th>
+                                <th>Significance Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="published-group">
+                                <td><strong>Net BW Gain</strong></td>
+                                <td>11</td>
+                                <td>48,473,153</td>
+                                <td>REEP1</td>
+                                <td>1.1×10⁻⁸</td>
+                                <td>-7.43</td>
+                                <td>5% genome-wide</td>
+                            </tr>
+                            <tr class="alternative-group">
+                                <td><strong>Net BW Gain</strong></td>
+                                <td>24</td>
+                                <td>36,201,079</td>
+                                <td>MYOM1</td>
+                                <td>7.9×10⁻⁵</td>
+                                <td>-3.71</td>
+                                <td>5% chromosome-wide</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Carcass Fatness</strong></td>
+                                <td>5</td>
+                                <td>30,159,843</td>
+                                <td>FAIM2</td>
+                                <td>4.3×10⁻⁵</td>
+                                <td>0.173</td>
+                                <td>5% chromosome-wide</td>
+                            </tr>
+                            <tr class="new-group">
+                                <td><strong>Carcass Fatness</strong></td>
+                                <td>5</td>
+                                <td>30,659,497</td>
+                                <td>TROAP</td>
+                                <td>3.0×10⁻⁴</td>
+                                <td>0.124</td>
+                                <td>5% chromosome-wide</td>
+                            </tr>
+                            <tr class="low-pev-group">
+                                <td><strong>Carcass Muscularity</strong></td>
+                                <td>7</td>
+                                <td>74,537,346</td>
+                                <td>-</td>
+                                <td>2.4×10⁻⁵</td>
+                                <td>-1.19</td>
+                                <td>5% chromosome-wide</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section" id="section-validation-comparison">
+                <div class="section-title">✅ Method Validation and Comparison</div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box traditional-approach">
+                        <div class="comparison-title">❌ Traditional Method Requirements</div>
+                        <div class="step-details">
+                            <strong>Technical Barriers:</strong>
+                            <ul>
+                                <li><strong>Phased genotypes:</strong> Expensive haplotype determination</li>
+                                <li><strong>Phenotyped animals:</strong> Must genotype progeny with records</li>
+                                <li><strong>Large sample sizes:</strong> Thousands of genotyped individuals</li>
+                                <li><strong>Specialized designs:</strong> F2 crosses or complex pedigrees</li>
+                            </ul>
+                            
+                            <strong>Cost Estimates:</strong>
+                            <ul>
+                                <li>Genotyping: $50-100 per animal</li>
+                                <li>Phasing algorithms: High computational cost</li>
+                                <li>Total study cost: $50,000-200,000</li>
+                                <li>Time to completion: 3-5 years</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box new-approach">
+                        <div class="comparison-title">✅ ePOE Method Advantages</div>
+                        <div class="step-details">
+                            <strong>Technical Simplifications:</strong>
+                            <ul>
+                                <li><strong>Unphased genotypes:</strong> Simple 0,1,2 gene counts</li>
+                                <li><strong>Parental genotypes:</strong> Use existing breeding animal data</li>
+                                <li><strong>Moderate sample sizes:</strong> Hundreds of parents sufficient</li>
+                                <li><strong>Standard GWAS:</strong> Conventional analysis pipeline</li>
+                            </ul>
+                            
+                            <strong>Cost Benefits:</strong>
+                            <ul>
+                                <li>Leverage existing genotype data</li>
+                                <li>No additional phasing costs</li>
+                                <li>Total study cost: $5,000-20,000</li>
+                                <li>Time to completion: 6-12 months</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="results-title">Validation Results from Simulation</div>
+                    <div class="step-details">
+                        <strong>Key Validation Findings:</strong>
+                        <ul>
+                            <li><strong>Correct detection:</strong> ePOEs distinguished imprinted from Mendelian loci</li>
+                            <li><strong>No false positives:</strong> Mendelian loci showed no signal (p > 0.4)</li>
+                            <li><strong>All imprinting types detected:</strong> Paternal, maternal, and partial imprinting</li>
+                            <li><strong>Effect size accuracy:</strong> Recovered true simulated effect sizes</li>
+                            <li><strong>Efficiency gain:</strong> 100 parents vs. 30,000 progeny analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-biological-interpretation">
+                <div class="section-title">🧬 Biological Interpretation of Results</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">REEP1 Functional Evidence</div>
+                        <div class="step-details">
+                            <strong>Mouse Studies:</strong>
+                            <ul>
+                                <li><strong>Knockout phenotype:</strong> Reep1-null mice are significantly thinner</li>
+                                <li><strong>Adipose tissue:</strong> Reduced white adipose tissue development</li>
+                                <li><strong>Gene expression:</strong> Decreased pro-adipogenesis markers</li>
+                                <li><strong>Sex effects:</strong> Males show stronger phenotype</li>
+                            </ul>
+                            
+                            <strong>Human Disease Connection:</strong>
+                            <ul>
+                                <li><strong>Hereditary spastic paraplegia:</strong> REEP1 mutations cause neurodegeneration</li>
+                                <li><strong>Metabolic effects:</strong> Linked to energy metabolism disorders</li>
+                                <li><strong>Growth regulation:</strong> Affects body composition development</li>
+                                <li><strong>Clinical relevance:</strong> Potential therapeutic target</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Chromosome 5 Cluster Analysis</div>
+                        <div class="step-details">
+                            <strong>Candidate Genes:</strong>
+                            <ul>
+                                <li><strong>TROAP:</strong> Trophinin associated protein</li>
+                                <li><strong>FAIM2:</strong> Protein lifeguard 2</li>
+                                <li><strong>SLC38A4:</strong> Known imprinted in mice (nearby)</li>
+                                <li><strong>Multiple SNPs:</strong> 45 chromosome-wide significant</li>
+                            </ul>
+                            
+                            <strong>Imprinting Cluster Evidence:</strong>
+                            <ul>
+                                <li>Clustered significant SNPs (30.15-30.66 Mb)</li>
+                                <li>Known imprinted gene nearby (SLC38A4)</li>
+                                <li>Both ePOEs and TAs significant (partial imprinting pattern)</li>
+                                <li>Functional relevance to fat metabolism</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Cross-Species Validation</div>
+                        <div class="step-details">
+                            <strong>Comparative Evidence:</strong>
+                            <ul>
+                                <li><strong>Mouse orthologs:</strong> REEP1, SLC38A4 functionally conserved</li>
+                                <li><strong>QTL databases:</strong> Regions overlap with known growth QTLs</li>
+                                <li><strong>Human studies:</strong> GWAS hits in similar genomic regions</li>
+                                <li><strong>Livestock data:</strong> Previous cattle QTL studies support findings</li>
+                            </ul>
+                            
+                            <strong>Functional Pathways:</strong>
+                            <ul>
+                                <li>Adipogenesis and fat metabolism regulation</li>
+                                <li>Growth factor signaling pathways</li>
+                                <li>Energy homeostasis mechanisms</li>
+                                <li>Muscle development and protein synthesis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="section-limitations-considerations">
+                <div class="section-title">⚠️ Method Limitations and Important Considerations</div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card why-card">
+                        <div class="analysis-title">Statistical Limitations</div>
+                        <div class="step-details">
+                            <strong>Power Considerations:</strong>
+                            <ul>
+                                <li><strong>Moderate power:</strong> Lower than direct phased genotype methods</li>
+                                <li><strong>Reliability dependence:</strong> Results depend on ePOE accuracy</li>
+                                <li><strong>Sample size requirements:</strong> Still need adequate parent numbers</li>
+                                <li><strong>Effect size detection:</strong> May miss small effect loci</li>
+                            </ul>
+                            
+                            <strong>Technical Constraints:</strong>
+                            <ul>
+                                <li>ePOE preprocessing critical for valid results</li>
+                                <li>Parameter c sensitivity requires careful tuning</li>
+                                <li>Quality genotype data still essential</li>
+                                <li>Adequate pedigree depth necessary</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Interpretation Challenges</div>
+                        <div class="step-details">
+                            <strong>Parent-of-Origin vs. Imprinting:</strong>
+                            <ul>
+                                <li><strong>Cannot distinguish:</strong> True imprinting from other POEs</li>
+                                <li><strong>Maternal effects:</strong> May confound imprinting signals</li>
+                                <li><strong>X-chromosomal effects:</strong> Potential confounding factor</li>
+                                <li><strong>Population structure:</strong> Relationship patterns matter</li>
+                            </ul>
+                            
+                            <strong>Validation Requirements:</strong>
+                            <ul>
+                                <li>Functional studies needed to confirm imprinting</li>
+                                <li>Expression analysis in relevant tissues</li>
+                                <li>Cross-validation in independent populations</li>
+                                <li>Experimental validation through breeding tests</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Data Requirements</div>
+                        <div class="step-details">
+                            <strong>Minimum Data Needs:</strong>
+                            <ul>
+                                <li><strong>Pedigree quality:</strong> Comprehensive multi-generation records</li>
+                                <li><strong>Phenotype coverage:</strong> Sufficient progeny per parent</li>
+                                <li><strong>Genotype quality:</strong> High call rates and good coverage</li>
+                                <li><strong>Family structure:</strong> Balanced designs preferred</li>
+                            </ul>
+                            
+                            <strong>Quality Thresholds:</strong>
+                            <ul>
+                                <li>ePOE reliability > 3% minimum</li>
+                                <li>Genotype call rate > 90%</li>
+                                <li>MAF > 5% for stable analysis</li>
+                                <li>Minimum 15 progeny per parent recommended</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Critical Interpretation Note:</strong> Results from this methodology should be interpreted as parent-of-origin effects rather than definitive genomic imprinting. While the approach successfully identifies POE regions, additional functional validation is required to confirm true imprinting mechanisms and distinguish them from other parent-specific effects like maternal genetic influences.
+                </div>
+            </div>
+
+            <div class="section" id="section-practical-applications">
+                <div class="section-title">🌍 Practical Applications and Future Directions</div>
+                
+                <div class="innovation-box">
+                    <div class="innovation-title">🚀 Transformative Potential</div>
+                    <p>This methodology opens genomic imprinting research to virtually any population with phenotype and pedigree data. It transforms imprinting discovery from an expensive specialty technique requiring phased genotypes to a routine analysis that can be applied retrospectively to existing datasets worldwide.</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card theory-card">
+                        <div class="analysis-title">Immediate Applications</div>
+                        <div class="step-details">
+                            <strong>Livestock Breeding:</strong>
+                            <ul>
+                                <li><strong>Dairy cattle:</strong> Milk production and fertility trait analysis</li>
+                                <li><strong>Beef cattle:</strong> Growth and carcass quality improvements</li>
+                                <li><strong>Swine:</strong> Reproductive performance and meat quality</li>
+                                <li><strong>Poultry:</strong> Egg production and meat yield traits</li>
+                            </ul>
+                            
+                            <strong>Human Genetics:</strong>
+                            <ul>
+                                <li>Family studies with existing genotype data</li>
+                                <li>Biobank retrospective analysis</li>
+                                <li>Disease susceptibility studies</li>
+                                <li>Pharmacogenomic applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card detection-card">
+                        <div class="analysis-title">Research Extensions</div>
+                        <div class="step-details">
+                            <strong>Methodological Improvements:</strong>
+                            <ul>
+                                <li><strong>Multi-trait analysis:</strong> Joint modeling of correlated traits</li>
+                                <li><strong>Bayesian approaches:</strong> Better uncertainty quantification</li>
+                                <li><strong>Machine learning:</strong> Non-linear relationship detection</li>
+                                <li><strong>Network analysis:</strong> Pathway-based testing</li>
+                            </ul>
+                            
+                            <strong>Data Integration:</strong>
+                            <ul>
+                                <li>Expression QTL analysis integration</li>
+                                <li>Methylation data incorporation</li>
+                                <li>Protein abundance associations</li>
+                                <li>Metabolomic pathway analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card evolution-card">
+                        <div class="analysis-title">Long-term Impact</div>
+                        <div class="step-details">
+                            <strong>Scientific Advancement:</strong>
+                            <ul>
+                                <li><strong>Democratization:</strong> Makes imprinting research accessible globally</li>
+                                <li><strong>Cost reduction:</strong> 90% decrease in study costs</li>
+                                <li><strong>Speed increase:</strong> Faster discovery pipeline</li>
+                                <li><strong>Broader application:</strong> Any species with pedigree data</li>
+                            </ul>
+                            
+                            <strong>Breeding Applications:</strong>
+                            <ul>
+                                <li>Enhanced genetic evaluation models</li>
+                                <li>Parent-of-origin specific selection</li>
+                                <li>Mating optimization strategies</li>
+                                <li>Heterosis mechanism understanding</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
